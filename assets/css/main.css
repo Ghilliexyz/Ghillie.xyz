@@ -7,6 +7,17 @@ body {
     background: #4e00c2;
 }
 
+@property --rotate {
+    syntax: "<angle>";
+    initial-value: 132deg;
+    inherits: false;
+}
+
+:root {
+    --card-height: 250px;
+    --card-width: 250px;
+}
+
 body {
     background: #212534 no-repeat center center fixed;
     -webkit-background-size: cover;
@@ -38,73 +49,77 @@ body {
     text-align: center;
 }
 
-/* The sidebar menu */
-.sidenav {
-    z-index: 2;
-    height: 100%;
-    /* Full-height: remove this if you want "auto" height */
-    width: 150px;
-    /* Set the width of the sidebar */
-    position: fixed;
-    /* Fixed Sidebar (stay in place on scroll) */
-    top: 0;
-    /* Stay at the top */
-    left: 0;
-    background-color: #191919;
-    /* Black */
-    overflow-x: hidden;
-    /* Disable horizontal scroll */
+.card {
+    background: rgb(25, 28, 41);
+    width: var(--card-width);
+    height: var(--card-height);
+    padding: 3px;
+    position: relative;
+    border-radius: 250px;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    padding-top: 20px;
-    display: grid;
-    align-content: space-between;
-}
-
-.sidenavlinks {
-    display: block;
-}
-
-.contact {
-    display: table-row;
-}
-
-.contactnumber {
-    color: #4e00c2;
-}
-
-.cntbutton {
-    background-color: #4e00c2;
-    /* Green */
-    border-radius: 5px;
-    padding: 7px 25px;
-    margin-bottom: 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    display: flex;
+    font-size: 1.5em;
+    color: rgba(88, 199, 250, 0);
     cursor: pointer;
+    font-weight: bold;
+    background-image: url(/Ghillie.xyz/assets/ProfilePictures/sadGhost.png);
+    background-size: cover;
+    background-position: center;
 }
 
-.cntbutton:active {
-    transform: translateY(2px);
+.card:hover {
+    color: #e1e1e1;
+    transition: color 1s;
 }
 
-.cntbutton:focus {
-    outline: 0;
+
+.card::before {
+    content: "";
+    width: 260px;
+    height: 260px;
+    border-radius: 250px;
+    background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+    position: absolute;
+    z-index: -1;
+    animation: spin 2.5s linear infinite;
 }
 
-/* The navigation menu links */
-.sidenav a {
-    padding: 6px 8px 6px 0px;
+.card::after {
+    position: absolute;
+    content: "";
+    z-index: -1;
+    width: 300px;
+    height: 300px;
+    border-radius: 250px;
+    transform: scale(0.8);
+    filter: blur(calc(var(--card-height) / 6));
+    background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+    opacity: 1;
+    transition: opacity .5s;
+    animation: spin 2.5s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        --rotate: 0deg;
+    }
+
+    100% {
+        --rotate: 360deg;
+    }
+}
+
+a {
+    color: #212534;
     text-decoration: none;
-    font-size: 15px;
-    color: #666666;
-    display: block;
-}
-
-/* When you mouse over the navigation links, change their color */
-.sidenavlinks a:hover {
-    color: #a8a8a8;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin-top: 2rem;
 }
 
 /* ===== Scrollbar CSS ===== */
