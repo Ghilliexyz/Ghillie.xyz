@@ -7,17 +7,6 @@ body {
     background: #4e00c2;
 }
 
-@property --rotate {
-    syntax: "<angle>";
-    initial-value: 132deg;
-    inherits: false;
-}
-
-:root {
-    --card-height: 250px;
-    --card-width: 250px;
-}
-
 body {
     background: #212534 no-repeat center center fixed;
     -webkit-background-size: cover;
@@ -32,101 +21,33 @@ body {
 .main {
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
 }
 
-.main h1 {
+.main h2 {
     font-size: 50px;
     font-weight: bold;
-    margin-top: 125px;
-    text-align: center;
+    margin-top: 75px;
     color: #e1e1e1;
 }
 
 .main p {
     color: #e1e1e1;
     font-size: 25px;
-    margin-bottom: 25px;
-    text-align: center;
 }
 
-.card {
-    background: rgb(25, 28, 41);
-    width: var(--card-width);
-    height: var(--card-height);
-    padding: 3px;
-    position: relative;
-    border-radius: 250px;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 5%;
-    display: flex;
-    font-size: 1.5em;
-    color: rgba(88, 199, 250, 0);
-    cursor: pointer;
-    font-weight: bold;
-    background-image: url(/Ghillie.xyz/assets/ProfilePictures/sadGhost.png);
-    background-size: cover;
-    background-position: center;
-}
-
-.card:hover {
+.main a {
     color: #e1e1e1;
-    transition: color 1s;
-}
-
-
-.card::before {
-    content: "";
-    width: 260px;
-    height: 260px;
-    border-radius: 250px;
-    background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
-    position: absolute;
-    z-index: -1;
-    animation: spin 2.5s linear infinite;
-}
-
-.card::after {
-    position: absolute;
-    content: "";
-    z-index: -1;
-    width: 300px;
-    height: 300px;
-    border-radius: 250px;
-    transform: scale(0.8);
-    filter: blur(calc(var(--card-height) / 6));
-    background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
-    opacity: 1;
-    transition: opacity .5s;
-    animation: spin 2.5s linear infinite;
-}
-
-@keyframes spin {
-    0% {
-        --rotate: 0deg;
-    }
-
-    100% {
-        --rotate: 360deg;
-    }
-}
-
-a {
-    color: #212534;
+    font-size: 25px;
+    text-align: center;
     text-decoration: none;
-    font-family: sans-serif;
-    font-weight: bold;
-    margin-top: 2rem;
 }
 
 /* ===== Scrollbar CSS ===== */
 /* Firefox */
 * {
     scrollbar-width: thin;
-    scrollbar-color: #4e00c2 #e1e1e100;
+    scrollbar-color: #4e00c2 #212534;
 }
 
 /* Chrome, Edge, and Safari */
@@ -135,13 +56,13 @@ a {
 }
 
 *::-webkit-scrollbar-track {
-    background: #191919;
+    background: #212534;
 }
 
 *::-webkit-scrollbar-thumb {
     background-color: #4e00c2;
     border-radius: 0px;
-    border: 0px none #191919;
+    border: 0px none #212534;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
