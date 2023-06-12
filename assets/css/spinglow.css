@@ -33,7 +33,7 @@ body {
     color: rgba(88, 199, 250, 0);
     cursor: pointer;
     font-weight: bold;
-    background-image: url(/Ghillie.xyz/assets/ProfilePictures/sadGhost.png);
+    background-image: url(/assets/ProfilePictures/sadGhost.png);
     background-size: cover;
     background-position: center;
 }
