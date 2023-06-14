@@ -24,11 +24,18 @@ body {
     text-align: center;
 }
 
-.main h2 {
-    font-size: 50px;
-    font-weight: bold;
-    margin-top: 75px;
+.main h1 {
     color: #e1e1e1;
+    font-weight: bold;
+    font-size: 50px;
+    margin-top: 1em;
+}
+
+.main h3 {
+    color: #e1e1e1;
+    font-weight: bold;
+    font-size: 35px;
+    margin-top: -25px;
 }
 
 .main p {
@@ -55,7 +62,7 @@ body {
 
 .about p {
     color: #e1e1e1;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .top_navbar {
@@ -64,10 +71,45 @@ body {
     text-align: center;
 }
 
-.top_navbar a {
-    color: #e1e1e1;
+.top_navbar li {
+    display: inline;
+    padding-right: 2.5em;
+    padding-left: 2.5em;
+}
+
+.top_navbar li a:hover {
+    color: #7281b9;
+    text-align: center;
+}
+
+.top_navbar li a {
+    color: #5d6996;
     font-size: 25px;
     text-decoration: none;
+}
+
+.footer {
+    background-color: #191c29;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer li {
+    display: inline;
+    padding-right: 5em;
+    padding-left: 5em;
+}
+
+.footer li a {
+    color: #5d6996;
+    text-align: center;
+}
+
+.footer li a:hover {
+    color: #e1e1e1;
 }
 
 /* ===== Scrollbar CSS ===== */

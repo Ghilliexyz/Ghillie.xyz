@@ -16,7 +16,7 @@ body {
 
 /* Profile Picture Spin content */
 .card {
-    background: rgb(25, 28, 41);
+    background: #191c29;
     width: var(--card-width);
     height: var(--card-height);
     padding: 3px;
@@ -27,11 +27,10 @@ body {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 5%;
+    margin-top: 12.5%;
     display: flex;
     font-size: 1.5em;
     color: rgba(88, 199, 250, 0);
-    cursor: pointer;
     font-weight: bold;
     background-image: url(/assets/ProfilePictures/sadGhost.png);
     background-size: cover;
