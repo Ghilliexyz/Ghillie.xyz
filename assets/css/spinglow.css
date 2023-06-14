@@ -19,7 +19,6 @@ body {
     background: #191c29;
     width: var(--card-width);
     height: var(--card-height);
-    padding: 3px;
     position: relative;
     border-radius: 250px;
     justify-content: center;
@@ -42,7 +41,7 @@ body {
     transition: color 1s;
 }
 
-
+/* Spinning Glow Size */
 .card::before {
     content: "";
     width: 260px;
@@ -65,7 +64,6 @@ body {
     filter: blur(calc(var(--card-height) / 6));
     background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
     opacity: 1;
-    transition: opacity .5s;
     animation: spin 2.5s linear infinite;
 }
 
