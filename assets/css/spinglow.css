@@ -1,19 +1,19 @@
-@property --rotate {
+@property --spinglow-rotate {
     syntax: "<angle>";
     initial-value: 132deg;
     inherits: false;
 }
 
 :root {
-    --card-height: 250px;
-    --card-width: 250px;
+    --spinwglow-height: 250px;
+    --spinwglow-width: 250px;
 }
 
 /* Profile Picture Spin content */
-.card {
+.spinglow {
     background: #191c29;
-    width: var(--card-width);
-    height: var(--card-height);
+    width: var(--spinwglow-width);
+    height: var(--spinwglow-height);
     position: relative;
     border-radius: 250px;
     justify-content: center;
@@ -31,24 +31,24 @@
     transition: 0.4s;
 }
 
-.card:hover {
+.spinglow:hover {
     /* Show Review Box with review in it */
     color: #e1e1e1;
 }
 
 /* Spinning Glow Size */
-.card::before {
+.spinglow::before {
     content: "";
     width: 260px;
     height: 260px;
     border-radius: 250px;
-    background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+    background-image: linear-gradient(var(--spinglow-rotate), #5ddcff, #3c67e3 43%, #4e00c2);
     position: absolute;
     z-index: -1;
     animation: spin 2.5s linear infinite;
 }
 
-.card::after {
+.spinglow::after {
     position: absolute;
     content: "";
     z-index: -1;
@@ -56,19 +56,19 @@
     height: 300px;
     border-radius: 250px;
     transform: scale(0.8);
-    filter: blur(calc(var(--card-height) / 6));
-    background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+    filter: blur(calc(var(--spinwglow-height) / 6));
+    background-image: linear-gradient(var(--spinglow-rotate), #5ddcff, #3c67e3 43%, #4e00c2);
     opacity: 1;
     animation: spin 2.5s linear infinite;
 }
 
 @keyframes spin {
     0% {
-        --rotate: 0deg;
+        --spinglow-rotate: 0deg;
     }
 
     100% {
-        --rotate: 360deg;
+        --spinglow-rotate: 360deg;
     }
 }
 
