@@ -1,0 +1,18 @@
+html,
+/* Style page content */
+/* About Stuff Here */
+
+.about {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.about h1 {
+    color: #e1e1e1;
+}
+
+.about p {
+    color: #e1e1e1;
+    font-size: 20px;
+}
