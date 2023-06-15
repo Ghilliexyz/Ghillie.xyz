@@ -1,4 +1,9 @@
 html,
+body {
+    min-height: 100%;
+}
+
+
 /* Style page content */
 /* About Stuff Here */
 
