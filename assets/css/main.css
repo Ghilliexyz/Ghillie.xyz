@@ -17,11 +17,36 @@ body {
     font-family: Garamond, serif;
 }
 
-/* Style page content */
+/* #region Main body CSS */
 .main {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: normal;
+    align-items: normal;
+    align-content: normal;
+}
+
+.main:nth-child(1) {
+    display: block;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+    order: 0;
+}
+
+.main:nth-child(2) {
+    display: block;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+    order: 0;
 }
 
 .main h1 {
@@ -50,8 +75,9 @@ body {
     text-decoration: none;
 }
 
-/* Navbar Stuff Here */
+/* #endregion */
 
+/* #region Top Navbar CSS */
 .top_navbar {
     margin-top: 2em;
     margin-bottom: 2em;
@@ -76,8 +102,9 @@ body {
     text-align: center;
 }
 
-/* Worked With Stuff Here */
+/* #endregion */
 
+/* #region Worked With CSS */
 .worked-with {
     background-color: #191919;
     height: 1080px;
@@ -98,16 +125,16 @@ body {
     margin-top: -25px;
 }
 
+/* #endregion */
 
-/* Footer Stuff Here */
-
+/* #region Footer CSS */
 .footer {
     background-color: #191c29;
     padding-top: 1em;
     padding-bottom: 1em;
-    position: fixed;
+    /* position: fixed; */
     bottom: 0;
-    margin-top: 5rem;
+    /* margin-top: 5rem; */
     width: 100%;
 }
 
@@ -131,7 +158,9 @@ body {
     color: #e1e1e1;
 }
 
-/* ===== Scrollbar CSS ===== */
+/* #endregion */
+
+/* #region Scrollbar CSS */
 /* Firefox */
 * {
     scrollbar-width: thin;
@@ -152,3 +181,5 @@ body {
     border-radius: 0px;
     border: 0px none #212534;
 }
+
+/* #endregion */
