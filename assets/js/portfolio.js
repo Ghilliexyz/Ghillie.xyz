@@ -1,8 +1,44 @@
 const views = [
 	{
-		"Name": "DailyDose",
+		"Name": "All",
 		"Logo": "/assets/img/portfolio/DailyDose/Logo.jpg",
-		"Anchor": "DailyDose",
+		"Anchor": "All",
+		"Images": [
+			"/assets/img/portfolio/DailyDose/DailyDoseThumbnail-CC.png",
+			"/assets/img/portfolio/DailyDose/maxresdefault (1).jpg",
+			"/assets/img/portfolio/DailyDose/maxresdefault (2).jpg",
+			"/assets/img/portfolio/DailyDose/maxresdefault (3).jpg",
+			"/assets/img/portfolio/DailyDose/maxresdefault.jpg",
+		],
+	},
+	{
+		"Name": "DailyDoseOfInternet",
+		"Logo": "/assets/img/portfolio/DailyDose/Logo.jpg",
+		"Anchor": "DailyDoseOfInternet",
+		"Images": [
+			"/assets/img/portfolio/DailyDose/DailyDoseThumbnail-CC.png",
+			"/assets/img/portfolio/DailyDose/maxresdefault (1).jpg",
+			"/assets/img/portfolio/DailyDose/maxresdefault (2).jpg",
+			"/assets/img/portfolio/DailyDose/maxresdefault (3).jpg",
+			"/assets/img/portfolio/DailyDose/maxresdefault.jpg",
+		],
+	},
+	{
+		"Name": "MxR Plays",
+		"Logo": "/assets/img/portfolio/DailyDose/Logo.jpg",
+		"Anchor": "MxR-Plays",
+		"Images": [
+			"/assets/img/portfolio/DailyDose/DailyDoseThumbnail-CC.png",
+			"/assets/img/portfolio/DailyDose/maxresdefault (1).jpg",
+			"/assets/img/portfolio/DailyDose/maxresdefault (2).jpg",
+			"/assets/img/portfolio/DailyDose/maxresdefault (3).jpg",
+			"/assets/img/portfolio/DailyDose/maxresdefault.jpg",
+		],
+	},
+	{
+		"Name": "ConnorEatsPants",
+		"Logo": "/assets/img/portfolio/DailyDose/Logo.jpg",
+		"Anchor": "ConnorEatsPants",
 		"Images": [
 			"/assets/img/portfolio/DailyDose/DailyDoseThumbnail-CC.png",
 			"/assets/img/portfolio/DailyDose/maxresdefault (1).jpg",
@@ -144,8 +180,8 @@ const views = [
 		$(".modalx-close").on("click", function () {
 			closeModalx();
 		});
-});
-})(jQuery); 
+	});
+})(jQuery);
 
 function closeModalx() {
 	let modalx = document.querySelector(".modalx");
