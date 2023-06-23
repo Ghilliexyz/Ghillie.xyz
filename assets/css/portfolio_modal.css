@@ -1,0 +1,103 @@
+.modalx {
+    display: none;
+    position: fixed;
+    z-index: 9999999;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: #212534;
+}
+
+.modalx.hide {
+    display: block;
+    animation: hideSlidedownModalx 1.5s forwards;
+    pointer-events: none;
+}
+
+@keyframes hideSlidedownModalx {
+    0% {
+        opacity: 1;
+        bottom: 0;
+    }
+    90% {
+        opacity: 1;
+        bottom: -100%;
+    }
+    100% {
+        opacity: 0;
+        bottom: -100%;
+    }
+}
+
+.modalx.show {
+    display: block;
+    animation: showSlidedownModalx 1.5s forwards;
+    opacity: 1;
+}
+
+@keyframes showSlidedownModalx {
+    from {
+        opacity: 0.9;
+        bottom: -100%;
+    }
+    to {
+        bottom: 0;
+        opacity: 1;
+    }
+}
+
+.modalx-close {
+    margin: 10px;
+    cursor: pointer;
+    transition: opacity 0.5s ease-in-out;
+    opacity: 0.5;
+}
+.modalx-close:hover {
+    opacity: 1;
+}
+
+.modalx-title {
+    color: white;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.modalx-content {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.modalx .grid .grid-item {
+    float: left;
+}
+
+.modalx .grid .grid-sizer,
+.modalx .grid .grid-item {
+    width: 20%;
+}
+
+@media (max-width: 768px) {
+    .modalx .grid .grid-sizer,
+    .modalx .grid .grid-item {
+        width: 50%;
+    }
+}
+
+@media (max-width: 480px) {
+    .modalx .grid .grid-sizer,
+    .modalx .grid .grid-item {
+        width: 100%;
+    }
+}
+
+.modalx img {
+    width: 100%;
+    height: auto;
+    -webkit-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+}

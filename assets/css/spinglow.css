@@ -15,17 +15,14 @@
     width: var(--spinwglow-width);
     height: var(--spinwglow-height);
     position: relative;
-    border-radius: 250px;
+    border-radius: 100%;
     justify-content: center;
     align-items: center;
-    text-align: center;
     margin-left: auto;
     margin-right: auto;
     margin-top: 5em;
     display: flex;
-    font-size: 1.5em;
     color: rgba(88, 199, 250, 0);
-    font-weight: bold;
     background-size: cover;
     background-position: center;
     transition: 0.4s;
@@ -39,9 +36,9 @@
 /* Spinning Glow Size */
 .spinglow::before {
     content: "";
-    width: 260px;
-    height: 260px;
-    border-radius: 250px;
+    height: calc(var(--spinwglow-height) * 1.04);
+    width: calc(var(--spinwglow-width) * 1.04);
+    border-radius: 100%;
     background-image: linear-gradient(var(--spinglow-rotate), #5ddcff, #3c67e3 43%, #4e00c2);
     position: absolute;
     z-index: -1;
@@ -52,9 +49,9 @@
     position: absolute;
     content: "";
     z-index: -1;
-    width: 300px;
-    height: 300px;
-    border-radius: 250px;
+    height: calc(var(--spinwglow-height) * 1.2);
+    width: calc(var(--spinwglow-width) * 1.2);
+    border-radius: 100%;
     transform: scale(0.8);
     filter: blur(calc(var(--spinwglow-height) / 6));
     background-image: linear-gradient(var(--spinglow-rotate), #5ddcff, #3c67e3 43%, #4e00c2);

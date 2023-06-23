@@ -22,7 +22,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    min-height: 100vh;
+    min-height: calc(100vh - (var(--divider-physical-height) / 2));
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -106,9 +106,8 @@ body {
 
 /* #region Worked With CSS */
 .worked-with {
+    min-height: 100vh;
     background-color: #191919;
-    height: 1080px;
-    width: 1920px;
     text-align: center;
 }
 
@@ -159,6 +158,26 @@ body {
 }
 
 /* #endregion */
+
+.worked_with {
+    color: white;
+    text-align: center;
+}
+.worked_with .row > div:hover .explain_box {
+    opacity: 1;
+    transition: 1s opacity ease-in-out;
+}
+.worked_with .explain_box {
+    margin-top: 2rem;
+    transition: 1s opacity ease-in-out;
+    user-select: none;
+    opacity: 0;
+    position: relative;
+    border-radius: 12px;
+    background-color: #191c29;
+    padding: 20px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 1);
+}
 
 /* #region Scrollbar CSS */
 /* Firefox */

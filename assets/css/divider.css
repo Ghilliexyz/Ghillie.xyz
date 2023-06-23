@@ -1,0 +1,66 @@
+:root {
+    --divider-height: 25px;
+    --divider-margins: 15px;
+    --divider-physical-height: calc(var(--divider-height) + (var(--divider-margins) * 2));
+}
+
+/* Profile Picture divider content */
+.divider {
+    height: var(--divider-height);
+    margin-top: var(--divider-margins);
+    margin-bottom: var(--divider-margins);
+    /* background: #191c29;
+    width: var(--divider-width);
+    height: var(--divider-heightvar(--divider-height);
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5em;
+    display: flex;
+    font-size: 1.5em;
+    color: rgba(88, 199, 250, 0);
+    font-weight: bold;
+    background-size: cover;
+    background-position: center;
+    transition: 0.4s; */
+}
+
+/* dividerning Glow Size */
+.divider::before {
+    content: "";
+    width: 100vw;
+    height: var(--divider-height);
+    position: absolute;
+    z-index: -1;
+    animation: divider 2.5s linear infinite;
+}
+
+/* .divider::after {
+    position: absolute;
+    content: "";
+    z-index: -1;
+    width: 100vw;
+    height: var(--divider-height);
+    transform: scale(0.8);
+    filter: blur(calc(var(--divider-height) / 6));
+    opacity: 1;
+    animation: divider 2.5s linear infinite;
+} */
+
+.divider::after, .divider::before {
+    background: linear-gradient(90deg, #5ddcff, #3c67e3 43%, #4e00c2);
+    background-size: 600% 600%;
+
+    -webkit-animation: divideranim 6.5s ease infinite;
+    -moz-animation: divideranim 6.5s ease infinite;
+    animation: divideranim 6.5s ease infinite;
+}
+
+@keyframes divideranim {
+    0%{background-position: 0% 50%}
+    50%{background-position: 100% 50%}
+    100%{background-position: 0% 50%}
+}
