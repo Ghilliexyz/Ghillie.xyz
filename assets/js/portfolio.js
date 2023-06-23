@@ -26,7 +26,7 @@ const views = [
 	{
 		"Name": "MxR Plays",
 		"Logo": "/assets/img/portfolio/DailyDose/Logo.jpg",
-		"Anchor": "MxR-Plays",
+		"Anchor": "MxR Plays",
 		"Images": [
 			"/assets/img/portfolio/DailyDose/DailyDoseThumbnail-CC.png",
 			"/assets/img/portfolio/DailyDose/maxresdefault (1).jpg",
@@ -140,9 +140,9 @@ const views = [
 			// </li>
 			let slide_button = document.createElement("li");
 			let slide_button_a = document.createElement("a");
-			slide_button_a.href = "#" + view.Anchor;
+			slide_button_a.href = "#" + view.Name;
 			slide_button_a.classList.add("hover-target");
-			slide_button_a.dataset.hover = view.Anchor;
+			slide_button_a.dataset.hover = view.Name;
 			slide_button_a.textContent = view.Name;
 			slide_button.appendChild(slide_button_a);
 			$(".slide-buttons").append(slide_button);
@@ -221,6 +221,7 @@ function generateModalx(anchor) {
 	if (view === undefined) {
 		return;
 	}
+	document.querySelector(".modalx .modalx-title").textContent = view.Name;
 	let grid = document.querySelector(".modalx .grid");
 	for (let i = 0; i < view.Images.length; i++) {
 		let gridItem = document.createElement("div");
