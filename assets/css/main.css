@@ -109,6 +109,7 @@ body {
     min-height: 100vh;
     background-color: #191919;
     text-align: center;
+    min-height: calc(100vh - (var(--divider-physical-height) / 2));
 }
 
 .worked-with h1 {
