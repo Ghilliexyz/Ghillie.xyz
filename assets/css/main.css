@@ -104,28 +104,6 @@ body {
 
 /* #endregion */
 
-/* #region Worked With CSS */
-.worked-with {
-    min-height: 100vh;
-    background-color: #191919;
-    text-align: center;
-    min-height: calc(100vh - (var(--divider-physical-height) / 2));
-}
-
-.worked-with h1 {
-    color: #e1e1e1;
-    font-weight: bold;
-    font-size: 50px;
-}
-
-.worked-with h3 {
-    color: #e1e1e1;
-    font-weight: bold;
-    font-size: 35px;
-    margin-top: -25px;
-}
-
-/* #endregion */
 
 /* #region Footer CSS */
 .footer {
@@ -163,6 +141,7 @@ body {
 .worked_with {
     color: white;
     text-align: center;
+    min-height: calc(100vh - (var(--divider-physical-height) / 2));
 }
 
 .worked_with .row > div:hover .explain_box {
