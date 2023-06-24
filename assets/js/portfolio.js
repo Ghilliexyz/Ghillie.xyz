@@ -3,52 +3,62 @@ const views = [
 		"Name": "All",
 		"Logo": "/assets/img/portfolio/DailyDose/Logo.jpg",
 		"Anchor": "All",
-		"Images": [
-			"/assets/img/portfolio/DailyDose/DailyDoseThumbnail-CC.png",
-			"/assets/img/portfolio/DailyDose/maxresdefault (1).jpg",
-			"/assets/img/portfolio/DailyDose/maxresdefault (2).jpg",
-			"/assets/img/portfolio/DailyDose/maxresdefault (3).jpg",
-			"/assets/img/portfolio/DailyDose/maxresdefault.jpg",
+		"Entries": [
 		],
 	},
 	{
 		"Name": "DailyDoseOfInternet",
 		"Logo": "/assets/img/portfolio/DailyDose/Logo.jpg",
 		"Anchor": "DailyDoseOfInternet",
-		"Images": [
-			"/assets/img/portfolio/DailyDose/DailyDoseThumbnail-CC.png",
-			"/assets/img/portfolio/DailyDose/maxresdefault (1).jpg",
-			"/assets/img/portfolio/DailyDose/maxresdefault (2).jpg",
-			"/assets/img/portfolio/DailyDose/maxresdefault (3).jpg",
-			"/assets/img/portfolio/DailyDose/maxresdefault.jpg",
+		"Entries": [
+			{
+				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-CC.png",
+				"Link": "https://example.com/",
+				"Views": "1M"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDose/maxresdefault (1).jpg",
+				"Link": "https://example.com/",
+				"Views": "1M"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDose/maxresdefault (2).jpg",
+				"Link": "https://example.com/",
+				"Views": "1M"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDose/maxresdefault (3).jpg",
+				"Link": "https://example.com/",
+				"Views": "1M"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDose/maxresdefault.jpg",
+				"Link": "https://example.com/",
+				"Views": "1M"
+			},
 		],
 	},
 	{
 		"Name": "MxR Plays",
 		"Logo": "/assets/img/portfolio/DailyDose/Logo.jpg",
 		"Anchor": "MxR Plays",
-		"Images": [
-			"/assets/img/portfolio/DailyDose/DailyDoseThumbnail-CC.png",
-			"/assets/img/portfolio/DailyDose/maxresdefault (1).jpg",
-			"/assets/img/portfolio/DailyDose/maxresdefault (2).jpg",
-			"/assets/img/portfolio/DailyDose/maxresdefault (3).jpg",
-			"/assets/img/portfolio/DailyDose/maxresdefault.jpg",
+		"Entries": [
+
 		],
 	},
 	{
 		"Name": "ConnorEatsPants",
 		"Logo": "/assets/img/portfolio/DailyDose/Logo.jpg",
 		"Anchor": "ConnorEatsPants",
-		"Images": [
-			"/assets/img/portfolio/DailyDose/DailyDoseThumbnail-CC.png",
-			"/assets/img/portfolio/DailyDose/maxresdefault (1).jpg",
-			"/assets/img/portfolio/DailyDose/maxresdefault (2).jpg",
-			"/assets/img/portfolio/DailyDose/maxresdefault (3).jpg",
-			"/assets/img/portfolio/DailyDose/maxresdefault.jpg",
+		"Entries": [
+
 		],
 	},
 ];
 
+for (let i = 1; i < views.length; i++) {
+	views[0].Entries.push(...views[i].Entries);
+}
 
 (function ($) {
 	"use strict";
@@ -223,12 +233,15 @@ function generateModalx(anchor) {
 	}
 	document.querySelector(".modalx .modalx-title").textContent = view.Name;
 	let grid = document.querySelector(".modalx .grid");
-	for (let i = 0; i < view.Images.length; i++) {
+	for (let i = 0; i < view.Entries.length; i++) {
 		let gridItem = document.createElement("div");
 		gridItem.classList.add("grid-item");
+		let link = document.createElement("a");
+		link.href = view.Entries[i].Link;
 		let img = document.createElement("img");
-		img.src = view.Images[i];
-		gridItem.appendChild(img);
+		img.src = view.Entries[i].Image;
+		link.appendChild(img);
+		gridItem.appendChild(link);
 		grid.appendChild(gridItem);
 	}
 	modalx.classList.remove("hide");
