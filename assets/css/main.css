@@ -251,11 +251,18 @@ body {
     gap: 8rem;
     font-size: 2rem;
     list-style-type: none;
+    text-align: center;
 }
 
 .footer a {
     color: white;
     text-decoration: none;
+    opacity: 0.5;
+    transition: opacity 0.5s ease-in-out;
+}
+.footer a:hover {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
 }
 
 @media (max-width: 900px) {
