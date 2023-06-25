@@ -140,7 +140,7 @@ for (let i = 1; i < views.length; i++) {
 			hero.id = view.Anchor;
 			let left_text = document.createElement("div");
 			left_text.classList.add("left-text");
-			left_text.textContent = view.Name.toLocaleLowerCase();
+			left_text.textContent = view.Name;
 			hero.appendChild(left_text);
 			let container = document.createElement("div");
 			container.classList.add("container");
