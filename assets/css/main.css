@@ -248,9 +248,18 @@ body {
     flex-direction: row;
     gap: 8rem;
     font-size: 2rem;
+    list-style-type: none;
 }
 
 .footer a {
     color: white;
     text-decoration: none;
+}
+
+@media (max-width: 900px) {
+    .footer ul {
+        margin-top: 2rem;
+        gap: 5px;
+        flex-direction: column;
+    }
 }
