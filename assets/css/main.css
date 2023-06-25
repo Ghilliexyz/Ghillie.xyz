@@ -87,6 +87,7 @@ body {
 }
 
 .top_navbar ul {
+    padding-left: 0;
     display: flex;
     justify-content: center;
     flex-direction: row;
@@ -243,6 +244,7 @@ body {
 }
 
 .footer ul {
+    padding-left: 0;
     display: flex;
     justify-content: center;
     flex-direction: row;
