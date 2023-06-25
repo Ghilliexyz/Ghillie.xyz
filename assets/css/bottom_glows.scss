@@ -17,7 +17,7 @@
 @for $i from 1 through 20 {
     @media (min-width: #{$i * 450px}) {
         .bottom-glows {
-            width: $i * 150px;
+            // width: $i * 150px;
             height: $i * 150px;
             background-image: url("/assets/img/Blob/#{$i * 150}x#{$i * 150}.png");
         }

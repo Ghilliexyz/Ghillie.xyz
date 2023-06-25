@@ -1,12 +1,10 @@
 .bottom-glows {
     height: 100px;
-    width: 25%;
+    max-width: 50%;
+    aspect-ratio: 1;
     position: absolute;
     bottom: 0;
     z-index: -9999;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: left bottom;
 }
 .bottom-glows.bottom-glow1 {
     left: 0;
@@ -15,143 +13,123 @@
     right: 0;
     transform: scaleX(-1);
 }
-@media (min-height: 450px) {
+@media (min-width: 450px) {
     .bottom-glows {
-        /* width: 150px; */
         height: 150px;
-        background-image: url(/assets/img/Blob/150x150.png);
+        background-image: url("/assets/img/Blob/150x150.png");
    }
 }
-@media (min-height: 900px) {
+@media (min-width: 900px) {
     .bottom-glows {
-        /* width: 300px; */
         height: 300px;
-        background-image: url(/assets/img/Blob/300x300.png);
+        background-image: url("/assets/img/Blob/300x300.png");
    }
 }
-@media (min-height: 1350px) {
+@media (min-width: 1350px) {
     .bottom-glows {
-        /* width: 450px; */
         height: 450px;
-        background-image: url(/assets/img/Blob/450x450.png);
+        background-image: url("/assets/img/Blob/450x450.png");
    }
 }
-@media (min-height: 1800px) {
+@media (min-width: 1800px) {
     .bottom-glows {
-        /* width: 600px; */
         height: 600px;
-        background-image: url(/assets/img/Blob/600x600.png);
+        background-image: url("/assets/img/Blob/600x600.png");
    }
 }
-@media (min-height: 2250px) {
+@media (min-width: 2250px) {
     .bottom-glows {
-        /* width: 750px; */
         height: 750px;
-        background-image: url(/assets/img/Blob/750x750.png);
+        background-image: url("/assets/img/Blob/750x750.png");
    }
 }
-@media (min-height: 2700px) {
+@media (min-width: 2700px) {
     .bottom-glows {
-        /* width: 900px; */
         height: 900px;
-        background-image: url(/assets/img/Blob/900x900.png);
+        background-image: url("/assets/img/Blob/900x900.png");
    }
 }
-@media (min-height: 3150px) {
+@media (min-width: 3150px) {
     .bottom-glows {
-        /* width: 1050px; */
         height: 1050px;
-        background-image: url(/assets/img/Blob/1050x1050.png);
+        background-image: url("/assets/img/Blob/1050x1050.png");
    }
 }
-@media (min-height: 3600px) {
+@media (min-width: 3600px) {
     .bottom-glows {
-        /* width: 1200px; */
         height: 1200px;
-        background-image: url(/assets/img/Blob/1200x1200.png);
+        background-image: url("/assets/img/Blob/1200x1200.png");
    }
 }
-@media (min-height: 4050px) {
+@media (min-width: 4050px) {
     .bottom-glows {
-        /* width: 1350px; */
         height: 1350px;
-        background-image: url(/assets/img/Blob/1350x1350.png);
+        background-image: url("/assets/img/Blob/1350x1350.png");
    }
 }
-@media (min-height: 4500px) {
+@media (min-width: 4500px) {
     .bottom-glows {
-        /* width: 1500px; */
         height: 1500px;
-        background-image: url(/assets/img/Blob/1500x1500.png);
+        background-image: url("/assets/img/Blob/1500x1500.png");
    }
 }
-@media (min-height: 4950px) {
+@media (min-width: 4950px) {
     .bottom-glows {
-        /* width: 1650px; */
         height: 1650px;
-        background-image: url(/assets/img/Blob/1650x1650.png);
+        background-image: url("/assets/img/Blob/1650x1650.png");
    }
 }
-@media (min-height: 5400px) {
+@media (min-width: 5400px) {
     .bottom-glows {
-        /* width: 1800px; */
         height: 1800px;
-        background-image: url(/assets/img/Blob/1800x1800.png);
+        background-image: url("/assets/img/Blob/1800x1800.png");
    }
 }
-@media (min-height: 5850px) {
+@media (min-width: 5850px) {
     .bottom-glows {
-        /* width: 1950px; */
         height: 1950px;
-        background-image: url(/assets/img/Blob/1950x1950.png);
+        background-image: url("/assets/img/Blob/1950x1950.png");
    }
 }
-@media (min-height: 6300px) {
+@media (min-width: 6300px) {
     .bottom-glows {
-        /* width: 2100px; */
         height: 2100px;
-        background-image: url(/assets/img/Blob/2100x2100.png);
+        background-image: url("/assets/img/Blob/2100x2100.png");
    }
 }
-@media (min-height: 6750px) {
+@media (min-width: 6750px) {
     .bottom-glows {
-        /* width: 2250px; */
         height: 2250px;
-        background-image: url(/assets/img/Blob/2250x2250.png);
+        background-image: url("/assets/img/Blob/2250x2250.png");
    }
 }
-@media (min-height: 7200px) {
+@media (min-width: 7200px) {
     .bottom-glows {
-        /* width: 2400px; */
         height: 2400px;
-        background-image: url(/assets/img/Blob/2400x2400.png);
+        background-image: url("/assets/img/Blob/2400x2400.png");
    }
 }
-@media (min-height: 7650px) {
+@media (min-width: 7650px) {
     .bottom-glows {
-        /* width: 2550px; */
         height: 2550px;
-        background-image: url(/assets/img/Blob/2550x2550.png);
+        background-image: url("/assets/img/Blob/2550x2550.png");
    }
 }
-@media (min-height: 8100px) {
+@media (min-width: 8100px) {
     .bottom-glows {
-        /* width: 2700px; */
         height: 2700px;
-        background-image: url(/assets/img/Blob/2700x2700.png);
+        background-image: url("/assets/img/Blob/2700x2700.png");
    }
 }
-@media (min-height: 8550px) {
+@media (min-width: 8550px) {
     .bottom-glows {
-        /* width: 2850px; */
         height: 2850px;
-        background-image: url(/assets/img/Blob/2850x2850.png);
+        background-image: url("/assets/img/Blob/2850x2850.png");
    }
 }
-@media (min-height: 9000px) {
+@media (min-width: 9000px) {
     .bottom-glows {
-        /* width: 3000px; */
         height: 3000px;
-        background-image: url(/assets/img/Blob/3000x3000.png);
+        background-image: url("/assets/img/Blob/3000x3000.png");
    }
 }
