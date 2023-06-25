@@ -1,14 +1,14 @@
 const views = [
 	{
 		"Name": "All",
-		"Logo": "/assets/img/portfolio/DailyDose/Logo.jpg",
+		"Logo": "/assets/img/portfolio/DailyDose/maxresdefault (3).jpg",
 		"Anchor": "All",
 		"Entries": [
 		],
 	},
 	{
 		"Name": "DailyDoseOfInternet",
-		"Logo": "/assets/img/portfolio/DailyDose/Logo.jpg",
+		"Logo": "/assets/img/portfolio/DailyDose/maxresdefault (1).jpg",
 		"Anchor": "DailyDoseOfInternet",
 		"Entries": [
 			{
@@ -45,7 +45,7 @@ const views = [
 	},
 	{
 		"Name": "MxR Plays",
-		"Logo": "/assets/img/portfolio/DailyDose/Logo.jpg",
+		"Logo": "/assets/img/portfolio/DailyDose/maxresdefault (2).jpg",
 		"Anchor": "MxR Plays",
 		"Entries": [
 			{
@@ -58,7 +58,7 @@ const views = [
 	},
 	{
 		"Name": "ConnorEatsPants",
-		"Logo": "/assets/img/portfolio/DailyDose/Logo.jpg",
+		"Logo": "/assets/img/portfolio/DailyDose/maxresdefault (3).jpg",
 		"Anchor": "ConnorEatsPants",
 		"Entries": [
 			{
