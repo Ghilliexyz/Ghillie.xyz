@@ -14,27 +14,32 @@ const views = [
 			{
 				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-CC.png",
 				"Link": "https://example.com/",
-				"Views": "1M"
+				"Title": "Deserunt tempor veniam do ex aute et laborum anim nulla ex ullamco occaecat mollit fugiat.",
+				"Views": "1M Views"
 			},
 			{
 				"Image": "/assets/img/portfolio/DailyDose/maxresdefault (1).jpg",
 				"Link": "https://example.com/",
-				"Views": "1M"
+				"Title": "Fugiat eu magna laborum nostrud laborum sunt incididunt est non non.",
+				"Views": "2M Views"
 			},
 			{
 				"Image": "/assets/img/portfolio/DailyDose/maxresdefault (2).jpg",
 				"Link": "https://example.com/",
-				"Views": "1M"
+				"Title": "Id commodo reprehenderit culpa do magna sit sunt dolore excepteur ex.",
+				"Views": "3M Views"
 			},
 			{
 				"Image": "/assets/img/portfolio/DailyDose/maxresdefault (3).jpg",
 				"Link": "https://example.com/",
-				"Views": "1M"
+				"Title": "Exercitation qui mollit mollit cupidatat nisi amet aute laboris culpa irure mollit tempor.",
+				"Views": "4M Views"
 			},
 			{
 				"Image": "/assets/img/portfolio/DailyDose/maxresdefault.jpg",
 				"Link": "https://example.com/",
-				"Views": "1M"
+				"Title": "Veniam culpa officia ad ad fugiat est proident quis cupidatat ex quis adipisicing ut.",
+				"Views": "5M Views"
 			},
 		],
 	},
@@ -43,7 +48,12 @@ const views = [
 		"Logo": "/assets/img/portfolio/DailyDose/Logo.jpg",
 		"Anchor": "MxR Plays",
 		"Entries": [
-
+			{
+				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-CC.png",
+				"Link": "https://example.com/",
+				"Title": "Deserunt tempor veniam do ex aute et laborum anim nulla ex ullamco occaecat mollit fugiat.",
+				"Views": "1M Views"
+			},
 		],
 	},
 	{
@@ -51,13 +61,19 @@ const views = [
 		"Logo": "/assets/img/portfolio/DailyDose/Logo.jpg",
 		"Anchor": "ConnorEatsPants",
 		"Entries": [
-
+			{
+				"Image": "/assets/img/portfolio/DailyDose/maxresdefault.jpg",
+				"Link": "https://example.com/",
+				"Title": "Veniam culpa officia ad ad fugiat est proident quis cupidatat ex quis adipisicing ut.",
+				"Views": "5M Views"
+			},
 		],
 	},
 ];
 
 for (let i = 1; i < views.length; i++) {
 	views[0].Entries.push(...views[i].Entries);
+	views[i].Anchor = views[i].Anchor.replace(/\s/g, '');
 }
 
 (function ($) {
@@ -150,9 +166,10 @@ for (let i = 1; i < views.length; i++) {
 			// </li>
 			let slide_button = document.createElement("li");
 			let slide_button_a = document.createElement("a");
-			slide_button_a.href = "#" + view.Name;
+			slide_button_a.href = "#" + view.Anchor;
 			slide_button_a.classList.add("hover-target");
-			slide_button_a.dataset.hover = view.Name;
+			slide_button_a.dataset.hover = view.Anchor;
+			slide_button_a.dataset.hover2 = view.Name;
 			slide_button_a.textContent = view.Name;
 			slide_button.appendChild(slide_button_a);
 			$(".slide-buttons").append(slide_button);
@@ -234,13 +251,26 @@ function generateModalx(anchor) {
 	document.querySelector(".modalx .modalx-title").textContent = view.Name;
 	let grid = document.querySelector(".modalx .grid");
 	for (let i = 0; i < view.Entries.length; i++) {
+		let entry = view.Entries[i];
 		let gridItem = document.createElement("div");
 		gridItem.classList.add("grid-item");
 		let link = document.createElement("a");
-		link.href = view.Entries[i].Link;
+		link.href = entry.Link;
+		link.target = "_blank";
 		let img = document.createElement("img");
-		img.src = view.Entries[i].Image;
+		img.src = entry.Image;
+		let overlay = document.createElement("div");
+		overlay.classList.add("modalx-overlay");
+		let overlay_text = document.createElement("span");
+		overlay_text.classList.add("modalx-overlay-text");
+		overlay_text.textContent = entry.Title;
+		overlay.appendChild(overlay_text);
+		let overlay_text2 = document.createElement("span");
+		overlay_text2.classList.add("modalx-overlay-text2");
+		overlay_text2.textContent = entry.Views;
+		overlay.appendChild(overlay_text2);
 		link.appendChild(img);
+		link.appendChild(overlay);
 		gridItem.appendChild(link);
 		grid.appendChild(gridItem);
 	}

@@ -297,7 +297,7 @@ mark {
     -webkit-text-fill-color: var(--white);
     text-fill-color: var(--white);
     color: var(--white);
-    content: attr(data-hover);
+    content: attr(data-hover2);
     -webkit-transition: max-height 0.4s;
     -moz-transition: max-height 0.4s;
     transition: max-height 0.4s;
@@ -560,3 +560,27 @@ body.light .hero-center-section .left-text {
     margin: 10px;
     z-index: 20000;
 }
+
+/* #region Scrollbar CSS */
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #4e00c2 #212534;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #212534;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #4e00c2;
+    border-radius: 0px;
+    border: 0px none #212534;
+}
+
+/* #endregion */

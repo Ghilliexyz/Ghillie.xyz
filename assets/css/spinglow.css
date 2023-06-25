@@ -14,6 +14,7 @@
     background: #191c29;
     width: var(--spinwglow-width);
     height: var(--spinwglow-height);
+    aspect-ratio: 1/1;
     position: relative;
     border-radius: 100%;
     justify-content: center;
@@ -38,6 +39,7 @@
     content: "";
     height: calc(var(--spinwglow-height) * 1.04);
     width: calc(var(--spinwglow-width) * 1.04);
+    aspect-ratio: 1/1;
     border-radius: 100%;
     background-image: linear-gradient(var(--spinglow-rotate), #5ddcff, #3c67e3 43%, #4e00c2);
     position: absolute;
@@ -51,6 +53,7 @@
     z-index: -1;
     height: calc(var(--spinwglow-height) * 1.2);
     width: calc(var(--spinwglow-width) * 1.2);
+    aspect-ratio: 1/1;
     border-radius: 100%;
     transform: scale(0.8);
     filter: blur(calc(var(--spinwglow-height) / 6));
