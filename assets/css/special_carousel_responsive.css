@@ -1,6 +1,7 @@
 @media (max-width: 768px) {
     .special-carousel-images {
         width: 100%;
+        flex-direction: column;
     }
 }
 
