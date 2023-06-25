@@ -22,24 +22,24 @@ document.addEventListener("DOMContentLoaded", function () {
     changeSlide(document.querySelectorAll('.special-carousel-images img')[1]);
     setInterval(function () {
         if (!can_cycle) {
-            console.log(cycle_index, 1);
+            // console.log(cycle_index, 1);
             return;
         }
         if (!can_change_slide) {
-            console.log(cycle_index, 2);
+            // console.log(cycle_index, 2);
             return;
         }
         if (cycle_index >= 3) {
-            console.log(cycle_index, 3);
+            // console.log(cycle_index, 3);
             cycle_index = 0;
         }
         if (document.querySelectorAll('.special-carousel-images img')[cycle_index] === undefined) {
             cycle_index = 0;
-            console.log(cycle_index, 4);
+            // console.log(cycle_index, 4);
         }
         changeSlide(document.querySelectorAll('.special-carousel-images img')[cycle_index]);
         cycle_index++;
-        console.log(cycle_index, 5);
+        // console.log(cycle_index, 5);
     }, cycle_interval);
 });
 

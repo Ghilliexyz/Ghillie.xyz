@@ -78,7 +78,7 @@
 
 .modalx .grid .grid-sizer,
 .modalx .grid .grid-item {
-    padding: 5px;
+    padding: 2.5px;
     width: 20%;
 }
 
@@ -99,8 +99,15 @@
 .modalx .modalx-content a {
     position: relative;
     display: block;
+    transition: all 0.5s ease-in-out;
 }
 
+.modalx .modalx-content a:hover {
+    transition: all 0.5s ease-in-out;
+    transform: scale(1.15);
+    box-shadow: 0 0 25px 0 rgba(0, 0, 0, .75);
+    z-index: 9999;
+}
 .modalx img {
     width: 100%;
     height: auto;
@@ -132,7 +139,7 @@
     top: 0;
     left: 10%;
     transform: translate(25%, 50%); */
-    font-size: 1rem;
+    font-size: 1.5rem;
     color: white;
     line-height: 1;
     overflow: hidden;
@@ -147,7 +154,7 @@
     left: 10%;
     transform: translate(-50%, 100%); */
     color: white;
-    font-size: 0.5rem;
+    font-size: 1rem;
     font-weight: bold;
     overflow: hidden;
     white-space: nowrap;
