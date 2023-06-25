@@ -40,7 +40,7 @@
 
 <body ondragstart="return false">
     <!-- Page content -->
-    <div class="main">
+    <div class="main" style="min-height: 100vh;">
         <div class="top_navbar">
             <ul>
                 <li><a href="/about/" class="nav_active_link">About</a></li>
@@ -48,14 +48,52 @@
                 <li><a href="/portfolio/">Portfolio</a></li>
             </ul>
         </div>
-        <div class="container">
+        <div class="container" style="justify-content: center;
+        align-items: center;
+        display: flex;
+        flex-grow: 1;">
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-md-3">
+                    <div class="spinglow spinglow-responsive" 
+                    data-spinglow-scale="0.8" 
+                    data-spinglow-max-width="300"
+                    style="background-image: url(/assets/ProfilePictures/GhilliePFP.png);margin-top:3rem;">
+                    </div>
+                </div>
+                <div class="text-center text-md-start col-md-9">
+                    <h1 class="fs-1">A little bit about me</h1>
+                    <p class="fs-5">I am a highly skilled digital designer with a
+                        passion for
+                        creating movie
+                        posters, album covers, and
+                        thumbnails.<br>
+                        With a keen eye for detail and an ability to quickly adapt to any design software,<br>
+                        I am confident in my ability to bring my clients' visions to life.<br>
+                        As a problem solver, I approach design challenges by taking a step back and gaining new
+                        perspectives,<br>
+                        ensuring the best outcome for my clients.<br>
+                        My work with Daily Dose of Internet, a YouTube channel with over 15 million subscribers,<br>
+                        has been one of my biggest achievements to date.<br>
+                        In terms of software, I specialize in Photoshop and pride myself on staying up-to-date with
+                        the latest design trends and strategies.
+                        When I'm not designing, I enjoy playing and coding games, which helps fuel my
+                        creativity.<br>
+                        Looking ahead, my long-term goal is to turn my passion for digital design into a full-time
+                        career that can support my family.
+                        Collaboration is essential to my process, and I always make sure to share updates and
+                        progress with
+                        my<br>
+                        clients to
+                        ensure their input is valued throughout the project.<br></p>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-md-6">
                     <div class="spinglow"
                         style="margin-left: 3em; margin-top: 11.5em; text-align:left; background-image: url(/assets/ProfilePictures/GhilliePFP.png);">
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-md-6">
                     <div class="about">
                         <h1 style="margin-left: -6em; margin-top: 3.5em; text-align:left;">A little bit about me</h1>
                         <p style="margin-left: -15em; text-align:left;">I am a highly skilled digital designer with a
@@ -83,9 +121,10 @@
                             ensure their input is valued throughout the project.<br></p>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
+    <script src="/assets/js/spinglow_responsive.js"></script>
 </body>
 
 </html>
