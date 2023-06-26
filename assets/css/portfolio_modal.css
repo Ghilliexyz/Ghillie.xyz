@@ -154,12 +154,13 @@
 }
 
 .modalx .modalx-overlay-text {
-    font-family: 'nevis Bold';
+    font-family: 'nevis';
     /* position: absolute;
     top: 0;
     left: 10%;
     transform: translate(25%, 50%); */
-    font-size: 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
     color: white;
     line-height: 1;
     overflow: hidden;
@@ -174,9 +175,9 @@
     top: 0;
     left: 10%;
     transform: translate(-50%, 100%); */
-    color: White;
+    color: #e1e1e1;
+    opacity: 75%;
     font-size: .75rem;
-    font-weight: bold;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
