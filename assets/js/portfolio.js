@@ -8,38 +8,38 @@ const views = [
 	},
 	{
 		"Name": "DailyDoseOfInternet",
-		"Logo": "/assets/img/portfolio/DailyDose/maxresdefault (1).jpg",
+		"Logo": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-Thief.png",
 		"Anchor": "DailyDoseOfInternet",
 		"Entries": [
 			{
-				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-CC.png",
-				"Link": "https://example.com/",
-				"Title": "Deserunt tempor veniam do ex aute et laborum anim nulla ex ullamco occaecat mollit fugiat.",
-				"Views": "1M Views"
-			},
-			{
-				"Image": "/assets/img/portfolio/DailyDose/maxresdefault (1).jpg",
-				"Link": "https://example.com/",
-				"Title": "Fugiat eu magna laborum nostrud laborum sunt incididunt est non non.",
-				"Views": "2M Views"
-			},
-			{
-				"Image": "/assets/img/portfolio/DailyDose/maxresdefault (2).jpg",
-				"Link": "https://example.com/",
-				"Title": "Id commodo reprehenderit culpa do magna sit sunt dolore excepteur ex.",
-				"Views": "3M Views"
-			},
-			{
-				"Image": "/assets/img/portfolio/DailyDose/maxresdefault (3).jpg",
-				"Link": "https://example.com/",
-				"Title": "Exercitation qui mollit mollit cupidatat nisi amet aute laboris culpa irure mollit tempor.",
+				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-Thief.png",
+				"Link": "https://www.youtube.com/watch?v=lrAofachljM",
+				"Title": "How to Embarrass a Thief",
 				"Views": "4M Views"
 			},
 			{
-				"Image": "/assets/img/portfolio/DailyDose/maxresdefault.jpg",
-				"Link": "https://example.com/",
-				"Title": "Veniam culpa officia ad ad fugiat est proident quis cupidatat ex quis adipisicing ut.",
+				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-BadSmell.jpg",
+				"Link": "https://www.youtube.com/watch?v=VJBfpVQ969A",
+				"Title": "She Thought This Was a Good Idea",
 				"Views": "5M Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-CopArrested.jpg",
+				"Link": "https://www.youtube.com/watch?v=oCtbOKazGI8",
+				"Title": "Cop Arrests Cop for Speeding",
+				"Views": "4.3M Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-TeacherPrank.jpg",
+				"Link": "https://www.youtube.com/watch?v=89XMqgrmApY",
+				"Title": "They Didn’t Think Anyone Would Notice",
+				"Views": "4.9M Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-DeflatedHouse.jpg",
+				"Link": "https://www.youtube.com/watch?v=M0Q5n95jaOw",
+				"Title": "She Deflated Her House",
+				"Views": "6.3M Views"
 			},
 		],
 	},
