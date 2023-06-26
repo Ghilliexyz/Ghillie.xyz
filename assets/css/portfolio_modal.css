@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'nevis Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('nevis Bold'), url('/assets/fonts/nevis.woff') format('woff');
+}
+
 .modalx {
     display: none;
     position: fixed;
@@ -147,6 +154,7 @@
 }
 
 .modalx .modalx-overlay-text {
+    font-family: 'nevis Bold';
     /* position: absolute;
     top: 0;
     left: 10%;
@@ -160,6 +168,7 @@
 }
 
 .modalx .modalx-overlay-text2 {
+    font-family: 'nevis Bold';
     line-height: 1;
     /* position: absolute;
     top: 0;
