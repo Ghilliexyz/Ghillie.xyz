@@ -1,7 +1,7 @@
 const views = [
 	{
 		"Name": "All",
-		"Logo": "/assets/img/portfolio/DailyDose/maxresdefault (3).jpg",
+		"Logo": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-BadSmell.jpg",
 		"Anchor": "All",
 		"Entries": [
 		],
