@@ -1,0 +1,27 @@
+html,
+body {
+    min-height: 100%;
+}
+
+::selection {
+    background: #4e00c2;
+}
+
+body {
+    color: #e1e1e1;
+    background: #212534 no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    overflow-x: hidden;
+    font-family: Garamond, serif;
+}
+
+div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
