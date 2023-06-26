@@ -21,10 +21,12 @@
         opacity: 1;
         bottom: 0;
     }
+
     90% {
         opacity: 1;
         bottom: -100%;
     }
+
     100% {
         opacity: 0;
         bottom: -100%;
@@ -42,6 +44,7 @@
         opacity: 0.9;
         bottom: -100%;
     }
+
     to {
         bottom: 0;
         opacity: 1;
@@ -54,6 +57,7 @@
     transition: opacity 0.5s ease-in-out;
     opacity: 0.5;
 }
+
 .modalx-close:hover {
     opacity: 1;
 }
@@ -85,6 +89,7 @@
 }
 
 @media (max-width: 768px) {
+
     .modalx .grid .grid-sizer,
     .modalx .grid .grid-item {
         width: 50%;
@@ -92,6 +97,7 @@
 }
 
 @media (max-width: 480px) {
+
     .modalx .grid .grid-sizer,
     .modalx .grid .grid-item {
         width: 100%;
@@ -110,6 +116,7 @@
     box-shadow: 0 0 25px 0 rgba(0, 0, 0, .75);
     z-index: 9999;
 }
+
 .modalx img {
     width: 100%;
     height: auto;
@@ -117,6 +124,7 @@
     -moz-user-drag: none;
     -o-user-drag: none;
 }
+
 .modalx .modalx-overlay {
     position: absolute;
     z-index: 99999999;
@@ -128,14 +136,16 @@
     flex-direction: column;
     justify-content: flex-end;
     padding: 10px;
-    background: linear-gradient(rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0.5));
+    background: linear-gradient(rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, .75));
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
 }
+
 .modalx .modalx-overlay:hover {
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
 }
+
 .modalx .modalx-overlay-text {
     /* position: absolute;
     top: 0;
@@ -145,18 +155,18 @@
     color: white;
     line-height: 1;
     overflow: hidden;
-    white-space: nowrap;
     text-overflow: ellipsis;
     width: 100%;
 }
+
 .modalx .modalx-overlay-text2 {
     line-height: 1;
     /* position: absolute;
     top: 0;
     left: 10%;
     transform: translate(-50%, 100%); */
-    color: white;
-    font-size: 1rem;
+    color: White;
+    font-size: .75rem;
     font-weight: bold;
     overflow: hidden;
     white-space: nowrap;

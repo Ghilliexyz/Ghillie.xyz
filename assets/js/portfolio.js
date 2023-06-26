@@ -45,29 +45,41 @@ const views = [
 	},
 	{
 		"Name": "MxR Plays",
-		"Logo": "/assets/img/portfolio/DailyDose/maxresdefault (2).jpg",
+		"Logo": "/assets/img/portfolio/MxRPlays/MxRPlays_FloorDance.jpg",
 		"Anchor": "MxR Plays",
 		"Entries": [
 			{
-				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-CC.png",
-				"Link": "https://example.com/",
-				"Title": "Deserunt tempor veniam do ex aute et laborum anim nulla ex ullamco occaecat mollit fugiat.",
+				"Image": "/assets/img/portfolio/MxRPlays/MxRPlays_FloorDance.jpg",
+				"Link": "https://www.youtube.com/watch?v=pCbcOmUdpx8",
+				"Title": "when you finally realize.. but it's too late",
 				"Views": "1M Views"
 			},
 		],
 	},
 	{
 		"Name": "ConnorEatsPants",
-		"Logo": "/assets/img/portfolio/DailyDose/maxresdefault (3).jpg",
+		"Logo": "/assets/img/portfolio/ConnorEatsPants/ConnorEatsPants-ClashOfClans.jpg",
 		"Anchor": "ConnorEatsPants",
 		"Entries": [
 			{
-				"Image": "/assets/img/portfolio/DailyDose/maxresdefault.jpg",
-				"Link": "https://example.com/",
-				"Title": "Veniam culpa officia ad ad fugiat est proident quis cupidatat ex quis adipisicing ut.",
-				"Views": "5M Views"
+				"Image": "/assets/img/portfolio/ConnorEatsPants/ConnorEatsPants-ClashOfClans.jpg",
+				"Link": "https://www.youtube.com/watch?v=jAPwW8Kqucg",
+				"Title": "Clash Of Clans is Wild Now",
+				"Views": "42K Views"
 			},
-		],
+			{
+				"Image": "/assets/img/portfolio/ConnorEatsPants/ConnorEatsPants-ChickenLittle.jpg",
+				"Link": "https://www.youtube.com/watch?v=sev5v1k2pfw",
+				"Title": "The Worst Gamecube Game is Chicken Little",
+				"Views": "32K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/ConnorEatsPants/ConnorEatsPants-MinecraftStoryMode.jpg",
+				"Link": "https://www.youtube.com/watch?v=ajpwCSfTP3U",
+				"Title": "Minecraft: Story Mode is NOT what you remember...",
+				"Views": "51K Views"
+			},
+		]
 	},
 ];
 
