@@ -1,7 +1,7 @@
 const views = [
 	{
 		"Name": "All",
-		"Logo": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-BadSmell.jpg",
+		"Logo": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-SmartRat.jpg",
 		"Anchor": "All",
 		"Entries": [
 		],
@@ -40,6 +40,25 @@ const views = [
 				"Link": "https://www.youtube.com/watch?v=M0Q5n95jaOw",
 				"Title": "She Deflated Her House",
 				"Views": "6.3M Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-SmartRat.jpg",
+				"Link": "https://www.youtube.com/watch?v=kO9nGomlpf8",
+				"Title": "Rat Pulls Off a Big Brain Move",
+				"Views": "4.9M Views"
+			},
+		],
+	},
+	{
+		"Name": "Captain Eggcellent",
+		"Logo": "/assets/img/portfolio/CaptainEggcellent/CaptainEggcellent_SheCanHearYou.jpg",
+		"Anchor": "Captain Eggcellent",
+		"Entries": [
+			{
+				"Image": "/assets/img/portfolio/CaptainEggcellent/CaptainEggcellent_SheCanHearYou.jpg",
+				"Link": "https://www.youtube.com/watch?v=a0VPzUwjszM",
+				"Title": "Hidden Video Game Details #133 (Saints Row 2, Demonologist, Metal Gear Solid 3 Snake Eater & More)",
+				"Views": "56K Views"
 			},
 		],
 	},
