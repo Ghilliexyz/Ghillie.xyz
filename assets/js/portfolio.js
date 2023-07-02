@@ -8,7 +8,7 @@ const views = [
 	},
 	{
 		"Name": "DailyDoseOfInternet",
-		"Logo": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-Thief.png",
+		"Logo": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-Wizard.jpg",
 		"Anchor": "DailyDoseOfInternet",
 		"Entries": [
 			{
@@ -47,6 +47,36 @@ const views = [
 				"Title": "Rat Pulls Off a Big Brain Move",
 				"Views": "4.9M Views"
 			},
+			{
+				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-GetFired.jpg",
+				"Link": "https://www.youtube.com/watch?v=s7qbW83Pdbc",
+				"Title": "How to Get Immediately Fired",
+				"Views": "7.6M Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-2022.jpg",
+				"Link": "https://www.youtube.com/watch?v=NVH79ehGfY0",
+				"Title": "The Best Of The Internet (2022)",
+				"Views": "20M Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-BarbersWorstNightmare.jpg",
+				"Link": "https://www.youtube.com/watch?v=_W8Aeq3FCzE",
+				"Title": "Every Barber's Worst Nightmare",
+				"Views": "9.8M Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-BrainTurnedOff.jpg",
+				"Link": "https://www.youtube.com/watch?v=vrRcm2dt0VY",
+				"Title": "His Brain Turned Off at The Worst Time",
+				"Views": "9.7M Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-Wizard.jpg",
+				"Link": "https://www.youtube.com/watch?v=Y1ZJ-_VKZs0",
+				"Title": "Wizard Traps Police In Mud",
+				"Views": "9.6M Views"
+			},
 		],
 	},
 	{
@@ -58,7 +88,7 @@ const views = [
 				"Image": "/assets/img/portfolio/CaptainEggcellent/CaptainEggcellent_SheCanHearYou.jpg",
 				"Link": "https://www.youtube.com/watch?v=a0VPzUwjszM",
 				"Title": "Hidden Video Game Details #133 (Saints Row 2, Demonologist, Metal Gear Solid 3 Snake Eater & More)",
-				"Views": "56K Views"
+				"Views": "58K Views"
 			},
 		],
 	},
