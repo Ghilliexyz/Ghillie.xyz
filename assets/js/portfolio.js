@@ -12,6 +12,12 @@ const views = [
 		"Anchor": "DailyDoseOfInternet",
 		"Entries": [
 			{
+				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-CatFace.png",
+				"Link": "https://www.youtube.com/watch?v=PCajG16Fryo",
+				"Title": "Cat Has Existential Crisis",
+				"Views": "2.5M Views"
+			},
+			{
 				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-Thief.png",
 				"Link": "https://www.youtube.com/watch?v=lrAofachljM",
 				"Title": "How to Embarrass a Thief",
