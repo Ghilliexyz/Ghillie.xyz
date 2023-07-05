@@ -99,6 +99,19 @@ const views = [
 		],
 	},
 	{
+		"Name": "Quqco",
+		"Logo": "/assets/img/portfolio/Quqco/QUQCO_IGotBeatUp.jpg",
+		"Anchor": "Quqco",
+		"Entries": [
+			{
+				"Image": "/assets/img/portfolio/Quqco/QUQCO_IGotBeatUp.jpg",
+				"Link": "",
+				"Title": "Not Uploaded!",
+				"Views": "# Views"
+			},
+		],
+	},
+	{
 		"Name": "MxR Plays",
 		"Logo": "/assets/img/portfolio/MxRPlays/MxRPlays_FloorDance.jpg",
 		"Anchor": "MxR Plays",
