@@ -15,7 +15,7 @@ const views = [
 				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-CatFace.png",
 				"Link": "https://www.youtube.com/watch?v=PCajG16Fryo",
 				"Title": "Cat Has Existential Crisis",
-				"Views": "2.5M Views"
+				"Views": "3.7M Views"
 			},
 			{
 				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-Thief.png",
