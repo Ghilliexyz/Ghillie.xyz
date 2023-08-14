@@ -12,7 +12,7 @@ const views = [
 		"Anchor": "DailyDoseOfInternet",
 		"Entries": [
 			{
-				"Image": "/assets/img/portfolio/DailyDoseOfInternet-PleaseDontTouchSeaWorms.jpg",
+				"Image": "/assets/img/portfolio/DailyDose/DailyDoseOfInternet-PleaseDontTouchSeaWorms.jpg",
 				"Link": "https://www.youtube.com/watch?v=YOhTV-sq65g",
 				"Title": "Please Don't Touch Sea Worms",
 				"Views": "6.4M Views"
