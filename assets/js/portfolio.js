@@ -12,6 +12,12 @@ const views = [
 		"Anchor": "DailyDoseOfInternet",
 		"Entries": [
 			{
+				"Image": "/assets/img/portfolio/DailyDoseOfInternet-PleaseDontTouchSeaWorms.jpg",
+				"Link": "https://www.youtube.com/watch?v=YOhTV-sq65g",
+				"Title": "Please Don't Touch Sea Worms",
+				"Views": "6.4M Views"
+			},
+			{
 				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-CatFace.png",
 				"Link": "https://www.youtube.com/watch?v=PCajG16Fryo",
 				"Title": "Cat Has Existential Crisis",
