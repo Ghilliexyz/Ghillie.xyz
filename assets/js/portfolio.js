@@ -1,93 +1,118 @@
 const views = [
 	{
 		"Name": "All",
-		"Logo": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-SmartRat.jpg",
+		"Logo": "/assets/img/portfolio/DailyDoseOfInternet/DailyDoseThumbnail-SmartRat.jpg",
 		"Anchor": "All",
 		"Entries": [
 		],
 	},
 	{
 		"Name": "DailyDoseOfInternet",
-		"Logo": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-Wizard.jpg",
+		"Logo": "/assets/img/portfolio/DailyDoseOfInternet/DailyDoseOfInternet-TheyHaveFinallyArrived.jpg",
 		"Anchor": "DailyDoseOfInternet",
 		"Entries": [
 			{
-				"Image": "/assets/img/portfolio/DailyDose/DailyDoseOfInternet-PleaseDontTouchSeaWorms.jpg",
+				"Image": "/assets/img/portfolio/DailyDoseOfInternet/DailyDoseOfInternet-TheyHaveFinallyArrived.jpg",
+				"Link": "https://www.youtube.com/watch?v=fHlUNumcvdw",
+				"Title": "They Have Finally Arrived",
+				"Views": "3.7M Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfInternet/DailyDoseOfInternet-PleaseDontTouchSeaWorms.jpg",
 				"Link": "https://www.youtube.com/watch?v=YOhTV-sq65g",
 				"Title": "Please Don't Touch Sea Worms",
 				"Views": "6.4M Views"
 			},
 			{
-				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-CatFace.png",
+				"Image": "/assets/img/portfolio/DailyDoseOfInternet/DailyDoseThumbnail-CatFace.png",
 				"Link": "https://www.youtube.com/watch?v=PCajG16Fryo",
 				"Title": "Cat Has Existential Crisis",
 				"Views": "3.7M Views"
 			},
 			{
-				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-Thief.png",
+				"Image": "/assets/img/portfolio/DailyDoseOfInternet/DailyDoseThumbnail-Thief.png",
 				"Link": "https://www.youtube.com/watch?v=lrAofachljM",
 				"Title": "How to Embarrass a Thief",
 				"Views": "4M Views"
 			},
 			{
-				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-BadSmell.jpg",
+				"Image": "/assets/img/portfolio/DailyDoseOfInternet/DailyDoseThumbnail-BadSmell.jpg",
 				"Link": "https://www.youtube.com/watch?v=VJBfpVQ969A",
 				"Title": "She Thought This Was a Good Idea",
 				"Views": "5M Views"
 			},
 			{
-				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-CopArrested.jpg",
+				"Image": "/assets/img/portfolio/DailyDoseOfInternet/DailyDoseThumbnail-CopArrested.jpg",
 				"Link": "https://www.youtube.com/watch?v=oCtbOKazGI8",
 				"Title": "Cop Arrests Cop for Speeding",
 				"Views": "4.3M Views"
 			},
 			{
-				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-TeacherPrank.jpg",
+				"Image": "/assets/img/portfolio/DailyDoseOfInternet/DailyDoseThumbnail-TeacherPrank.jpg",
 				"Link": "https://www.youtube.com/watch?v=89XMqgrmApY",
 				"Title": "They Didn’t Think Anyone Would Notice",
 				"Views": "4.9M Views"
 			},
 			{
-				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-DeflatedHouse.jpg",
+				"Image": "/assets/img/portfolio/DailyDoseOfInternet/DailyDoseThumbnail-DeflatedHouse.jpg",
 				"Link": "https://www.youtube.com/watch?v=M0Q5n95jaOw",
 				"Title": "She Deflated Her House",
 				"Views": "6.3M Views"
 			},
 			{
-				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-SmartRat.jpg",
+				"Image": "/assets/img/portfolio/DailyDoseOfInternet/DailyDoseThumbnail-SmartRat.jpg",
 				"Link": "https://www.youtube.com/watch?v=kO9nGomlpf8",
 				"Title": "Rat Pulls Off a Big Brain Move",
 				"Views": "4.9M Views"
 			},
 			{
-				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-GetFired.jpg",
+				"Image": "/assets/img/portfolio/DailyDoseOfInternet/DailyDoseThumbnail-GetFired.jpg",
 				"Link": "https://www.youtube.com/watch?v=s7qbW83Pdbc",
 				"Title": "How to Get Immediately Fired",
 				"Views": "7.6M Views"
 			},
 			{
-				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-2022.jpg",
+				"Image": "/assets/img/portfolio/DailyDoseOfInternet/DailyDoseThumbnail-2022.jpg",
 				"Link": "https://www.youtube.com/watch?v=NVH79ehGfY0",
 				"Title": "The Best Of The Internet (2022)",
 				"Views": "20M Views"
 			},
 			{
-				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-BarbersWorstNightmare.jpg",
+				"Image": "/assets/img/portfolio/DailyDoseOfInternet/DailyDoseThumbnail-BarbersWorstNightmare.jpg",
 				"Link": "https://www.youtube.com/watch?v=_W8Aeq3FCzE",
 				"Title": "Every Barber's Worst Nightmare",
 				"Views": "9.8M Views"
 			},
 			{
-				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-BrainTurnedOff.jpg",
+				"Image": "/assets/img/portfolio/DailyDoseOfInternet/DailyDoseThumbnail-BrainTurnedOff.jpg",
 				"Link": "https://www.youtube.com/watch?v=vrRcm2dt0VY",
 				"Title": "His Brain Turned Off at The Worst Time",
 				"Views": "9.7M Views"
 			},
 			{
-				"Image": "/assets/img/portfolio/DailyDose/DailyDoseThumbnail-Wizard.jpg",
+				"Image": "/assets/img/portfolio/DailyDoseOfInternet/DailyDoseThumbnail-Wizard.jpg",
 				"Link": "https://www.youtube.com/watch?v=Y1ZJ-_VKZs0",
 				"Title": "Wizard Traps Police In Mud",
 				"Views": "9.6M Views"
+			},
+		],
+	},
+	{
+		"Name": "JustRolledIn",
+		"Logo": "/assets/img/portfolio/JustRolledIn/CaptainEggcellent_SheCanHearYou.jpg",
+		"Anchor": "JustRolledIn",
+		"Entries": [
+			{
+				"Image": "/assets/img/portfolio/JustRolledIn/JustRolledIn-CustomerStatesNewJaguarShutOffAfterWaterGotSplashedOnIt.jpg",
+				"Link": "https://www.youtube.com/watch?v=L8hgHwp205s",
+				"Title": "Customer States New Jaguar Shut Off After Water Got \"Splashed\" On It",
+				"Views": "332.7K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/JustRolledIn/JustRolledIn-CustomerStatesTheyThinkTheRearWheelIsAboutToFallOff.jpg",
+				"Link": "https://www.youtube.com/watch?v=f6iPct0N1_8",
+				"Title": "Customer States They Think The Rear Wheel Is About To Fall Off",
+				"Views": "372.8K Views"
 			},
 		],
 	},
