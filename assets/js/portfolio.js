@@ -103,28 +103,52 @@ const views = [
 		"Anchor": "JustRolledIn",
 		"Entries": [
 			{
+				"Image": "/assets/img/portfolio/JustRolledIn/JustRolledIn-CustomerStatesTheyThinkTheyHaveAClutchIssue.jpg",
+				"Link": "https://www.youtube.com/watch?v=xuU2cuZjG3o",
+				"Title": "Customer States They Think They Have A Clutch Issue",
+				"Views": "298.9K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/JustRolledIn/JustRolledIn-CustomerStatesHeFixedSomeWires,NowTruckKeepsShuttingOff.jpg",
+				"Link": "https://www.youtube.com/watch?v=jxBw6cFLOGo",
+				"Title": "Customer States He \"Fixed\" Some Wires, Now Truck Keeps Shutting Off",
+				"Views": "347.2K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/JustRolledIn/JustRolledIn-CustomerStatesCarLostAllGearsDrivingOnTheHighway(FordFocusST).jpg",
+				"Link": "https://www.youtube.com/watch?v=__ApdRQwneY",
+				"Title": "Customer States Car Lost All Gears Driving On The Highway (Ford Focus ST)",
+				"Views": "352.7K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/JustRolledIn/JustRolledIn-CustomerStatesPreviousOwnerSaidJeepJustNeededAFewParts.jpg",
+				"Link": "https://www.youtube.com/watch?v=2PcbUyu1N9o",
+				"Title": "Customer States Previous Owner Said Jeep Just Needed A Few Parts",
+				"Views": "406.9K Views"
+			},
+			{
 				"Image": "/assets/img/portfolio/JustRolledIn/JustRolledIn-CustomerStatesEngineRunsRoughAfterHeReplacedSomeParts.jpg",
 				"Link": "https://www.youtube.com/watch?v=qMwD19w76CY",
 				"Title": "Customer States Engine Runs Rough After He Replaced Some Parts",
-				"Views": "560.4K Views"
+				"Views": "756K Views"
 			},
 			{
 				"Image": "/assets/img/portfolio/JustRolledIn/JustRolledIn-CustomerStatesTheyDontKnowHowThisHappenedWhileFlatTowingCar.jpg",
 				"Link": "https://www.youtube.com/watch?v=6bYWSGV-RU4",
 				"Title": "Customer States They Don't Know How This Happened While Flat Towing Car",
-				"Views": "374.9K Views"
+				"Views": "445K Views"
 			},
 			{
 				"Image": "/assets/img/portfolio/JustRolledIn/JustRolledIn-CustomerStatesNewJaguarShutOffAfterWaterGotSplashedOnIt.jpg",
 				"Link": "https://www.youtube.com/watch?v=L8hgHwp205s",
 				"Title": "Customer States New Jaguar Shut Off After Water Got \"Splashed\" On It",
-				"Views": "387.7K Views"
+				"Views": "442K Views"
 			},
 			{
 				"Image": "/assets/img/portfolio/JustRolledIn/JustRolledIn-CustomerStatesTheyThinkTheRearWheelIsAboutToFallOff.jpg",
 				"Link": "https://www.youtube.com/watch?v=f6iPct0N1_8",
 				"Title": "Customer States They Think The Rear Wheel Is About To Fall Off",
-				"Views": "422.8K Views"
+				"Views": "469K Views"
 			},
 		],
 	},
