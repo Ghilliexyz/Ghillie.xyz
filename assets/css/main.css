@@ -4,11 +4,12 @@ body {
 }
 
 ::selection {
-    background: #4e00c2;
+    background: #f64040;
+    color: #191919;
 }
 
 body {
-    background: #212534 no-repeat center center fixed;
+    background: #191919 no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -126,14 +127,16 @@ body {
 }
 
 .top_navbar li a {
-    color: #5d6996;
+    /* color: #5d6996; */
+    color: #383838;
     font-size: 25px;
     text-decoration: none;
     transition: .5s;
 }
 
 .top_navbar li a:hover {
-    color: #95acff;
+    /* color: #95acff; */
+    color: #9c9c9c;
     text-align: center;
 }
 
@@ -168,7 +171,7 @@ body {
     opacity: 0;
     position: relative;
     border-radius: 15px;
-    background-color: #191c29;
+    background-color: #191919;
     padding: 20px;
     box-shadow: 0 0 25px 0 rgba(0, 0, 0, .75);
 }
@@ -181,7 +184,7 @@ body {
 /* Firefox */
 * {
     scrollbar-width: thin;
-    scrollbar-color: #4e00c2 #212534;
+    scrollbar-color: #f64040 #191919;
 }
 
 /* Chrome, Edge, and Safari */
@@ -190,13 +193,13 @@ body {
 }
 
 *::-webkit-scrollbar-track {
-    background: #212534;
+    background: #191919;
 }
 
 *::-webkit-scrollbar-thumb {
-    background-color: #4e00c2;
+    background-color: #f64040;
     border-radius: 0px;
-    border: 0px none #212534;
+    border: 0px none #191919;
 }
 
 /* #endregion */
@@ -236,6 +239,7 @@ body {
     font-weight: bold;
     margin-top: 2.5em;
     margin-bottom: 2.5em;
+    color: #e1e1e1;
     text-align: center;
 }
 
@@ -245,6 +249,7 @@ body {
     flex-shrink: 1;
     flex-basis: auto;
     align-self: auto;
+    margin-bottom: 2em;
     order: 0;
     justify-content: center;
     flex-direction: row;
@@ -256,7 +261,7 @@ body {
     justify-content: center;
     flex-direction: row;
     gap: 8rem;
-    font-size: 2rem;
+    font-size: 1rem;
     list-style-type: none;
     text-align: center;
 }

@@ -50,8 +50,9 @@
     animation: divider 2.5s linear infinite;
 } */
 
-.divider::after, .divider::before {
-    background: linear-gradient(90deg, #5ddcff, #3c67e3 43%, #4e00c2);
+.divider::after,
+.divider::before {
+    background: linear-gradient(90deg, #7f31ff, #f64040);
     background-size: 600% 600%;
 
     -webkit-animation: divideranim 6.5s ease infinite;
@@ -60,7 +61,15 @@
 }
 
 @keyframes divideranim {
-    0%{background-position: 0% 50%}
-    50%{background-position: 100% 50%}
-    100%{background-position: 0% 50%}
+    0% {
+        background-position: 0% 50%
+    }
+
+    50% {
+        background-position: 100% 50%
+    }
+
+    100% {
+        background-position: 0% 50%
+    }
 }

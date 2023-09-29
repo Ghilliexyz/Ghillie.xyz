@@ -12,14 +12,16 @@
 :root {
     --white: #ffffff;
     --black: #000000;
-    --dark-blue: #212534;
+    --dark-blue: #191919;
     --dark-light: #424455;
     --red: #da2c4d;
     --yellow: #f8ab37;
     --grey: #ecedf3;
 }
+
 ::selection {
-    background: #4e00c2;
+    background: #f64040;
+    color: #191919;
 }
 
 
@@ -547,6 +549,7 @@ body.light .hero-center-section .left-text {
         font-weight: 700;
     }
 }
+
 .top-left-arrow {
     top: 0;
     left: 0;
@@ -559,7 +562,7 @@ body.light .hero-center-section .left-text {
 /* Firefox */
 * {
     scrollbar-width: thin;
-    scrollbar-color: #4e00c2 #212534;
+    scrollbar-color: #f64040 #191919;
 }
 
 /* Chrome, Edge, and Safari */
@@ -568,13 +571,13 @@ body.light .hero-center-section .left-text {
 }
 
 *::-webkit-scrollbar-track {
-    background: #212534;
+    background: #191919;
 }
 
 *::-webkit-scrollbar-thumb {
-    background-color: #4e00c2;
+    background-color: #f64040;
     border-radius: 0px;
-    border: 0px none #212534;
+    border: 0px none #191919;
 }
 
 /* #endregion */

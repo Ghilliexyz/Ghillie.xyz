@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 15em;
 }
 
 .special-carousel {
@@ -10,28 +11,34 @@
     align-items: center;
     flex-direction: column;
 }
+
 .special-carousel img {
     width: 25%;
     border: 1px solid transparent;
     z-index: 1;
     cursor: pointer;
 }
+
 .special-carousel img.active {
     z-index: 4;
     animation: carouselImgEnter 0.5s forwards;
 }
+
 .special-carousel img:not(:nth-of-type(2)).inactive {
     z-index: 2;
     animation: carouselImgExit 0.5s forwards;
 }
+
 .special-carousel img:nth-of-type(2).inactive {
     z-index: 3;
     animation: carouselImgExit 0.5s forwards;
 }
+
 .special-carousel img:not(:nth-of-type(2)) {
     --start-size: 1;
     --end-size: 1.5;
 }
+
 .special-carousel img:nth-of-type(2) {
     --start-size: 1.25;
     --end-size: 1.5;
@@ -41,6 +48,7 @@
     0% {
         transform: scale(var(--end-size));
     }
+
     100% {
         transform: scale(var(--start-size));
     }
@@ -50,6 +58,7 @@
     0% {
         transform: scale(var(--start-size));
     }
+
     100% {
         transform: scale(var(--end-size));
     }
