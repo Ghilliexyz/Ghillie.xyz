@@ -142,46 +142,78 @@ function readRows(){
 }
 
 function buildConstraints(rows){
-  const greenAt = Array(5).fill(null);
-  const notAt   = Array(5).fill(null).map(()=> new Set());
-  const minCount = new Map();
-  const graySeen = new Map();
+  const greens   = Array(5).fill(null);
+  const notAtPos = Array.from({ length: 5 }, () => new Set());
 
-  for(const {letters, states} of rows){
-    for(let i=0;i<5;i++){
+  // Global per-letter bounds
+  const minCount = Object.create(null);  // minimum # occurrences required
+  const maxCount = Object.create(null);  // maximum # occurrences allowed
+  const graySeen = Object.create(null);  // track letters that ever appeared gray
+
+  for (const { letters, states } of rows) {
+    const gy = Object.create(null);  // per-row greens + yellows count
+    const gr = Object.create(null);  // per-row grays count
+
+    for (let i = 0; i < 5; i++) {
       const ch = letters[i];
       const st = states[i];
-      if(!/^[A-Z]$/.test(ch)) continue;
+      if (!/^[A-Z]$/.test(ch)) continue;
 
-      if(st === 'green'){
-        greenAt[i] = ch;
-        minCount.set(ch, (minCount.get(ch)||0) + 1);
-      } else if(st === 'yellow'){
-        notAt[i].add(ch);
-        minCount.set(ch, (minCount.get(ch)||0) + 1);
-      } else if(st === 'gray'){
-        graySeen.set(ch, (graySeen.get(ch)||0) + 1);
+      if (st === 'green') {
+        greens[i] = ch;
+        gy[ch] = (gy[ch] || 0) + 1;
+      } else if (st === 'yellow') {
+        notAtPos[i].add(ch);
+        gy[ch] = (gy[ch] || 0) + 1;
+      } else if (st === 'gray') {
+        gr[ch] = (gr[ch] || 0) + 1;
+        graySeen[ch] = (graySeen[ch] || 0) + 1;
+      }
+    }
+
+    // Global MIN = max across rows of (greens + yellows) for each letter
+    for (const [ch, cnt] of Object.entries(gy)) {
+      minCount[ch] = Math.max(minCount[ch] || 0, cnt);
+    }
+
+    // Global MAX caps from this row’s mixed feedback
+    for (const ch of Object.keys(gr)) {
+      const present = gy[ch] || 0;
+      if (present === 0) {
+        // This row says the letter is absent entirely
+        maxCount[ch] = 0;
+      } else {
+        // Mixed feedback ⇒ cap to exactly the non-gray count in this row
+        const capHere = present;
+        maxCount[ch] = Math.min(maxCount[ch] ?? Infinity, capHere);
       }
     }
   }
 
-  const excludeAll = new Set();
-  for(const [ch] of graySeen.entries()){
-    if((minCount.get(ch)||0) === 0) excludeAll.add(ch);
-  }
-
-  // Gray on letters that exist -> “not at this position”
-  for(const {letters, states} of rows){
-    for(let i=0;i<5;i++){
+  // Gray at a position for a letter that DOES exist somewhere => not at this pos
+  for (const { letters, states } of rows) {
+    for (let i = 0; i < 5; i++) {
       const ch = letters[i];
-      if(!/^[A-Z]$/.test(ch)) continue;
-      if(states[i] === 'gray' && (minCount.get(ch)||0) > 0){
-        notAt[i].add(ch);
+      if (!/^[A-Z]$/.test(ch)) continue;
+      if (states[i] === 'gray' && (minCount[ch] || 0) > 0) {
+        notAtPos[i].add(ch);
       }
     }
   }
 
-  return { greenAt, notAt, minCount, excludeAll };
+  // Letters seen only as gray across all rows are globally excluded
+  const excludeAll = new Set(
+    Object.keys(graySeen).filter(ch => (minCount[ch] || 0) === 0)
+  );
+
+  // Keep caps consistent with mins (same behavior as your OLD solver)
+  for (const ch of Object.keys(maxCount)) {
+    if (minCount[ch] != null) {
+      maxCount[ch] = Math.min(maxCount[ch], minCount[ch]);
+    }
+  }
+
+  return { greens, notAtPos, minCount, maxCount, excludeAll };
 }
 
 // ---------- Built-in solver ----------
@@ -190,18 +222,25 @@ function solve(){
   const C = buildConstraints(rows);
 
   function validWord(word){
-    for(let i=0;i<5;i++){
-      if(C.greenAt[i] && word[i] !== C.greenAt[i]) return false;
+    // Greens
+    for (let i = 0; i < 5; i++) {
+      if (C.greens[i] && word[i] !== C.greens[i]) return false;
     }
-    for(const ch of C.excludeAll){
-      if(word.includes(ch)) return false;
+    // Global exclusions
+    for (const ch of C.excludeAll) {
+      if (word.includes(ch)) return false;
     }
-    for(let i=0;i<5;i++){
-      for(const bad of C.notAt[i]) if(word[i] === bad) return false;
+    // Yellows (not at these positions)
+    for (let i = 0; i < 5; i++) {
+      for (const bad of C.notAtPos[i]) if (word[i] === bad) return false;
     }
+    // Min / Max letter multiplicities
     const counts = countChars(word);
-    for(const [ch, need] of C.minCount.entries()){
-      if((counts.get(ch)||0) < need) return false;
+    for (const [ch, need] of Object.entries(C.minCount)) {
+      if ((counts.get(ch) || 0) < need) return false;
+    }
+    for (const [ch, cap] of Object.entries(C.maxCount)) {
+      if ((counts.get(ch) || 0) > cap) return false;
     }
     return true;
   }
