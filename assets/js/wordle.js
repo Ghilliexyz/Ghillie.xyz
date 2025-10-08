@@ -21,9 +21,11 @@ function setResultCount(n){ ui.resultCounts.forEach(x=>x.textContent=n); }
 
 // ---------- UI pieces ----------
 function setState(tile, color){
-  tile.dataset.state = color || '';
+  const allowed = new Set(['gray','yellow','green']);
+  const next = allowed.has(color) ? color : 'gray'; // no blank state
+  tile.dataset.state = next;
   tile.classList.remove('gray','yellow','green');
-  if(color) tile.classList.add(color);
+  tile.classList.add(next);
 }
 function focusNext(tile){
   const tiles = Array.from(tile.closest('.cells').querySelectorAll('.tile'));
@@ -79,9 +81,9 @@ function makeCell(){
 
   tile.addEventListener('click', (e)=>{
     if(e.target.tagName === 'INPUT') return;
-    const order = ['', 'gray', 'yellow', 'green'];
-    const cur = tile.dataset.state || '';
-    const next = order[(order.indexOf(cur)+1)%order.length];
+    const order = ['gray','yellow','green'];   // removed ''
+    const cur = tile.dataset.state;
+    const next = order[(order.indexOf(cur)+1) % order.length];
     setState(tile, next);
     if(AUTO_SOLVE) solve();
   });
@@ -97,7 +99,7 @@ function makeCell(){
     b.title = col[0].toUpperCase() + col.slice(1);
     b.addEventListener('click', (ev)=>{
       ev.preventDefault();
-      setState(tile, tile.dataset.state === col ? '' : col);
+      if (tile.dataset.state !== col) setState(tile, col); // no toggle-off to blank
       if(AUTO_SOLVE) solve();
     });
     pills.appendChild(b);
