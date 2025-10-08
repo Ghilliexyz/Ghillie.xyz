@@ -1,4 +1,4 @@
-const LIST_URL = 'assets/cs2dleStuff/WordleList.txt';         // set to null to *force* the built-in list
+const LIST_URL = '/assets/cs2dleStuff/WordleList.txt';
 const AUTO_SOLVE = true;
 
 let WORD_LIST = [];
@@ -12,7 +12,6 @@ const ui = {
   resultCounts: document.querySelectorAll('[data-result-count]'),
   solve: document.getElementById('solve'),
 };
-
 
 function uc(s){ return (s||'').toUpperCase(); }
 function isAZ(ch){ return /^[A-Z]$/.test(ch); }
@@ -222,10 +221,26 @@ function render(){
 }
 
 // ---------- Data load ----------
-const DEFAULT_WORDS = ["ABOUT", "ABOVE", "ALERT", "ALONE", "ARGUE", "ARISE", "ASSET", "AUDIO", "BASIC", "BEACH", "BEGAN", "BEGIN", "BEING", "BLACK", "BRAIN", "BREAD", "BREAK", "BRING", "BROWN", "BUYER", "CANDY", "CAUSE", "CHAIN", "CHAIR", "CHART", "CHEAP", "CHECK", "CHEST", "CHIEF", "CHILD", "CHOSE", "CIVIL", "CLASS", "CLEAR", "CLOCK", "CLOSE", "COACH", "COAST", "COULD", "COUNT", "CRAFT", "CRANE", "CRASH", "CRATE", "CRISP", "CROSS", "CROWD", "CROWN", "DAILY", "DEALT", "DEGRE", "DELTA", "DEPTH", "DOUBT", "DREAM", "DRINK", "DRIVE", "EARLY", "EARTH", "EIGHT", "ELDER", "ELITE", "ENTER", "EQUAL", "ERROR", "EVENT", "EVERY", "FAITH", "FALSE", "FANCY", "FAULT", "FAVOR", "FIELD", "FIFTH", "FIFTY", "FINAL", "FIRST", "FLAME", "FLESH", "FLOOR", "FOCUS", "FORCE", "FORTH", "FOUND", "FRAME", "FRESH", "FRONT", "FRUIT", "GIANT", "GLASS", "GLOBE", "GRACE", "GRADE", "GRANT", "GRAPE", "GRAPH", "GRASS", "GREEN", "GROUP", "GUARD", "GUEST", "GUIDE", "HAPPY", "HEART", "HEAVY", "HONEY", "HOTEL", "HOUSE", "HUMAN", "IDEAL", "IMAGE", "INDEX", "INNER", "INPUT", "ISSUE", "JUDGE", "KNIFE", "LABEL", "LARGE", "LAUGH", "LEARN", "LEAST", "LEMON", "LEVEL", "LIGHT", "LIMIT", "LOCAL", "LOGIC", "LOOSE", "LOVED", "LOWER", "LUCKY", "MARCH", "MATCH", "METAL", "MIGHT", "MODEL", "MONEY", "MONTH", "MORAL", "MOUND", "MOUTH", "MOVIE", "MUSIC", "NEEDS", "NERVE", "NORTH", "NOVEL", "OCCUR", "OFFER", "OFTEN", "ORDER", "OTHER", "OUGHT", "PAINT", "PANEL", "PARTY", "PATCH", "PHASE", "PHONE", "PIECE", "PILOT", "PLACE", "PLAIN", "PLANT", "PLATE", "POINT", "POWER", "PRESS", "PRICE", "PRIDE", "PRIME", "PRINT", "PRIZE", "PROOF", "PROUD", "PROVE", "PULSE", "QUICK", "QUIET", "RADIO", "RAISE", "RANGE", "RAPID", "RATIO", "REACH", "READY", "RIGHT", "RIVER", "ROUTE", "ROYAL", "RUGBY", "RURAL", "SCALE", "SCENE", "SCOPE", "SCORE", "SENSE", "SERVE", "SETUP", "SEVEN", "SHAPE", "SHARE", "SHEEP", "SHEET", "SHIFT", "SHINE", "SHIRT", "SHOCK", "SHOOT", "SHORT", "SHOWN", "SIGHT", "SIGMA", "SIXTH", "SKILL", "SMILE", "SMITH", "SMOKE", "SOLID", "SOLVE", "SORRY", "SOUND", "SPACE", "SPARE", "SPEAK", "SPEED", "SPEND", "SPENT", "SPICE", "SPIKE", "SPILL", "SPIRE", "SPLIT", "SPORT", "SPOUT", "STAFF", "STAGE", "STAKE", "STAND", "START", "STATE", "STEAM", "STEEL", "STICK", "STILL", "STOCK", "STONE", "STOOD", "STORM", "STORY", "STRAP", "STRAW", "STREA", "STREE", "STREN", "STRIP", "STUCK", "STUDY", "STUFF", "STYLE", "SUGAR", "SUNNY", "SUPER", "SURGE", "SWEET", "TABLE", "TASTE", "TEACH", "TEETH", "THANK", "THEIR", "THEME", "THERE", "THESE", "THICK", "THINK", "THIRD", "THOSE", "THREE", "THROW", "TIGHT", "TIMES", "TITLE", "TODAY", "TOUCH", "TOUGH", "TOWER", "TRACK", "TRADE", "TRAIN", "TRIAL", "TRIBE", "TRICK", "TRIED", "TRUCK", "TRULY", "TRUST", "TRUTH", "UNDER", "UNION", "UNITY", "UNTIL", "UPPER", "URBAN", "USAGE", "USUAL", "VALUE", "VIDEO", "VISIT", "VOICE", "WASTE", "WATCH", "WATER", "WEALT", "WEIRD", "WHERE", "WHILE", "WHITE", "WHOLE", "WIDEN", "WIDER", "WOMAN", "WORLD", "WORRY", "WORTH", "WOULD", "WRIST", "WRITE", "WRONG"];
+const DEFAULT_WORDS = ["ABOUT","ABOVE","ALERT","ALONE","ARGUE","ARISE","ASSET","AUDIO","BASIC","BEACH","BEGAN","BEGIN","BEING","BLACK","BRAIN","BREAD","BREAK","BRING","BROWN","BUYER","CANDY","CAUSE","CHAIN","CHAIR","CHART","CHEAP","CHECK","CHEST","CHIEF","CHILD","CHOSE","CIVIL","CLASS","CLEAR","CLOCK","CLOSE","COACH","COAST","COULD","COUNT","CRAFT","CRANE","CRASH","CRATE","CRISP","CROSS","CROWD","CROWN","DAILY","DEALT","DEGRE","DELTA","DEPTH","DOUBT","DREAM","DRINK","DRIVE","EARLY","EARTH","EIGHT","ELDER","ELITE","ENTER","EQUAL","ERROR","EVENT","EVERY","FAITH","FALSE","FANCY","FAULT","FAVOR","FIELD","FIFTH","FIFTY","FINAL","FIRST","FLAME","FLESH","FLOOR","FOCUS","FORCE","FORTH","FOUND","FRAME","FRESH","FRONT","FRUIT","GIANT","GLASS","GLOBE","GRACE","GRADE","GRANT","GRAPE","GRAPH","GRASS","GREEN","GROUP","GUARD","GUEST","GUIDE","HAPPY","HEART","HEAVY","HONEY","HOTEL","HOUSE","HUMAN","IDEAL","IMAGE","INDEX","INNER","INPUT","ISSUE","JUDGE","KNIFE","LABEL","LARGE","LAUGH","LEARN","LEAST","LEMON","LEVEL","LIGHT","LIMIT","LOCAL","LOGIC","LOOSE","LOVED","LOWER","LUCKY","MARCH","MATCH","METAL","MIGHT","MODEL","MONEY","MONTH","MORAL","MOUND","MOUTH","MOVIE","MUSIC","NEEDS","NERVE","NORTH","NOVEL","OCCUR","OFFER","OFTEN","ORDER","OTHER","OUGHT","PAINT","PANEL","PARTY","PATCH","PHASE","PHONE","PIECE","PILOT","PLACE","PLAIN","PLANT","PLATE","POINT","POWER","PRESS","PRICE","PRIDE","PRIME","PRINT","PRIZE","PROOF","PROUD","PROVE","PULSE","QUICK","QUIET","RADIO","RAISE","RANGE","RAPID","RATIO","REACH","READY","RIGHT","RIVER","ROUTE","ROYAL","RUGBY","RURAL","SCALE","SCENE","SCOPE","SCORE","SENSE","SERVE","SETUP","SEVEN","SHAPE","SHARE","SHEEP","SHEET","SHIFT","SHINE","SHIRT","SHOCK","SHOOT","SHORT","SHOWN","SIGHT","SIGMA","SIXTH","SKILL","SMILE","SMITH","SMOKE","SOLID","SOLVE","SORRY","SOUND","SPACE","SPARE","SPEAK","SPEED","SPEND","SPENT","SPICE","SPIKE","SPILL","SPIRE","SPLIT","SPORT","SPOUT","STAFF","STAGE","STAKE","STAND","START","STATE","STEAM","STEEL","STICK","STILL","STOCK","STONE","STOOD","STORM","STORY","STRAP","STRAW","STREA","STREE","STREN","STRIP","STUCK","STUDY","STUFF","STYLE","SUGAR","SUNNY","SUPER","SURGE","SWEET","TABLE","TASTE","TEACH","TEETH","THANK","THEIR","THEME","THERE","THESE","THICK","THINK","THIRD","THOSE","THREE","THROW","TIGHT","TIMES","TITLE","TODAY","TOUCH","TOUGH","TOWER","TRACK","TRADE","TRAIN","TRIAL","TRIBE","TRICK","TRIED","TRUCK","TRULY","TRUST","TRUTH","UNDER","UNION","UNITY","UNTIL","UPPER","URBAN","USAGE","USUAL","VALUE","VIDEO","VISIT","VOICE","WASTE","WATCH","WATER","WEALT","WEIRD","WHERE","WHILE","WHITE","WHOLE","WIDEN","WIDER","WOMAN","WORLD","WORRY","WORTH","WOULD","WRIST","WRITE","WRONG"];
+
+// --- robust parser ---
+function parseWordList(text){
+  // Strip UTF-8 BOM if present
+  const noBom = text.replace(/^\uFEFF/, '');
+  // Split CRLF / LF / CR
+  const lines = noBom.split(/\r?\n|\r/);
+
+  const words = Array.from(new Set(
+    lines
+      .map(s => uc(s.trim()))
+      .filter(s => /^[A-Z]{5}$/.test(s))
+  ));
+
+  console.info('[Wordle] lines:', lines.length, 'valid5:', words.length);
+  return words;
+}
 
 async function loadList(){
-  // If LIST_URL is null/empty, or if fetch fails (e.g., file://), fall back to built-in list.
   if(!LIST_URL){
     WORD_LIST = DEFAULT_WORDS.slice(0);
     CANDIDATES = WORD_LIST.slice(0);
@@ -234,14 +249,20 @@ async function loadList(){
     return;
   }
   try{
-    const res = await fetch(`${LIST_URL}?t=${Date.now()}`, { cache: 'no-store' });
-    if(!res.ok) throw new Error(res.status);
+    const url = new URL(LIST_URL, document.baseURI).href;
+    const res = await fetch(`${url}?t=${Date.now()}`, { cache: 'no-store' });
+    if(!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
+
     const text = await res.text();
-    WORD_LIST = Array.from(new Set(
-      text.split(/\\r?\\n/)
-          .map(s => uc(s.trim()))
-          .filter(s => /^[A-Z]{5}$/.test(s))
-    ));
+
+    // Guard against HTML fallback (SPA, 404 rewrites)
+    const ct = res.headers.get('content-type') || '';
+    if (ct.includes('text/html') || /^\s*<!DOCTYPE|^\s*<html/i.test(text)) {
+      throw new Error('Got HTML instead of plain text word list');
+    }
+
+    WORD_LIST = parseWordList(text);
+    console.info('[Wordle] Loaded list:', url, 'count:', WORD_LIST.length);
   }catch(e){
     console.warn('[Wordle] Could not load list from', LIST_URL, '→ using built-in list instead:', e);
     WORD_LIST = DEFAULT_WORDS.slice(0);
