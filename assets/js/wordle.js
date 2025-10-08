@@ -1,10 +1,10 @@
-const LIST_URL = 'WordleList.txt';         // set to null to *force* the built-in list
+const LIST_URL = 'assets/cs2dleStuff/WordleList.txt';         // set to null to *force* the built-in list
 const AUTO_SOLVE = true;
 
 let WORD_LIST = [];
 let CANDIDATES = [];
 
-const els = {
+const ui = {
   grid: document.getElementById('grid'),
   addRow: document.getElementById('addRow'),
   results: document.getElementById('results'),
@@ -17,7 +17,7 @@ const els = {
 function uc(s){ return (s||'').toUpperCase(); }
 function isAZ(ch){ return /^[A-Z]$/.test(ch); }
 function countChars(str){ const m=new Map(); for(const c of str) m.set(c,(m.get(c)||0)+1); return m; }
-function setResultCount(n){ els.resultCounts.forEach(x=>x.textContent=n); }
+function setResultCount(n){ ui.resultCounts.forEach(x=>x.textContent=n); }
 
 // ---------- UI pieces ----------
 function setState(tile, color){
@@ -121,14 +121,14 @@ function makeRow(){
 
 function addRow(){
   const row = makeRow();
-  els.grid.appendChild(row);
+  ui.grid.appendChild(row);
   row.querySelector('input')?.focus();
 }
 
 // ---------- Read UI → constraints ----------
 function readRows(){
   const rows = [];
-  els.grid.querySelectorAll('.row').forEach(r=>{
+  ui.grid.querySelectorAll('.row').forEach(r=>{
     const letters = [];
     const states  = [];
     r.querySelectorAll('.tile').forEach(t=>{
@@ -211,10 +211,10 @@ function solve(){
 
 // ---------- Render ----------
 function render(){
-  els.wordCount.textContent = WORD_LIST.length;
+  ui.wordCount.textContent = WORD_LIST.length;
   setResultCount(CANDIDATES.length);
 
-  els.results.innerHTML = CANDIDATES.length
+  ui.results.innerHTML = CANDIDATES.length
     ? CANDIDATES.slice(0).sort().map(w=>`<div class="result">${w}</div>`).join('')
     : `<div class="result" style="opacity:.7">— no matches yet —</div>`;
 }
@@ -255,5 +255,5 @@ function seedRows(){ for(let i=0;i<3;i++) addRow(); }
 document.addEventListener('DOMContentLoaded', () => {
   seedRows();             // ensure boxes exist immediately
   loadList();             // then fetch the list (or use built-in)
-  els.addRow.addEventListener('click', addRow);
+  ui.addRow.addEventListener('click', addRow);
 });
