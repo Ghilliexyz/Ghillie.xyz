@@ -3,10 +3,6 @@ body {
     min-height: 100%;
 }
 
-
-/* Style page content */
-/* About Stuff Here */
-
 .about {
     margin-left: auto;
     margin-right: auto;
@@ -15,9 +11,11 @@ body {
 
 .about h1 {
     color: #e1e1e1;
+    font-weight: bold;
+    font-size: 50px;
+    margin-top: 1em;
 }
 
 .about p {
     color: #e1e1e1;
-    font-size: 20px;
 }
