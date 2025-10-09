@@ -1,0 +1,154 @@
+/* Inherits base look from your main.css (Garamond, #191919 bg, red accent) */
+
+/* Palette bridge to your red accent */
+:root{
+  --solver-bg: #191919;
+  --solver-card: #1d1d1d;
+  --solver-muted: #9c9c9c;
+  --solver-text: #e1e1e1;
+  --solver-accent: #f64040;   /* your red */
+  --solver-outline: #2a2a2a;
+  --solver-green: #22c55e;
+  --solver-red: #ef4444;
+}
+
+/* Generic “card” matching your style */
+.solver-card{
+  background: var(--solver-card);
+  border: 1px solid var(--solver-outline);
+  border-radius: 14px;
+  padding: 14px;
+  margin: 12px 16px;
+  color: var(--solver-text);
+}
+
+/* Topbar */
+.solver-topbar{ display:flex; padding: 16px 14px; }
+.solver-row{gap:16px; align-items:center; justify-content:space-between; width:100%;}
+.solver-col{ display:flex; flex-direction:column; gap:6px; min-width: 420px; align-items: center;}
+.solver-muted{ color: var(--solver-muted); }
+
+/* Search */
+.solver-search-wrap{ position:relative; }
+.solver-search{
+  width:100%; background:#151515; color:var(--solver-text);
+  border:1px solid var(--solver-outline); border-radius:10px; padding:10px 12px; outline:none;
+}
+.solver-search-list{
+  position:absolute; left:0; right:0; top:calc(100% + 4px);
+  border:1px solid var(--solver-outline); border-radius:10px; overflow:hidden; display:none;
+  background:#151515; max-height:320px; overflow-y:auto; z-index:50;
+}
+.solver-search-item{
+  padding:10px 12px; border-bottom:1px solid #262626; cursor:pointer;
+  display:flex; justify-content:space-between; align-items:center; gap:10px;
+}
+.solver-search-item:last-child{ border-bottom:none; }
+.solver-search-item:hover{ background:#1b1b1b; }
+.solver-search-item .meta{ color:#bdbdbd; font-size:12px; }
+
+/* Selected pill row */
+.solver-selected{ display:flex; flex-direction:column; gap:6px; min-width:420px }
+.solver-hidden{ display:none; }
+.solver-selected__name{ font-weight:700 }
+.solver-selected__meta{ display:flex; flex-wrap:wrap; gap:6px }
+.solver-selected__meta span{
+  background:#151515; border:1px solid var(--solver-outline);
+  border-radius:999px; padding:4px 8px; font-size:12px;
+}
+
+/* Buttons / inputs */
+.solver-btn, .solver-file span{
+  background:var(--solver-accent); color:#191919; border:none; padding:8px 12px;
+  border-radius:10px; font-weight:700; cursor:pointer;
+}
+.solver-btn.ghost, .ghost{ background:#222; color:var(--solver-text); }
+.solver-actions{ display:flex; gap:8px; align-items:center }
+.solver-file{ position:relative; overflow:hidden }
+.solver-file input{ position:absolute; inset:0; opacity:0; cursor:pointer }
+.solver-status{ margin-left:8px; color:var(--solver-muted) }
+.solver-select{
+  width:100%; background:#151515; color:var(--solver-text);
+  border:1px solid var(--solver-outline); border-radius:10px; padding:8px 10px; outline:none;
+}
+
+/* Verdicts grid */
+.solver-verdicts h2{ margin: 0 0 10px; }
+.solver-vgrid{ display:flex; gap:8px;}
+.vrow{
+  display:grid; grid-template-columns: 50px 1fr 120px;
+  gap:8px; align-items:center; border-bottom:1px solid #262626; padding:8px 0;
+}
+.vrow:last-child{ border-bottom:none }
+.vlabel{ color:#cfcfcf; width: 100%; }
+.vauto{ font-weight:700 }
+
+/* Two-column layout */
+.solver-grid{
+  display:grid; gap:12px; padding:12px 16px;
+  grid-template-columns: 420px 1fr;
+}
+.solver-stretch{ grid-column: span 1 }
+
+/* Chips (constraints / history) */
+.solver-chips{ display:flex; flex-wrap:wrap; gap:8px; min-height:28px }
+.badge{
+  display:inline-flex; align-items:center; gap:6px;
+  border:1px solid var(--solver-outline); background:#151515; color:var(--solver-text);
+  padding:6px 8px; border-radius:999px; font-size:12px
+}
+.badge.ok{ background:#0f2317; border-color:#174a2b; color:#baf7c8 }
+.badge.bad{ background:#2a1010; border-color:#3d0b0b; color:#ffc1c1 }
+
+/* Results (scrollable) */
+.solver-results-header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:8px }
+.solver-pill{
+  background:#151515; border:1px solid var(--solver-outline);
+  padding:6px 10px; border-radius:999px;
+}
+.solver-table-scroll{
+  border:1px solid var(--solver-outline); border-radius:12px; overflow:auto;
+  max-height:480px; /* scrollable Remaining Candidates box */
+  background:#151515;
+}
+.solver-table{ width:100%; border-collapse:collapse }
+.solver-table thead{ background:#141414; color:#cfcfcf; position:sticky; top:0 }
+.solver-table th, .solver-table td{
+  padding:10px 12px; border-bottom:1px solid #262626; vertical-align:middle
+}
+.solver-table tbody tr:hover{ background:#1b1b1b }
+a.btn{
+  display:inline-flex; align-items:center; gap:6px; text-decoration:none;
+  background:#222; color:#eee; padding:6px 10px; border-radius:8px; border:1px solid #2f2f2f;
+}
+
+/* Responsive */
+@media (max-width: 1100px){
+  .solver-topbar{ display:block; }
+  .solver-col{ min-width:0; }
+  .solver-selected{ min-width:0; margin-top:10px }
+  .solver-grid{ grid-template-columns: 1fr; }
+}
+
+/* Tiny pills under Selected card */
+#selectedCard .pills{ display:flex; flex-wrap:wrap; gap:10px; margin-top:6px; align-items:center }
+#selectedCard .pill-group{ display:flex; align-items:center; gap:6px }
+#selectedCard .pill-group > .solver-muted{ font-size:12px; opacity:.9; margin-right:2px }
+
+#selectedCard .pill{
+  width:14px; height:14px; border-radius:50%;
+  border:1px solid rgba(255,255,255,0.25);
+  background:#222; cursor:pointer; padding:0; outline:none;
+  display:inline-flex; align-items:center; justify-content:center;
+  font-size:10px; line-height:1;
+  transition:transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+}
+#selectedCard .pill:hover{ transform:translateY(-1px) }
+#selectedCard .pill:focus-visible{ box-shadow:0 0 0 2px #fff3; }
+
+#selectedCard .pill.gray{ background:var(--solver-outline); }
+#selectedCard .pill.green{ background:var(--solver-green); border-color:#1e5b36; color:#0b2014; }
+#selectedCard .pill.red{ background:var(--solver-red); border-color:#7a2222; color:#190808; }
+
+#selectedCard .pill.active{ box-shadow:0 0 0 2px #fff3; }
+
