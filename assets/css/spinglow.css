@@ -21,7 +21,7 @@
 
 /* Profile Picture Spin content */
 .spinglow {
-    background: #191c29;
+    background: #191919;
     width: var(--spinwglow-width);
     height: var(--spinwglow-height);
     aspect-ratio: 1/1;
