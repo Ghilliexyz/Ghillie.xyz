@@ -62,14 +62,4 @@
     animation: spin 2.5s linear infinite;
 }
 
-@keyframes spin {
-    0% {
-        --spinglow-rotate: 0deg;
-    }
-
-    100% {
-        --spinglow-rotate: 360deg;
-    }
-}
-
 /* Profile Picture Spin content */

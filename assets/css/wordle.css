@@ -1,3 +1,9 @@
+@property --spinglow-rotate {
+    syntax: "<angle>";
+    initial-value: 132deg;
+    inherits: false;
+}
+
 /* Scoped + centered so it won't fight your site CSS */
 #wordle {
   --bg:#191919;
@@ -7,6 +13,9 @@
   --accent:#f64040;
   --outline:#2a2a2a;
   --tile:#151515;
+
+  --spinwglow-height: 980px;
+  --spinwglow-width: 980px;
 
   --gray:#3a3a3a;
   --yellow:#b59f3b;
@@ -122,3 +131,61 @@
 #wordle .legend.gray{background:var(--gray)}
 #wordle .legend.yellow{background:var(--yellow); color:#111}
 #wordle .legend.green{background:var(--green); color:#111}
+
+@keyframes spin {
+    0% {
+        --spinglow-rotate: 0deg;
+    }
+
+    100% {
+        --spinglow-rotate: 360deg;
+    }
+}
+
+#wordle .cardGlow {
+  background:var(--card);
+  border:1px solid var(--outline);
+  border-radius: 15px;
+  padding:14px;
+  aspect-ratio: 1/1;
+  position: relative;
+  border-radius: 15px;
+  justify-content: center;
+  align-items: center;
+  display:flex;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2em;
+  color: #e1e1e1;
+  background-size: cover;
+  background-position: center;
+  transition: 0.4s;
+}
+
+/* Spinning Glow Size */
+#wordle .cardGlow::before {
+    content: "";
+    height: calc(var(--spinwglow-height) * 1.005);
+    width: calc(var(--spinwglow-height) * 1.005);
+    aspect-ratio: 1/1;
+    border-radius: 15px;
+    background-image: linear-gradient(var(--spinglow-rotate), #7f31ff, #f64040);
+    position: absolute;
+    z-index: -1;
+    animation: spin 2.5s linear infinite;
+}
+
+#wordle .cardGlow::after {
+    position: absolute;
+    content: "";
+    z-index: -1;
+    height: calc(var(--spinwglow-height) * 1.2);
+    width: calc(var(--spinwglow-height) * 1.2);
+    aspect-ratio: 1/1;
+    border-radius: 15px;
+    transform: scale(0.8);
+    filter: blur(calc(var(--spinwglow-height) / 6));
+    background-image: linear-gradient(var(--spinglow-rotate), #7f31ff, #f64040);
+    opacity: 1;
+    animation: spin 2.5s linear infinite;
+}
