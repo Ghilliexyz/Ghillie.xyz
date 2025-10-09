@@ -15,7 +15,7 @@ body {
     -o-background-size: cover;
     background-size: cover;
     overflow-x: hidden;
-    font-family: Garamond, serif;
+    font-family: "Garamond", ui-sans-serif, system-ui, -apple-system, Segoe UI, Inter, Roboto, Arial;
 }
 
 /* #region Main body CSS */
@@ -58,10 +58,10 @@ body {
 }
 
 .main h3 {
-    color: #e1e1e1;
-    font-weight: bold;
-    font-size: 35px;
-    margin-top: -25px;
+    color: #757575;
+    font-weight: normal;
+    font-size: 26px;
+    margin-top: -22px;
 }
 
 .main p {
@@ -249,6 +249,7 @@ body {
     flex-shrink: 1;
     flex-basis: auto;
     align-self: auto;
+    margin-top: 7em;
     margin-bottom: 2em;
     order: 0;
     justify-content: center;

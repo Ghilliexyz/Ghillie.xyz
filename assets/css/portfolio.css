@@ -1,14 +1,3 @@
-/* Please ❤ this if you like it! */
-
-
-/* ======================================== * 
-		        BEST VIEWED FULLSCREEN
-   https://codepen.io/ig_design/full/MRbJWW
- * ======================================== */
-
-@import url('https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=devanagari,latin-ext');
-
-
 :root {
     --white: #ffffff;
     --black: #000000;
@@ -33,7 +22,7 @@ body {
     height: 100vh;
     background: var(--dark-blue);
     overflow-x: hidden;
-    font-family: Garamond, serif;
+    font-family: "Garamond", ui-sans-serif, system-ui, -apple-system, Segoe UI, Inter, Roboto, Arial;
     font-size: 16px;
     line-height: 30px;
     -webkit-transition: all 300ms linear;
@@ -41,7 +30,6 @@ body {
 }
 
 p {
-    font-family: Garamond, serif;
     font-size: 16px;
     line-height: 30px;
     color: var(--white);
@@ -108,7 +96,7 @@ mark {
     left: -20px;
     height: 200%;
     z-index: 1;
-    font-family: Garamond, serif;
+    font-family: "Garamond", ui-sans-serif, system-ui, -apple-system, Segoe UI, Inter, Roboto, Arial;
     font-weight: 900;
     text-align: center;
     -webkit-writing-mode: vertical-lr;
