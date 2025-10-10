@@ -73,7 +73,8 @@
                     </div>
                     </a>
                     <h2 style="margin-top: 15px;">Mattcs</h1>
-                    <h3 style="font-size: 25px;">379K Subs</h3>
+                    <!-- <h3 style="font-size: 25px;">379K Subs</h3> -->
+                    <h3 style="font-size: 25px;" class="subcount" data-channel-id="UCXWEa9Rl4LPMG0dygqnVCQg">379K Subs</h3>
                     <!-- <div class="explain_box d-none d-md-block">
                         <h1></h1>
                         <p></p>
@@ -84,7 +85,8 @@
                         <div class="spinglow spinglow-responsive" data-spinglow-max-width="250" style="background-image: url(/assets/ProfilePictures/DailyDoseOfInternetPFP.png);"></div>
                     </a>
                     <h1 style="margin-top: 1em;">Daily Dose Of Internet</h1>
-                    <h3>20.6M Subs</h3>
+                    <!-- <h3>20.6M Subs</h3> -->
+                    <h3 class="subcount" data-channel-id="UCdC0An4ZPNr_YiFiYoVbwaw">20.6M Subs</h3>
                     <!-- <div class="explain_box">
                         <h1>Review</h1>
                         <p>“The greatest thumbnail artist I ever worked with. Will go above and beyond to do what is asked.”</p>
@@ -97,7 +99,8 @@
                     </div>
                     </a>
                     <h2 style="margin-top: 15px;">JustRolledIn</h2>
-                    <h3 style="font-size: 25px;">664K Subs</h3>
+                    <!-- <h3 style="font-size: 25px;">664K Subs</h3> -->
+                    <h3 style="font-size: 25px;" class="subcount" data-channel-id="UCjN72nQrWhDnppts-lNnlKQ">379K Subs</h3>
                     <!-- <div class="explain_box">
                         <h1>Review</h1>
                         <p>“He's done an excellent job with all the thumbnails he has created for my channel! Highly recommended.”</p>
@@ -112,7 +115,8 @@
                     </div>
                     </a>
                     <h2 style="font-size: 20px;">MxR Plays (Banned)</h1>
-                    <h3 style="font-size: 15px;">2.0M Subs</h3>
+                    <!-- <h3 style="font-size: 15px;">2.0M Subs</h3> -->
+                    <h3 style="font-size: 15px;" class="subcount" data-channel-id="UCXWEa9Rl4LPMG0dygqnVCQg">2.0M Subs</h3>
                 </div>
                 <div class="col-12 col-md-3" style="margin-bottom: 30px;">
                     <a href="https://www.youtube.com/@CaptainEggcellent">
@@ -121,7 +125,8 @@
                     </div>
                     </a>
                     <h2 style="font-size: 20px;">Captain Eggcellent</h1>
-                    <h3 style="font-size: 15px;">960K Subs</h3>
+                    <!-- <h3 style="font-size: 15px;">960K Subs</h3> -->
+                    <h3 style="font-size: 15px;" class="subcount" data-channel-id="UCmYuHwdOnUCH2wGkFnEZ7OA">379K Subs</h3>
                 </div>
                 <div class="col-12 col-md-3" style="margin-bottom: 30px;">
                     <a href="https://www.youtube.com/@quqco">
@@ -130,7 +135,8 @@
                     </div>
                     </a>
                     <h2 style="font-size: 20px;">quqco</h1>
-                    <h3 style="font-size: 15px;">45.1K Subs</h3>
+                    <!-- <h3 style="font-size: 15px;">45.1K Subs</h3> -->
+                    <h3 style="font-size: 15px;" class="subcount" data-channel-id="UC8FSBgj3zX8k1zqAoDFm57A">379K Subs</h3>
                 </div>
                 <div class="col-12 col-md-3" style="margin-bottom: 30px;">
                     <a href="https://www.youtube.com/@ConnorEatsPantsLIVE">
@@ -139,7 +145,8 @@
                     </div>
                     </a>
                     <h2 style="font-size: 20px;">ConnorEatsPants </h1>
-                    <h3 style="font-size: 15px;">255K Subs</h3>
+                    <!-- <h3 style="font-size: 15px;">255K Subs</h3> -->
+                    <h3 style="font-size: 15px;" class="subcount" data-channel-id="UCzZLX5xGfjzXhRRzc8ruG8Q">379K Subs</h3>
                 </div>
             </div>
         </div>
@@ -175,6 +182,30 @@
     </div>
     <script src="/assets/js/special_carousel.js"></script>
     <script src="/assets/js/spinglow_responsive.js"></script>
+    <script>
+        async function updateSubCounts() {
+            const elements = document.querySelectorAll('.subcount');
+
+            for (const el of elements) {
+            const id = el.getAttribute('data-channel-id');
+            try {
+                const res = await fetch(`https://api.socialcounts.org/youtube-live-subscriber-count/${id}`);
+                const data = await res.json();
+
+                if (data && data.subscriberCount) {
+                const subs = Number(data.subscriberCount).toLocaleString();
+                el.textContent = `${subs} Subs`;
+                }
+            } catch (err) {
+                console.error('Failed to fetch for channel:', id, err);
+            }
+            }
+        }
+
+        // Initial load + refresh every 5 minutes
+        updateSubCounts();
+        setInterval(updateSubCounts, 5 * 60 * 1000);
+    </script>
 </body>
 
 </html>
