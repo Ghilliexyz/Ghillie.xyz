@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ghillie | Kleptos Downloader</title>
+
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <link rel="stylesheet" href="/assets/css/kleptos.css" />
+
+  <link rel="shortcut icon" type="image/png" href="/assets/img/favicon.png">
+</head>
+<body ondragstart="return false">
+  <!-- your site navbar -->
+  <div class="main">
+    <div class="top_navbar">
+      <ul>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/kleptos/" style="font-weight: bold;" class="nav_active_link">Kleptos</a></li>
+        <li><a href="/portfolio/">Portfolio</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Centered Kleptos app -->
+  <div id="kleptos">
+    <section class="hero">
+      <h1>Kleptos Downloader</h1>
+      <p class="muted">Paste your URL, choose your settings, and press Download. Enjoy your file.</p>
+    </section>
+
+    <main class="grid">
+      <section class="cardGlow">
+        <div>
+          <div class="toolbar">
+            <div class="stats">
+              <div class="stat"><span class="label">Downloads Today:</span> <span id="downloadCountToday">0</span> •</div>
+              <div class="stat"><span class="label">Total Downloads:</span> <span id="downloadCountTotal">0</span> •</div>
+            </div>
+          </div>
+          <div class="urlInfo">
+            <textarea class="urlInput" placeholder="Paste URL here..."></textarea>
+            <button id="downloadBtn" class="btn">Download</button>
+          </div>
+          <div class="urlResults">
+            <h2>Your Video</h2>
+            <video class="videoPlayer" id="videoPreview" controls></video>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div class="footer">
+      <ul>
+          <li><a href="https://github.com/Ghilliexyz" target="_blank">GITHUB</a></li>
+          <li><a href="https://discordapp.com/users/211851747688185856" target="_blank">DISCORD</a></li>
+          <li><a href="https://twitter.com/Ghilliexyz" target="_blank">TWITTER</a></li>
+      </ul>
+  </div>
+</body>
+</html>
