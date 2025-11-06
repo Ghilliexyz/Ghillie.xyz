@@ -37,7 +37,7 @@
 #wordle .muted { color:var(--muted);}
 
 /* toolbar */
-#wordle .toolbar{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:6px; }
+#wordle .toolbar{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:6px; margin-top: 2rem; }
 #wordle .stats{ display:flex; gap:14px; }
 #wordle .label{ color:var(--muted); margin-right:6px; }
 
@@ -115,9 +115,9 @@
   transition: transform .12s ease;
 }
 
-#wordle .results{margin-top:12px; display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:10px; max-height:300px; overflow:auto; padding-bottom:6px}
+#wordle .results{margin-top:12px; display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:10px; max-height:300px; overflow:auto; padding-bottom:6px; margin-bottom: 2rem;}
 #wordle .result{
-  background:#2a2a2a; border-bottom:1px solid #262626; border-radius:12px; padding:10px; text-align:center; font-weight:800; letter-spacing:1px
+  background:#2a2a2a; border-bottom:1px solid #262626; border-radius:12px; padding:10px; text-align:center; font-weight:800; letter-spacing:1px;
 }
 
 #wordle .result:last-child{ border-bottom:none }
@@ -142,23 +142,19 @@
 }
 
 #wordle .cardGlow {
+  position: relative;
   background:var(--card);
   border:1px solid var(--outline);
   border-radius: 15px;
-  padding:14px;
-  aspect-ratio: 1/1;
-  position: relative;
-  border-radius: 15px;
-  justify-content: center;
-  align-items: center;
-  display:flex;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 2em;
+  padding:16px;
+  margin: 2rem auto 0;
   color: #e1e1e1;
   background-size: cover;
   background-position: center;
-  transition: 0.4s;
+  transition: transform .25s ease;
+  justify-content: center;
+  display:flex;
+  align-items: flex-start;
 }
 
 /* Spinning Glow Size */
@@ -166,7 +162,6 @@
     content: "";
     height: calc(var(--spinwglow-height) * 1.006);
     width: calc(var(--spinwglow-width) * 1.006);
-    aspect-ratio: 1/1;
     border-radius: 15px;
     background-image: linear-gradient(var(--spinglow-rotate), #7f31ff, #f64040);
     position: absolute;
@@ -180,7 +175,6 @@
     z-index: -1;
     height: calc(var(--spinwglow-height) * 1.2);
     width: calc(var(--spinwglow-width) * 1.2);
-    aspect-ratio: 1/1;
     border-radius: 15px;
     transform: scale(0.8);
     filter: blur(calc(var(--spinwglow-height) / 6));
