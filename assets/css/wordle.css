@@ -15,7 +15,7 @@
   --tile:#151515;
 
   --spinwglow-height: 980px;
-  --spinwglow-width: 980px;
+  --spinwglow-width: 740px;
 
   --gray:#3a3a3a;
   --yellow:#f6f340;
@@ -26,15 +26,15 @@
 
 /* center the whole app */
 #wordle .grid {
-  max-width: 980px;
+  max-width: var(--spinwglow-width);
   margin: 0 auto;
   padding: 12px 16px 32px;
 }
 
 /* hero */
-#wordle .hero { padding: 18px 16px 0; text-align:center; }
-#wordle .hero h1 { margin:0 0 6px; font-size:26px; letter-spacing:.4px; }
-#wordle .muted { color:var(--muted);}
+#wordle .hero{ padding:18px 16px 0; text-align:center; }
+#wordle .hero h1{ margin:0 0 6px; font-size:clamp(22px, 3.5vw, 32px); letter-spacing:.4px; }
+#wordle .muted{ color:var(--muted); }
 
 /* toolbar */
 #wordle .toolbar{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:6px; margin-top: 2rem; }
@@ -115,6 +115,9 @@
   transition: transform .12s ease;
 }
 
+#wordle .wordGuesses{ margin-top:16px; }
+#wordle .wordGuesses h2{ font-size:18px; margin-bottom:10px; }
+
 #wordle .results{margin-top:12px; display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:10px; max-height:300px; overflow:auto; padding-bottom:6px; margin-bottom: 2rem;}
 #wordle .result{
   background:#2a2a2a; border-bottom:1px solid #262626; border-radius:12px; padding:10px; text-align:center; font-weight:800; letter-spacing:1px;
@@ -157,28 +160,34 @@
   align-items: flex-start;
 }
 
-/* Spinning Glow Size */
-#wordle .cardGlow::before {
-    content: "";
-    height: calc(var(--spinwglow-height) * 1.006);
-    width: calc(var(--spinwglow-width) * 1.006);
-    border-radius: 15px;
-    background-image: linear-gradient(var(--spinglow-rotate), #7f31ff, #f64040);
-    position: absolute;
-    z-index: -1;
-    animation: spin 2.5s linear infinite;
+/* ensure card content stays above the glow layers */
+#wordle .cardGlow > * {
+  position: relative;
+  z-index: 1;
 }
 
+/* both glow layers are sized RELATIVE to the card (no fixed height vars) */
+#wordle .cardGlow::before,
 #wordle .cardGlow::after {
-    position: absolute;
-    content: "";
-    z-index: -1;
-    height: calc(var(--spinwglow-height) * 1.2);
-    width: calc(var(--spinwglow-width) * 1.2);
-    border-radius: 15px;
-    transform: scale(0.8);
-    filter: blur(calc(var(--spinwglow-height) / 6));
-    background-image: linear-gradient(var(--spinglow-rotate), #7f31ff, #f64040);
-    opacity: 1;
-    animation: spin 2.5s linear infinite;
+  content: "";
+  position: absolute;
+  inset: 0;                   /* match the card’s current box */
+  border-radius: 15px;        /* match the card’s radius */
+  pointer-events: none;
+  z-index: -1;                 /* behind content, above page */
+  background-image: linear-gradient(var(--spinglow-rotate), #7f31ff, #f64040);
+  animation: spin 2.5s linear infinite;
+}
+
+/* inner sharp ring — 1.01x the card, no blur */
+#wordle .cardGlow::before {
+  transform: scale(1.01);     /* EXACT inner ring scale */
+  filter: none;
+}
+
+/* outer soft halo — 1.2x the card, blurred */
+#wordle .cardGlow::after {
+  transform: scale(1.20);     /* EXACT outer halo scale */
+  filter: blur(calc(var(--spinwglow-height) / 6));
+  opacity: 1;
 }
