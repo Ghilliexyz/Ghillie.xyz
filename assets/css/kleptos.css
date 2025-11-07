@@ -85,7 +85,36 @@
   background:#000;
   border-radius:12px;
   margin-top:12px;
-  margin-bottom: 2rem;
+}
+
+#kleptos .urlResults h4{
+  margin-top:8px;
+  font-size:16px;
+  color:var(--text);
+}
+
+#kleptos .urlResults a{
+  margin:0px;
+  text-decoration: none;
+  font-size:14px;
+  color:#e1e1e1;
+  opacity: 0.7;
+  transition: opacity 0.5s ease-in-out;
+}
+#kleptos .urlResults a:hover{
+  text-decoration: underline;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+#kleptos .videoInfo{
+  display: flex;
+}
+
+#kleptos .videoInfo p{
+  margin-right: 8px;
+  font-size: 13px;
+  color: var(--muted);
 }
 
 /* grid of any future results/variants */
