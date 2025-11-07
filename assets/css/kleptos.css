@@ -163,7 +163,8 @@
 
 /* outer soft halo — 1.2x the card, blurred */
 #kleptos .cardGlow::after {
-  transform: scale(1.20);     /* EXACT outer halo scale */
+  width: var(--spinwglow-width * 1.2);
+  transform: scale(.8);     /* EXACT outer halo scale */
   filter: blur(calc(var(--spinwglow-height) / 6));
   opacity: 1;
 }
