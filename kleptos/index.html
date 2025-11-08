@@ -86,30 +86,34 @@
             </div>
           </div>
           <div class="urlInfo">
-            <textarea class="urlInput" placeholder="Paste URL here..."></textarea>
+            <input class="urlInput" type="url" autocomplete="off" autocapitalize="off" spellcheck="false" inputmode="url" placeholder="Paste URL here..."></input>
             <button id="downloadBtn" class="btn">Download</button>
           </div>
           <div class="urlResults">
             <h2>Video Title</h2>
-            <a href="#" target="_blank">Rick Astley</a>
-            <video class="videoPlayer" id="videoPreview" controls></video>
+            <a href="#" target="_blank">Channel Name</a>
+            <img class="thumbnail" id="thumbnailPreview" controls></img>
             <div class="videoInfo">
-                <p>Apr 4, 2020 •</p>
-                <p>1h 15m 4s •</p>
-                <p>1.4m views •</p>
-                <p>234k likes •</p>
+                <p>Dec 10, 2000 •</p>
+                <p>0h 0m 0s •</p>
+                <p>0 views •</p>
+                <p>0 likes •</p>
             </div>
           </div>
         </div>
       </section>
     </main>
   </div>
-  <div class="footer">
+  <div class="footer" style="margin-top: 0;">
       <ul>
           <li><a href="https://github.com/Ghilliexyz" target="_blank">GITHUB</a></li>
           <li><a href="https://discordapp.com/users/211851747688185856" target="_blank">DISCORD</a></li>
           <li><a href="https://twitter.com/Ghilliexyz" target="_blank">TWITTER</a></li>
       </ul>
   </div>
+    <!-- LOCAL file/dev server: point at your local backend -->
+  <script>window.KLEPTOS_API = "http://localhost:5000";</script>
+  <!-- <script>window.KLEPTOS_API = "https://api.yourdomain.com";</script> -->
+  <script src="/assets/js/kleptos.js" defer></script>
 </body>
 </html>
