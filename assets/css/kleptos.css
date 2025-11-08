@@ -94,7 +94,7 @@
   border-radius: 8px;
   border: 1px solid var(--outline);
   border-radius:15px;
-  margin-top:15px;
+  margin-top:10px;
 }
 
 #kleptos .urlResults h4{
@@ -189,4 +189,67 @@
   width: var(--spinwglow-width * 1.1);
   filter: blur(calc(var(--spinwglow-height) / 20));
   opacity: 1;
+}
+
+/* ========== Feedback: Progress bars + Toasts ========== */
+#kleptos .progress[hidden]{ display:none !important; }
+#kleptos .progress{
+  display:flex; align-items:center; gap:12px;
+  padding:10px 12px; margin:8px 5px 0 5px;
+  border:1px solid var(--outline);
+  background: var(--tile);
+  border-radius:10px;
+}
+#kleptos .progress span{ font-size:14px; color: var(--muted); white-space: nowrap; }
+#kleptos .progress .bar{
+  position:relative; height:6px; flex:1 1 auto;
+  background: var(--bg);
+  border-radius:999px; overflow:hidden;
+  border: 1px solid var(--outline);
+}
+#kleptos .progress .bar::before{
+  content:""; position:absolute; inset:0; transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent 0%, var(--accent) 50%, transparent 100%);
+  animation: kleptos-indeterminate 1.2s linear infinite;
+}
+@keyframes kleptos-indeterminate{ from{ transform: translateX(-100%);} to{ transform: translateX(100%);} }
+@media (prefers-reduced-motion: reduce){
+  #kleptos .progress .bar::before{ animation-duration: 2.4s; }
+}
+
+/* Toasts */
+#kleptos .toast[hidden]{ display:none !important; }
+#kleptos .toast{
+  position: fixed; right: 16px; bottom: 16px; z-index: 10000;
+  background: var(--card);
+  border: 1.5px solid var(--outline);
+  color: var(--text);
+  padding: 10px 12px;
+  border-radius: 10px;
+  max-width: 420px;
+}
+#kleptos .toast.error{ border-color: #f64040; }
+#kleptos .toast .title{ font-weight: 700; margin-bottom:4px; }
+#kleptos .toast .body{ font-size: 14px; color: var(--muted); }
+
+/* =================== Settings Modal =================== */
+/* modal */
+#kleptos .kmodal[aria-hidden="true"]{ display:none; }
+#kleptos .kmodal{ position:fixed; inset:0; z-index:9999; }
+#kleptos .kmodal__backdrop{ position:absolute; inset:0; background:rgba(0,0,0,.5); backdrop-filter:blur(2px); }
+#kleptos .kmodal__dialog{ position:absolute; inset:0; margin:auto; width:min(560px,92vw); background:var(--card); border:1px solid var(--outline); border-radius:14px; box-shadow:0 10px 30px rgba(0,0,0,.45), 0 0 0 1px var(--outline) inset; padding:16px 16px 64px; }
+#kleptos .kmodal__close{ position:absolute; top:8px; right:8px; width:34px; height:34px; line-height:34px; border:1px solid var(--outline); background:var(--bg); border-radius:10px; font-size:20px; color:var(--muted); cursor:pointer; }
+#kleptos .kmodal__footer{ position:absolute; right:16px; bottom:12px; display:flex; gap:8px; }
+#kleptos .kform{ display:grid; gap:12px; margin-top:8px; }
+#kleptos .kform__field>span{ display:block; font-size:12px; color:var(--muted); margin:2px 0 6px; }
+#kleptos .kform__field input,#kleptos .kform__field select{ width:100%; background:var(--bg); color:#e1e1e1; border:1px solid var(--outline); border-radius:10px; padding:10px 12px; }
+#kleptos .kform__check{ display:flex; align-items:center; gap:10px; font-size:14px; color:#e1e1e1; }
+#kleptos .kform__row3{ display:grid; grid-template-columns: 1.2fr 1.2fr auto; gap:12px; align-items:end; }
+#kleptos .kform__field--checkbox{ padding-bottom:2px; }
+#kleptos .btnset{ display:flex; gap:8px; flex-wrap:wrap; }
+#kleptos .btnset button{ border:1px solid var(--outline); background:var(--bg); color:#e1e1e1; border-radius:10px; padding:8px 12px; cursor:pointer; }
+#kleptos .btnset button.active{ background:var(--accent); color:#111; font-weight:700; }
+
+@media (max-width:560px){
+  #kleptos .kform__row3{ grid-template-columns: 1fr; }
 }

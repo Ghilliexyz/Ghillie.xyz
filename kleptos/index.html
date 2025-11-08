@@ -1,60 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- HTML Meta Tags -->
-  <meta name="description"
-      content="Kleptos is a video downloader that allows you to download videos from various platforms easily.">
-
-  <!-- Facebook Meta Tags -->
-  <meta property="og:url" content="https://Ghillie.xyz/">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Ghillie | Kleptos">
-  <meta property="og:description"
-      content="Kleptos is a video downloader that allows you to download videos from various platforms easily">
-  <meta property="og:image" content="/assets/img/MetaImgs/Meta-Kleptos.png">
-
-  <!-- Twitter Meta Tags -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta property="twitter:domain" content="Ghillie.xyz">
-  <meta property="twitter:url" content="https://Ghillie.xyz/">
-  <meta name="twitter:title" content="Ghillie | Kleptos">
-  <meta name="twitter:description"
-      content="Kleptos is a video downloader that allows you to download videos from various platforms easily">
-  <meta name="twitter:image:src" content="https://ghillie.xyz/assets/img/MetaImgs/Meta-Kleptos.png">
-  
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ghillie | Kleptos Downloader</title>
 
+  <!-- SEO -->
+  <meta name="description" content="Kleptos — paste a URL, pick format & quality, download.">
+  <meta property="og:title" content="Ghillie | Kleptos">
+  <meta property="og:description" content="Kleptos — paste a URL, pick format & quality, download.">
+  <meta property="og:type" content="website">
+
   <link rel="stylesheet" href="/assets/css/main.css" />
   <link rel="stylesheet" href="/assets/css/kleptos.css" />
-
   <link rel="shortcut icon" type="image/png" href="/assets/img/favicon.png">
 </head>
-<head>
-    <!-- HTML Meta Tags -->
-    <meta name="description"
-        content="Kleptos is a video downloader that allows you to download videos from various platforms easily">
 
-    <!-- Facebook Meta Tags -->
-    <meta property="og:url" content="https://Ghillie.xyz/">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Ghillie | Kleptos">
-    <meta property="og:description"
-        content="Kleptos is a video downloader that allows you to download videos from various platforms easily">
-    <meta property="og:image" content="/assets/img/MetaImgs/Meta-Kleptos.png">
-
-    <!-- Twitter Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta property="twitter:domain" content="Ghillie.xyz">
-    <meta property="twitter:url" content="https://Ghillie.xyz/">
-    <meta name="twitter:title" content="Ghillie | Kleptos">
-    <meta name="twitter:description"
-        content="Kleptos is a video downloader that allows you to download videos from various platforms easily">
-    <meta name="twitter:image:src" content="https://ghillie.xyz/assets/img/MetaImgs/Meta-Kleptos.png">
-</head>
 <body ondragstart="return false">
-  <!-- your site navbar -->
+  <!-- site navbar -->
   <div class="main">
     <div class="top_navbar">
       <ul>
@@ -66,11 +29,11 @@
     </div>
   </div>
 
-  <!-- Centered Kleptos app -->
+  <!-- App -->
   <div id="kleptos">
     <section class="hero">
       <h1>Kleptos Downloader</h1>
-      <p class="muted">Paste your URL, choose your settings, and press Download.</p>
+      <p class="muted">Paste a URL, open Settings, then Download.</p>
     </section>
 
     <main class="grid">
@@ -85,35 +48,111 @@
               <div class="stat"><span class="label">Total Downloads:</span> <span id="downloadCountTotal">0</span> •</div>
             </div>
           </div>
+
           <div class="urlInfo">
-            <input class="urlInput" type="url" autocomplete="off" autocapitalize="off" spellcheck="false" inputmode="url" placeholder="Paste URL here..."></input>
-            <button id="downloadBtn" class="btn">Download</button>
+            <input class="urlInput" type="url" autocomplete="off" autocapitalize="off" spellcheck="false" inputmode="url" placeholder="Paste URL here...">
+            <button id="downloadBtn" class="btn" disabled>Download</button>
           </div>
-          <div class="urlResults">
-            <h2>Video Title</h2>
-            <a href="#" target="_blank">Channel Name</a>
-            <img class="thumbnail" id="thumbnailPreview" controls></img>
-            <div class="videoInfo">
-                <p>Dec 10, 2000 •</p>
-                <p>0h 0m 0s •</p>
-                <p>0 views •</p>
-                <p>0 likes •</p>
-            </div>
+
+          <!-- Feedback bars -->
+          <div id="metaProgress" class="progress" role="status" aria-live="polite" aria-atomic="true" hidden>
+            <div class="bar"><div class="fill"></div></div>
+            <span>Collecting data…</span>
+          </div>
+          <div id="dlProgress" class="progress" role="status" aria-live="polite" aria-atomic="true" hidden>
+            <div class="bar"><div class="fill"></div></div>
+            <span>Downloading…</span>
+          </div>
+
+          <!-- Results -->
+          <div class="urlResults" style="display:none">
+            <h2></h2>
+            <a href="#" target="_blank" rel="noopener noreferrer"></a>
+            <img class="thumbnail" id="thumbnailPreview" alt="">
+            <div class="videoInfo"><p></p><p></p><p></p><p></p></div>
           </div>
         </div>
       </section>
     </main>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="kmodal" aria-hidden="true">
+      <div class="kmodal__backdrop"></div>
+
+      <div class="kmodal__dialog" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+        <button type="button" class="kmodal__close" id="settingsClose" aria-label="Close">×</button>
+        <h3 id="settingsTitle">Download settings</h3>
+
+        <div class="kform">
+          <!-- Row 1: File format | File name | Thumbnail only -->
+          <div class="kform__row3">
+            <label class="kform__field">
+              <span>File format</span>
+              <select id="optFileFormat">
+                <optgroup label="Video (container)">
+                  <option value="auto">Auto (best)</option>
+                  <option value="mp4">MP4</option>
+                  <option value="mkv">MKV</option>
+                  <option value="webm">WEBM</option>
+                </optgroup>
+                <optgroup label="Audio only">
+                  <option value="audio:mp3">MP3</option>
+                  <option value="audio:m4a">M4A</option>
+                  <option value="audio:opus">OPUS</option>
+                  <option value="audio:flac">FLAC</option>
+                  <option value="audio:wav">WAV</option>
+                  <option value="audio:aac">AAC</option>
+                  <option value="audio:ogg">OGG</option>
+                </optgroup>
+              </select>
+            </label>
+
+            <label class="kform__field">
+              <span>File name</span>
+              <input id="optFileName" type="text" placeholder="%(title)s (leave blank to auto)">
+            </label>
+
+            <label class="kform__check kform__field--checkbox">
+              <input id="optThumbOnly" type="checkbox">
+              <span>Thumbnail only</span>
+            </label>
+          </div>
+
+          <!-- Row 2: Quality segmented -->
+          <fieldset class="kform__field">
+            <legend>Quality</legend>
+            <div class="btnset" id="optQuality">
+              <button type="button" data-q="Low">Low</button>
+              <button type="button" data-q="Medium">Medium</button>
+              <button type="button" data-q="High">High</button>
+              <button type="button" data-q="BEST" class="active">BEST</button>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="kmodal__footer">
+          <button type="button" id="settingsSave" class="btn primary">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast" hidden>
+      <div class="title"></div>
+      <div class="body"></div>
+    </div>
   </div>
-  <div class="footer" style="margin-top: 0;">
-      <ul>
-          <li><a href="https://github.com/Ghilliexyz" target="_blank">GITHUB</a></li>
-          <li><a href="https://discordapp.com/users/211851747688185856" target="_blank">DISCORD</a></li>
-          <li><a href="https://twitter.com/Ghilliexyz" target="_blank">TWITTER</a></li>
-      </ul>
+
+  <div class="footer" style="margin-top:0;">
+    <ul>
+      <li><a href="https://github.com/Ghilliexyz" target="_blank">GITHUB</a></li>
+      <li><a href="https://discordapp.com/users/211851747688185856" target="_blank">DISCORD</a></li>
+      <li><a href="https://twitter.com/Ghilliexyz" target="_blank">TWITTER</a></li>
+    </ul>
   </div>
-    <!-- LOCAL file/dev server: point at your local backend -->
+
+  <!-- POINT THIS TO YOUR BACKEND -->
   <script>window.KLEPTOS_API = "http://localhost:5000";</script>
-  <!-- <script>window.KLEPTOS_API = "https://api.yourdomain.com";</script> -->
   <script src="/assets/js/kleptos.js" defer></script>
 </body>
 </html>
