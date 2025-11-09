@@ -1,4 +1,4 @@
-const LIST_URL = '/assets/projectFiles/CS2WordleList.txt.txt';
+const LIST_URL = '/assets/projectFiles/CS2WordleList.txt';
 const AUTO_SOLVE = true;
 
 let WORD_LIST = [];
