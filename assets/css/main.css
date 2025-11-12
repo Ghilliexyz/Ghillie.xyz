@@ -165,7 +165,6 @@ body {
   display: block !important;
   list-style: none;
   margin: 0;
-  padding: 8px 0;
 
   width: max-content;
 
@@ -214,7 +213,7 @@ body {
 /* Inherit your navbar link styling exactly */
 .top_navbar .submenu a {
   display: block;
-  padding: .25rem 0;
+  padding: .05rem 0;
   color: var(--navbar-text-color);
   font-size: inherit;        /* 25px from your .top_navbar li a */
   text-decoration: none;
