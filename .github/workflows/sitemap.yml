@@ -1,42 +1,44 @@
-name: Generate sitemap 
+name: Generate sitemap
 
 on:
   push:
     branches: [ main ]
-    paths: [ '**.html', '**.pdf' ]
+    paths:
+      - '**/*.html'
+      - '**/*.pdf'
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   sitemap_job:
     runs-on: ubuntu-latest
     name: Generate a sitemap
     steps:
-    - name: Checkout the repo
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0 
-    
-    - name: Generate the sitemap
-      id: sitemap
-      uses: cicirello/generate-sitemap@v1
-      with:
-        base-url-path: https://sadghoststudio.com/
-    
-    - name: Output stats
-      run: |
-        echo "sitemap-path = ${{ steps.sitemap.outputs.sitemap-path }}"
-        echo "url-count = ${{ steps.sitemap.outputs.url-count }}"
-        echo "excluded-count = ${{ steps.sitemap.outputs.excluded-count }}"
-    
-    - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v6.1.0
-      with:
-        title: "Automated sitemap update"
-        body: > 
-          Automated changes. Sitemap updated by 
-          the [generate-sitemap](https://github.com/cicirello/generate-sitemap) 
-          GitHub action.  
-        commit-message: "Automated sitemap update."
-        branch: create-pull-request/sitemap
-        delete-branch: true
-        exclude-paths: >
-          /404.html
+      - name: Checkout the repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # required for correct <lastmod> dates
+
+      - name: Generate the sitemap
+        id: sitemap
+        uses: cicirello/generate-sitemap@v1
+        with:
+          base-url-path: https://ghillie.xyz/
+          exclude-paths: >  # belongs on this step
+            /404.html
+          # drop-html-extension: true   # optional if you want URLs without .html
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: "Automated sitemap update"
+          body: >
+            Automated changes. Sitemap updated by the
+            generate-sitemap GitHub action.
+          commit-message: "chore(sitemap): update sitemap"
+          add-paths: ${{ steps.sitemap.outputs.sitemap-path }}
+          branch: create-pull-request/sitemap
+          delete-branch: true
