@@ -194,11 +194,19 @@
   opacity: 1;
 }
 
+@media (max-width:360px){
+  #wordle .wordGuesses{ grid-template-columns:repeat(auto-fill,minmax(80px,1fr)); }
+  #wordle .cells{ grid-template-columns: repeat(5, 48px); gap:2px; }
+  #wordle .pill{ width:12px; height:12px;}
+  #wordle .tile{ width:35px; height:35px; font-size:15px; }
+}
+
 @media (max-width:560px){
   #wordle .wordGuesses{ grid-template-columns:repeat(auto-fill,minmax(100px,1fr)); }
   #wordle .cells{ grid-template-columns: repeat(5, 48px); gap:8px; }
   #wordle .tile{ width:48px; height:48px; font-size:24px; }
 }
+
 @media (max-width: 720px){
   #wordle .wordGuesses{ grid-template-columns: 1fr; }
   #wordle .cells{ grid-template-columns: repeat(5, 48px); gap:8px; }
