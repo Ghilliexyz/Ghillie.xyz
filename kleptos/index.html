@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
   <!-- HTML Meta Tags -->
   <meta name="description"
       content="Kleptos is a video downloader that allows you to download videos from various platforms easily.">
@@ -33,7 +32,6 @@
 </head>
 
 <body ondragstart="return false">
-  <!-- site navbar -->
   <div class="main">
     <div class="top_navbar">
       <ul>
@@ -49,7 +47,7 @@
   <div id="kleptos">
     <section class="hero">
       <h1>Kleptos Downloader</h1>
-      <p class="muted">Paste a URL, open Settings, then Download.</p>
+      <p class="muted">Paste a URL, Configure your Settings, then Download.</p>
     </section>
 
     <main class="grid">
@@ -85,7 +83,16 @@
             <h2></h2>
             <a href="#" target="_blank" rel="noopener noreferrer"></a>
             <img class="thumbnail" id="thumbnailPreview" alt="">
-            <div class="videoInfo"><p></p><p></p><p></p><p></p></div>
+            <div class="videoInfo"><p></p><p></p><p></p><p></p><p></p></div>
+
+            <!-- Playlist info + download zip -->
+            <div id="playlistInfo" class="playlistInfo" hidden>
+              <span class="pill">Playlist</span>
+              <span id="playlistTitle" class="muted"></span>
+              <span class="muted">•</span>
+              <span><strong id="playlistCount">0</strong> videos</span>
+              <button id="downloadPlaylistBtn" class="btn" style="margin-left:auto;">Download playlist (.zip)</button>
+            </div>
           </div>
         </div>
       </section>
@@ -110,6 +117,7 @@
                   <option value="mp4">MP4</option>
                   <option value="mkv">MKV</option>
                   <option value="webm">WEBM</option>
+                  <option value="mov">MOV</option>
                 </optgroup>
                 <optgroup label="Audio only">
                   <option value="audio:mp3">MP3</option>
@@ -151,24 +159,24 @@
         </div>
       </div>
     </div>
-
+    
     <!-- Toast -->
     <div id="toast" class="toast" hidden>
       <div class="title"></div>
       <div class="body"></div>
     </div>
   </div>
-
+  
+  
   <div class="footer" style="margin-top:0;">
     <ul>
       <li><a href="https://github.com/Ghilliexyz" target="_blank">GITHUB</a></li>
       <li><a href="https://discordapp.com/users/211851747688185856" target="_blank">DISCORD</a></li>
       <li><a href="https://twitter.com/Ghilliexyz" target="_blank">TWITTER</a></li>
+      <li><a href="https://buymeacoffee.com/ghillie" target="_blank">BUY ME A COFFEE</a></li>
     </ul>
   </div>
 
-  <!-- POINT THIS TO YOUR BACKEND -->
-  <script>window.KLEPTOS_API = "http://localhost:5000";</script>
   <script src="/assets/js/kleptos.js" defer></script>
 </body>
 </html>
