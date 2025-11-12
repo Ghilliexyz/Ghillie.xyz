@@ -39,9 +39,16 @@
     <div class="about" style="min-height: 100%;">
         <div class="top_navbar">
             <ul>
-                <li><a href="/about/" style="font-weight: bold;" class="nav_active_link">About</a></li>
+                <li><a href="/about/" class="nav_active_link">About</a></li>
                 <li><a href="/">Home</a></li>
-                <li><a href="/portfolio/">Portfolio</a></li>
+                <li class="dropdown">
+                <a class="has-caret">Portfolio</a>
+                <ul class="submenu">
+                    <li><a href="/portfolio/">Thumbnails</a></li>
+                    <li><a href="/kleptos/">Kleptos</a></li>
+                    <li><a href="/wordle/">Wordle Solver</a></li>
+                </ul>
+                </li>
             </ul>
         </div>
         <div class="container" style="justify-content: center;

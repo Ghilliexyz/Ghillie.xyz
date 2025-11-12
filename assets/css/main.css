@@ -12,6 +12,8 @@ html, body {
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    --navbar-text-color: #383838;
+    --navbar-hover-color: #9c9c9c;
 }
 
 body {
@@ -134,22 +136,136 @@ body {
 
 .top_navbar li a {
     /* color: #5d6996; */
-    color: #383838;
+    color: var(--navbar-text-color);
     font-size: 25px;
     text-decoration: none;
     transition: .5s;
+  cursor: pointer;
 }
 
 .top_navbar li a:hover {
     /* color: #95acff; */
-    color: #9c9c9c;
+    color: var(--navbar-hover-color);
     text-align: center;
 }
 
 .top_navbar li a.nav_active_link {
     color: #e1e1e1;
     text-decoration: underline;
+    font-weight: bold;
 }
+
+/* --- Only the dropdown LI needs to be inline-block so we can position the submenu --- */
+.top_navbar li.dropdown { position: relative; display: inline-block; }
+
+/* Optional caret; remove if you don't want it */
+.top_navbar li.dropdown > a.has-caret {
+  position: relative;
+  padding-right: 1.25em;
+}
+.top_navbar li.dropdown > a.has-caret::after {
+  content: "";
+  position: absolute;
+  right: 0.2em; top: 50%;
+  width: .45em; height: .45em;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-50%) rotate(45deg);
+  transition: transform .2s ease;
+}
+.top_navbar li.dropdown:hover > a.has-caret::after,
+.top_navbar li.dropdown:focus-within > a.has-caret::after {
+  transform: translateY(-50%) rotate(-135deg);
+}
+
+/* --- Submenu reset: make nested UL vertical and text-only --- */
+.top_navbar .submenu {
+  /* override the parent flex rules that hit all ULs */
+  display: block !important;
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+
+  width: max-content;
+
+  cursor: pointer;
+
+  position: absolute;
+  left: 50%;
+  top: 100%;                 /* sits right under the trigger */
+  transform: translate(-50%, -6px);
+  z-index: 1000;
+
+  /* text-only look */
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+
+  /* show/hide */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease, visibility 0s linear .18s;
+  will-change: opacity, transform;
+}
+
+/* hover bridge to avoid the disappearing gap when moving down */
+.top_navbar .submenu::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  top: -10px; height: 10px;  /* small invisible cushion */
+}
+
+/* Reveal on hover / keyboard focus */
+.top_navbar li.dropdown:hover .submenu,
+.top_navbar li.dropdown:focus-within .submenu {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+/* Submenu items stack vertically */
+.top_navbar .submenu li { display: block; text-align: center; }
+
+/* Inherit your navbar link styling exactly */
+.top_navbar .submenu a {
+  display: block;
+  padding: .25rem 0;
+  color: var(--navbar-text-color);
+  font-size: inherit;        /* 25px from your .top_navbar li a */
+  text-decoration: none;
+  transition: .5s;
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+/* Keep your existing hover color (#9c9c9c) via the original rule */
+.top_navbar .submenu a:hover {
+    color: var(--navbar-hover-color);
+ }
+
+/* Staggered top->bottom fade */
+.top_navbar li.dropdown:hover .submenu li:nth-child(1) a,
+.top_navbar li.dropdown:focus-within .submenu li:nth-child(1) a { opacity: 1; transform: translateY(0); transition-delay: 140ms; }
+.top_navbar li.dropdown:hover .submenu li:nth-child(2) a,
+.top_navbar li.dropdown:focus-within .submenu li:nth-child(2) a { opacity: 1; transform: translateY(0); transition-delay: 180ms; }
+.top_navbar li.dropdown:hover .submenu li:nth-child(3) a,
+.top_navbar li.dropdown:focus-within .submenu li:nth-child(3) a { opacity: 1; transform: translateY(0); transition-delay: 220ms; }
+
+/* --- Mobile: keep submenu vertical and aligned under the trigger --- */
+@media (max-width: 900px) {
+  .top_navbar .submenu {
+    left: 0; right: 0; transform: translate(0, -6px);
+  }
+  .top_navbar li.dropdown:hover .submenu,
+  .top_navbar li.dropdown:focus-within .submenu {
+    transform: translate(0, 0);
+  }
+}
+
 
 /* #endregion */
 
@@ -199,7 +315,7 @@ body {
 /* #region Scrollbar CSS */
 /* Firefox */
 * {
-    scrollbar-width: thin;
+    scrollbar-width: none;
     scrollbar-color: #f64040 #191919;
 }
 
