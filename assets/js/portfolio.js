@@ -216,7 +216,7 @@ const views = [
 				"Views": "2.8M Views"
 			},
 			{
-				"Image": "/assets/img/portfolio/DailyDoseOfInternet/She_Used_0%_of_Her_Brain.jpg",
+				"Image": "/assets/img/portfolio/DailyDoseOfInternet/She_Used_0_of_Her_Brain.jpg",
 				"Link": "https://www.youtube.com/watch?v=lwq-L3HpUOA",
 				"Title": "She Used 0% of Her Brain",
 				"Views": "4.2M Views"
