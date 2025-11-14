@@ -26,6 +26,26 @@ body {
     font-family: "Garamond", ui-sans-serif, system-ui, -apple-system, Segoe UI, Inter, Roboto, Arial;
 }
 
+/* Helpers */
+.workInProgress {
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    position: relative;
+    border-radius: 10px;
+    background-color: #f64040;
+    padding: 10px;
+}
+
+.workInProgress h2 {
+    color: #191919;
+    margin: 0px;
+    font-size: 15px;
+    text-align: center;
+}
+
 /* #region Main body CSS */
 .main {
     margin-left: auto;
