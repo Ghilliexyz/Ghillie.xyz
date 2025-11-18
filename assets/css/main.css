@@ -23,7 +23,7 @@ body {
     -o-background-size: cover;
     background-size: cover;
     overflow-x: hidden;
-    font-family: "Garamond", ui-sans-serif, system-ui, -apple-system, Segoe UI, Inter, Roboto, Arial;
+    font-family: Segoe UI;
 }
 
 /* Helpers */
