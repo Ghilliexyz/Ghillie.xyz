@@ -17,6 +17,9 @@
   --spinwglow-height: 980px;
   --spinwglow-width: 740px;
 
+  --spinglow-color1: #7f31ff;
+  --spinglow-color2: #f64040;
+
   --gray:#3a3a3a;
   --yellow:#f6f340;
   --green:#39ce4d;
@@ -173,7 +176,7 @@
   position:absolute;
   inset:0;
   border-radius: inherit;
-  background-image: linear-gradient(var(--spinglow-rotate), #7f31ff, #f64040);
+  background-image: linear-gradient(var(--spinglow-rotate), var(--spinglow-color1), var(--spinglow-color2));
   animation: spin 2.5s linear infinite;
   pointer-events:none;
   z-index:-1;
@@ -312,7 +315,7 @@
   max-width: 100%;
   margin-bottom: 10px;
 }
-#arc-index .toast.error { border-color: #f64040; }
+#arc-index .toast.error { border-color: var(--spinglow-color2); }
 #arc-index .toast .title {
   font-weight: 700;
   margin-bottom:4px;
@@ -336,7 +339,6 @@
 
 #arc-index .itemCard {
   display:grid;
-  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.3fr);
   gap:10px 18px;
   padding:10px 12px;
   border-radius:12px;
@@ -350,8 +352,8 @@
 }
 
 #arc-index .itemIcon {
-  width:56px;
-  height:56px;
+  width:100px;
+  height:100px;
   border-radius:10px;
   border:1px solid var(--outline);
   background:var(--bg);
@@ -436,9 +438,19 @@
   gap:4px 8px;
   font-size:12px;
 }
-#arc-index .chip {
+
+#arc-index .recyclesToPill {
   padding:2px 7px;
   border-radius:999px;
+  color: var(--spinglow-color1);
+  background:var(--bg);
+  border:1px solid var(--outline);
+}
+
+#arc-index .usedInPill {
+  padding:2px 7px;
+  border-radius:999px;
+  color: var(--spinglow-color2);
   background:var(--bg);
   border:1px solid var(--outline);
 }

@@ -3,6 +3,13 @@ const DATA_URL = '/assets/data/arc_items.json';
 
 const nf = new Intl.NumberFormat('en-GB');
 
+// Known rarities + sort order (for filter + pill colours)
+const KNOWN_RARITIES = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary'];
+const RARITY_ORDER = KNOWN_RARITIES.reduce((acc, r, idx) => {
+  acc[r.toLowerCase()] = idx;
+  return acc;
+}, {});
+
 // Basic HTML escaping
 function escapeHtml(str) {
   return String(str ?? '')
@@ -28,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     search: document.getElementById('aiSearch'),
     rarity: document.getElementById('rarityFilter'),
     category: document.getElementById('categoryFilter'),
-    recycle: document.getElementById('recycleFilter'),
+    sort: document.getElementById('sortFilter'),
     clear: document.getElementById('clearFilters'),
     itemsCount: document.getElementById('itemsCount'),
     itemsShown: document.getElementById('itemsShown'),
@@ -38,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   let items = [];
-  let filteredItems = [];
 
   // ---- Load data ----
   fetch(DATA_URL)
@@ -55,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         used_in_crafting: it.used_in_crafting || [],
       }));
 
-      els.itemsCount.textContent = items.length.toString();
+      if (els.itemsCount) els.itemsCount.textContent = items.length.toString();
       buildFilterOptions(items, els);
       applyFilters({ items, els });
     })
@@ -79,15 +85,15 @@ document.addEventListener('DOMContentLoaded', () => {
   if (els.category) {
     els.category.addEventListener('change', () => applyFilters({ items, els }));
   }
-  if (els.recycle) {
-    els.recycle.addEventListener('change', () => applyFilters({ items, els }));
+  if (els.sort) {
+    els.sort.addEventListener('change', () => applyFilters({ items, els }));
   }
   if (els.clear) {
     els.clear.addEventListener('click', () => {
       if (els.search) els.search.value = '';
       if (els.rarity) els.rarity.value = '';
       if (els.category) els.category.value = '';
-      if (els.recycle) els.recycle.value = '';
+      if (els.sort) els.sort.value = '';
       applyFilters({ items, els });
     });
   }
@@ -95,49 +101,82 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ---- Build filters from data ----
 function buildFilterOptions(items, els) {
-  const raritySet = new Set();
+  const raritySet = new Set(KNOWN_RARITIES);
   const categorySet = new Set();
-  const recycleSet = new Set();
 
   for (const it of items) {
     if (it.rarity) raritySet.add(it.rarity);
     if (it.category) categorySet.add(it.category);
-    for (const rec of it.recycle_to || []) {
-      if (rec.item) recycleSet.add(rec.item);
-    }
   }
 
-  const rarities = Array.from(raritySet).sort();
-  const categories = Array.from(categorySet).sort();
-  const recyclables = Array.from(recycleSet).sort();
+  const rarities = Array.from(raritySet);
+  const categories = Array.from(categorySet);
 
-  fillSelect(els.rarity, rarities, 'All');
-  fillSelect(els.category, categories, 'All');
-  fillSelect(els.recycle, recyclables, 'Any');
+  // Sort rarities by rank (Common -> Legendary), not alphabetically
+  const sortedRarities = rarities.sort((a, b) => {
+    const al = (a || '').toLowerCase();
+    const bl = (b || '').toLowerCase();
+    const ao = RARITY_ORDER.hasOwnProperty(al) ? RARITY_ORDER[al] : 999;
+    const bo = RARITY_ORDER.hasOwnProperty(bl) ? RARITY_ORDER[bl] : 999;
+    if (ao !== bo) return ao - bo;
+    return al.localeCompare(bl);
+  });
+
+  const sortedCategories = categories.sort((a, b) =>
+    (a || '').toLowerCase().localeCompare((b || '').toLowerCase())
+  );
+
+  fillSelect(els.rarity, sortedRarities, 'All');
+  fillSelect(els.category, sortedCategories, 'All');
 }
 
 function fillSelect(selectEl, values, defaultLabel) {
   if (!selectEl) return;
-  // keep the first <option> as default
-  const first = selectEl.querySelector('option');
+
   selectEl.innerHTML = '';
-  if (first) {
-    first.value = '';
-    first.textContent = defaultLabel;
-    selectEl.appendChild(first);
-  } else {
-    const opt = document.createElement('option');
-    opt.value = '';
-    opt.textContent = defaultLabel;
-    selectEl.appendChild(opt);
-  }
+
+  const first = document.createElement('option');
+  first.value = '';
+  first.textContent = defaultLabel;
+  selectEl.appendChild(first);
 
   values.forEach(v => {
+    if (!v) return;
     const opt = document.createElement('option');
     opt.value = v;
     opt.textContent = v;
     selectEl.appendChild(opt);
   });
+}
+
+// Helpers for sorting metrics
+function getValue(it) {
+  return it.sell_price != null ? it.sell_price : 0;
+}
+function getStack(it) {
+  return it.stack_size != null ? it.stack_size : 0;
+}
+function getWeightMetric(it) {
+  return it.weight != null ? it.weight : 0;
+}
+
+function sortItems(list, mode) {
+  if (!mode) return list;
+  const arr = [...list];
+
+  arr.sort((a, b) => {
+    switch (mode) {
+      case 'value_desc': return getValue(b) - getValue(a);
+      case 'value_asc':  return getValue(a) - getValue(b);
+      case 'stack_desc': return getStack(b) - getStack(a);
+      case 'stack_asc':  return getStack(a) - getStack(b);
+      case 'weight_desc': return getWeightMetric(b) - getWeightMetric(a);
+      case 'weight_asc':  return getWeightMetric(a) - getWeightMetric(b);
+      default: return 0;
+    }
+  });
+
+  return arr;
 }
 
 // ---- Filtering + rendering ----
@@ -149,7 +188,7 @@ function applyFilters({ items, els }) {
 
   const rarity = els.rarity?.value || '';
   const category = els.category?.value || '';
-  const recycleTarget = (els.recycle?.value || '').toLowerCase();
+  const sortMode = els.sort?.value || '';
 
   // Special pattern: "recycle X"
   let recycleQuery = null;
@@ -165,8 +204,6 @@ function applyFilters({ items, els }) {
 
     const recNames = (it.recycle_to || [])
       .map(r => (r.item || '').toLowerCase());
-
-    if (recycleTarget && !recNames.includes(recycleTarget)) return false;
 
     if (recycleQuery) {
       // In recycle mode we only care about items that recycle into the target
@@ -191,8 +228,12 @@ function applyFilters({ items, els }) {
     return haystack.includes(q);
   });
 
-  els.itemsShown.textContent = results.length.toString();
-  renderItems(results, els.itemsList);
+  const sorted = sortItems(results, sortMode);
+
+  if (els.itemsShown) {
+    els.itemsShown.textContent = sorted.length.toString();
+  }
+  renderItems(sorted, els.itemsList);
 }
 
 function renderItems(list, container) {
@@ -212,8 +253,11 @@ function renderItemCard(it) {
     ? `<img class="itemIcon" src="${escapeHtml(it.image_url)}" alt="${escapeHtml(it.name)}">`
     : `<div class="itemIcon itemIcon--placeholder">${escapeHtml(it.name?.charAt(0) || '?')}</div>`;
 
+  const raritySlug = (it.rarity || '').toLowerCase();
+  const rarityClass = raritySlug ? ` pill--rarity pill--rarity-${raritySlug}` : '';
+
   const rarityPill = it.rarity
-    ? `<span class="pill">${escapeHtml(it.rarity)}</span>`
+    ? `<span class="pill${rarityClass}">${escapeHtml(it.rarity)}</span>`
     : '';
 
   const categoryPill = it.category
@@ -230,26 +274,34 @@ function renderItemCard(it) {
 
   const weight = formatWeight(it.weight);
 
-  // Recycles to chips
-  const recycleChips = (it.recycle_to || []).length
+  // Recycles to chips (with links when we have wiki_url)
+    const recycleChips = (it.recycle_to || []).length
     ? it.recycle_to.map(r => {
         const amount = r.amount != null ? `${r.amount}x ` : '';
-        return `<span class="chip">${amount}${escapeHtml(r.item || '')}</span>`;
-      }).join(' ')
-    : `<span class="chip">Cannot be recycled / unknown</span>`;
+        const label  = escapeHtml(r.item || '');
 
-  // Used in chips
+        if (r.wiki_url) {
+            const href = escapeHtml(r.wiki_url);
+            return `<a class="recyclesToPill" href="${href}" target="_blank" rel="noopener noreferrer">${amount}${label}</a>`;
+        }
+
+        return `<span class="recyclesToPill">${amount}${label}</span>`;
+        }).join(' ')
+    : `<span class="recyclesToPill">Cannot be recycled / unknown</span>`;
+
+
+  // Used in pills (with links when we have wiki_url)
   const uses = it.used_in_crafting || [];
   const usesChips = uses.length
     ? uses.slice(0, 6).map(u => {
         const name = escapeHtml(u.name || '');
         const href = u.wiki_url ? escapeHtml(u.wiki_url) : null;
         if (href) {
-          return `<a class="chip" href="${href}" target="_blank" rel="noopener noreferrer">${name}</a>`;
+          return `<a class="usedInPill" href="${href}" target="_blank" rel="noopener noreferrer">${name}</a>`;
         }
-        return `<span class="chip">${name}</span>`;
+        return `<span class="usedInPill">${name}</span>`;
       }).join(' ')
-      : `<span class="chip">No crafting uses found</span>`;
+      : `<span class="usedInPill">No crafting uses found</span>`;
 
   const keepFor = it.keep_for ? escapeHtml(it.keep_for) : '';
 

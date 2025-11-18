@@ -3,14 +3,14 @@
 <head>
   <!-- HTML Meta Tags -->
   <meta name="description"
-      content="Arc Index is a tool to search for any Arc Raiders Items.">
+        content="Arc Index is a tool to search for any Arc Raiders items.">
 
   <!-- Facebook Meta Tags -->
   <meta property="og:url" content="https://Ghillie.xyz/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Ghillie | Arc Index">
   <meta property="og:description"
-      content="Arc Index is a tool to search for any Arc Raiders Items.">
+        content="Arc Index is a tool to search for any Arc Raiders items.">
   <meta property="og:image" content="/assets/img/MetaImgs/Meta-Arc-Index.png">
 
   <!-- Twitter Meta Tags -->
@@ -19,7 +19,7 @@
   <meta property="twitter:url" content="https://Ghillie.xyz/">
   <meta name="twitter:title" content="Ghillie | Arc Index">
   <meta name="twitter:description"
-      content="Arc Index is a tool to search for any Arc Raiders Items.">
+        content="Arc Index is a tool to search for any Arc Raiders items.">
   <meta name="twitter:image:src" content="https://ghillie.xyz/assets/img/MetaImgs/Meta-Arc-Index.png">
   
   <meta charset="UTF-8" />
@@ -51,19 +51,17 @@
   </div>
 
   <!-- App -->
-  
   <div id="arc-index">
-    <div class="workInProgress">
-      <h2>Work In Progress</h2>
-    </div>
     <section class="hero">
       <h1>Arc Index</h1>
-      <p class="muted">Search for any Arc Raiders Items.</p>
+      <p class="muted">
+        Search all Arc Raiders items • See recycle outputs, sell values, stacks & uses.
+      </p>
     </section>
 
     <main class="grid">
       <section class="cardGlow">
-        <!-- Search bar -->
+        <!-- Search row -->
         <div class="ai-header">
           <input
             id="aiSearch"
@@ -74,6 +72,9 @@
             spellcheck="false"
             placeholder='Search items, e.g. "arc alloy" or "recycle arc alloy"'
           />
+          <button id="clearFilters" class="btn ai-btn-secondary" type="button">
+            Clear
+          </button>
         </div>
 
         <!-- Filters row -->
@@ -91,19 +92,19 @@
               <option value="">All</option>
             </select>
           </label>
-
           <label>
-            <span>Recycles into</span>
-            <select id="recycleFilter">
-              <option value="">Any</option>
+            <span>Sort by</span>
+            <select id="sortFilter">
+              <option value="">Default</option>
+              <option value="value_desc">Highest value (per item)</option>
+              <option value="value_asc">Lowest value (per item)</option>
+              <option value="stack_desc">Largest stack size</option>
+              <option value="stack_asc">Smallest stack size</option>
+              <option value="weight_desc">Heaviest</option>
+              <option value="weight_asc">Lightest</option>
             </select>
           </label>
-
-          <button id="clearFilters" class="btn ai-btn-secondary" type="button">
-            Clear
-          </button>
         </div>
-
         <!-- Meta row -->
         <div class="itemsMeta muted">
           <span id="itemsCount">0</span> items total •
