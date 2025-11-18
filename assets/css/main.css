@@ -318,7 +318,7 @@ body {
 /* Firefox */
 * {
     scrollbar-width: none;
-    scrollbar-color: #f64040 #191919;
+    scrollbar-color: #f64040 transparent;
 }
 
 /* Chrome, Edge, and Safari */
@@ -327,7 +327,7 @@ body {
 }
 
 *::-webkit-scrollbar-track {
-    background: #191919;
+  background: transparent;
 }
 
 *::-webkit-scrollbar-thumb {

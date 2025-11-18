@@ -258,7 +258,7 @@
 }
 #arc-index .itemsList {
   scrollbar-width: thin;
-  scrollbar-color:#333 transparent;
+  scrollbar-color:var(--spinglow-color2) transparent;
 }
 
 #arc-index .noResults {
@@ -323,6 +323,18 @@
   gap:6px;
   margin-bottom:4px;
 }
+
+#arc-index .itemWeaponLine {
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--text);
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--outline);
+  border-radius: 999px;
+  display: inline-block;
+  padding: 2px 8px;
+}
+
 
 /* Pills */
 #arc-index .pill {

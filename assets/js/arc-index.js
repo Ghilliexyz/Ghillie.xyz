@@ -32,16 +32,18 @@ function formatWeight(w) {
 
 document.addEventListener('DOMContentLoaded', () => {
   const els = {
-    search: document.getElementById('aiSearch'),
-    rarity: document.getElementById('rarityFilter'),
-    category: document.getElementById('categoryFilter'),
-    sort: document.getElementById('sortFilter'),
-    clear: document.getElementById('clearFilters'),
+    search:     document.getElementById('aiSearch'),
+    rarity:     document.getElementById('rarityFilter'),
+    category:   document.getElementById('categoryFilter'),
+    weaponType: document.getElementById('weaponTypeFilter'),
+    ammoType:   document.getElementById('ammoTypeFilter'),
+    sort:       document.getElementById('sortFilter'),
+    clear:      document.getElementById('clearFilters'),
     itemsCount: document.getElementById('itemsCount'),
     itemsShown: document.getElementById('itemsShown'),
-    itemsList: document.getElementById('itemsList'),
-    loading: document.getElementById('itemsLoading'),
-    error: document.getElementById('itemsError'),
+    itemsList:  document.getElementById('itemsList'),
+    loading:    document.getElementById('itemsLoading'),
+    error:      document.getElementById('itemsError'),
   };
 
   let items = [];
@@ -85,15 +87,23 @@ document.addEventListener('DOMContentLoaded', () => {
   if (els.category) {
     els.category.addEventListener('change', () => applyFilters({ items, els }));
   }
+  if (els.weaponType) {
+    els.weaponType.addEventListener('change', () => applyFilters({ items, els }));
+  }
+  if (els.ammoType) {
+    els.ammoType.addEventListener('change', () => applyFilters({ items, els }));
+  }
   if (els.sort) {
     els.sort.addEventListener('change', () => applyFilters({ items, els }));
   }
   if (els.clear) {
     els.clear.addEventListener('click', () => {
-      if (els.search) els.search.value = '';
-      if (els.rarity) els.rarity.value = '';
-      if (els.category) els.category.value = '';
-      if (els.sort) els.sort.value = '';
+      if (els.search)     els.search.value = '';
+      if (els.rarity)     els.rarity.value = '';
+      if (els.category)   els.category.value = '';
+      if (els.weaponType) els.weaponType.value = '';
+      if (els.ammoType)   els.ammoType.value = '';
+      if (els.sort)       els.sort.value = '';
       applyFilters({ items, els });
     });
   }
@@ -101,33 +111,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ---- Build filters from data ----
 function buildFilterOptions(items, els) {
-  const raritySet = new Set(KNOWN_RARITIES);
-  const categorySet = new Set();
+  const raritySet      = new Set(KNOWN_RARITIES);
+  const categorySet    = new Set();
+  const weaponTypeSet  = new Set();
+  const ammoTypeSet    = new Set();
 
   for (const it of items) {
-    if (it.rarity) raritySet.add(it.rarity);
-    if (it.category) categorySet.add(it.category);
+    if (it.rarity)      raritySet.add(it.rarity);
+    if (it.category)    categorySet.add(it.category);
+    if (it.weapon_type) weaponTypeSet.add(it.weapon_type);
+    if (it.ammo_type)   ammoTypeSet.add(it.ammo_type);
   }
 
-  const rarities = Array.from(raritySet);
-  const categories = Array.from(categorySet);
+  const rarities    = Array.from(raritySet);
+  const categories  = Array.from(categorySet);
+  const weaponTypes = Array.from(weaponTypeSet);
+  const ammoTypes   = Array.from(ammoTypeSet);
 
-  // Sort rarities by rank (Common -> Legendary), not alphabetically
+  // Sort rarities by rank (Common -> Legendary), not purely alphabetically
   const sortedRarities = rarities.sort((a, b) => {
     const al = (a || '').toLowerCase();
     const bl = (b || '').toLowerCase();
-    const ao = RARITY_ORDER.hasOwnProperty(al) ? RARITY_ORDER[al] : 999;
-    const bo = RARITY_ORDER.hasOwnProperty(bl) ? RARITY_ORDER[bl] : 999;
+    const ao = Object.prototype.hasOwnProperty.call(RARITY_ORDER, al) ? RARITY_ORDER[al] : 999;
+    const bo = Object.prototype.hasOwnProperty.call(RARITY_ORDER, bl) ? RARITY_ORDER[bl] : 999;
     if (ao !== bo) return ao - bo;
     return al.localeCompare(bl);
   });
 
-  const sortedCategories = categories.sort((a, b) =>
-    (a || '').toLowerCase().localeCompare((b || '').toLowerCase())
-  );
+  const alphaSort = (a, b) =>
+    (a || '').toLowerCase().localeCompare((b || '').toLowerCase());
 
-  fillSelect(els.rarity, sortedRarities, 'All');
-  fillSelect(els.category, sortedCategories, 'All');
+  const sortedCategories  = categories.sort(alphaSort);
+  const sortedWeaponTypes = weaponTypes.sort(alphaSort);
+  const sortedAmmoTypes   = ammoTypes.sort(alphaSort);
+
+  fillSelect(els.rarity,     sortedRarities,    'All');
+  fillSelect(els.category,   sortedCategories,  'All');
+  fillSelect(els.weaponType, sortedWeaponTypes, 'All');
+  fillSelect(els.ammoType,   sortedAmmoTypes,   'All');
 }
 
 function fillSelect(selectEl, values, defaultLabel) {
@@ -166,13 +187,13 @@ function sortItems(list, mode) {
 
   arr.sort((a, b) => {
     switch (mode) {
-      case 'value_desc': return getValue(b) - getValue(a);
-      case 'value_asc':  return getValue(a) - getValue(b);
-      case 'stack_desc': return getStack(b) - getStack(a);
-      case 'stack_asc':  return getStack(a) - getStack(b);
-      case 'weight_desc': return getWeightMetric(b) - getWeightMetric(a);
-      case 'weight_asc':  return getWeightMetric(a) - getWeightMetric(b);
-      default: return 0;
+      case 'value_desc':   return getValue(b)   - getValue(a);
+      case 'value_asc':    return getValue(a)   - getValue(b);
+      case 'stack_desc':   return getStack(b)   - getStack(a);
+      case 'stack_asc':    return getStack(a)   - getStack(b);
+      case 'weight_desc':  return getWeightMetric(b) - getWeightMetric(a);
+      case 'weight_asc':   return getWeightMetric(a) - getWeightMetric(b);
+      default:             return 0;
     }
   });
 
@@ -184,11 +205,13 @@ function applyFilters({ items, els }) {
   if (!Array.isArray(items) || !els.itemsList) return;
 
   const qRaw = (els.search?.value || '').trim();
-  const q = qRaw.toLowerCase();
+  const q    = qRaw.toLowerCase();
 
-  const rarity = els.rarity?.value || '';
-  const category = els.category?.value || '';
-  const sortMode = els.sort?.value || '';
+  const rarity     = els.rarity?.value     || '';
+  const category   = els.category?.value   || '';
+  const weaponType = els.weaponType?.value || '';
+  const ammoType   = els.ammoType?.value   || '';
+  const sortMode   = els.sort?.value       || '';
 
   // Special pattern: "recycle X"
   let recycleQuery = null;
@@ -198,9 +221,11 @@ function applyFilters({ items, els }) {
   }
 
   const results = items.filter(it => {
-    // basic filters
-    if (rarity && it.rarity !== rarity) return false;
-    if (category && it.category !== category) return false;
+    // basic select filters
+    if (rarity   && it.rarity        !== rarity)     return false;
+    if (category && it.category      !== category)   return false;
+    if (weaponType && (it.weapon_type || '') !== weaponType) return false;
+    if (ammoType   && (it.ammo_type   || '') !== ammoType)   return false;
 
     const recNames = (it.recycle_to || [])
       .map(r => (r.item || '').toLowerCase());
@@ -220,6 +245,7 @@ function applyFilters({ items, els }) {
       it.recycle_to_raw,
       it.keep_for,
       ...(it.used_in_crafting || []).map(u => u.name),
+      ...(it.recycle_to || []).map(r => r.item),
     ]
       .filter(Boolean)
       .join(' ')
@@ -253,7 +279,7 @@ function renderItemCard(it) {
     ? `<img class="itemIcon" src="${escapeHtml(it.image_url)}" alt="${escapeHtml(it.name)}">`
     : `<div class="itemIcon itemIcon--placeholder">${escapeHtml(it.name?.charAt(0) || '?')}</div>`;
 
-  const raritySlug = (it.rarity || '').toLowerCase();
+  const raritySlug  = (it.rarity || '').toLowerCase();
   const rarityClass = raritySlug ? ` pill--rarity pill--rarity-${raritySlug}` : '';
 
   const rarityPill = it.rarity
@@ -261,11 +287,24 @@ function renderItemCard(it) {
     : '';
 
   const categoryPill = it.category
-    ? `<span class="pill pill--category">${escapeHtml(it.category)}</span>`
+    ? `<span class="pill">${escapeHtml(it.category)}</span>`
     : '';
 
+  const isWeapon   = (it.source_type === 'Weapon' ||
+                     (it.category || '').toLowerCase() === 'weapons');
+  const weaponType = it.weapon_type || '';
+  const ammoType   = it.ammo_type   || '';
+  const weaponAmmoLine =
+    (isWeapon && (weaponType || ammoType))
+      ? `<div class="itemWeaponLine">
+           ${weaponType ? escapeHtml(weaponType) : ''}${
+             weaponType && ammoType ? ' • ' : ''
+           }${ammoType ? escapeHtml(ammoType) : ''}
+         </div>`
+      : '';
+
   const sellPerItem = formatNumber(it.sell_price);
-  const stackSize = it.stack_size ?? null;
+  const stackSize   = it.stack_size ?? null;
   const sellPerStack = (it.sell_price_per_stack != null)
     ? formatNumber(it.sell_price_per_stack)
     : (it.sell_price != null && stackSize)
@@ -274,7 +313,7 @@ function renderItemCard(it) {
 
   const weight = formatWeight(it.weight);
 
-  // Recycles to pills (with links when we have wiki_url)
+  // Recycles to chips (with links when we have wiki_url)
   const recycleChips = (it.recycle_to || []).length
     ? it.recycle_to.map(r => {
         const amount = r.amount != null ? `${r.amount}x ` : '';
@@ -300,7 +339,7 @@ function renderItemCard(it) {
         }
         return `<span class="usedInPill">${name}</span>`;
       }).join(' ')
-      : `<span class="usedInPill">No crafting uses found</span>`;
+    : `<span class="usedInPill">No crafting uses found</span>`;
 
   const keepFor = it.keep_for ? escapeHtml(it.keep_for) : '';
 
@@ -320,6 +359,7 @@ function renderItemCard(it) {
         ${rarityPill}
         ${categoryPill}
       </div>
+      ${weaponAmmoLine}
       ${wikiLink}
       ${keepFor ? `<div class="muted" style="font-size:11px;margin-top:4px;">Keep for: ${keepFor}</div>` : ''}
     </div>

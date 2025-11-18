@@ -73,7 +73,7 @@
             autocomplete="off"
             autocapitalize="off"
             spellcheck="false"
-            placeholder='Search items, e.g. "arc alloy" or "recycle arc alloy"'
+            placeholder='Search items, e.g. "arc alloy" or "rubber duck"'
           />
           <button id="clearFilters" class="btn ai-btn-secondary" type="button">
             Clear
@@ -108,7 +108,22 @@
               <option value="weight_asc">Lightest</option>
             </select>
           </label>
+          
+          <label>
+            <span>Weapon Types</span>
+            <select id="weaponTypeFilter" class="ai-select">
+              <!-- JS will populate -->
+            </select>
+          </label>
+  
+          <label>
+            <span>Ammo Types</span>
+            <select id="ammoTypeFilter" class="ai-select">
+              <!-- JS will populate -->
+            </select>
+          </label>
         </div>
+
 
         <!-- Meta row -->
         <div class="itemsMeta muted">
