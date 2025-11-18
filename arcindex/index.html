@@ -65,23 +65,23 @@
     <main class="grid">
       <section class="cardGlow">
         <!-- Search row -->
-        <div class="ai-header">
+        <div class="smart-header">
           <input
-            id="aiSearch"
+            id="smartSearch"
             class="urlInput"
-            type="search"
+            type="url"
             autocomplete="off"
             autocapitalize="off"
             spellcheck="false"
             placeholder='Search items, e.g. "arc alloy" or "rubber duck"'
           />
-          <button id="clearFilters" class="btn ai-btn-secondary" type="button">
+          <button id="clearFilters" class="btn smart-btn-secondary" type="button">
             Clear
           </button>
         </div>
 
         <!-- Filters row -->
-        <div class="ai-filters">
+        <div class="smart-filters">
           <label>
             <span>Rarity</span>
             <select id="rarityFilter">
@@ -111,14 +111,14 @@
           
           <label>
             <span>Weapon Types</span>
-            <select id="weaponTypeFilter" class="ai-select">
+            <select id="weaponTypeFilter" class="smart-select">
               <!-- JS will populate -->
             </select>
           </label>
   
           <label>
             <span>Ammo Types</span>
-            <select id="ammoTypeFilter" class="ai-select">
+            <select id="ammoTypeFilter" class="smart-select">
               <!-- JS will populate -->
             </select>
           </label>
