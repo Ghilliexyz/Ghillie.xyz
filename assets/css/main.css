@@ -254,6 +254,8 @@ body {
 .top_navbar li.dropdown:focus-within .submenu li:nth-child(2) a { opacity: 1; transform: translateY(0); transition-delay: 180ms; }
 .top_navbar li.dropdown:hover .submenu li:nth-child(3) a,
 .top_navbar li.dropdown:focus-within .submenu li:nth-child(3) a { opacity: 1; transform: translateY(0); transition-delay: 220ms; }
+.top_navbar li.dropdown:hover .submenu li:nth-child(4) a,
+.top_navbar li.dropdown:focus-within .submenu li:nth-child(4) a { opacity: 1; transform: translateY(0); transition-delay: 260ms; }
 
 /* --- Mobile: keep submenu vertical and aligned under the trigger --- */
 @media (max-width: 900px) {
