@@ -15,7 +15,7 @@
   --tile:#151515;
 
   --spinwglow-height: 980px;
-  --spinwglow-width: 740px;
+  --spinwglow-width: 980px;
 
   --spinglow-color1: #7f31ff;
   --spinglow-color2: #f64040;
@@ -23,6 +23,9 @@
   --gray:#3a3a3a;
   --yellow:#f6f340;
   --green:#39ce4d;
+
+  --halo: clamp(16px, 4vw, 36px);
+  --ring: 2px;
 
   color:var(--text);
 }
@@ -35,119 +38,24 @@
 }
 
 /* hero */
-#arc-index .hero{ padding:18px 16px 0; text-align:center; }
-#arc-index .hero h1{ margin:0 0 6px; font-size:clamp(22px, 3.5vw, 32px); letter-spacing:.4px; }
-#arc-index .muted{ color:var(--muted); }
-
-/* toolbar */
-#arc-index .toolbar{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:10px; padding: 5px; flex-wrap:wrap;}
-#arc-index .stats{ display:flex; gap:14px; flex-wrap:wrap; }
-#arc-index .label{ color:var(--muted); margin-right:6px; }
-
-/* url row */
-#arc-index .urlInfo{
-  display:flex;
-  align-items:flex-start;
-  gap:12px;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  padding: 5px;
+#arc-index .hero{
+  padding:18px 16px 0;
+  text-align:center;
+}
+#arc-index .hero h1{
+  margin:0 0 6px;
+  font-size:clamp(22px, 3.5vw, 32px);
+  letter-spacing:.4px;
+}
+#arc-index .muted{
+  color:var(--muted);
 }
 
-/* buttons */
-#arc-index .btn{
-  background: var(--accent);
-  color:#191919;
-  border:none;
-  padding:10px 14px;
-  border-radius:10px;
-  font-weight:700;
-  cursor:pointer;
-  flex:0 0 auto;
+/* Glow card */
+@keyframes spin {
+  0% { --spinglow-rotate: 0deg; }
+  100% { --spinglow-rotate: 360deg; }
 }
-#arc-index .btn:disabled{ opacity:.6; cursor:not-allowed; }
-
-/* url input */
-#arc-index .urlInput {
-  width: 300px;
-  flex: 1 1 auto;
-  height: 20px;
-  border-radius: 8px;
-  border: 1px solid var(--outline);
-  padding: 6px 10px;
-  background: var(--bg);
-  color: var(--text);
-  font-size: 14px;
-  overflow: hidden;
-}
-
-/* results + video */
-#arc-index .urlResults{ margin-top:16px;}
-#arc-index .urlResults h2{ font-size:18px; margin: 0px;  padding-left: 5px; padding-right: 5px;}
-#arc-index .thumbnail{
-  width:100%;
-  height:auto;
-  /* important: display the real aspect ratio without stretching */
-  object-fit: contain;
-  background: var(--bg);
-  border: 1px solid var(--outline);
-  border-radius:15px;
-  margin-top:10px;
-}
-
-#arc-index .urlResults a{
-  margin:0px;
-  padding-left: 5px;
-  padding-right: 5px;
-  text-decoration: none;
-  font-size:14px;
-  color:#e1e1e1;
-  opacity: 0.7;
-  transition: opacity 0.5s ease-in-out;
-}
-#arc-index .urlResults a:hover{
-  text-decoration: underline;
-  opacity: 1;
-  transition: opacity 0.5s ease-in-out;
-}
-
-#arc-index .videoInfo{
-  display:flex;
-  padding:5px;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
-#arc-index .videoInfo p{
-  margin: 0px;
-  padding-right: 8px;
-  font-size: 13px;
-  color: var(--muted);
-}
-
-#arc-index .playlistInfo {
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin:8px 5px 0 5px;
-  padding: 8px 10px;
-  border:1px solid var(--outline);
-  background: var(--tile);
-  border-radius:10px;
-}
-#arc-index .playlistInfo[hidden]{ display:none !important; }
-#arc-index .playlistInfo .pill{
-  display:inline-block;
-  padding:2px 8px;
-  border-radius:999px;
-  border:1px solid var(--outline);
-  background: var(--bg);
-  color: var(--muted);
-  font-size: 12px;
-}
-
-@keyframes spin { 0% { --spinglow-rotate: 0deg; } 100% { --spinglow-rotate: 360deg; } }
-#arc-index { --halo: clamp(16px, 4vw, 36px); --ring: 2px; }
 
 #arc-index .cardGlow{
   position: relative;
@@ -184,6 +92,7 @@
 
 #arc-index .cardGlow::before{ inset: calc(var(--halo) * -0.1); opacity:1; }
 #arc-index .cardGlow::after { filter: blur(calc(var(--spinwglow-height) / 20)); opacity: 1; }
+
 /* Buttons */
 #arc-index .btn {
   background: var(--accent);
@@ -209,13 +118,14 @@
 /* Search bar */
 #arc-index .ai-header {
   display:flex;
-  justify-content:center;
+  align-items:center;
+  gap:10px;
   margin: 4px 0 10px;
 }
 
 #arc-index .urlInput {
   width: 100%;
-  max-width: 540px;
+  max-width: none;
   flex: 1 1 auto;
   height: 34px;
   border-radius: 8px;
@@ -261,7 +171,7 @@
   margin-bottom:8px;
 }
 
-/* Progress bar (re-using your old style) */
+/* Progress bar */
 #arc-index .progress[hidden] { display:none !important; }
 #arc-index .progress {
   display:flex;
@@ -325,35 +235,58 @@
   color:var(--muted);
 }
 
-/* Items list + cards */
+/* Items grid: 3 columns on desktop, scroll inside the glow card */
 #arc-index .itemsList {
   margin-top:6px;
-  display:flex;
-  flex-direction:column;
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap:10px;
+  max-height: 560px;
+  overflow-y:auto;
+  padding-right:4px;
 }
+
+#arc-index .itemsList::-webkit-scrollbar {
+  width: 6px;
+}
+#arc-index .itemsList::-webkit-scrollbar-track {
+  background: transparent;
+}
+#arc-index .itemsList::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius:999px;
+}
+#arc-index .itemsList {
+  scrollbar-width: thin;
+  scrollbar-color:#333 transparent;
+}
+
 #arc-index .noResults {
   margin:8px 0 0;
   font-size:14px;
 }
 
+/* Item card */
 #arc-index .itemCard {
-  display:grid;
-  gap:10px 18px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
   padding:10px 12px;
   border-radius:12px;
   border:1px solid var(--outline);
   background: var(--tile);
+  /* no max-height / overflow here */
 }
 
+/* Card main left side */
 #arc-index .itemMain {
   display:flex;
   gap:10px;
 }
 
 #arc-index .itemIcon {
-  width:100px;
-  height:100px;
+  width:72px;
+  height:72px;
   border-radius:10px;
   border:1px solid var(--outline);
   background:var(--bg);
@@ -370,7 +303,7 @@
 
 #arc-index .itemText h3 {
   margin:0 0 3px;
-  font-size:16px;
+  font-size:15px;
 }
 #arc-index .itemText .wikiLink {
   display:inline-block;
@@ -391,6 +324,7 @@
   margin-bottom:4px;
 }
 
+/* Pills */
 #arc-index .pill {
   display:inline-flex;
   align-items:center;
@@ -402,11 +336,40 @@
   color:var(--muted);
 }
 
-/* Item stats & sections */
+/* Rarity colours (approx Arc-style) */
+#arc-index .pill--rarity {
+  border:none;
+  font-weight:600;
+  color:#111;
+}
+#arc-index .pill--rarity-common {
+  background:#7f7f7f;
+}
+#arc-index .pill--rarity-uncommon {
+  background:#2ecc71;
+}
+#arc-index .pill--rarity-rare {
+  background:#3498db;
+}
+#arc-index .pill--rarity-epic {
+  background:#9b59b6;
+}
+#arc-index .pill--rarity-legendary {
+  background:#f1c40f;
+}
+
+/* Category pill – neutral but distinct from rarity */
+#arc-index .pill--category {
+  background:#252525;
+  border-color:#3a3a3a;
+  color:#dcdcdc;
+}
+
+/* Right side (stats + sections) */
 #arc-index .itemDetailsRight {
   display:flex;
   flex-direction:column;
-  gap:8px;
+  gap:6px;
   font-size:12px;
 }
 
@@ -439,38 +402,42 @@
   font-size:12px;
 }
 
-#arc-index .recyclesToPill {
-  padding:2px 7px;
-  border-radius:999px;
-  color: var(--spinglow-color1);
-  background:var(--bg);
-  border:1px solid var(--outline);
-}
-
+/* Recycle / Used In pills */
+#arc-index .recyclesToPill,
 #arc-index .usedInPill {
   padding:2px 7px;
   border-radius:999px;
-  color: var(--spinglow-color2);
   background:var(--bg);
   border:1px solid var(--outline);
+  font-size:12px;
+  display:inline-flex;
+  align-items:center;
+}
+
+#arc-index .recyclesToPill {
+  color: var(--spinglow-color1);
+}
+#arc-index .usedInPill {
+  color: var(--spinglow-color2);
+}
+#arc-index a.recyclesToPill:hover,
+#arc-index a.usedInPill:hover {
+  text-decoration:underline;
 }
 
 /* Responsive tweaks */
+@media (max-width: 960px) {
+  #arc-index .itemsList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 720px) {
-  #arc-index .itemCard {
+  #arc-index .itemsList {
     grid-template-columns: 1fr;
   }
   #arc-index .ai-filters {
     flex-direction:column;
     align-items:flex-start;
   }
-}
-
-@media (max-width:560px){
-  #arc-index .kform__row3{ grid-template-columns: 1fr; }
-}
-@media (max-width: 720px){
-  #arc-index .kform__row{ grid-template-columns: 1fr; }
-  #arc-index .kform__row .urlInput{ width: 100%; }
-  #arc-index .videoInfo{ flex-wrap:wrap; }
 }

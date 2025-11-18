@@ -123,6 +123,18 @@
   background:#2a2a2a; border-bottom:1px solid #262626; border-radius:12px; padding:10px; text-align:center; font-weight:800; letter-spacing:1px;
 }
 
+#wordle .results::-webkit-scrollbar {
+  width: 5px;
+}
+#wordle .results::-webkit-scrollbar-thumb {
+  background:#333;
+  border-radius:999px;
+}
+#wordle .results {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+}
+
 #wordle .result:last-child{ border-bottom:none }
 #wordle .result:hover{ background:#191919; cursor:pointer; transform:translateY(-1px); transition:transform .12s ease, background.12s ease; }
 

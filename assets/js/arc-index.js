@@ -261,7 +261,7 @@ function renderItemCard(it) {
     : '';
 
   const categoryPill = it.category
-    ? `<span class="pill">${escapeHtml(it.category)}</span>`
+    ? `<span class="pill pill--category">${escapeHtml(it.category)}</span>`
     : '';
 
   const sellPerItem = formatNumber(it.sell_price);
@@ -274,21 +274,20 @@ function renderItemCard(it) {
 
   const weight = formatWeight(it.weight);
 
-  // Recycles to chips (with links when we have wiki_url)
-    const recycleChips = (it.recycle_to || []).length
+  // Recycles to pills (with links when we have wiki_url)
+  const recycleChips = (it.recycle_to || []).length
     ? it.recycle_to.map(r => {
         const amount = r.amount != null ? `${r.amount}x ` : '';
         const label  = escapeHtml(r.item || '');
 
         if (r.wiki_url) {
-            const href = escapeHtml(r.wiki_url);
-            return `<a class="recyclesToPill" href="${href}" target="_blank" rel="noopener noreferrer">${amount}${label}</a>`;
+          const href = escapeHtml(r.wiki_url);
+          return `<a class="recyclesToPill" href="${href}" target="_blank" rel="noopener noreferrer">${amount}${label}</a>`;
         }
 
         return `<span class="recyclesToPill">${amount}${label}</span>`;
-        }).join(' ')
+      }).join(' ')
     : `<span class="recyclesToPill">Cannot be recycled / unknown</span>`;
-
 
   // Used in pills (with links when we have wiki_url)
   const uses = it.used_in_crafting || [];
