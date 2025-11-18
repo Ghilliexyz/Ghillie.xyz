@@ -95,6 +95,20 @@
               <option value="">All</option>
             </select>
           </label>
+          
+          <label>
+            <span>Weapon Types</span>
+            <select id="weaponTypeFilter" class="smart-select">
+              <!-- JS will populate -->
+            </select>
+          </label>
+          
+          <label>
+            <span>Ammo Types</span>
+            <select id="ammoTypeFilter" class="smart-select">
+              <!-- JS will populate -->
+            </select>
+          </label>
 
           <label>
             <span>Sort by</span>
@@ -106,20 +120,6 @@
               <option value="stack_asc">Smallest stack size</option>
               <option value="weight_desc">Heaviest</option>
               <option value="weight_asc">Lightest</option>
-            </select>
-          </label>
-          
-          <label>
-            <span>Weapon Types</span>
-            <select id="weaponTypeFilter" class="smart-select">
-              <!-- JS will populate -->
-            </select>
-          </label>
-  
-          <label>
-            <span>Ammo Types</span>
-            <select id="ammoTypeFilter" class="smart-select">
-              <!-- JS will populate -->
             </select>
           </label>
         </div>
@@ -148,6 +148,7 @@
 
         <!-- Items grid (scrolls inside the glow card) -->
         <div id="itemsList" class="itemsList"></div>
+        <p class="creditFooter">All data was provided by the <a href="https://arcraiders.wiki/" target="_blank">ARC Raiders Wiki</a></p>
       </section>
     </main>
   </div>

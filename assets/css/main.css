@@ -269,6 +269,18 @@ body {
 }
 
 
+.creditFooter {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.creditFooter a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+
 /* #endregion */
 
 
