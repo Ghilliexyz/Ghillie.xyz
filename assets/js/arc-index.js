@@ -32,7 +32,7 @@ function formatWeight(w) {
 
 document.addEventListener('DOMContentLoaded', () => {
   const els = {
-    search:     document.getElementById('aiSearch'),
+    search:     document.getElementById('smartSearch'),
     rarity:     document.getElementById('rarityFilter'),
     category:   document.getElementById('categoryFilter'),
     weaponType: document.getElementById('weaponTypeFilter'),
