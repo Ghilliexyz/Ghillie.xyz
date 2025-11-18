@@ -1,0 +1,6664 @@
+[
+  {
+    "name": "Advanced ARC Powercell",
+    "slug": "advanced_arc_powercell",
+    "rarity": "",
+    "category": "2x ARC Powercell",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Advanced_ARC_Powercell",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 0.5,
+    "sell_price_per_stack": 3200,
+    "used_in_crafting": [
+      {
+        "name": "Battery",
+        "wiki_url": "https://arcraiders.wiki/wiki/Battery"
+      },
+      {
+        "name": "Energy Clip",
+        "wiki_url": "https://arcraiders.wiki/wiki/Ammo#Enegery_Clip"
+      },
+      {
+        "name": "Electrical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Electrical_Components"
+      },
+      {
+        "name": "Surge Shield Recharger",
+        "wiki_url": "https://arcraiders.wiki/wiki/Surge_Shield_Recharger"
+      },
+      {
+        "name": "ARC Powercell",
+        "wiki_url": "https://arcraiders.wiki/wiki/ARC_Powercell"
+      }
+    ]
+  },
+  {
+    "name": "Advanced Electrical Components",
+    "slug": "advanced_electrical_components",
+    "rarity": "",
+    "category": "1x Electrical Components 1x Wires",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1750,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Advanced_Electrical_Components",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 1.0,
+    "sell_price_per_stack": 8750,
+    "used_in_crafting": [
+      {
+        "name": "Sensors",
+        "wiki_url": "https://arcraiders.wiki/wiki/Sensors"
+      },
+      {
+        "name": "Raider Hatch Key",
+        "wiki_url": "https://arcraiders.wiki/wiki/Raider_Hatch_Key"
+      },
+      {
+        "name": "Speaker Component",
+        "wiki_url": "https://arcraiders.wiki/wiki/Speaker_Component"
+      },
+      {
+        "name": "Photoelectric Cloak",
+        "wiki_url": "https://arcraiders.wiki/wiki/Photoelectric_Cloak"
+      },
+      {
+        "name": "Rope",
+        "wiki_url": "https://arcraiders.wiki/wiki/Rope"
+      },
+      {
+        "name": "Snap Hook",
+        "wiki_url": "https://arcraiders.wiki/wiki/Snap_Hook"
+      },
+      {
+        "name": "Humidifier",
+        "wiki_url": "https://arcraiders.wiki/wiki/Humidifier"
+      },
+      {
+        "name": "Magnetic Accelerator",
+        "wiki_url": "https://arcraiders.wiki/wiki/Magnetic_Accelerator"
+      },
+      {
+        "name": "Leaper Pulse Unit",
+        "wiki_url": "https://arcraiders.wiki/wiki/Leaper_Pulse_Unit"
+      },
+      {
+        "name": "Wires",
+        "wiki_url": "https://arcraiders.wiki/wiki/Wires"
+      },
+      {
+        "name": "Electrical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Electrical_Components"
+      }
+    ]
+  },
+  {
+    "name": "Advanced Mechanical Components",
+    "slug": "advanced_mechanical_components",
+    "rarity": "",
+    "category": "1x Mechanical Components 1x Wires",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1750,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Advanced_Mechanical_Components",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 1.0,
+    "sell_price_per_stack": 8750,
+    "used_in_crafting": [
+      {
+        "name": "Heavy Gun Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Heavy_Gun_Parts"
+      },
+      {
+        "name": "Canister",
+        "wiki_url": "https://arcraiders.wiki/wiki/Canister"
+      },
+      {
+        "name": "Bettina I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Bettina"
+      },
+      {
+        "name": "Bettina II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Bettina"
+      },
+      {
+        "name": "Bettina III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Bettina"
+      },
+      {
+        "name": "Bettina IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Bettina"
+      },
+      {
+        "name": "Bobcat I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Bobcat"
+      },
+      {
+        "name": "Light Gun Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Light_Gun_Parts"
+      },
+      {
+        "name": "Bobcat II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Bobcat"
+      },
+      {
+        "name": "Bobcat III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Bobcat"
+      },
+      {
+        "name": "Bobcat IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Bobcat"
+      },
+      {
+        "name": "Medium Gun Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Medium_Gun_Parts"
+      },
+      {
+        "name": "Wires",
+        "wiki_url": "https://arcraiders.wiki/wiki/Wires"
+      },
+      {
+        "name": "Osprey I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Osprey"
+      },
+      {
+        "name": "Osprey II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Osprey"
+      },
+      {
+        "name": "Osprey III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Osprey"
+      },
+      {
+        "name": "Osprey IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Osprey"
+      },
+      {
+        "name": "Oil",
+        "wiki_url": "https://arcraiders.wiki/wiki/Oil"
+      },
+      {
+        "name": "Renegade I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Renegade"
+      },
+      {
+        "name": "Renegade II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Renegade"
+      },
+      {
+        "name": "Renegade III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Renegade"
+      },
+      {
+        "name": "Renegade IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Renegade"
+      },
+      {
+        "name": "Tempest I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Tempest"
+      },
+      {
+        "name": "Tempest II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Tempest"
+      },
+      {
+        "name": "Tempest III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Tempest"
+      },
+      {
+        "name": "Tempest IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Tempest"
+      },
+      {
+        "name": "Steel Spring",
+        "wiki_url": "https://arcraiders.wiki/wiki/Steel_Spring"
+      },
+      {
+        "name": "Torrente I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Torrente"
+      },
+      {
+        "name": "Torrente II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Torrente"
+      },
+      {
+        "name": "Torrente III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Torrente"
+      },
+      {
+        "name": "Torrente IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Torrente"
+      },
+      {
+        "name": "Magnet",
+        "wiki_url": "https://arcraiders.wiki/wiki/Magnet"
+      },
+      {
+        "name": "Venator I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Venator"
+      },
+      {
+        "name": "Veantor II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Venator"
+      },
+      {
+        "name": "Venator III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Venator"
+      },
+      {
+        "name": "Vulcano I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Vulcano"
+      },
+      {
+        "name": "Vulcano II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Vulcano"
+      },
+      {
+        "name": "Vulcano III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Vulcano"
+      },
+      {
+        "name": "Vulcano IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Vulcano"
+      },
+      {
+        "name": "Venator II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Venator"
+      },
+      {
+        "name": "Venator IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Venator"
+      },
+      {
+        "name": "Mechanical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Mechanical_Components"
+      }
+    ]
+  },
+  {
+    "name": "Agave",
+    "slug": "agave",
+    "rarity": "",
+    "category": "3x Assorted Seeds",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Agave",
+    "image_url": null,
+    "stack_size": 10,
+    "weight": 0.2,
+    "sell_price_per_stack": 10000,
+    "used_in_crafting": [
+      {
+        "name": "Empty Wine Bottle",
+        "wiki_url": "https://arcraiders.wiki/wiki/Empty_Wine_Bottle"
+      },
+      {
+        "name": "Agave Juice",
+        "wiki_url": "https://arcraiders.wiki/wiki/Agave_Juice"
+      },
+      {
+        "name": "Assorted Seeds",
+        "wiki_url": "https://arcraiders.wiki/wiki/Assorted_Seeds"
+      }
+    ]
+  },
+  {
+    "name": "Air Freshener",
+    "slug": "air_freshener",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Air_Freshener",
+    "image_url": null,
+    "stack_size": 15,
+    "weight": 0.3,
+    "sell_price_per_stack": 30000,
+    "used_in_crafting": [
+      {
+        "name": "Fireball Burner",
+        "wiki_url": "https://arcraiders.wiki/wiki/Fireball_Burner"
+      },
+      {
+        "name": "Flame Spray",
+        "wiki_url": "https://arcraiders.wiki/wiki/Flame_Spray"
+      }
+    ]
+  },
+  {
+    "name": "Alarm Clock",
+    "slug": "alarm_clock",
+    "rarity": "",
+    "category": "1x Processor 6x Plastic Parts",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Alarm_Clock",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Antiseptic",
+    "slug": "antiseptic",
+    "rarity": "",
+    "category": "10x Chemicals",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Antiseptic",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 1.0,
+    "sell_price_per_stack": 5000,
+    "used_in_crafting": [
+      {
+        "name": "Durable Cloth",
+        "wiki_url": "https://arcraiders.wiki/wiki/Durable_Cloth"
+      },
+      {
+        "name": "Sterilized Bandage",
+        "wiki_url": "https://arcraiders.wiki/wiki/Sterilized_Bandage"
+      },
+      {
+        "name": "Canister",
+        "wiki_url": "https://arcraiders.wiki/wiki/Canister"
+      },
+      {
+        "name": "Vita Spray",
+        "wiki_url": "https://arcraiders.wiki/wiki/Vita_Spray"
+      },
+      {
+        "name": "Chemicals",
+        "wiki_url": "https://arcraiders.wiki/wiki/Chemicals"
+      }
+    ]
+  },
+  {
+    "name": "Apricot",
+    "slug": "apricot",
+    "rarity": "",
+    "category": "3x Assorted Seeds",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Apricot",
+    "image_url": null,
+    "stack_size": 10,
+    "weight": 0.2,
+    "sell_price_per_stack": 6400,
+    "used_in_crafting": [
+      {
+        "name": "Lemon",
+        "wiki_url": "https://arcraiders.wiki/wiki/Lemon"
+      },
+      {
+        "name": "Prickly Pear",
+        "wiki_url": "https://arcraiders.wiki/wiki/Prickly_Pear"
+      },
+      {
+        "name": "Fruit Mix",
+        "wiki_url": "https://arcraiders.wiki/wiki/Fruit_Mix"
+      },
+      {
+        "name": "Scrappy II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Scrappy"
+      },
+      {
+        "name": "Scrappy III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Scrappy"
+      },
+      {
+        "name": "Mushroom",
+        "wiki_url": "https://arcraiders.wiki/wiki/Mushroom"
+      },
+      {
+        "name": "Very Comfortable Pillow",
+        "wiki_url": "https://arcraiders.wiki/wiki/Very_Comfortable_Pillow"
+      },
+      {
+        "name": "Scrappy IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Scrappy"
+      },
+      {
+        "name": "Scrappy V",
+        "wiki_url": "https://arcraiders.wiki/wiki/Scrappy"
+      },
+      {
+        "name": "Assorted Seeds",
+        "wiki_url": "https://arcraiders.wiki/wiki/Assorted_Seeds"
+      }
+    ]
+  },
+  {
+    "name": "ARC Alloy",
+    "slug": "arc_alloy",
+    "rarity": "",
+    "category": "2x Metal Parts",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 200,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/ARC_Alloy",
+    "image_url": null,
+    "stack_size": 15,
+    "weight": 0.25,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": [
+      {
+        "name": "ARC Circuitry",
+        "wiki_url": "https://arcraiders.wiki/wiki/ARC_Circuitry"
+      },
+      {
+        "name": "ARC Motion Core",
+        "wiki_url": "https://arcraiders.wiki/wiki/ARC_Motion_Core"
+      },
+      {
+        "name": "Plastic Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Plastic_Parts"
+      },
+      {
+        "name": "Light Shield",
+        "wiki_url": "https://arcraiders.wiki/wiki/Light_Shield"
+      },
+      {
+        "name": "Fabric",
+        "wiki_url": "https://arcraiders.wiki/wiki/Fabric"
+      },
+      {
+        "name": "Chemicals",
+        "wiki_url": "https://arcraiders.wiki/wiki/Chemicals"
+      },
+      {
+        "name": "Metal Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Metal_Parts"
+      },
+      {
+        "name": "Rubber Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Rubber_Parts"
+      },
+      {
+        "name": "Steel Spring",
+        "wiki_url": "https://arcraiders.wiki/wiki/Steel_Spring"
+      }
+    ]
+  },
+  {
+    "name": "ARC Circuitry",
+    "slug": "arc_circuitry",
+    "rarity": "",
+    "category": "2x ARC Alloy",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/ARC_Circuitry",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 0.3,
+    "sell_price_per_stack": 5000,
+    "used_in_crafting": [
+      {
+        "name": "Battery",
+        "wiki_url": "https://arcraiders.wiki/wiki/Battery"
+      },
+      {
+        "name": "Medium Shield",
+        "wiki_url": "https://arcraiders.wiki/wiki/Medium_Shield"
+      },
+      {
+        "name": "Advanced Electrical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Advanced_Electrical_Components"
+      },
+      {
+        "name": "Power Rod",
+        "wiki_url": "https://arcraiders.wiki/wiki/Power_Rod"
+      },
+      {
+        "name": "ARC Alloy",
+        "wiki_url": "https://arcraiders.wiki/wiki/ARC_Alloy"
+      }
+    ]
+  },
+  {
+    "name": "ARC Coolant",
+    "slug": "arc_coolant",
+    "rarity": "",
+    "category": "16x Chemicals",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/ARC_Coolant",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "ARC Flex Rubber",
+    "slug": "arc_flex_rubber",
+    "rarity": "",
+    "category": "16x Rubber Parts",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/ARC_Flex_Rubber",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "ARC Motion Core",
+    "slug": "arc_motion_core",
+    "rarity": "",
+    "category": "2x ARC Alloy",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/ARC_Motion_Core",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 0.3,
+    "sell_price_per_stack": 5000,
+    "used_in_crafting": [
+      {
+        "name": "Advanced Mechanical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Advanced_Mechanical_Components"
+      },
+      {
+        "name": "Magnetic Accelerator",
+        "wiki_url": "https://arcraiders.wiki/wiki/Magnetic_Accelerator"
+      },
+      {
+        "name": "Toaster",
+        "wiki_url": "https://arcraiders.wiki/wiki/Toaster"
+      },
+      {
+        "name": "Fireball Burner",
+        "wiki_url": "https://arcraiders.wiki/wiki/Fireball_Burner"
+      },
+      {
+        "name": "ARC Alloy",
+        "wiki_url": "https://arcraiders.wiki/wiki/ARC_Alloy"
+      }
+    ]
+  },
+  {
+    "name": "ARC Performance Steel",
+    "slug": "arc_performance_steel",
+    "rarity": "",
+    "category": "12x Metal Parts",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/ARC_Performance_Steel",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "ARC Powercell",
+    "slug": "arc_powercell",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/ARC_Powercell",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 0.5,
+    "sell_price_per_stack": 3200,
+    "used_in_crafting": [
+      {
+        "name": "Rubber Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Rubber_Parts"
+      },
+      {
+        "name": "Shield Recharger",
+        "wiki_url": "https://arcraiders.wiki/wiki/Shield_Recharger"
+      },
+      {
+        "name": "Metal Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Metal_Parts"
+      }
+    ]
+  },
+  {
+    "name": "ARC Synthetic Resin",
+    "slug": "arc_synthetic_resin",
+    "rarity": "",
+    "category": "14x Plastic Parts",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/ARC_Synthetic_Resin",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "ARC Thermo Lining",
+    "slug": "arc_thermo_lining",
+    "rarity": "",
+    "category": "16x Fabric",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/ARC_Thermo_Lining",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Assorted Seeds",
+    "slug": "assorted_seeds",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 100,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Assorted_Seeds",
+    "image_url": null,
+    "stack_size": 100,
+    "weight": 0.05,
+    "sell_price_per_stack": 10000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Bastion Cell",
+    "slug": "bastion_cell",
+    "rarity": "",
+    "category": "2x ARC Motion Core 2x Advanced Mechanical Components",
+    "recycle_to_raw": "Epic",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Epic"
+      }
+    ],
+    "sell_price": 5000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Bastion_Cell",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.0,
+    "sell_price_per_stack": 15000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Battery",
+    "slug": "battery",
+    "rarity": "",
+    "category": "2x Metal Parts",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 250,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Battery",
+    "image_url": null,
+    "stack_size": 15,
+    "weight": 0.25,
+    "sell_price_per_stack": 3750,
+    "used_in_crafting": [
+      {
+        "name": "Advanced ARC Powercell",
+        "wiki_url": "https://arcraiders.wiki/wiki/Advanced_ARC_Powercell"
+      },
+      {
+        "name": "Energy Clip",
+        "wiki_url": "https://arcraiders.wiki/wiki/Ammo#Enegery_Clip"
+      },
+      {
+        "name": "ARC Circuitry",
+        "wiki_url": "https://arcraiders.wiki/wiki/ARC_Circuitry"
+      },
+      {
+        "name": "Medium Shield",
+        "wiki_url": "https://arcraiders.wiki/wiki/Medium_Shield"
+      },
+      {
+        "name": "Electrical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Electrical_Components"
+      },
+      {
+        "name": "Jolt Mine",
+        "wiki_url": "https://arcraiders.wiki/wiki/Jolt_Mine"
+      },
+      {
+        "name": "Metal Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Metal_Parts"
+      },
+      {
+        "name": "Light Bulb",
+        "wiki_url": "https://arcraiders.wiki/wiki/Light_Bulb"
+      },
+      {
+        "name": "Sensors",
+        "wiki_url": "https://arcraiders.wiki/wiki/Sensors"
+      },
+      {
+        "name": "Exodus Modules",
+        "wiki_url": "https://arcraiders.wiki/wiki/Exodus_Modules"
+      }
+    ]
+  },
+  {
+    "name": "Bicycle Pump",
+    "slug": "bicycle_pump",
+    "rarity": "",
+    "category": "4x Canister 10x Metal Parts",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Bicycle_Pump",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 3.0,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Bloated Tuna Can",
+    "slug": "bloated_tuna_can",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Bloated_Tuna_Can",
+    "image_url": null,
+    "stack_size": 15,
+    "weight": 0.2,
+    "sell_price_per_stack": 15000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Blue Gate Communication Tower Key",
+    "slug": "blue_gate_communication_tower_key",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 100,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Blue_Gate_Communication_Tower_Key",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 0.25,
+    "sell_price_per_stack": 100,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Blue Gate Confiscation Room Key",
+    "slug": "blue_gate_confiscation_room_key",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Epic",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Epic"
+      }
+    ],
+    "sell_price": 100,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Blue_Gate_Confiscation_Room_Key",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 0.25,
+    "sell_price_per_stack": 100,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Blue Gate Cellar Key",
+    "slug": "blue_gate_cellar_key",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 100,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Blue_Gate_Cellar_Key",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 0.25,
+    "sell_price_per_stack": 100,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Blue Gate Village Key",
+    "slug": "blue_gate_village_key",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 100,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Blue_Gate_Village_Key",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 0.25,
+    "sell_price_per_stack": 100,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Bombardier Cell",
+    "slug": "bombardier_cell",
+    "rarity": "",
+    "category": "2x Advanced Mechanical Components 2x ARC Alloy",
+    "recycle_to_raw": "Epic",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Epic"
+      }
+    ],
+    "sell_price": 5000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Bombardier_Cell",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.0,
+    "sell_price_per_stack": 15000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Breathtaking Snow Globe",
+    "slug": "breathtaking_snow_globe",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Epic",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Epic"
+      }
+    ],
+    "sell_price": 7000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Breathtaking_Snow_Globe",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 0.2,
+    "sell_price_per_stack": 7000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Broken Flashlight",
+    "slug": "broken_flashlight",
+    "rarity": "",
+    "category": "3x Battery 7x Metal Parts",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Broken_Flashlight",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Broken Guidance System",
+    "slug": "broken_guidance_system",
+    "rarity": "",
+    "category": "4x Processor",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Broken_Guidance_System",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 3.0,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Broken Handheld Radio",
+    "slug": "broken_handheld_radio",
+    "rarity": "",
+    "category": "3x Sensors 3x Wires",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Broken_Handheld_Radio",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 3.0,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Broken Taser",
+    "slug": "broken_taser",
+    "rarity": "",
+    "category": "2x Battery 2x Wires",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Broken_Taser",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Buried City Hospital Key",
+    "slug": "buried_city_hospital_key",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 100,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Buried_City_Hospital_Key",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 0.25,
+    "sell_price_per_stack": 100,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Buried City JKV Employee Access Card",
+    "slug": "buried_city_jkv_employee_access_card",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 100,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Buried_City_JKV_Employee_Access_Card",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 0.25,
+    "sell_price_per_stack": 100,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Buried City Residential Mastery Key",
+    "slug": "buried_city_residential_mastery_key",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 100,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Buried_City_Residential_Mastery_Key",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 0.25,
+    "sell_price_per_stack": 100,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Buried City Town Hall Key",
+    "slug": "buried_city_town_hall_key",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Epic",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Epic"
+      }
+    ],
+    "sell_price": 100,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Buried_City_Town_Hall_Key",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 0.25,
+    "sell_price_per_stack": 100,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Burned ARC Circuitry",
+    "slug": "burned_arc_circuitry",
+    "rarity": "",
+    "category": "2x ARC Alloy",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Burned_ARC_Circuitry",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 0.25,
+    "sell_price_per_stack": 3200,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Camera Lens",
+    "slug": "camera_lens",
+    "rarity": "",
+    "category": "8x Plastic Parts",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Camera_Lens",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 0.8,
+    "sell_price_per_stack": 3200,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Candle Holder",
+    "slug": "candle_holder",
+    "rarity": "",
+    "category": "8x Metal Parts",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Candle_Holder",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 1920,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Canister",
+    "slug": "canister",
+    "rarity": "",
+    "category": "3x Plastic Parts",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 300,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Canister",
+    "image_url": null,
+    "stack_size": 15,
+    "weight": 0.25,
+    "sell_price_per_stack": 4500,
+    "used_in_crafting": [
+      {
+        "name": "Advanced Mechanical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Advanced_Mechanical_Components"
+      },
+      {
+        "name": "Heavy Gun Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Heavy_Gun_Parts"
+      },
+      {
+        "name": "Bettina I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Bettina"
+      },
+      {
+        "name": "Explosive Compound",
+        "wiki_url": "https://arcraiders.wiki/wiki/Explosive_Compound"
+      },
+      {
+        "name": "Heavy Fuze Grenade",
+        "wiki_url": "https://arcraiders.wiki/wiki/Heavy_Fuze_Grenade"
+      },
+      {
+        "name": "Chemicals",
+        "wiki_url": "https://arcraiders.wiki/wiki/Chemicals"
+      },
+      {
+        "name": "Smoke Grenade",
+        "wiki_url": "https://arcraiders.wiki/wiki/Smoke_Grenade"
+      },
+      {
+        "name": "Antiseptic",
+        "wiki_url": "https://arcraiders.wiki/wiki/Antiseptic"
+      },
+      {
+        "name": "Vita Spray",
+        "wiki_url": "https://arcraiders.wiki/wiki/Vita_Spray"
+      },
+      {
+        "name": "Fireball Burner",
+        "wiki_url": "https://arcraiders.wiki/wiki/Fireball_Burner"
+      },
+      {
+        "name": "Flame Spray",
+        "wiki_url": "https://arcraiders.wiki/wiki/Flame_Spray"
+      },
+      {
+        "name": "Plastic Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Plastic_Parts"
+      }
+    ]
+  },
+  {
+    "name": "Cat Bed",
+    "slug": "cat_bed",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Cat_Bed",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.5,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Chemicals",
+    "slug": "chemicals",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 50,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Chemicals",
+    "image_url": null,
+    "stack_size": 50,
+    "weight": 0.1,
+    "sell_price_per_stack": 2500,
+    "used_in_crafting": [
+      {
+        "name": "Metal Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Metal_Parts"
+      },
+      {
+        "name": "Heavy Ammo",
+        "wiki_url": "https://arcraiders.wiki/wiki/Ammo#Heavy_Ammo"
+      },
+      {
+        "name": "Light Ammo",
+        "wiki_url": "https://arcraiders.wiki/wiki/Ammo#Light_Ammo"
+      },
+      {
+        "name": "Medium Ammo",
+        "wiki_url": "https://arcraiders.wiki/wiki/Ammo#Medium_Ammo"
+      },
+      {
+        "name": "Shotgun Ammo",
+        "wiki_url": "https://arcraiders.wiki/wiki/Ammo#Shotgun_Ammo"
+      },
+      {
+        "name": "Plastic Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Plastic_Parts"
+      },
+      {
+        "name": "Light Impact Grenade",
+        "wiki_url": "https://arcraiders.wiki/wiki/Light_Impact_Grenade"
+      },
+      {
+        "name": "Canister",
+        "wiki_url": "https://arcraiders.wiki/wiki/Canister"
+      },
+      {
+        "name": "Smoke Grenade",
+        "wiki_url": "https://arcraiders.wiki/wiki/Smoke_Grenade"
+      },
+      {
+        "name": "Li'l Smoke Grenade",
+        "wiki_url": "https://arcraiders.wiki/wiki/Li%27l_Smoke_Grenade"
+      },
+      {
+        "name": "Light Stick",
+        "wiki_url": "https://arcraiders.wiki/wiki/Light_Stick"
+      },
+      {
+        "name": "Rubber Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Rubber_Parts"
+      },
+      {
+        "name": "Remote Raider Flare",
+        "wiki_url": "https://arcraiders.wiki/wiki/Remote_Raider_Flare"
+      },
+      {
+        "name": "Adrenaline Shot",
+        "wiki_url": "https://arcraiders.wiki/wiki/Adrenaline_Shot"
+      },
+      {
+        "name": "Crude Explosives",
+        "wiki_url": "https://arcraiders.wiki/wiki/Crude_Explosives"
+      },
+      {
+        "name": "Great Mullein",
+        "wiki_url": "https://arcraiders.wiki/wiki/Great_Mullein"
+      },
+      {
+        "name": "Antiseptic",
+        "wiki_url": "https://arcraiders.wiki/wiki/Antiseptic"
+      },
+      {
+        "name": "Gas Grenade",
+        "wiki_url": "https://arcraiders.wiki/wiki/Gas_Grenade"
+      },
+      {
+        "name": "Magnet",
+        "wiki_url": "https://arcraiders.wiki/wiki/Magnet"
+      },
+      {
+        "name": "Snap Blast Grenade",
+        "wiki_url": "https://arcraiders.wiki/wiki/Snap_Blast_Grenade"
+      },
+      {
+        "name": "ARC Alloy",
+        "wiki_url": "https://arcraiders.wiki/wiki/ARC_Alloy"
+      }
+    ]
+  },
+  {
+    "name": "Coffee Pot",
+    "slug": "coffee_pot",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Coffee_Pot",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.3,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Complex Gun Parts",
+    "slug": "complex_gun_parts",
+    "rarity": "",
+    "category": "3x Simple Gun Parts",
+    "recycle_to_raw": "Epic",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Epic"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Complex_Gun_Parts",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.0,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": [
+      {
+        "name": "Magnetic Accelerator",
+        "wiki_url": "https://arcraiders.wiki/wiki/Magnetic_Accelerator"
+      },
+      {
+        "name": "Queen Reactor",
+        "wiki_url": "https://arcraiders.wiki/wiki/Queen_Reactor"
+      },
+      {
+        "name": "Equalizer",
+        "wiki_url": "https://arcraiders.wiki/wiki/Equalizer"
+      },
+      {
+        "name": "Jupiter",
+        "wiki_url": "https://arcraiders.wiki/wiki/Jupiter"
+      },
+      {
+        "name": "Simple Gun Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Simple_Gun_Parts"
+      }
+    ]
+  },
+  {
+    "name": "Coolant",
+    "slug": "coolant",
+    "rarity": "",
+    "category": "5x Chemicals 2x Oil",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Coolant",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Cooling Coil",
+    "slug": "cooling_coil",
+    "rarity": "",
+    "category": "6x Chemicals 2x Steel Spring",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Cooling_Coil",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Cooling Fan",
+    "slug": "cooling_fan",
+    "rarity": "",
+    "category": "14x Plastic Parts 4x Battery",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Cooling_Fan",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 3.0,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Cracked Bioscanner",
+    "slug": "cracked_bioscanner",
+    "rarity": "",
+    "category": "3x Rubber Parts 5x Battery",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Cracked_Bioscanner",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Crude Explosives",
+    "slug": "crude_explosives",
+    "rarity": "",
+    "category": "3x Chemicals",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 270,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Crude_Explosives",
+    "image_url": null,
+    "stack_size": 10,
+    "weight": 2.0,
+    "sell_price_per_stack": 2700,
+    "used_in_crafting": [
+      {
+        "name": "Oil",
+        "wiki_url": "https://arcraiders.wiki/wiki/Oil"
+      },
+      {
+        "name": "Explosive Compound",
+        "wiki_url": "https://arcraiders.wiki/wiki/Explosive_Compound"
+      },
+      {
+        "name": "Steel Spring",
+        "wiki_url": "https://arcraiders.wiki/wiki/Steel_Spring"
+      },
+      {
+        "name": "Shrapnel Grenade",
+        "wiki_url": "https://arcraiders.wiki/wiki/Shrapnel_Grenade"
+      },
+      {
+        "name": "Magnet",
+        "wiki_url": "https://arcraiders.wiki/wiki/Magnet"
+      },
+      {
+        "name": "Snap Blast Grenade",
+        "wiki_url": "https://arcraiders.wiki/wiki/Snap_Blast_Grenade"
+      },
+      {
+        "name": "Synthesized Fuel",
+        "wiki_url": "https://arcraiders.wiki/wiki/Synthesized_Fuel"
+      },
+      {
+        "name": "Pop Trigger",
+        "wiki_url": "https://arcraiders.wiki/wiki/Pop_Trigger"
+      },
+      {
+        "name": "Chemicals",
+        "wiki_url": "https://arcraiders.wiki/wiki/Chemicals"
+      }
+    ]
+  },
+  {
+    "name": "Crumpled Plastic Bottle",
+    "slug": "crumpled_plastic_bottle",
+    "rarity": "",
+    "category": "3x Plastic Parts",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 270,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Crumpled_Plastic_Bottle",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.8,
+    "sell_price_per_stack": 810,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Dam Control Tower Key",
+    "slug": "dam_control_tower_key",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Epic",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Epic"
+      }
+    ],
+    "sell_price": 100,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Dam_Control_Tower_Key",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 0.25,
+    "sell_price_per_stack": 100,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Dam Staff Room Key",
+    "slug": "dam_staff_room_key",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 100,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Dam_Staff_Room_Key",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 0.25,
+    "sell_price_per_stack": 100,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Dam Surveillance Key",
+    "slug": "dam_surveillance_key",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 100,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Dam_Surveillance_Key",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 0.25,
+    "sell_price_per_stack": 100,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Dam Testing Annex Key",
+    "slug": "dam_testing_annex_key",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 100,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Dam_Testing_Annex_Key",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 0.25,
+    "sell_price_per_stack": 100,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Dam Utility Key",
+    "slug": "dam_utility_key",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 100,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Dam_Utility_Key",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 0.25,
+    "sell_price_per_stack": 100,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Damaged ARC Motion Core",
+    "slug": "damaged_arc_motion_core",
+    "rarity": "",
+    "category": "2x ARC Alloy",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Damaged_ARC_Motion_Core",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 0.25,
+    "sell_price_per_stack": 3200,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Damaged ARC Powercell",
+    "slug": "damaged_arc_powercell",
+    "rarity": "",
+    "category": "1x ARC Alloy",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 293,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Damaged_ARC_Powercell",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.25,
+    "sell_price_per_stack": 879,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Damaged Fireball Burner",
+    "slug": "damaged_fireball_burner",
+    "rarity": "",
+    "category": "1x ARC Alloy",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 270,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Damaged_Fireball_Burner",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.0,
+    "sell_price_per_stack": 810,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Damaged Heat Sink",
+    "slug": "damaged_heat_sink",
+    "rarity": "",
+    "category": "6x Metal Parts 2x Wires",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Damaged_Heat_Sink",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Damaged Hornet Driver",
+    "slug": "damaged_hornet_driver",
+    "rarity": "",
+    "category": "2x ARC Alloy",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Damaged_Hornet_Driver",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.3,
+    "sell_price_per_stack": 1920,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Damaged Rocketeer Driver",
+    "slug": "damaged_rocketeer_driver",
+    "rarity": "",
+    "category": "3x ARC Alloy",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Damaged_Rocketeer_Driver",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.25,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Damaged Snitch Scanner",
+    "slug": "damaged_snitch_scanner",
+    "rarity": "",
+    "category": "-",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 659,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Damaged_Snitch_Scanner",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.25,
+    "sell_price_per_stack": 1977,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Damaged Tick Pod",
+    "slug": "damaged_tick_pod",
+    "rarity": "",
+    "category": "1x ARC Alloy",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 270,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Damaged_Tick_Pod",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.25,
+    "sell_price_per_stack": 810,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Damaged Wasp Driver",
+    "slug": "damaged_wasp_driver",
+    "rarity": "",
+    "category": "1x ARC Alloy",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 270,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Damaged_Wasp_Driver",
+    "image_url": null,
+    "stack_size": null,
+    "weight": 0.25,
+    "sell_price_per_stack": null,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Dart Board",
+    "slug": "dart_board",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Dart_Board",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.0,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Deflated Football",
+    "slug": "deflated_football",
+    "rarity": "",
+    "category": "15x Rubber Parts",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Deflated_Football",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.8,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Degraded ARC Rubber",
+    "slug": "degraded_arc_rubber",
+    "rarity": "",
+    "category": "11x Rubber Parts",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Degraded_ARC_Rubber",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.0,
+    "sell_price_per_stack": 1920,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Diving Goggles",
+    "slug": "diving_goggles",
+    "rarity": "",
+    "category": "12x Rubber Parts",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Diving_Goggles",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 1920,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Dog Collar",
+    "slug": "dog_collar",
+    "rarity": "",
+    "category": "8x Fabric 1x Metal Parts",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Dog_Collar",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.8,
+    "sell_price_per_stack": 1920,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Dried-Out ARC Resin",
+    "slug": "dried_out_arc_resin",
+    "rarity": "",
+    "category": "9x Plastic Parts",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Dried-Out_ARC_Resin",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.0,
+    "sell_price_per_stack": 1920,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Duct Tape",
+    "slug": "duct_tape",
+    "rarity": "",
+    "category": "3x Fabric",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 300,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Duct_Tape",
+    "image_url": null,
+    "stack_size": 15,
+    "weight": 0.25,
+    "sell_price_per_stack": 4500,
+    "used_in_crafting": [
+      {
+        "name": "Plastic Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Plastic_Parts"
+      },
+      {
+        "name": "Angled Grip I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Angled_Grip_I"
+      },
+      {
+        "name": "Rubber Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Rubber_Parts"
+      },
+      {
+        "name": "Stable Stock I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Stable_Stock_I"
+      },
+      {
+        "name": "Vertical Grip I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Vertical_Grip_I"
+      },
+      {
+        "name": "Fabric",
+        "wiki_url": "https://arcraiders.wiki/wiki/Fabric"
+      }
+    ]
+  },
+  {
+    "name": "Durable Cloth",
+    "slug": "durable_cloth",
+    "rarity": "",
+    "category": "6x Fabric",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Durable_Cloth",
+    "image_url": null,
+    "stack_size": 10,
+    "weight": 0.25,
+    "sell_price_per_stack": 6400,
+    "used_in_crafting": [
+      {
+        "name": "Great Mullein",
+        "wiki_url": "https://arcraiders.wiki/wiki/Great_Mullein"
+      },
+      {
+        "name": "Herbal Bandage",
+        "wiki_url": "https://arcraiders.wiki/wiki/Herbal_Bandage"
+      },
+      {
+        "name": "Antiseptic",
+        "wiki_url": "https://arcraiders.wiki/wiki/Antiseptic"
+      },
+      {
+        "name": "Sterilized Bandage",
+        "wiki_url": "https://arcraiders.wiki/wiki/Sterilized_Bandage"
+      },
+      {
+        "name": "Wires",
+        "wiki_url": "https://arcraiders.wiki/wiki/Wires"
+      },
+      {
+        "name": "Electrical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Electrical_Components"
+      },
+      {
+        "name": "Cooling Fan",
+        "wiki_url": "https://arcraiders.wiki/wiki/Cooling_Fan"
+      },
+      {
+        "name": "Cracked Bioscanner",
+        "wiki_url": "https://arcraiders.wiki/wiki/Cracked_Bioscanner"
+      },
+      {
+        "name": "Tick Pod",
+        "wiki_url": "https://arcraiders.wiki/wiki/Tick_Pod"
+      },
+      {
+        "name": "Fabric",
+        "wiki_url": "https://arcraiders.wiki/wiki/Fabric"
+      }
+    ]
+  },
+  {
+    "name": "Electrical Components",
+    "slug": "electrical_components",
+    "rarity": "",
+    "category": "3x Plastic Parts 3x Rubber Parts",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Electrical_Components",
+    "image_url": null,
+    "stack_size": 10,
+    "weight": 0.5,
+    "sell_price_per_stack": 6400,
+    "used_in_crafting": [
+      {
+        "name": "Wires",
+        "wiki_url": "https://arcraiders.wiki/wiki/Wires"
+      },
+      {
+        "name": "Advanced Electrical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Advanced_Electrical_Components"
+      },
+      {
+        "name": "Battery",
+        "wiki_url": "https://arcraiders.wiki/wiki/Battery"
+      },
+      {
+        "name": "Jolt Mine",
+        "wiki_url": "https://arcraiders.wiki/wiki/Jolt_Mine"
+      },
+      {
+        "name": "Durable Cloth",
+        "wiki_url": "https://arcraiders.wiki/wiki/Durable_Cloth"
+      },
+      {
+        "name": "Cooling Fan",
+        "wiki_url": "https://arcraiders.wiki/wiki/Cooling_Fan"
+      },
+      {
+        "name": "Power Cable",
+        "wiki_url": "https://arcraiders.wiki/wiki/Power_Cable"
+      },
+      {
+        "name": "Hornet Driver",
+        "wiki_url": "https://arcraiders.wiki/wiki/Hornet_Driver"
+      },
+      {
+        "name": "Damaged Heat Sink",
+        "wiki_url": "https://arcraiders.wiki/wiki/Damaged_Heat_Sink"
+      },
+      {
+        "name": "Snitch Scanner",
+        "wiki_url": "https://arcraiders.wiki/wiki/Snitch_Scanner"
+      },
+      {
+        "name": "Plastic Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Plastic_Parts"
+      },
+      {
+        "name": "Rubber Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Rubber_Parts"
+      },
+      {
+        "name": "Combat Mk. 2",
+        "wiki_url": "https://arcraiders.wiki/wiki/Combat_Mk._2"
+      },
+      {
+        "name": "Magnet",
+        "wiki_url": "https://arcraiders.wiki/wiki/Magnet"
+      },
+      {
+        "name": "Looting Mk. 2",
+        "wiki_url": "https://arcraiders.wiki/wiki/Looting_Mk._2"
+      },
+      {
+        "name": "Tactical Mk. 2",
+        "wiki_url": "https://arcraiders.wiki/wiki/Tactical_Mk._2"
+      },
+      {
+        "name": "Showstopper",
+        "wiki_url": "https://arcraiders.wiki/wiki/Showstopper"
+      },
+      {
+        "name": "Surge Shield Recharger",
+        "wiki_url": "https://arcraiders.wiki/wiki/Surge_Shield_Recharger"
+      },
+      {
+        "name": "ARC Alloy",
+        "wiki_url": "https://arcraiders.wiki/wiki/ARC_Alloy"
+      },
+      {
+        "name": "Wasp Driver",
+        "wiki_url": "https://arcraiders.wiki/wiki/Wasp_Driver"
+      }
+    ]
+  },
+  {
+    "name": "Empty Wine Bottle",
+    "slug": "empty_wine_bottle",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Empty_Wine_Bottle",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 0.2,
+    "sell_price_per_stack": 5000,
+    "used_in_crafting": [
+      {
+        "name": "Agave",
+        "wiki_url": "https://arcraiders.wiki/wiki/Agave"
+      },
+      {
+        "name": "Agave Juice",
+        "wiki_url": "https://arcraiders.wiki/wiki/Agave_Juice"
+      }
+    ]
+  },
+  {
+    "name": "Exodus Modules",
+    "slug": "exodus_modules",
+    "rarity": "",
+    "category": "2x Magnet 1x Mechanical Components",
+    "recycle_to_raw": "Epic",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Epic"
+      }
+    ],
+    "sell_price": 2750,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Exodus_Modules",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.0,
+    "sell_price_per_stack": 8250,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Expired Pasta",
+    "slug": "expired_pasta",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Expired_Pasta",
+    "image_url": null,
+    "stack_size": 15,
+    "weight": 0.1,
+    "sell_price_per_stack": 15000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Expired Respirator",
+    "slug": "expired_respirator",
+    "rarity": "",
+    "category": "8x Rubber Parts 4x Fabric",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Expired_Respirator",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 1920,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Explosive Compound",
+    "slug": "explosive_compound",
+    "rarity": "",
+    "category": "2x Crude Explosives",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Explosive_Compound",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 0.3,
+    "sell_price_per_stack": 5000,
+    "used_in_crafting": [
+      {
+        "name": "Canister",
+        "wiki_url": "https://arcraiders.wiki/wiki/Canister"
+      },
+      {
+        "name": "Heavy Fuze Grenade",
+        "wiki_url": "https://arcraiders.wiki/wiki/Heavy_Fuze_Grenade"
+      },
+      {
+        "name": "Crude Explosives",
+        "wiki_url": "https://arcraiders.wiki/wiki/Crude_Explosives"
+      }
+    ]
+  },
+  {
+    "name": "Fabric",
+    "slug": "fabric",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 50,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Fabric",
+    "image_url": null,
+    "stack_size": 50,
+    "weight": 0.1,
+    "sell_price_per_stack": 2500,
+    "used_in_crafting": [
+      {
+        "name": "Bandage",
+        "wiki_url": "https://arcraiders.wiki/wiki/Bandage"
+      },
+      {
+        "name": "Durable Cloth",
+        "wiki_url": "https://arcraiders.wiki/wiki/Durable_Cloth"
+      },
+      {
+        "name": "Plastic Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Plastic_Parts"
+      },
+      {
+        "name": "ARC Alloy",
+        "wiki_url": "https://arcraiders.wiki/wiki/ARC_Alloy"
+      }
+    ]
+  },
+  {
+    "name": "Faded Photograph",
+    "slug": "faded_photograph",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Faded_Photograph",
+    "image_url": null,
+    "stack_size": 15,
+    "weight": 0.3,
+    "sell_price_per_stack": 9600,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Fertilizer",
+    "slug": "fertilizer",
+    "rarity": "",
+    "category": "2x Assorted Seeds",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Fertilizer",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 0.4,
+    "sell_price_per_stack": 5000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Film Reel",
+    "slug": "film_reel",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Film_Reel",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.2,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Fine Wristwatch",
+    "slug": "fine_wristwatch",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 3000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Fine_Wristwatch",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.2,
+    "sell_price_per_stack": 9000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Fireball Burner",
+    "slug": "fireball_burner",
+    "rarity": "",
+    "category": "1x ARC Alloy 1x Chemicals",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Fireball_Burner",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.5,
+    "sell_price_per_stack": 1920,
+    "used_in_crafting": [
+      {
+        "name": "Air Freshener",
+        "wiki_url": "https://arcraiders.wiki/wiki/Air_Freshener"
+      },
+      {
+        "name": "Flame Spray",
+        "wiki_url": "https://arcraiders.wiki/wiki/Flame_Spray"
+      },
+      {
+        "name": "Canister",
+        "wiki_url": "https://arcraiders.wiki/wiki/Canister"
+      }
+    ]
+  },
+  {
+    "name": "Frequency Modulation Box",
+    "slug": "frequency_modulation_box",
+    "rarity": "",
+    "category": "1x Advanced Electrical Components 1x Speaker Component",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 3000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Frequency_Modulation_Box",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.5,
+    "sell_price_per_stack": 9000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Fried Motherboard",
+    "slug": "fried_motherboard",
+    "rarity": "",
+    "category": "5x Plastic Parts 1x Electrical Components",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Fried_Motherboard",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 3.0,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Frying Pan",
+    "slug": "frying_pan",
+    "rarity": "",
+    "category": "8x Metal Parts",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Frying_Pan",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 1920,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Garlic Press",
+    "slug": "garlic_press",
+    "rarity": "",
+    "category": "12x Metal Parts",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Garlic_Press",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.8,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Geiger Counter",
+    "slug": "geiger_counter",
+    "rarity": "",
+    "category": "3x Battery 1x Exodus Modules",
+    "recycle_to_raw": "Epic",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Epic"
+      }
+    ],
+    "sell_price": 3500,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Geiger_Counter",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.5,
+    "sell_price_per_stack": 10500,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Great Mullein",
+    "slug": "great_mullein",
+    "rarity": "",
+    "category": "4x Assorted Seeds",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 300,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Great_Mullein",
+    "image_url": null,
+    "stack_size": 15,
+    "weight": 0.25,
+    "sell_price_per_stack": 4500,
+    "used_in_crafting": [
+      {
+        "name": "Chemicals",
+        "wiki_url": "https://arcraiders.wiki/wiki/Chemicals"
+      },
+      {
+        "name": "Antiseptic",
+        "wiki_url": "https://arcraiders.wiki/wiki/Antiseptic"
+      },
+      {
+        "name": "Durable Cloth",
+        "wiki_url": "https://arcraiders.wiki/wiki/Durable_Cloth"
+      },
+      {
+        "name": "Herbal Bandage",
+        "wiki_url": "https://arcraiders.wiki/wiki/Herbal_Bandage"
+      },
+      {
+        "name": "Fabric",
+        "wiki_url": "https://arcraiders.wiki/wiki/Fabric"
+      },
+      {
+        "name": "Assorted Seeds",
+        "wiki_url": "https://arcraiders.wiki/wiki/Assorted_Seeds"
+      }
+    ]
+  },
+  {
+    "name": "Headphones",
+    "slug": "headphones",
+    "rarity": "",
+    "category": "6x Rubber Parts 2x Speaker Component",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Headphones",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Heavy Gun Parts",
+    "slug": "heavy_gun_parts",
+    "rarity": "",
+    "category": "2x Simple Gun Parts",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 700,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Heavy_Gun_Parts",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 0.5,
+    "sell_price_per_stack": 3500,
+    "used_in_crafting": [
+      {
+        "name": "Advanced Mechanical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Advanced_Mechanical_Components"
+      },
+      {
+        "name": "Canister",
+        "wiki_url": "https://arcraiders.wiki/wiki/Canister"
+      },
+      {
+        "name": "Bettina I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Bettina"
+      },
+      {
+        "name": "Anvil II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Anvil"
+      },
+      {
+        "name": "Mechanical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Mechanical_Components"
+      },
+      {
+        "name": "Anvil III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Anvil"
+      },
+      {
+        "name": "Anvil IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Anvil"
+      },
+      {
+        "name": "Bettina II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Bettina"
+      },
+      {
+        "name": "Bettina III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Bettina"
+      },
+      {
+        "name": "Bettina IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Bettina"
+      },
+      {
+        "name": "Il Toro II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Il_Toro"
+      },
+      {
+        "name": "Il Toro III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Il_Toro"
+      },
+      {
+        "name": "Il Toro IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Il_Toro"
+      },
+      {
+        "name": "Vulcano I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Vulcano"
+      },
+      {
+        "name": "Vulcano II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Vulcano"
+      },
+      {
+        "name": "Vulcano III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Vulcano"
+      },
+      {
+        "name": "Vulcano IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Vulcano"
+      },
+      {
+        "name": "Simple Gun Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Simple_Gun_Parts"
+      }
+    ]
+  },
+  {
+    "name": "Hornet Driver",
+    "slug": "hornet_driver",
+    "rarity": "",
+    "category": "2x ARC Alloy 2x Electrical Components",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Hornet_Driver",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.75,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Household Cleaner",
+    "slug": "household_cleaner",
+    "rarity": "",
+    "category": "13x Chemicals",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Household_Cleaner",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 0.8,
+    "sell_price_per_stack": 3200,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Humidifier",
+    "slug": "humidifier",
+    "rarity": "",
+    "category": "2x Canister 2x Wires",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Humidifier",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Ice Cream Scooper",
+    "slug": "ice_cream_scooper",
+    "rarity": "",
+    "category": "7x Metal Parts",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Ice_Cream_Scooper",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.8,
+    "sell_price_per_stack": 1920,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Impure ARC Coolant",
+    "slug": "impure_arc_coolant",
+    "rarity": "",
+    "category": "13x Chemicals",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Impure_ARC_Coolant",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.0,
+    "sell_price_per_stack": 1920,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Industrial Battery",
+    "slug": "industrial_battery",
+    "rarity": "",
+    "category": "7x Chemicals 2x Battery",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Industrial_Battery",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Industrial Charger",
+    "slug": "industrial_charger",
+    "rarity": "",
+    "category": "5x Metal Parts 1x Voltage Converter",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Industrial_Charger",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Industrial Magnet",
+    "slug": "industrial_magnet",
+    "rarity": "",
+    "category": "2x Magnet 4x Metal Parts",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Industrial_Magnet",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Ion Sputter",
+    "slug": "ion_sputter",
+    "rarity": "",
+    "category": "4x Voltage Converter 1x Exodus Modules",
+    "recycle_to_raw": "Epic",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Epic"
+      }
+    ],
+    "sell_price": 6000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Ion_Sputter",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.5,
+    "sell_price_per_stack": 18000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Laboratory Reagents",
+    "slug": "laboratory_reagents",
+    "rarity": "",
+    "category": "2x Chemicals 2x Crude Explosives",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Laboratory_Reagents",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 3.0,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Lance's Mixtape (5th Edition)",
+    "slug": "lance_s_mixtape_5th_edition",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Epic",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Epic"
+      }
+    ],
+    "sell_price": 10000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Lance%27s_Mixtape_(5th_Edition)",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.2,
+    "sell_price_per_stack": 30000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Lemon",
+    "slug": "lemon",
+    "rarity": "",
+    "category": "3x Assorted Seeds",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Lemon",
+    "image_url": null,
+    "stack_size": 10,
+    "weight": 0.2,
+    "sell_price_per_stack": 6400,
+    "used_in_crafting": [
+      {
+        "name": "Apricot",
+        "wiki_url": "https://arcraiders.wiki/wiki/Apricot"
+      },
+      {
+        "name": "Prickly Pear",
+        "wiki_url": "https://arcraiders.wiki/wiki/Prickly_Pear"
+      },
+      {
+        "name": "Fruit Mix",
+        "wiki_url": "https://arcraiders.wiki/wiki/Fruit_Mix"
+      },
+      {
+        "name": "Scrappy II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Scrappy"
+      },
+      {
+        "name": "Scrappy III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Scrappy"
+      }
+    ]
+  },
+  {
+    "name": "Leaper Pulse Unit",
+    "slug": "leaper_pulse_unit",
+    "rarity": "",
+    "category": "2x Advanced Mechanical Components 3x ARC Alloy",
+    "recycle_to_raw": "Epic",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Epic"
+      }
+    ],
+    "sell_price": 5000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Leaper_Pulse_Unit",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.0,
+    "sell_price_per_stack": 15000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Light Bulb",
+    "slug": "light_bulb",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Light_Bulb",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.2,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Light Gun Parts",
+    "slug": "light_gun_parts",
+    "rarity": "",
+    "category": "2x Simple Gun Parts",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 700,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Light_Gun_Parts",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 0.3,
+    "sell_price_per_stack": 3500,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Magnet",
+    "slug": "magnet",
+    "rarity": "",
+    "category": "3x Metal Parts",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 300,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Magnet",
+    "image_url": null,
+    "stack_size": 15,
+    "weight": 0.25,
+    "sell_price_per_stack": 4500,
+    "used_in_crafting": [
+      {
+        "name": "Crude Explosives",
+        "wiki_url": "https://arcraiders.wiki/wiki/Crude_Explosives"
+      },
+      {
+        "name": "Snap Blast Grenade",
+        "wiki_url": "https://arcraiders.wiki/wiki/Snap_Blast_Grenade"
+      },
+      {
+        "name": "Advanced Mechanical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Advanced_Mechanical_Components"
+      },
+      {
+        "name": "Medium Gun Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Medium_Gun_Parts"
+      },
+      {
+        "name": "Venator I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Venator"
+      },
+      {
+        "name": "Electrical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Electrical_Components"
+      },
+      {
+        "name": "Looting Mk. 2",
+        "wiki_url": "https://arcraiders.wiki/wiki/Looting_Mk._2"
+      },
+      {
+        "name": "Metal Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Metal_Parts"
+      }
+    ]
+  },
+  {
+    "name": "Magnetic Accelerator",
+    "slug": "magnetic_accelerator",
+    "rarity": "",
+    "category": "1x Advanced Mechanical Components 1x ARC Motion Core",
+    "recycle_to_raw": "Epic",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Epic"
+      }
+    ],
+    "sell_price": 5500,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Magnetic_Accelerator",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.0,
+    "sell_price_per_stack": 16500,
+    "used_in_crafting": [
+      {
+        "name": "Heavy Gun Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Heavy_Gun_Parts"
+      },
+      {
+        "name": "Exodus Modules",
+        "wiki_url": "https://arcraiders.wiki/wiki/Exodus_Modules"
+      },
+      {
+        "name": "Hullcracker I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Hullcracker"
+      },
+      {
+        "name": "Complex Gun Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Complex_Gun_Parts"
+      },
+      {
+        "name": "Queen Reactor",
+        "wiki_url": "https://arcraiders.wiki/wiki/Queen_Reactor"
+      },
+      {
+        "name": "Equalizer",
+        "wiki_url": "https://arcraiders.wiki/wiki/Equalizer"
+      },
+      {
+        "name": "Jupiter",
+        "wiki_url": "https://arcraiders.wiki/wiki/Jupiter"
+      },
+      {
+        "name": "Advanced Mechanical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Advanced_Mechanical_Components"
+      },
+      {
+        "name": "ARC Motion Core",
+        "wiki_url": "https://arcraiders.wiki/wiki/ARC_Motion_Core"
+      }
+    ]
+  },
+  {
+    "name": "Magnetron",
+    "slug": "magnetron",
+    "rarity": "",
+    "category": "1x Magnetic Accelerator 1x Steel Spring",
+    "recycle_to_raw": "Epic",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Epic"
+      }
+    ],
+    "sell_price": 6000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Magnetron",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.5,
+    "sell_price_per_stack": 18000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Matriarch Reactor",
+    "slug": "matriarch_reactor",
+    "rarity": "",
+    "category": "1x Power Rod 1x Magnetic Accelerator",
+    "recycle_to_raw": "Legendary",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Legendary"
+      }
+    ],
+    "sell_price": 13000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Matriarch_Reactor",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 10.0,
+    "sell_price_per_stack": 13000,
+    "used_in_crafting": [
+      {
+        "name": "Power Rod",
+        "wiki_url": "https://arcraiders.wiki/wiki/Power_Rod"
+      },
+      {
+        "name": "Magnetic Accelerator",
+        "wiki_url": "https://arcraiders.wiki/wiki/Magnetic_Accelerator"
+      }
+    ]
+  },
+  {
+    "name": "Mechanical Components",
+    "slug": "mechanical_components",
+    "rarity": "",
+    "category": "3x Metal Parts 2x Rubber Parts",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Mechanical_Components",
+    "image_url": null,
+    "stack_size": 10,
+    "weight": 0.8,
+    "sell_price_per_stack": 6400,
+    "used_in_crafting": [
+      {
+        "name": "Steel Spring",
+        "wiki_url": "https://arcraiders.wiki/wiki/Steel_Spring"
+      },
+      {
+        "name": "Advanced Mechanical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Advanced_Mechanical_Components"
+      },
+      {
+        "name": "Duct Tape",
+        "wiki_url": "https://arcraiders.wiki/wiki/Duct_Tape"
+      },
+      {
+        "name": "Angled Grip II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Angled_Grip_II"
+      },
+      {
+        "name": "Oil",
+        "wiki_url": "https://arcraiders.wiki/wiki/Oil"
+      },
+      {
+        "name": "Anvil I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Anvil"
+      },
+      {
+        "name": "Anvil III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Anvil"
+      },
+      {
+        "name": "Heavy Gun Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Heavy_Gun_Parts"
+      },
+      {
+        "name": "Anvil IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Anvil"
+      },
+      {
+        "name": "Magnet",
+        "wiki_url": "https://arcraiders.wiki/wiki/Magnet"
+      },
+      {
+        "name": "Arpeggio I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Arpeggio"
+      },
+      {
+        "name": "Arpeggio III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Arpeggio"
+      },
+      {
+        "name": "Medium Gun Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Medium_Gun_Parts"
+      },
+      {
+        "name": "Arpeggio IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Arpeggio"
+      },
+      {
+        "name": "Wires",
+        "wiki_url": "https://arcraiders.wiki/wiki/Wires"
+      },
+      {
+        "name": "Compensator II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Compensator_II"
+      },
+      {
+        "name": "Extended Light Magazine II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Extended_Light_Magazine_II"
+      },
+      {
+        "name": "Extended Medium Magazine II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Extended_Medium_Magazine_II"
+      },
+      {
+        "name": "Extended Shotgun Magazine II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Extended_Shotgun_Magazine_II"
+      },
+      {
+        "name": "Canister",
+        "wiki_url": "https://arcraiders.wiki/wiki/Canister"
+      },
+      {
+        "name": "Il Toro I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Il_Toro"
+      },
+      {
+        "name": "ARC Motion Core",
+        "wiki_url": "https://arcraiders.wiki/wiki/ARC_Motion_Core"
+      },
+      {
+        "name": "Mod Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Mod_Components"
+      },
+      {
+        "name": "Muzzle Brake II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Muzzle_Brake_II"
+      },
+      {
+        "name": "Osprey I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Osprey"
+      },
+      {
+        "name": "Osprey II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Osprey"
+      },
+      {
+        "name": "Osprey III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Osprey"
+      },
+      {
+        "name": "Osprey IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Osprey"
+      },
+      {
+        "name": "Renegade I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Renegade"
+      },
+      {
+        "name": "Simple Gun Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Simple_Gun_Parts"
+      },
+      {
+        "name": "Renegade II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Renegade"
+      },
+      {
+        "name": "Renegade III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Renegade"
+      },
+      {
+        "name": "Shotgun Choke II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Shotgun_Choke_II"
+      },
+      {
+        "name": "Silencer I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Silencer_I"
+      },
+      {
+        "name": "Stable Stock II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Stable_Stock_II"
+      },
+      {
+        "name": "Torrente I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Torrente"
+      },
+      {
+        "name": "Torrente II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Torrente"
+      },
+      {
+        "name": "Torrente III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Torrente"
+      },
+      {
+        "name": "Torrente IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Torrente"
+      },
+      {
+        "name": "Venator I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Venator"
+      },
+      {
+        "name": "Venator II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Venator"
+      },
+      {
+        "name": "Venator III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Venator"
+      },
+      {
+        "name": "Vulcano I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Vulcano"
+      },
+      {
+        "name": "Vulcano II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Vulcano"
+      },
+      {
+        "name": "Rusted Tools",
+        "wiki_url": "https://arcraiders.wiki/wiki/Rusted_Tools"
+      },
+      {
+        "name": "Wasp Driver",
+        "wiki_url": "https://arcraiders.wiki/wiki/Wasp_Driver"
+      },
+      {
+        "name": "Metal Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Metal_Parts"
+      },
+      {
+        "name": "Rubber Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Rubber_Parts"
+      }
+    ]
+  },
+  {
+    "name": "Medium Gun Parts",
+    "slug": "medium_gun_parts",
+    "rarity": "",
+    "category": "2x Simple Gun Parts",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 700,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Medium_Gun_Parts",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 0.4,
+    "sell_price_per_stack": 3500,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Metal Brackets",
+    "slug": "metal_brackets",
+    "rarity": "",
+    "category": "8x Metal Parts",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Metal_Brackets",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 0.8,
+    "sell_price_per_stack": 3200,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Metal Parts",
+    "slug": "metal_parts",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 75,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Metal_Parts",
+    "image_url": null,
+    "stack_size": 50,
+    "weight": 0.1,
+    "sell_price_per_stack": 3750,
+    "used_in_crafting": [
+      {
+        "name": "Oil",
+        "wiki_url": "https://arcraiders.wiki/wiki/Oil"
+      },
+      {
+        "name": "Blaze Grenade",
+        "wiki_url": "https://arcraiders.wiki/wiki/Blaze_Grenade"
+      },
+      {
+        "name": "Wires",
+        "wiki_url": "https://arcraiders.wiki/wiki/Wires"
+      },
+      {
+        "name": "Compensator I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Compensator_I"
+      },
+      {
+        "name": "Rubber Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Rubber_Parts"
+      },
+      {
+        "name": "Door Blocker",
+        "wiki_url": "https://arcraiders.wiki/wiki/Door_Blocker"
+      },
+      {
+        "name": "Ferro I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Ferro"
+      },
+      {
+        "name": "Ferro II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Ferro"
+      },
+      {
+        "name": "Simple Gun Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Simple_Gun_Parts"
+      },
+      {
+        "name": "Ferro III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Ferro"
+      },
+      {
+        "name": "Plastic Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Plastic_Parts"
+      },
+      {
+        "name": "Hairpin I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Hairpin"
+      },
+      {
+        "name": "Hairpin II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Hairpin"
+      },
+      {
+        "name": "Hairpin III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Hairpin"
+      },
+      {
+        "name": "Chemicals",
+        "wiki_url": "https://arcraiders.wiki/wiki/Chemicals"
+      },
+      {
+        "name": "Heavy Ammo",
+        "wiki_url": "https://arcraiders.wiki/wiki/Ammo#Heavy_Ammo"
+      },
+      {
+        "name": "Light Ammo",
+        "wiki_url": "https://arcraiders.wiki/wiki/Ammo#LightAmmo"
+      },
+      {
+        "name": "Medium Ammo",
+        "wiki_url": "https://arcraiders.wiki/wiki/Ammo#MediumAmmo"
+      },
+      {
+        "name": "Muzzle Brake I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Muzzle_Brake_I"
+      },
+      {
+        "name": "Shotgun Ammo",
+        "wiki_url": "https://arcraiders.wiki/wiki/Ammo#Shotgun_Ammo"
+      },
+      {
+        "name": "Shotgun Choke I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Shotgun_Choke_I"
+      },
+      {
+        "name": "Stitcher I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Stitcher"
+      },
+      {
+        "name": "Stitcher II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Stitcher"
+      },
+      {
+        "name": "Stitcher III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Stitcher"
+      },
+      {
+        "name": "Rope",
+        "wiki_url": "https://arcraiders.wiki/wiki/Rope"
+      },
+      {
+        "name": "Zipline",
+        "wiki_url": "https://arcraiders.wiki/wiki/Zipline"
+      },
+      {
+        "name": "ARC Powercell",
+        "wiki_url": "https://arcraiders.wiki/wiki/ARC_Powercell"
+      }
+    ]
+  },
+  {
+    "name": "Microscope",
+    "slug": "microscope",
+    "rarity": "",
+    "category": "1x Advanced Mechanical Components 3x Magnet",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 3000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Microscope",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.5,
+    "sell_price_per_stack": 9000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Mini Centrifuge",
+    "slug": "mini_centrifuge",
+    "rarity": "",
+    "category": "1x Advanced Mechanical Components 2x Canister",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 3000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Mini_Centrifuge",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 3.0,
+    "sell_price_per_stack": 9000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Mod Components",
+    "slug": "mod_components",
+    "rarity": "",
+    "category": "1x Mechanical Components 1x Steel Spring",
+    "recycle_to_raw": "Epic",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Epic"
+      }
+    ],
+    "sell_price": 3000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Mod_Components",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 1.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": [
+      {
+        "name": "Duct Tape",
+        "wiki_url": "https://arcraiders.wiki/wiki/Duct_Tape"
+      },
+      {
+        "name": "Angled Grip III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Angled_Grip_III"
+      },
+      {
+        "name": "Anvil Splitter",
+        "wiki_url": "https://arcraiders.wiki/wiki/Anvil_Splitter"
+      },
+      {
+        "name": "Wires",
+        "wiki_url": "https://arcraiders.wiki/wiki/Wires"
+      },
+      {
+        "name": "Compensator III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Compensator_III"
+      },
+      {
+        "name": "Extended Barrel",
+        "wiki_url": "https://arcraiders.wiki/wiki/Extended_Barrel"
+      },
+      {
+        "name": "Steel Spring",
+        "wiki_url": "https://arcraiders.wiki/wiki/Steel_Spring"
+      },
+      {
+        "name": "Extended Light Mag III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Extended_Light_Mag_III"
+      },
+      {
+        "name": "Extended Medium Mag III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Extended_Medium_Mag_III"
+      },
+      {
+        "name": "Extended Shotgun Mag III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Extended_Shotgun_Mag_III"
+      },
+      {
+        "name": "Horizontal Grip",
+        "wiki_url": "https://arcraiders.wiki/wiki/Horizontal_Grip"
+      },
+      {
+        "name": "Kinetic Converter",
+        "wiki_url": "https://arcraiders.wiki/wiki/Kinetic_Converter"
+      },
+      {
+        "name": "Lightweight Stock",
+        "wiki_url": "https://arcraiders.wiki/wiki/Lightweight_Stock"
+      },
+      {
+        "name": "Muzzle Brake III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Muzzle_Brake_III"
+      },
+      {
+        "name": "Padded Stock",
+        "wiki_url": "https://arcraiders.wiki/wiki/Padded_Stock"
+      },
+      {
+        "name": "Silencer II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Silencer_II"
+      },
+      {
+        "name": "Silencer III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Silencer_III"
+      },
+      {
+        "name": "Shotgun Choke III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Shotgun_Choke_III"
+      },
+      {
+        "name": "Shotgun Silencer",
+        "wiki_url": "https://arcraiders.wiki/wiki/Shotgun_Silencer"
+      },
+      {
+        "name": "Stable Stock III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Stable_Stock_III"
+      },
+      {
+        "name": "Vertical Grip III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Vertical_Grip_III"
+      },
+      {
+        "name": "Mechanical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Mechanical_Components"
+      }
+    ]
+  },
+  {
+    "name": "Moss",
+    "slug": "moss",
+    "rarity": "",
+    "category": "3x Assorted Seeds",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 500,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Moss",
+    "image_url": null,
+    "stack_size": 10,
+    "weight": 0.3,
+    "sell_price_per_stack": 5000,
+    "used_in_crafting": [
+      {
+        "name": "Plastic Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Plastic_Parts"
+      },
+      {
+        "name": "Defibrillator",
+        "wiki_url": "https://arcraiders.wiki/wiki/Defibrillator"
+      },
+      {
+        "name": "Fabric",
+        "wiki_url": "https://arcraiders.wiki/wiki/Fabric"
+      },
+      {
+        "name": "Roots",
+        "wiki_url": "https://arcraiders.wiki/wiki/Roots"
+      },
+      {
+        "name": "Agave",
+        "wiki_url": "https://arcraiders.wiki/wiki/Agave"
+      },
+      {
+        "name": "Torch Ginger",
+        "wiki_url": "https://arcraiders.wiki/wiki/Torch_Ginger"
+      },
+      {
+        "name": "Herbal Bandage",
+        "wiki_url": "https://arcraiders.wiki/wiki/Herbal_Bandage"
+      },
+      {
+        "name": "Assorted Seeds",
+        "wiki_url": "https://arcraiders.wiki/wiki/Assorted_Seeds"
+      }
+    ]
+  },
+  {
+    "name": "Motor",
+    "slug": "motor",
+    "rarity": "",
+    "category": "2x Oil 2x Mechanical Components",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Motor",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 3.0,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Mushroom",
+    "slug": "mushroom",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Mushroom",
+    "image_url": null,
+    "stack_size": 10,
+    "weight": 0.2,
+    "sell_price_per_stack": 10000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Music Album",
+    "slug": "music_album",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 3000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Music_Album",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.3,
+    "sell_price_per_stack": 9000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Music Box",
+    "slug": "music_box",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 5000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Music_Box",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.4,
+    "sell_price_per_stack": 15000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Number Plate",
+    "slug": "number_plate",
+    "rarity": "",
+    "category": "3x Metal Parts",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 270,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Number_Plate",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.8,
+    "sell_price_per_stack": 810,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Oil",
+    "slug": "oil",
+    "rarity": "",
+    "category": "3x Chemicals",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 300,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Oil",
+    "image_url": null,
+    "stack_size": 15,
+    "weight": 0.25,
+    "sell_price_per_stack": 4500,
+    "used_in_crafting": [
+      {
+        "name": "Metal Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Metal_Parts"
+      },
+      {
+        "name": "Blaze Grenade",
+        "wiki_url": "https://arcraiders.wiki/wiki/Blaze_Grenade"
+      },
+      {
+        "name": "Crude Explosives",
+        "wiki_url": "https://arcraiders.wiki/wiki/Crude_Explosives"
+      },
+      {
+        "name": "Explosive Compound",
+        "wiki_url": "https://arcraiders.wiki/wiki/Explosive_Compound"
+      },
+      {
+        "name": "Advanced Mechanical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Advanced_Mechanical_Components"
+      },
+      {
+        "name": "Medium Gun Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Medium_Gun_Parts"
+      },
+      {
+        "name": "Renegade I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Renegade"
+      },
+      {
+        "name": "Chemicals",
+        "wiki_url": "https://arcraiders.wiki/wiki/Chemicals"
+      }
+    ]
+  },
+  {
+    "name": "Olives",
+    "slug": "olives",
+    "rarity": "",
+    "category": "2x Assorted Seeds",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Olives",
+    "image_url": null,
+    "stack_size": 10,
+    "weight": 0.2,
+    "sell_price_per_stack": 6400,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Painted Box",
+    "slug": "painted_box",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Painted_Box",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.3,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Patrol Car Key",
+    "slug": "patrol_car_key",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 100,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Patrol_Car_Key",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 0.25,
+    "sell_price_per_stack": 100,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Plastic Parts",
+    "slug": "plastic_parts",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 60,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Plastic_Parts",
+    "image_url": null,
+    "stack_size": 50,
+    "weight": 0.1,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": [
+      {
+        "name": "Chemicals",
+        "wiki_url": "https://arcraiders.wiki/wiki/Chemicals"
+      },
+      {
+        "name": "Adrenaline Shot",
+        "wiki_url": "https://arcraiders.wiki/wiki/Adrenaline_Shot"
+      },
+      {
+        "name": "Rubber Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Rubber_Parts"
+      },
+      {
+        "name": "Binoculars",
+        "wiki_url": "https://arcraiders.wiki/wiki/Binoculars"
+      },
+      {
+        "name": "Combat Mk. 1",
+        "wiki_url": "https://arcraiders.wiki/wiki/Combat_Mk._1"
+      },
+      {
+        "name": "Moss",
+        "wiki_url": "https://arcraiders.wiki/wiki/Moss"
+      },
+      {
+        "name": "Defibrillator",
+        "wiki_url": "https://arcraiders.wiki/wiki/Defibrillator"
+      },
+      {
+        "name": "Electrical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Electrical_Components"
+      },
+      {
+        "name": "Metal Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Metal_Parts"
+      },
+      {
+        "name": "Hairpin I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Hairpin"
+      },
+      {
+        "name": "Kettle I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Kettle"
+      },
+      {
+        "name": "Kettle II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Kettle"
+      },
+      {
+        "name": "Light Impact Grenade",
+        "wiki_url": "https://arcraiders.wiki/wiki/Light_Impact_Grenade"
+      },
+      {
+        "name": "Looting Mk. 1",
+        "wiki_url": "https://arcraiders.wiki/wiki/Looting_Mk._1"
+      },
+      {
+        "name": "Speaker Component",
+        "wiki_url": "https://arcraiders.wiki/wiki/Speaker_Component"
+      },
+      {
+        "name": "Lure Grenade",
+        "wiki_url": "https://arcraiders.wiki/wiki/Lure_Grenade"
+      },
+      {
+        "name": "Tactical Mk. 1",
+        "wiki_url": "https://arcraiders.wiki/wiki/Tactical_Mk._1"
+      },
+      {
+        "name": "Sensors",
+        "wiki_url": "https://arcraiders.wiki/wiki/Sensors"
+      },
+      {
+        "name": "Tagging Grenade",
+        "wiki_url": "https://arcraiders.wiki/wiki/Tagging_Grenade"
+      },
+      {
+        "name": "Fabric",
+        "wiki_url": "https://arcraiders.wiki/wiki/Fabric"
+      },
+      {
+        "name": "ARC Alloy",
+        "wiki_url": "https://arcraiders.wiki/wiki/ARC_Alloy"
+      }
+    ]
+  },
+  {
+    "name": "Playing Cards",
+    "slug": "playing_cards",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 5000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Playing_Cards",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.2,
+    "sell_price_per_stack": 15000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Polluted Air Filter",
+    "slug": "polluted_air_filter",
+    "rarity": "",
+    "category": "6x Fabric 2x Oil",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Polluted_Air_Filter",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.8,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Pop Trigger",
+    "slug": "pop_trigger",
+    "rarity": "",
+    "category": "1x Crude Explosives 1x ARC Alloy",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Pop_Trigger",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.5,
+    "sell_price_per_stack": 1920,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Portable TV",
+    "slug": "portable_tv",
+    "rarity": "",
+    "category": "2x Battery 6x Wires",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Portable_TV",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 3.0,
+    "sell_price_per_stack": 2000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Poster of Natural Wonders",
+    "slug": "poster_of_natural_wonders",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Poster_Of_Natural_Wonders",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.3,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Pottery",
+    "slug": "pottery",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Pottery",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.3,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Power Bank",
+    "slug": "power_bank",
+    "rarity": "",
+    "category": "2x Battery 2x Wires",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Power_Bank",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Power Cable",
+    "slug": "power_cable",
+    "rarity": "",
+    "category": "4x Wires",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Power_Cable",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Power Rod",
+    "slug": "power_rod",
+    "rarity": "",
+    "category": "1x Advanced Electrical Components 1x ARC Circuitry",
+    "recycle_to_raw": "Epic",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Epic"
+      }
+    ],
+    "sell_price": 5500,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Power_Rod",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.0,
+    "sell_price_per_stack": 16500,
+    "used_in_crafting": [
+      {
+        "name": "Voltage Converter",
+        "wiki_url": "https://arcraiders.wiki/wiki/Voltage_Converter"
+      },
+      {
+        "name": "Heavy Shield",
+        "wiki_url": "https://arcraiders.wiki/wiki/Heavy_Shield"
+      },
+      {
+        "name": "Exodus Modules",
+        "wiki_url": "https://arcraiders.wiki/wiki/Exodus_Modules"
+      },
+      {
+        "name": "Snap Hook",
+        "wiki_url": "https://arcraiders.wiki/wiki/Snap_Hook"
+      },
+      {
+        "name": "Advanced Electrical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Advanced_Electrical_Components"
+      },
+      {
+        "name": "ARC Circuitry",
+        "wiki_url": "https://arcraiders.wiki/wiki/ARC_Circuitry"
+      }
+    ]
+  },
+  {
+    "name": "Prickly Pear",
+    "slug": "prickly_pear",
+    "rarity": "",
+    "category": "3x Assorted Seeds",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Prickly_Pear",
+    "image_url": null,
+    "stack_size": 10,
+    "weight": 0.2,
+    "sell_price_per_stack": 6400,
+    "used_in_crafting": [
+      {
+        "name": "Lemon",
+        "wiki_url": "https://arcraiders.wiki/wiki/Lemon"
+      },
+      {
+        "name": "Apricot",
+        "wiki_url": "https://arcraiders.wiki/wiki/Apricot"
+      },
+      {
+        "name": "Fruit Mix",
+        "wiki_url": "https://arcraiders.wiki/wiki/Fruit_Mix"
+      },
+      {
+        "name": "Olives",
+        "wiki_url": "https://arcraiders.wiki/wiki/Olives"
+      },
+      {
+        "name": "Cat Bed",
+        "wiki_url": "https://arcraiders.wiki/wiki/Cat_Bed"
+      },
+      {
+        "name": "Scrappy III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Scrappy"
+      },
+      {
+        "name": "Scrappy IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Scrappy"
+      }
+    ]
+  },
+  {
+    "name": "Processor",
+    "slug": "processor",
+    "rarity": "",
+    "category": "1x Wires 1x Plastic Parts",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 500,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Processor",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 0.2,
+    "sell_price_per_stack": 2500,
+    "used_in_crafting": [
+      {
+        "name": "Advanced Electrical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Advanced_Electrical_Components"
+      },
+      {
+        "name": "Looting Mk. 3 (Cautious)",
+        "wiki_url": "https://arcraiders.wiki/wiki/Looting_Mk._3_(Cautious)"
+      },
+      {
+        "name": "Tactical Mk. 3 (Healing)",
+        "wiki_url": "https://arcraiders.wiki/wiki/Tactical_Mk._3_(Healing)"
+      },
+      {
+        "name": "Trigger 'Nade",
+        "wiki_url": "https://arcraiders.wiki/wiki/Trigger_%27Nade"
+      },
+      {
+        "name": "Crude Explosives",
+        "wiki_url": "https://arcraiders.wiki/wiki/Crude_Explosives"
+      },
+      {
+        "name": "Wires",
+        "wiki_url": "https://arcraiders.wiki/wiki/Wires"
+      },
+      {
+        "name": "Plastic Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Plastic_Parts"
+      }
+    ]
+  },
+  {
+    "name": "Projector",
+    "slug": "projector",
+    "rarity": "",
+    "category": "1x Processor 2x Wires",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Projector",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Queen Reactor",
+    "slug": "queen_reactor",
+    "rarity": "",
+    "category": "1x Power Rod 1x Magnetic Accelerator",
+    "recycle_to_raw": "Legendary",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Legendary"
+      }
+    ],
+    "sell_price": 13000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Queen_Reactor",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 10.0,
+    "sell_price_per_stack": 13000,
+    "used_in_crafting": [
+      {
+        "name": "Magnetic Accelerator",
+        "wiki_url": "https://arcraiders.wiki/wiki/Magnetic_Accelerator"
+      },
+      {
+        "name": "Complex Gun Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Complex_Gun_Parts"
+      },
+      {
+        "name": "Equalizer",
+        "wiki_url": "https://arcraiders.wiki/wiki/Equalizer"
+      },
+      {
+        "name": "Jupiter",
+        "wiki_url": "https://arcraiders.wiki/wiki/Jupiter"
+      },
+      {
+        "name": "Power Rod",
+        "wiki_url": "https://arcraiders.wiki/wiki/Power_Rod"
+      }
+    ]
+  },
+  {
+    "name": "Radio",
+    "slug": "radio",
+    "rarity": "",
+    "category": "1x Speaker Component 1x Sensors",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Radio",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Radio Relay",
+    "slug": "radio_relay",
+    "rarity": "",
+    "category": "2x Speaker Component 2x Sensors",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 3000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Radio_Relay",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.5,
+    "sell_price_per_stack": 9000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Raider Hatch Key",
+    "slug": "raider_hatch_key",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Raider_Hatch_Key",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 0.01,
+    "sell_price_per_stack": 1000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Red Coral Jewelry",
+    "slug": "red_coral_jewelry",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 5000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Red_Coral_Jewelry",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.3,
+    "sell_price_per_stack": 15000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Remote Control",
+    "slug": "remote_control",
+    "rarity": "",
+    "category": "2x Plastic Parts 1x Sensors",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Remote_Control",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.8,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Resin",
+    "slug": "resin",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Resin",
+    "image_url": null,
+    "stack_size": 10,
+    "weight": 0.4,
+    "sell_price_per_stack": 10000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Ripped Safety Vest",
+    "slug": "ripped_safety_vest",
+    "rarity": "",
+    "category": "1x Magnet 1x Durable Cloth",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Ripped_Safety_Vest",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.8,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Rocket Thruster",
+    "slug": "rocket_thruster",
+    "rarity": "",
+    "category": "2x Synthesized Fuel 6x Metal Parts",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Rocket_Thruster",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 3.0,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Rocketeer Driver",
+    "slug": "rocketeer_driver",
+    "rarity": "",
+    "category": "2x Advanced Electrical Components 3x ARC Alloy",
+    "recycle_to_raw": "Epic",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Epic"
+      }
+    ],
+    "sell_price": 5000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Rocketeer_Driver",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.0,
+    "sell_price_per_stack": 15000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Roots",
+    "slug": "roots",
+    "rarity": "",
+    "category": "1x Assorted Seeds",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Roots",
+    "image_url": null,
+    "stack_size": 10,
+    "weight": 0.2,
+    "sell_price_per_stack": 6400,
+    "used_in_crafting": [
+      {
+        "name": "Fabric",
+        "wiki_url": "https://arcraiders.wiki/wiki/Fabric"
+      },
+      {
+        "name": "Moss",
+        "wiki_url": "https://arcraiders.wiki/wiki/Moss"
+      },
+      {
+        "name": "Agave",
+        "wiki_url": "https://arcraiders.wiki/wiki/Agave"
+      },
+      {
+        "name": "Torch Ginger",
+        "wiki_url": "https://arcraiders.wiki/wiki/Torch_Ginger"
+      },
+      {
+        "name": "Herbal Bandage",
+        "wiki_url": "https://arcraiders.wiki/wiki/Herbal_Bandage"
+      }
+    ]
+  },
+  {
+    "name": "Rope",
+    "slug": "rope",
+    "rarity": "",
+    "category": "5x Fabric",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 500,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Rope",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 0.3,
+    "sell_price_per_stack": 2500,
+    "used_in_crafting": [
+      {
+        "name": "Metal Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Metal_Parts"
+      },
+      {
+        "name": "Zipline",
+        "wiki_url": "https://arcraiders.wiki/wiki/Zipline"
+      },
+      {
+        "name": "Advanced Electrical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Advanced_Electrical_Components"
+      },
+      {
+        "name": "Snap Hook",
+        "wiki_url": "https://arcraiders.wiki/wiki/Snap_Hook"
+      },
+      {
+        "name": "Fabric",
+        "wiki_url": "https://arcraiders.wiki/wiki/Fabric"
+      }
+    ]
+  },
+  {
+    "name": "Rosary",
+    "slug": "rosary",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Rosary",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.3,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Rotary Encoder",
+    "slug": "rotary_encoder",
+    "rarity": "",
+    "category": "2x Electrical Components 2x Processor",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 3000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Rotary_Encoder",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.5,
+    "sell_price_per_stack": 9000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Rubber Duck",
+    "slug": "rubber_duck",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Rubber_Duck",
+    "image_url": null,
+    "stack_size": 15,
+    "weight": 0.3,
+    "sell_price_per_stack": 15000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Rubber Pad",
+    "slug": "rubber_pad",
+    "rarity": "",
+    "category": "18x Rubber Parts",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Rubber_Pad",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Rubber Parts",
+    "slug": "rubber_parts",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 50,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Rubber_Parts",
+    "image_url": null,
+    "stack_size": 50,
+    "weight": 0.1,
+    "sell_price_per_stack": 2500,
+    "used_in_crafting": [
+      {
+        "name": "Plastic Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Plastic_Parts"
+      },
+      {
+        "name": "Binoculars",
+        "wiki_url": "https://arcraiders.wiki/wiki/Binoculars"
+      },
+      {
+        "name": "Combat Mk. 1",
+        "wiki_url": "https://arcraiders.wiki/wiki/Combat_Mk._1"
+      },
+      {
+        "name": "Metal Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Metal_Parts"
+      },
+      {
+        "name": "Door Blocker",
+        "wiki_url": "https://arcraiders.wiki/wiki/Door_Blocker"
+      },
+      {
+        "name": "Ferro I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Ferro"
+      },
+      {
+        "name": "Chemicals",
+        "wiki_url": "https://arcraiders.wiki/wiki/Chemicals"
+      },
+      {
+        "name": "Gas Grenade",
+        "wiki_url": "https://arcraiders.wiki/wiki/Gas_Grenade"
+      },
+      {
+        "name": "Kettle I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Kettle"
+      },
+      {
+        "name": "Looting Mk. 1",
+        "wiki_url": "https://arcraiders.wiki/wiki/Looting_Mk._1"
+      },
+      {
+        "name": "Remote Raider Flare",
+        "wiki_url": "https://arcraiders.wiki/wiki/Remote_Raider_Flare"
+      },
+      {
+        "name": "ARC Powercell",
+        "wiki_url": "https://arcraiders.wiki/wiki/ARC_Powercell"
+      },
+      {
+        "name": "Shield Recharger",
+        "wiki_url": "https://arcraiders.wiki/wiki/Shield_Recharger"
+      },
+      {
+        "name": "Duct Tape",
+        "wiki_url": "https://arcraiders.wiki/wiki/Duct_Tape"
+      },
+      {
+        "name": "Stable Stock I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Stable_Stock_I"
+      },
+      {
+        "name": "Stitcher I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Stitcher"
+      },
+      {
+        "name": "Stitcher II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Stitcher"
+      },
+      {
+        "name": "Tactical Mk. 1",
+        "wiki_url": "https://arcraiders.wiki/wiki/Tactical_Mk._1"
+      },
+      {
+        "name": "Kettle II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Kettle"
+      }
+    ]
+  },
+  {
+    "name": "Ruined Accordion",
+    "slug": "ruined_accordion",
+    "rarity": "",
+    "category": "18x Rubber Parts 3x Steel Spring",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Ruined_Accordion",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 3.0,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Ruined Augment",
+    "slug": "ruined_augment",
+    "rarity": "",
+    "category": "2x Plastic Parts 2x Rubber Parts",
+    "recycle_to_raw": "-",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "-"
+      }
+    ],
+    "sell_price": 270,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Ruined_Augment",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 3.0,
+    "sell_price_per_stack": 270,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Ruined Baton",
+    "slug": "ruined_baton",
+    "rarity": "",
+    "category": "6x Metal Parts 3x Rubber Parts",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Ruined_Baton",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.8,
+    "sell_price_per_stack": 1920,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Ruined Handcuffs",
+    "slug": "ruined_handcuffs",
+    "rarity": "",
+    "category": "8x Metal Parts",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Ruined_Handcuffs",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.8,
+    "sell_price_per_stack": 1920,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Ruined Parachute",
+    "slug": "ruined_parachute",
+    "rarity": "",
+    "category": "10x Fabric",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Ruined_Parachute",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.8,
+    "sell_price_per_stack": 1920,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Ruined Tactical Vest",
+    "slug": "ruined_tactical_vest",
+    "rarity": "",
+    "category": "5x Fabric 1x Magnet",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Ruined_Tactical_Vest",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.8,
+    "sell_price_per_stack": 1920,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Ruined Riot Shield",
+    "slug": "ruined_riot_shield",
+    "rarity": "",
+    "category": "10x Plastic Parts 6x Rubber Parts",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Ruined_Riot_Shield",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Rusted Bolts",
+    "slug": "rusted_bolts",
+    "rarity": "",
+    "category": "8x Metal Parts",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Rusted_Bolts",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.8,
+    "sell_price_per_stack": 1920,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Rusted Gear",
+    "slug": "rusted_gear",
+    "rarity": "",
+    "category": "4x Metal Parts 2x Mechanical Components",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Rusted_Gear",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 3.0,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Rusted Shut Medical Kit",
+    "slug": "rusted_shut_medical_kit",
+    "rarity": "",
+    "category": "2x Syringe 1x Antiseptic",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Rusted_Shut_Medical_Kit",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 3.0,
+    "sell_price_per_stack": 2000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Rusted Tools",
+    "slug": "rusted_tools",
+    "rarity": "",
+    "category": "8x Metal Parts 1x Steel Spring",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Rusted_Tools",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Rusty ARC Steel",
+    "slug": "rusty_arc_steel",
+    "rarity": "",
+    "category": "8x Metal Parts",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Rusty_ARC_Steel",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.0,
+    "sell_price_per_stack": 1920,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Sample Cleaner",
+    "slug": "sample_cleaner",
+    "rarity": "",
+    "category": "2x Electrical Components 14x Assorted Seeds",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 3000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Sample_Cleaner",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.5,
+    "sell_price_per_stack": 9000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Sensors",
+    "slug": "sensors",
+    "rarity": "",
+    "category": "2x Wires 2x Metal Parts",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 500,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Sensors",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 0.3,
+    "sell_price_per_stack": 2500,
+    "used_in_crafting": [
+      {
+        "name": "Crude Explosives",
+        "wiki_url": "https://arcraiders.wiki/wiki/Crude_Explosives"
+      },
+      {
+        "name": "Explosive Mine",
+        "wiki_url": "https://arcraiders.wiki/wiki/Explosive_Mine"
+      },
+      {
+        "name": "Advanced Electrical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Advanced_Electrical_Components"
+      },
+      {
+        "name": "Raider Hatch Key",
+        "wiki_url": "https://arcraiders.wiki/wiki/Raider_Hatch_Key"
+      },
+      {
+        "name": "Plastic Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Plastic_Parts"
+      },
+      {
+        "name": "Tagging Grenade",
+        "wiki_url": "https://arcraiders.wiki/wiki/Tagging_Grenade"
+      },
+      {
+        "name": "Wires",
+        "wiki_url": "https://arcraiders.wiki/wiki/Wires"
+      },
+      {
+        "name": "Metal Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Metal_Parts"
+      },
+      {
+        "name": "Battery",
+        "wiki_url": "https://arcraiders.wiki/wiki/Battery"
+      },
+      {
+        "name": "Light Bulb",
+        "wiki_url": "https://arcraiders.wiki/wiki/Light_Bulb"
+      },
+      {
+        "name": "Exodus Modules",
+        "wiki_url": "https://arcraiders.wiki/wiki/Exodus_Modules"
+      }
+    ]
+  },
+  {
+    "name": "Sentinel Firing Core",
+    "slug": "sentinel_firing_core",
+    "rarity": "",
+    "category": "2x ARC Alloy 3x Mechanical Components",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 3000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Sentinel_Firing_Core",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.0,
+    "sell_price_per_stack": 9000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Shredder Gyro",
+    "slug": "shredder_gyro",
+    "rarity": "",
+    "category": "3x Mechanical Components 3x ARC Alloy",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 3000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Shredder_Gyro",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.0,
+    "sell_price_per_stack": 9000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Signal Amplifier",
+    "slug": "signal_amplifier",
+    "rarity": "",
+    "category": "2x Electrical Components 2x Voltage Converter",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 3000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Signal_Amplifier",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.5,
+    "sell_price_per_stack": 9000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Silver Teaspoon Set",
+    "slug": "silver_teaspoon_set",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 3000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Silver_Teaspoon_Set",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.3,
+    "sell_price_per_stack": 9000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Simple Gun Parts",
+    "slug": "simple_gun_parts",
+    "rarity": "",
+    "category": "2x Metal Parts",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 330,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Simple_Gun_Parts",
+    "image_url": null,
+    "stack_size": 10,
+    "weight": 0.3,
+    "sell_price_per_stack": 3300,
+    "used_in_crafting": [
+      {
+        "name": "Mechanical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Mechanical_Components"
+      },
+      {
+        "name": "Anvil I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Anvil"
+      },
+      {
+        "name": "Anvil II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Anvil"
+      },
+      {
+        "name": "Arpeggio I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Arpeggio"
+      },
+      {
+        "name": "Arpeggio II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Arpeggio"
+      },
+      {
+        "name": "Arpeggio III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Arpeggio"
+      },
+      {
+        "name": "Arpeggio IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Arpeggio"
+      },
+      {
+        "name": "Burletta I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Burletta"
+      },
+      {
+        "name": "Burletta II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Burletta"
+      },
+      {
+        "name": "Burletta III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Burletta"
+      },
+      {
+        "name": "Ferro II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Ferro"
+      },
+      {
+        "name": "Metal Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Metal_Parts"
+      },
+      {
+        "name": "Ferro III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Ferro"
+      },
+      {
+        "name": "Ferro IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Ferro"
+      },
+      {
+        "name": "Hairpin II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Hairpin"
+      },
+      {
+        "name": "Hairpin III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Hairpin"
+      },
+      {
+        "name": "Hairpin IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Hairpin"
+      },
+      {
+        "name": "Il Toro I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Il_Toro"
+      },
+      {
+        "name": "Il Toro II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Il_Toro"
+      },
+      {
+        "name": "Kettle II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Kettle"
+      },
+      {
+        "name": "Kettle III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Kettle"
+      },
+      {
+        "name": "Kettle IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Kettle"
+      },
+      {
+        "name": "Light Gun Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Light_Gun_Parts"
+      },
+      {
+        "name": "Medium Gun Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Medium_Gun_Parts"
+      },
+      {
+        "name": "Heavy Gun Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Heavy_Gun_Parts"
+      },
+      {
+        "name": "Rattler II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Rattler"
+      },
+      {
+        "name": "Rattler III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Rattler"
+      },
+      {
+        "name": "Rattler IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Rattler"
+      },
+      {
+        "name": "Stitcher II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Stitcher"
+      },
+      {
+        "name": "Stitcher III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Stitcher"
+      },
+      {
+        "name": "Stitcher IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Stitcher"
+      },
+      {
+        "name": "Anvil III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Anvil"
+      },
+      {
+        "name": "Anvil IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Anvil"
+      },
+      {
+        "name": "Burletta IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Burletta"
+      },
+      {
+        "name": "Il Toro III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Il_Toro"
+      },
+      {
+        "name": "Il Toro IV",
+        "wiki_url": "https://arcraiders.wiki/wiki/Il_Toro"
+      }
+    ]
+  },
+  {
+    "name": "Snitch Scanner",
+    "slug": "snitch_scanner",
+    "rarity": "",
+    "category": "4x ARC Alloy 2x Electrical Components",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Snitch_Scanner",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.75,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Spaceport Container Storage Key",
+    "slug": "spaceport_container_storage_key",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 100,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Spaceport_Container_Storage_Key",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 0.25,
+    "sell_price_per_stack": 100,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Spaceport Control Tower Key",
+    "slug": "spaceport_control_tower_key",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 100,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Spaceport_Control_Tower_Key",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 0.25,
+    "sell_price_per_stack": 100,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Spaceport Trench Tower Key",
+    "slug": "spaceport_trench_tower_key",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 100,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Spaceport_Trench_Tower_Key",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 0.25,
+    "sell_price_per_stack": 100,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Spaceport Warehouse Key",
+    "slug": "spaceport_warehouse_key",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 100,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Spaceport_Warehouse_Key",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 0.25,
+    "sell_price_per_stack": 100,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Speaker Component",
+    "slug": "speaker_component",
+    "rarity": "",
+    "category": "2x Plastic Parts 2x Rubber Parts",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 500,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Speaker_Component",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 0.3,
+    "sell_price_per_stack": 2500,
+    "used_in_crafting": [
+      {
+        "name": "Plastic Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Plastic_Parts"
+      },
+      {
+        "name": "Lure Grenade",
+        "wiki_url": "https://arcraiders.wiki/wiki/Lure_Grenade"
+      },
+      {
+        "name": "Advanced Electrical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Advanced_Electrical_Components"
+      },
+      {
+        "name": "Photoelectric Cloak",
+        "wiki_url": "https://arcraiders.wiki/wiki/Photoelectric_Cloak"
+      },
+      {
+        "name": "Rubber Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Rubber_Parts"
+      }
+    ]
+  },
+  {
+    "name": "Spectrum Analyzer",
+    "slug": "spectrum_analyzer",
+    "rarity": "",
+    "category": "1x Sensors 1x Exodus Modules",
+    "recycle_to_raw": "Epic",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Epic"
+      }
+    ],
+    "sell_price": 3500,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Spectrum_Analyzer",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.5,
+    "sell_price_per_stack": 10500,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Spring Cushion",
+    "slug": "spring_cushion",
+    "rarity": "",
+    "category": "2x Durable Cloth 2x Steel Spring",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Spring_Cushion",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Spotter Relay",
+    "slug": "spotter_relay",
+    "rarity": "",
+    "category": "2x Electrical Components 1x ARC Alloy",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Spotter_Relay",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.0,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Statuette",
+    "slug": "statuette",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 3000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Statuette",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.3,
+    "sell_price_per_stack": 9000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Steel Spring",
+    "slug": "steel_spring",
+    "rarity": "",
+    "category": "3x Metal Parts",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 300,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Steel_Spring",
+    "image_url": null,
+    "stack_size": 15,
+    "weight": null,
+    "sell_price_per_stack": 4500,
+    "used_in_crafting": [
+      {
+        "name": "Mechanical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Mechanical_Components"
+      },
+      {
+        "name": "Advanced Mechanical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Advanced_Mechanical_Components"
+      },
+      {
+        "name": "Plastic Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Plastic_Parts"
+      },
+      {
+        "name": "Extended Light Magazine I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Extended_Light_Magazine_I"
+      },
+      {
+        "name": "Extended Medium Magazine I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Extended_Medium_Magazine_I"
+      },
+      {
+        "name": "Extended Shotgun Magazine I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Extended_Shotgun_Magazine_I"
+      },
+      {
+        "name": "Crude Explosives",
+        "wiki_url": "https://arcraiders.wiki/wiki/Crude_Explosives"
+      },
+      {
+        "name": "Shrapnel Grenade",
+        "wiki_url": "https://arcraiders.wiki/wiki/Shrapnel_Grenade"
+      },
+      {
+        "name": "Medium Gun Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Medium_Gun_Parts"
+      },
+      {
+        "name": "Torrente I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Torrente"
+      },
+      {
+        "name": "Metal Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Metal_Parts"
+      }
+    ]
+  },
+  {
+    "name": "Stella Montis Archives Key",
+    "slug": "stella_montis_archives_key",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Epic",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Epic"
+      }
+    ],
+    "sell_price": 100,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Stella_Montis_Archives_Key",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 0.25,
+    "sell_price_per_stack": 100,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Stella Montis Assembly Admin Key",
+    "slug": "stella_montis_assembly_admin_key",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 250,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Stella_Montis_Assembly_Admin_Key",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 0.25,
+    "sell_price_per_stack": 250,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Stella Montis Medical Storage Key",
+    "slug": "stella_montis_medical_storage_key",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 100,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Stella_Montis_Medical_Storage_Key",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 0.25,
+    "sell_price_per_stack": 100,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Stella Montis Security Checkpoint Key",
+    "slug": "stella_montis_security_checkpoint_key",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 100,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Stella_Montis_Security_Checkpoint_Key",
+    "image_url": null,
+    "stack_size": 1,
+    "weight": 0.25,
+    "sell_price_per_stack": 100,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Surveyor Vault",
+    "slug": "surveyor_vault",
+    "rarity": "",
+    "category": "2x Mechanical Components 2x ARC Alloy",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Surveyor_Vault",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.75,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Synthesized Fuel",
+    "slug": "synthesized_fuel",
+    "rarity": "",
+    "category": "1x Oil 1x Plastic Parts",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 700,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Synthesized_Fuel",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 0.5,
+    "sell_price_per_stack": 3500,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Syringe",
+    "slug": "syringe",
+    "rarity": "",
+    "category": "3x Plastic Parts 2x Chemicals",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 500,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Syringe",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 0.3,
+    "sell_price_per_stack": 2500,
+    "used_in_crafting": [
+      {
+        "name": "Antiseptic",
+        "wiki_url": "https://arcraiders.wiki/wiki/Antiseptic"
+      },
+      {
+        "name": "Vita Shot",
+        "wiki_url": "https://arcraiders.wiki/wiki/Vita_Shot"
+      },
+      {
+        "name": "Chemicals",
+        "wiki_url": "https://arcraiders.wiki/wiki/Chemicals"
+      },
+      {
+        "name": "Plastic Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Plastic_Parts"
+      }
+    ]
+  },
+  {
+    "name": "Tattered ARC Lining",
+    "slug": "tattered_arc_lining",
+    "rarity": "",
+    "category": "12x Fabric",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Tattered_ARC_Lining",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.0,
+    "sell_price_per_stack": 1920,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Tattered Clothes",
+    "slug": "tattered_clothes",
+    "rarity": "",
+    "category": "11x Fabric",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Tattered_Clothes",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.8,
+    "sell_price_per_stack": 1920,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Telemetry Transceiver",
+    "slug": "telemetry_transceiver",
+    "rarity": "",
+    "category": "1x Advanced Electrical Components 1x Processor",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 3000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Telemetry_Transceiver",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 1.5,
+    "sell_price_per_stack": 9000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Thermostat",
+    "slug": "thermostat",
+    "rarity": "",
+    "category": "6x Rubber Parts 2x Sensors",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Thermostat",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Tick Pod",
+    "slug": "tick_pod",
+    "rarity": "",
+    "category": "1x Chemicals 1x Metal Parts",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Tick_Pod",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 0.25,
+    "sell_price_per_stack": 3200,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Toaster",
+    "slug": "toaster",
+    "rarity": "",
+    "category": "5x Plastic Parts 3x Wires",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Toaster",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Torn Book",
+    "slug": "torn_book",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Torn_Book",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 0.3,
+    "sell_price_per_stack": 5000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Torn Blanket",
+    "slug": "torn_blanket",
+    "rarity": "",
+    "category": "12x Fabric",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 640,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Torn_Blanket",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 1920,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Turbo Pump",
+    "slug": "turbo_pump",
+    "rarity": "",
+    "category": "1x Mechanical Components 3x Oil",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Turbo_Pump",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 3.0,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Unusable Weapon",
+    "slug": "unusable_weapon",
+    "rarity": "",
+    "category": "4x Metal Parts 5x Simple Gun Parts",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Unusable_Weapon",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 3.0,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Vase",
+    "slug": "vase",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 3000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Vase",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.3,
+    "sell_price_per_stack": 9000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Very Comfortable Pillow",
+    "slug": "very_comfortable_pillow",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 2000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Very_Comfortable_Pillow",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.3,
+    "sell_price_per_stack": 6000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Volcanic Rock",
+    "slug": "volcanic_rock",
+    "rarity": "",
+    "category": "Cannot be recycled",
+    "recycle_to_raw": "Common",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Common"
+      }
+    ],
+    "sell_price": 270,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Volcanic_Rock",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 0.5,
+    "sell_price_per_stack": 1350,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Voltage Converter",
+    "slug": "voltage_converter",
+    "rarity": "",
+    "category": "1x Wires 1x Rubber Parts",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 500,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Voltage_Converter",
+    "image_url": null,
+    "stack_size": 5,
+    "weight": 0.3,
+    "sell_price_per_stack": 2500,
+    "used_in_crafting": [
+      {
+        "name": "Power Rod",
+        "wiki_url": "https://arcraiders.wiki/wiki/Power_Rod"
+      },
+      {
+        "name": "Heavy Shield",
+        "wiki_url": "https://arcraiders.wiki/wiki/Heavy_Shield"
+      },
+      {
+        "name": "Advanced Electrical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Advanced_Electrical_Components"
+      },
+      {
+        "name": "ARC Circuitry",
+        "wiki_url": "https://arcraiders.wiki/wiki/ARC_Circuitry"
+      },
+      {
+        "name": "Wires",
+        "wiki_url": "https://arcraiders.wiki/wiki/Wires"
+      },
+      {
+        "name": "Rubber Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Rubber_Parts"
+      }
+    ]
+  },
+  {
+    "name": "Wasp Driver",
+    "slug": "wasp_driver",
+    "rarity": "",
+    "category": "1x ARC Alloy 1x Electrical Components",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Wasp_Driver",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 0.6,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Water Filter",
+    "slug": "water_filter",
+    "rarity": "",
+    "category": "2x Rubber Parts 3x Canister",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Water_Filter",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Water Pump",
+    "slug": "water_pump",
+    "rarity": "",
+    "category": "4x Metal Parts 2x Oil",
+    "recycle_to_raw": "Rare",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Rare"
+      }
+    ],
+    "sell_price": 1000,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Water_Pump",
+    "image_url": null,
+    "stack_size": 3,
+    "weight": 2.0,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": []
+  },
+  {
+    "name": "Wires",
+    "slug": "wires",
+    "rarity": "",
+    "category": "2x Rubber Parts",
+    "recycle_to_raw": "Uncommon",
+    "recycle_to": [
+      {
+        "amount": null,
+        "item": "Uncommon"
+      }
+    ],
+    "sell_price": 200,
+    "keep_for": "",
+    "wiki_url": "https://arcraiders.wiki/wiki/Wires",
+    "image_url": null,
+    "stack_size": 15,
+    "weight": 0.25,
+    "sell_price_per_stack": 3000,
+    "used_in_crafting": [
+      {
+        "name": "Electrical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Electrical_Components"
+      },
+      {
+        "name": "Advanced Electrical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Advanced_Electrical_Components"
+      },
+      {
+        "name": "Metal Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Metal_Parts"
+      },
+      {
+        "name": "Compensator I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Compensator_I"
+      },
+      {
+        "name": "Mechanical Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Mechanical_Components"
+      },
+      {
+        "name": "Compensator II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Compensator_II"
+      },
+      {
+        "name": "Mod Components",
+        "wiki_url": "https://arcraiders.wiki/wiki/Mod_Components"
+      },
+      {
+        "name": "Compensator III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Compensator_III"
+      },
+      {
+        "name": "Muzzle Brake I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Muzzle_Brake_I"
+      },
+      {
+        "name": "Muzzle Brake II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Muzzle_Brake_II"
+      },
+      {
+        "name": "Muzzle Brake III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Muzzle_Brake_III"
+      },
+      {
+        "name": "Shotgun Choke I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Shotgun_Choke_I"
+      },
+      {
+        "name": "Shotgun Choke II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Shotgun_Choke_II"
+      },
+      {
+        "name": "Shotgun Choke III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Shotgun_Choke_III"
+      },
+      {
+        "name": "Shotgun Silencer",
+        "wiki_url": "https://arcraiders.wiki/wiki/Shotgun_Silencer"
+      },
+      {
+        "name": "Silencer I",
+        "wiki_url": "https://arcraiders.wiki/wiki/Silencer_I"
+      },
+      {
+        "name": "Silencer II",
+        "wiki_url": "https://arcraiders.wiki/wiki/Silencer_II"
+      },
+      {
+        "name": "Silencer III",
+        "wiki_url": "https://arcraiders.wiki/wiki/Silencer_III"
+      },
+      {
+        "name": "Durable Cloth",
+        "wiki_url": "https://arcraiders.wiki/wiki/Durable_Cloth"
+      },
+      {
+        "name": "Cooling Fan",
+        "wiki_url": "https://arcraiders.wiki/wiki/Cooling_Fan"
+      },
+      {
+        "name": "Rubber Parts",
+        "wiki_url": "https://arcraiders.wiki/wiki/Rubber_Parts"
+      }
+    ]
+  }
+]

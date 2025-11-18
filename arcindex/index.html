@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- HTML Meta Tags -->
+  <meta name="description"
+      content="Arc Index is a tool to search for any Arc Raiders Items.">
+
+  <!-- Facebook Meta Tags -->
+  <meta property="og:url" content="https://Ghillie.xyz/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ghillie | Arc Index">
+  <meta property="og:description"
+      content="Arc Index is a tool to search for any Arc Raiders Items.">
+  <meta property="og:image" content="/assets/img/MetaImgs/Meta-Arc-Index.png">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="twitter:domain" content="Ghillie.xyz">
+  <meta property="twitter:url" content="https://Ghillie.xyz/">
+  <meta name="twitter:title" content="Ghillie | Arc Index">
+  <meta name="twitter:description"
+      content="Arc Index is a tool to search for any Arc Raiders Items.">
+  <meta name="twitter:image:src" content="https://ghillie.xyz/assets/img/MetaImgs/Meta-Arc-Index.png">
+  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ghillie | Arc Index</title>
+
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <link rel="stylesheet" href="/assets/css/ark-index.css" />
+  <link rel="shortcut icon" type="image/png" href="/assets/img/favicon.png">
+</head>
+
+<body ondragstart="return false">
+  <div class="main">
+    <div class="top_navbar">
+      <ul>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/">Home</a></li>
+        <li class="dropdown">
+          <a class="has-caret">Portfolio</a>
+          <ul class="submenu">
+            <li><a href="/portfolio/">Thumbnails</a></li>
+            <li><a href="/kleptos/">Kleptos</a></li>
+            <li><a href="/wordle/">Wordle Solver</a></li>
+            <li><a href="/Arc Index/" class="nav_active_link">Arc Index</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- App -->
+  
+  <div id="arc-index">
+    <div class="workInProgress">
+      <h2>Work In Progress</h2>
+    </div>
+    <section class="hero">
+      <h1>Arc Index</h1>
+      <p class="muted">Search for any Arc Raiders Items.</p>
+    </section>
+
+    <main class="grid">
+      <section class="cardGlow">
+        <!-- Search bar -->
+        <div class="ai-header">
+          <input
+            id="aiSearch"
+            class="urlInput"
+            type="search"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+            placeholder='Search items, e.g. "arc alloy" or "recycle arc alloy"'
+          />
+        </div>
+
+        <!-- Filters row -->
+        <div class="ai-filters">
+          <label>
+            <span>Rarity</span>
+            <select id="rarityFilter">
+              <option value="">All</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Category</span>
+            <select id="categoryFilter">
+              <option value="">All</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Recycles into</span>
+            <select id="recycleFilter">
+              <option value="">Any</option>
+            </select>
+          </label>
+
+          <button id="clearFilters" class="btn ai-btn-secondary" type="button">
+            Clear
+          </button>
+        </div>
+
+        <!-- Meta row -->
+        <div class="itemsMeta muted">
+          <span id="itemsCount">0</span> items total •
+          <span id="itemsShown">0</span> shown
+        </div>
+
+        <!-- Loading indicator -->
+        <div id="itemsLoading" class="progress">
+          <div class="bar"></div>
+          <span>Loading items…</span>
+        </div>
+
+        <!-- Error toast -->
+        <div id="itemsError" class="toast error" hidden>
+          <div class="title">Failed to load items</div>
+          <div class="body">
+            Could not load <code>arc_items.json</code>. Check the browser console and make
+            sure the file exists at <code>/assets/data/arc_items.json</code>.
+          </div>
+        </div>
+
+        <!-- Items list -->
+        <div id="itemsList" class="itemsList"></div>
+      </section>
+    </main>
+  </div>
+  
+  <div class="footer" style="margin-top:0;">
+    <ul>
+      <li><a href="https://github.com/Ghilliexyz" target="_blank">GITHUB</a></li>
+      <li><a href="https://discordapp.com/users/211851747688185856" target="_blank">DISCORD</a></li>
+      <li><a href="https://twitter.com/Ghilliexyz" target="_blank">TWITTER</a></li>
+      <li><a href="https://buymeacoffee.com/ghillie" target="_blank">BUY ME A COFFEE</a></li>
+    </ul>
+  </div>
+
+  <script src="/assets/js/arc-index.js" defer></script>
+</body>
+</html>
