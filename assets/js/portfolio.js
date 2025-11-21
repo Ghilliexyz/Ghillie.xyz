@@ -1898,6 +1898,217 @@ const views = [
 		]
 	},
 	{
+		"Name": "DailyDoseOfPets",
+		"Logo": "/assets/img/portfolio/DailyDoseOfPets/He_Snuck_Past_Security.jpg",
+		"Anchor": "DailyDoseOfPets",
+		"Entries": [
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/He_Snuck_Past_Security.jpg",
+				"Link": "https://www.youtube.com/watch?v=uCh_lSElxrw",
+				"Title": "He Snuck Past Security",
+				"Views": "228K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/Police_Lock_Up_Cat.jpg",
+				"Link": "https://www.youtube.com/watch?v=Q2vnM3PTwMw",
+				"Title": "Police Lock Up Cat",
+				"Views": "163K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/Dog_Has_Zero_Survival_Skills.jpg",
+				"Link": "https://www.youtube.com/watch?v=3gRY0vh6oLg",
+				"Title": "Dog Has Zero Survival Skills",
+				"Views": "283K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/Cat_Thinks_It's_A_Piano.jpg",
+				"Link": "https://www.youtube.com/watch?v=Kg2mbBftPiA",
+				"Title": "Cat Thinks It's A Piano",
+				"Views": "232K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/My_Cat_Is_Broken.jpg",
+				"Link": "https://www.youtube.com/watch?v=xn39g1nF21I",
+				"Title": "My Cat Is Broken",
+				"Views": "264K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/Snake_Has_Two_Faces.jpg",
+				"Link": "https://www.youtube.com/watch?v=uZmXgKk9sMc",
+				"Title": "Snake Has Two Faces",
+				"Views": "180K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/House_Of_His_Dreams.jpg",
+				"Link": "https://www.youtube.com/watch?v=MeqWpkzgOhU",
+				"Title": "House Of His Dreams",
+				"Views": "227K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/Cat_Is_Tired_of_Pretending.jpg",
+				"Link": "https://www.youtube.com/watch?v=5VocBgHNFmc",
+				"Title": "Cat Is Tired of Pretending",
+				"Views": "301K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/He_Pleaded_Guilty.jpg",
+				"Link": "https://www.youtube.com/watch?v=1yEa874bM1Q",
+				"Title": "He Pleaded Guilty",
+				"Views": "326K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/He_Did_NOT_See_This_Coming.jpg",
+				"Link": "https://www.youtube.com/watch?v=XhJgkRxHtZ4",
+				"Title": "He Did NOT See This Coming",
+				"Views": "280K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/Still_Figuring_This_Out.jpg",
+				"Link": "https://www.youtube.com/watch?v=9KAZFahkSR4",
+				"Title": "Still Figuring This Out",
+				"Views": "295K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/Chickens_Are_So_Talented.jpg",
+				"Link": "https://www.youtube.com/watch?v=NvzZlpm3nUI",
+				"Title": "Chickens Are So Talented",
+				"Views": "326K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/He_Tried_A_Sneak_Attack.jpg",
+				"Link": "https://www.youtube.com/watch?v=p14ye9VY96k",
+				"Title": "He Tried A Sneak Attack",
+				"Views": "284K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/The_Tables_Have_Turned.jpg",
+				"Link": "https://www.youtube.com/watch?v=gKFo4BXg-50",
+				"Title": "The Tables Have Turned",
+				"Views": "379K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/Baths_Aren't_For_Everyone.jpg",
+				"Link": "https://www.youtube.com/watch?v=0Vtq3EAHs64",
+				"Title": "Baths Aren't For Everyone",
+				"Views": "232K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/Cats_Are_So_Done_With_Us.jpg",
+				"Link": "https://www.youtube.com/watch?v=TRf8mCV4Hz4",
+				"Title": "Cats Are So Done With Us",
+				"Views": "381K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/They_Felt_Left_Out.jpg",
+				"Link": "https://www.youtube.com/watch?v=z1dDNqrrZuQ",
+				"Title": "They Felt Left Out",
+				"Views": "341K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/He_Turned_into_a_Motorcycle.jpg",
+				"Link": "https://www.youtube.com/watch?v=O0yMOk_XLgc",
+				"Title": "He Turned into a Motorcycle",
+				"Views": "512K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/A_Very_Awkward_Horse.jpg",
+				"Link": "https://www.youtube.com/watch?v=bLMOAUe0wBA",
+				"Title": "A Very Awkward Horse",
+				"Views": "357K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/She_Knew_What_Was_Coming.jpg",
+				"Link": "https://www.youtube.com/watch?v=q4_go_WhhU8",
+				"Title": "She Knew What Was Coming",
+				"Views": "755K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/They_Thought_It_Was_Grass.jpg",
+				"Link": "https://www.youtube.com/watch?v=mSNZ1nBehYo",
+				"Title": "They Thought It Was Grass",
+				"Views": "448K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/It_Was_Worth_It.jpg",
+				"Link": "https://www.youtube.com/watch?v=leXthp5Z2TA",
+				"Title": "It Was Worth It",
+				"Views": "186K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/It_Was_His_Turn_to_Play.jpg",
+				"Link": "https://www.youtube.com/watch?v=HiiQuSDmTSE",
+				"Title": "It Was His Turn to Play",
+				"Views": "376K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/They_Forgot_They_Were_a_Cat.jpg",
+				"Link": "https://www.youtube.com/watch?v=yTlXiUGT6Pk",
+				"Title": "They Forgot They Were a Cat",
+				"Views": "518K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/Getting_Caught_Red_Handed.jpg",
+				"Link": "https://www.youtube.com/watch?v=GSc0Fm_DC6M",
+				"Title": "Getting Caught Red Handed",
+				"Views": "466K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/He_Just_Wanted_to_Relax.jpg",
+				"Link": "https://www.youtube.com/watch?v=HZgPaPxBjjg",
+				"Title": "He Just Wanted to Relax",
+				"Views": "521K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/Cat_Learns_the_Hard_Way.jpg",
+				"Link": "https://www.youtube.com/watch?v=cV5nvRWGvGI",
+				"Title": "Cat Learns the Hard Way",
+				"Views": "442K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/He'd_Do_Anything_For_Bacon.jpg",
+				"Link": "https://www.youtube.com/watch?v=wP60ddx1pD0",
+				"Title": "He'd Do Anything For Bacon",
+				"Views": "564K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/The_Intrusive_Thoughts_Won.jpg",
+				"Link": "https://www.youtube.com/watch?v=tuyZQzcIu24",
+				"Title": "The Intrusive Thoughts Won",
+				"Views": "735K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/Poor_Guy_Was_Left_Hanging.jpg",
+				"Link": "https://www.youtube.com/watch?v=CwRNrqFzAko",
+				"Title": "Poor Guy Was Left Hanging",
+				"Views": "536K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/First_Day_on_the_Job.jpg",
+				"Link": "https://www.youtube.com/watch?v=Jb7bcZfgOMY",
+				"Title": "First Day on the Job",
+				"Views": "858K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/They_Didn't_Get_the_Invite.jpg",
+				"Link": "https://www.youtube.com/watch?v=jlZY5l6DrmY",
+				"Title": "They Didn't Get the Invite",
+				"Views": "836K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/They_Saw_an_Opportunity.jpg",
+				"Link": "https://www.youtube.com/watch?v=X85NVAJ2Zpc",
+				"Title": "They Saw an Opportunity",
+				"Views": "795K Views"
+			},
+			{
+				"Image": "/assets/img/portfolio/DailyDoseOfPets/They_Had_No_Idea.jpg",
+				"Link": "https://www.youtube.com/watch?v=vp0a1nlp6eI",
+				"Title": "They Had No Idea",
+				"Views": "696K Views"
+			}
+		]
+	},
+	{
 		"Name": "JustRolledIn",
 		"Logo": "/assets/img/portfolio/JustRolledIn/JustRolledIn-CustomerStatesNewJaguarShutOffAfterWaterGotSplashedOnIt.jpg",
 		"Anchor": "JustRolledIn",
@@ -1953,9 +2164,9 @@ const views = [
 		],
 	},
 	{
-		"Name": "Captain Eggcellent",
+		"Name": "CaptainEggcellent",
 		"Logo": "/assets/img/portfolio/CaptainEggcellent/CaptainEggcellent_SheCanHearYou.jpg",
-		"Anchor": "Captain Eggcellent",
+		"Anchor": "CaptainEggcellent",
 		"Entries": [
 			{
 				"Image": "/assets/img/portfolio/CaptainEggcellent/CaptainEggcellent_SheCanHearYou.jpg",
@@ -1979,9 +2190,9 @@ const views = [
 		],
 	},
 	{
-		"Name": "MxR Plays",
+		"Name": "MxRPlays",
 		"Logo": "/assets/img/portfolio/MxRPlays/MxRPlays_FloorDance.jpg",
-		"Anchor": "MxR Plays",
+		"Anchor": "MxRPlays",
 		"Entries": [
 			{
 				"Image": "/assets/img/portfolio/MxRPlays/MxRPlays_FloorDance.jpg",
