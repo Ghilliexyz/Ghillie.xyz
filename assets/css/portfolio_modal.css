@@ -14,6 +14,7 @@
     display: block;
     animation: hideSlidedownModalx 1.5s forwards;
     pointer-events: none;
+    scrollbar-width: none;
 }
 
 @keyframes hideSlidedownModalx {
@@ -35,6 +36,7 @@
 
 .modalx.show {
     display: block;
+    scrollbar-width: none;
     animation: showSlidedownModalx 1.5s forwards;
     opacity: 1;
 }
