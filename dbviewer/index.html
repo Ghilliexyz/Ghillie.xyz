@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Basic HTML Meta Tags -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ghillie – DB Viewer</title>
+  <meta name="description"
+        content="DB Viewer is a free Database viewer tool to easily view and filter your database files.">
+  <link rel="canonical" href="https://ghillie.xyz/arcindex/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ghillie">
+  <meta property="og:url" content="https://ghillie.xyz/arcindex/">
+  <meta property="og:title" content="Ghillie – DB Viewer">
+  <meta property="og:description"
+        content="DB Viewer is a free Database viewer tool to easily view and filter your database files.">
+  <meta property="og:image"
+        content="https://ghillie.xyz/assets/img/metaImgs/Meta-db-viewer.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="twitter:domain" content="ghillie.xyz">
+  <meta property="twitter:url" content="https://ghillie.xyz/arcindex/">
+  <meta name="twitter:title" content="Ghillie – DB Viewer">
+  <meta name="twitter:description"
+        content="DB Viewer is a free Database viewer tool to easily view and filter your database files.">
+  <meta name="twitter:image"
+        content="https://ghillie.xyz/assets/img/metaImgs/Meta-db-viewer.png">
+
+  <!-- Styles & Favicon -->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <link rel="stylesheet" href="/assets/css/dbviewer.css" />
+  <link rel="shortcut icon" type="image/png" href="/assets/img/favicon.png">
+</head>
+
+<body ondragstart="return false">
+  <div class="main">
+    <div class="top_navbar">
+      <ul>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/">Home</a></li>
+        <li class="dropdown">
+          <a class="has-caret">Portfolio</a>
+          <ul class="submenu">
+            <li><a href="/portfolio/">Thumbnails</a></li>
+            <li><a href="/wordle/">Wordle Solver</a></li>
+            <li><a href="/kleptos/">Kleptos</a></li>
+            <li><a href="/arcindex/">Arc Index</a></li>
+            <li><a href="/dbviewer/" class="nav_active_link">DB Viewer</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- App -->
+  <div id="db-viewer">
+    <div class="workInProgress">
+      <h2>Work In Progress</h2>
+    </div>
+
+    <section class="hero">
+      <h1>DB Viewer</h1>
+      <p class="muted">
+        Drag and drop any SQLite database file (.db / .sqlite) to view and explore it.
+      </p>
+    </section>
+
+    <main class="grid">
+      <section class="cardGlow">
+        <!-- Top bar: file input + status -->
+        <div class="smart-header">
+          <input type="file"
+                 id="fileInput"
+                 accept=".db,.sqlite,.sqlite3"
+                 class="fileSelector" />
+          <button type="button" class="btn smart-btn-secondary" id="clearBtn">
+            Clear
+          </button>
+          <span id="statusText" class="itemsMeta"></span>
+        </div>
+
+        <!-- DB info line -->
+        <div id="dbInfo" class="itemsMeta"></div>
+
+        <!-- Main layout: table list + content -->
+        <div class="dbv-layout">
+          <aside class="dbv-sidebar">
+            <h2 class="dbv-section-title">Tables</h2>
+            <ul id="tableList" class="dbv-table-list">
+              <li class="dbv-table-list-empty">No DB loaded</li>
+            </ul>
+          </aside>
+
+          <section class="dbv-main">
+            <!-- Table meta (columns / row count) -->
+            <div id="tableMeta" class="dbv-table-meta">
+              <p class="muted">Upload a SQLite DB to get started.</p>
+            </div>
+
+            <!-- Smart filters -->
+            <div class="dbv-section">
+              <div class="section-label">Smart filters</div>
+              <div id="filterButtons" class="dbv-chips"></div>
+            </div>
+
+            <!-- Graph buttons -->
+            <div class="dbv-section">
+              <div class="section-label">Graphs</div>
+              <div id="graphButtons" class="dbv-chips"></div>
+            </div>
+
+            <!-- Data table -->
+            <div id="dataTable" class="dbv-table-container"></div>
+
+            <!-- Chart -->
+            <div class="dbv-chart-wrapper">
+              <canvas id="chartArea"></canvas>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+  
+  <div class="footer" style="margin-top:0;">
+    <ul>
+      <li><a href="https://github.com/Ghilliexyz" target="_blank">GITHUB</a></li>
+      <li><a href="https://discordapp.com/users/211851747688185856" target="_blank">DISCORD</a></li>
+      <li><a href="https://twitter.com/Ghilliexyz" target="_blank">TWITTER</a></li>
+      <li><a href="https://buymeacoffee.com/ghillie" target="_blank">BUY ME A COFFEE</a></li>
+    </ul>
+  </div>
+
+  <!-- DB viewer deps + logic -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.7.0/sql-wasm.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+  <script src="/assets/js/dbviewer.js" defer></script>
+</body>
+</html>

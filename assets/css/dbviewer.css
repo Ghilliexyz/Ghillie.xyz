@@ -1,0 +1,659 @@
+@property --spinglow-rotate {
+  syntax: "<angle>";
+  initial-value: 132deg;
+  inherits: false;
+}
+
+/* Scoped + centered so it won't fight your site CSS */
+#db-viewer {
+  --bg:#191919;
+  --card:#1d1d1d;
+  --muted:#a0a0a0;
+  --text:#e7e7e7;
+  --accent:#f64040;
+  --outline:#2a2a2a;
+  --tile:#151515;
+
+  --spinwglow-height: 980px;
+  --spinwglow-width: 1600px;
+
+  --spinglow-color1: #7f31ff;
+  --spinglow-color2: #f64040;
+
+  --gray:#3a3a3a;
+  --yellow:#f6f340;
+  --green:#39ce4d;
+
+  --halo: clamp(16px, 4vw, 36px);
+  --ring: 2px;
+
+  color:var(--text);
+}
+
+/* center the whole app */
+#db-viewer .grid {
+  max-width: var(--spinwglow-width);
+  margin: 0 auto;
+  padding: 12px 16px 32px;
+}
+
+/* hero */
+#db-viewer .hero{
+  padding:18px 16px 0;
+  text-align:center;
+}
+#db-viewer .hero h1{
+  margin:0 0 6px;
+  font-size:clamp(22px, 3.5vw, 32px);
+  letter-spacing:.4px;
+}
+#db-viewer .muted{
+  color:var(--muted);
+}
+
+/* Glow card */
+@keyframes spin {
+  0% { --spinglow-rotate: 0deg; }
+  100% { --spinglow-rotate: 360deg; }
+}
+
+#db-viewer .cardGlow{
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--outline);
+  border-radius: 15px;
+  padding: 25px;
+  margin: 0 auto 0;
+  color: #e1e1e1;
+  background-size: cover;
+  background-position: center;
+  transition: transform .25s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  overflow: visible;
+}
+
+/* keep real content above the glow */
+#db-viewer .cardGlow > * { position: relative; z-index: 1; }
+
+#db-viewer .cardGlow::before,
+#db-viewer .cardGlow::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius: inherit;
+  background-image: linear-gradient(var(--spinglow-rotate), var(--spinglow-color1), var(--spinglow-color2));
+  animation: spin 2.5s linear infinite;
+  pointer-events:none;
+  z-index:-1;
+}
+
+#db-viewer .cardGlow::before{ inset: calc(var(--halo) * -0.1); opacity:1; }
+#db-viewer .cardGlow::after { filter: blur(calc(var(--spinwglow-height) / 20)); opacity: 1; }
+
+/* Buttons */
+#db-viewer .btn {
+  background: var(--accent);
+  color:#191919;
+  border:none;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
+  flex:0 0 auto;
+}
+#db-viewer .btn:disabled {
+  opacity:.6;
+  cursor:not-allowed;
+}
+#db-viewer .smart-btn-secondary {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--outline);
+  font-weight:500;
+}
+
+/* Search / input header */
+#db-viewer .smart-header {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin: 4px 0 10px;
+}
+
+::file-selector-button {
+  margin-right: 8px;
+  padding: 6px 12px;
+  width: fit-content;
+  border: 1px solid var(--outline);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#db-viewer .fileSelector {
+  color: var(--muted);
+}
+
+/* Filters row (kept from Arc styles, used for DB viewer too if needed) */
+#db-viewer .smart-filters {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 14px;
+  align-items:flex-end;
+  margin: 6px 0 12px;
+}
+
+#db-viewer .smart-filters label {
+  display:flex;
+  flex-direction:column;
+  font-size:12px;
+  color:var(--muted);
+}
+#db-viewer .smart-filters span {
+  margin-bottom:3px;
+}
+#db-viewer .smart-filters select {
+  background:var(--bg);
+  color:var(--text);
+  border-radius:8px;
+  border:1px solid var(--outline);
+  padding:6px 10px;
+  font-size:13px;
+  min-width:120px;
+}
+
+/* Meta info */
+#db-viewer .itemsMeta {
+  font-size:12px;
+  margin-bottom:8px;
+}
+
+/* Progress bar (not used yet, but left from Arc styles) */
+#db-viewer .progress[hidden] { display:none !important; }
+#db-viewer .progress {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:10px 12px;
+  margin:8px 0 10px 0;
+  border:1px solid var(--outline);
+  background: var(--tile);
+  border-radius:10px;
+}
+#db-viewer .progress span {
+  font-size:14px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+#db-viewer .progress .bar {
+  position:relative;
+  height:6px;
+  flex:1 1 auto;
+  background: var(--bg);
+  border-radius:999px;
+  overflow:hidden;
+  border: 1px solid var(--outline);
+}
+#db-viewer .progress .bar::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent 0%, var(--accent) 50%, transparent 100%);
+  animation: db-viewer-indeterminate 1.2s linear infinite;
+}
+@keyframes db-viewer-indeterminate {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(100%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #db-viewer .progress .bar::before { animation-duration: 2.4s; }
+}
+
+/* Toast (error) */
+#db-viewer .toast[hidden] { display:none !important; }
+#db-viewer .toast {
+  position: relative;
+  background: var(--card);
+  border: 1.5px solid var(--outline);
+  color: var(--text);
+  padding: 10px 12px;
+  border-radius: 10px;
+  max-width: 100%;
+  margin-bottom: 10px;
+}
+#db-viewer .toast.error { border-color: var(--spinglow-color2); }
+#db-viewer .toast .title {
+  font-weight: 700;
+  margin-bottom:4px;
+}
+#db-viewer .toast .body {
+  font-size: 13px;
+  color:var(--muted);
+}
+
+/* Items grid from Arc Index (kept in case) */
+#db-viewer .itemsList {
+  margin-top:6px;
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap:10px;
+  max-height: 560px;
+  overflow-y:auto;
+  padding-right:4px;
+}
+
+#db-viewer .itemsList::-webkit-scrollbar {
+  width: 6px;
+}
+#db-viewer .itemsList::-webkit-scrollbar-track {
+  background: transparent;
+}
+#db-viewer .itemsList::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius:999px;
+}
+#db-viewer .itemsList {
+  scrollbar-width: thin;
+  scrollbar-color:var(--spinglow-color2) transparent;
+}
+
+#db-viewer .noResults {
+  margin:8px 0 0;
+  font-size:14px;
+}
+
+/* Item card */
+#db-viewer .itemCard {
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid var(--outline);
+  background: var(--tile);
+}
+
+/* Card main left side */
+#db-viewer .itemMain {
+  display:flex;
+  gap:10px;
+}
+
+#db-viewer .itemIcon {
+  width:72px;
+  height:72px;
+  border-radius:10px;
+  border:1px solid var(--outline);
+  background:var(--bg);
+  object-fit:contain;
+  flex-shrink:0;
+}
+#db-viewer .itemIcon--placeholder {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  font-size:20px;
+}
+
+#db-viewer .itemText h3 {
+  margin:0 0 3px;
+  font-size:15px;
+}
+#db-viewer .itemText .wikiLink {
+  display:inline-block;
+  font-size:12px;
+  color:var(--muted);
+  text-decoration:none;
+  opacity:0.8;
+}
+#db-viewer .itemText .wikiLink:hover {
+  text-decoration:underline;
+  opacity:1;
+}
+
+#db-viewer .itemMetaLine {
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-bottom:4px;
+}
+
+#db-viewer .itemWeaponLine {
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--text);
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--outline);
+  border-radius: 999px;
+  display: inline-block;
+  padding: 2px 8px;
+}
+
+
+/* Pills */
+#db-viewer .pill {
+  display:inline-flex;
+  align-items:center;
+  padding:2px 8px;
+  border-radius:999px;
+  border:1px solid var(--outline);
+  background:var(--bg);
+  font-size:11px;
+  color:var(--muted);
+}
+
+/* Rarity colours (approx Arc-style) */
+#db-viewer .pill--rarity {
+  border:none;
+  font-weight:600;
+  color:#111;
+}
+#db-viewer .pill--rarity-common {
+  background:#7f7f7f;
+}
+#db-viewer .pill--rarity-uncommon {
+  background:#2ecc71;
+}
+#db-viewer .pill--rarity-rare {
+  background:#3498db;
+}
+#db-viewer .pill--rarity-epic {
+  background:#9b59b6;
+}
+#db-viewer .pill--rarity-legendary {
+  background:#f1c40f;
+}
+
+/* Category pill – neutral but distinct from rarity */
+#db-viewer .pill--category {
+  background:#252525;
+  border-color:#3a3a3a;
+  color:#dcdcdc;
+}
+
+/* Right side (stats + sections) */
+#db-viewer .itemDetailsRight {
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  font-size:12px;
+}
+
+#db-viewer .itemStats {
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px 12px;
+}
+#db-viewer .itemStats dt {
+  font-weight:600;
+  color:var(--muted);
+  margin-right:4px;
+}
+#db-viewer .itemStats dd {
+  margin:0;
+}
+
+#db-viewer .itemSectionTitle {
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+  color:var(--muted);
+  margin-bottom:3px;
+}
+#db-viewer .itemRecycleList,
+#db-viewer .itemUsesList {
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px 8px;
+  font-size:12px;
+}
+
+/* Recycle / Used In pills */
+#db-viewer .recyclesToPill,
+#db-viewer .usedInPill {
+  padding:2px 7px;
+  border-radius:999px;
+  background:var(--bg);
+  border:1px solid var(--outline);
+  font-size:12px;
+  display:inline-flex;
+  align-items:center;
+}
+
+#db-viewer .recyclesToPill {
+  color: var(--spinglow-color1);
+}
+#db-viewer .usedInPill {
+  color: var(--spinglow-color2);
+}
+#db-viewer a.recyclesToPill:hover,
+#db-viewer a.usedInPill:hover {
+  text-decoration:underline;
+}
+
+/* Responsive tweaks (kept) */
+@media (max-width: 960px) {
+  #db-viewer .itemsList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  #db-viewer .itemsList {
+    grid-template-columns: 1fr;
+  }
+  #db-viewer .smart-filters {
+    flex-direction:column;
+    align-items:flex-start;
+  }
+}
+
+/* ============================================================
+   DB VIEWER-SPECIFIC LAYOUT + TABLE STYLES
+   ============================================================ */
+
+/* Small “chip” buttons for filters/graphs */
+#db-viewer .chip {
+  margin: 0;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--outline);
+  background: var(--bg);
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.3;
+  cursor: pointer;
+  white-space: nowrap;
+}
+#db-viewer .chip:hover {
+  background: #252525;
+}
+
+/* Card highlight when dragging a file over it */
+#db-viewer .cardGlow.drag-over {
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 1px rgba(246,64,64,0.7);
+}
+
+/* Layout: sidebar (tables) + main content */
+#db-viewer .dbv-layout {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+#db-viewer .dbv-sidebar {
+  width: 220px;
+  flex: 0 0 auto;
+  border-radius: 10px;
+  border: 1px solid var(--outline);
+  background: var(--tile);
+  padding: 8px 10px;
+  max-height: 560px;
+  overflow: auto;
+}
+
+#db-viewer .dbv-section-title {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin: 0 0 4px;
+}
+
+#db-viewer .dbv-table-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 13px;
+}
+#db-viewer .dbv-table-list li {
+  padding: 4px 6px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+#db-viewer .dbv-table-list li:hover {
+  background: #252525;
+}
+#db-viewer .dbv-table-list li.dbv-active {
+  background: #252525;
+  color: var(--spinglow-color2);
+  font-weight: 600;
+}
+#db-viewer .dbv-table-list-empty {
+  color: var(--muted);
+  cursor: default;
+}
+
+#db-viewer .dbv-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Column list under the meta line */
+#db-viewer .col-list {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  font-size: 11px;
+}
+#db-viewer .col-list li span {
+  margin-left: 4px;
+  color: var(--muted);
+}
+
+/* Sections + chips row */
+#db-viewer .dbv-section {
+  margin-top: 4px;
+}
+#db-viewer .section-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+#db-viewer .dbv-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Data table */
+#db-viewer .dbv-table-container {
+  border-radius: 10px;
+  border: 1px solid var(--outline);
+  background: var(--tile);
+}
+#db-viewer .dbv-table-inner {
+  max-height: 360px;
+  overflow: auto;
+}
+
+#db-viewer .dbv-table-inner table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+#db-viewer .dbv-table-inner th,
+#db-viewer .dbv-table-inner td {
+  padding: 4px 6px;
+  border-bottom: 1px solid #202020;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 260px;
+}
+
+#db-viewer .dbv-table-inner th {
+  position: sticky;
+  top: 0;
+  background: #111111;
+  text-align: left;
+  font-weight: 500;
+}
+
+/* Chart area */
+#db-viewer .dbv-chart-wrapper {
+  margin-top: 6px;
+  height: 220px;
+  border-radius: 10px;
+  border: 1px solid var(--outline);
+  background: var(--tile);
+  padding: 6px;
+}
+#db-viewer #chartArea {
+  width: 100%;
+  height: 100%;
+}
+
+#db-viewer .dbv-select {
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 8px;
+  border: 1px solid var(--outline);
+  padding: 6px 10px;
+  font-size: 12px;
+  min-width: 220px;
+  max-width: 100%;
+}
+#db-viewer .dbv-select:focus {
+  outline: none;
+  border-color: var(--spinglow-color2);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  #db-viewer .dbv-layout {
+    flex-direction: column;
+  }
+  #db-viewer .dbv-sidebar {
+    width: auto;
+    max-height: 220px;
+  }
+}
+
+@media (max-width: 600px) {
+  #db-viewer .smart-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  #db-viewer .smart-header .btn {
+    width: 100%;
+  }
+}
