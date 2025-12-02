@@ -691,18 +691,12 @@
 /* SQL console */
 #db-viewer .dbv-sql-console {
   margin-top:6px;
-  border-radius:10px;
-  border:1px solid var(--outline);
-  background:var(--tile);
-  padding:8px 10px;
+  margin-bottom: 6px;
   display:flex;
-  flex-direction:column;
-  gap:6px;
 }
 #db-viewer .dbv-sql-input {
-  width:100%;
-  min-height:64px;
-  resize:vertical;
+  width: 100%;
+  margin-right: 6px;
   background:var(--bg);
   color:var(--text);
   border-radius:8px;

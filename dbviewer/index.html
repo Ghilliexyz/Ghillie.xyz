@@ -131,17 +131,14 @@
               <div id="graphButtons" class="dbv-chips"></div>
             </div>
 
-            <!-- Data table -->
-            <div id="dataTable" class="dbv-table-container"></div>
-
             <!-- SQL console -->
             <div class="dbv-section">
               <div class="section-label">SQL console (read-only)</div>
               <div class="dbv-sql-console">
-                <textarea
+                <input
                   id="sqlInput"
                   class="dbv-sql-input"
-                  placeholder="SELECT * FROM &quot;your_table&quot; LIMIT 100;"></textarea>
+                  placeholder="SELECT * FROM &quot;your_table&quot; LIMIT 100;"></input>
                 <div class="dbv-sql-actions">
                   <button type="button"
                           class="btn smart-btn-secondary dbv-sql-btn"
@@ -152,6 +149,9 @@
                 </div>
               </div>
             </div>
+
+            <!-- Data table -->
+            <div id="dataTable" class="dbv-table-container"></div>
 
             <!-- Chart -->
             <div class="dbv-chart-wrapper">
