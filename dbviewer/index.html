@@ -99,13 +99,33 @@
               <p class="muted">Upload a SQLite DB to get started.</p>
             </div>
 
+            <!-- Controls: search + export -->
+            <div class="dbv-controls-row">
+              <input
+                type="text"
+                id="rowSearchInput"
+                class="dbv-search"
+                placeholder="Quick search in current result…" />
+              <div class="dbv-controls-right">
+                <button type="button" class="btn smart-btn-secondary dbv-btn-small" id="exportCsvBtn">
+                  Export CSV
+                </button>
+                <button type="button" class="btn smart-btn-secondary dbv-btn-small" id="exportJsonBtn">
+                  Export JSON
+                </button>
+              </div>
+            </div>
+
+            <!-- Column stats -->
+            <div id="columnStats" class="dbv-stats"></div>
+
             <!-- Smart filters -->
             <div class="dbv-section">
               <div class="section-label">Smart filters</div>
               <div id="filterButtons" class="dbv-chips"></div>
             </div>
 
-            <!-- Graph buttons -->
+            <!-- Graph dropdowns -->
             <div class="dbv-section">
               <div class="section-label">Graphs</div>
               <div id="graphButtons" class="dbv-chips"></div>
@@ -113,6 +133,25 @@
 
             <!-- Data table -->
             <div id="dataTable" class="dbv-table-container"></div>
+
+            <!-- SQL console -->
+            <div class="dbv-section">
+              <div class="section-label">SQL console (read-only)</div>
+              <div class="dbv-sql-console">
+                <textarea
+                  id="sqlInput"
+                  class="dbv-sql-input"
+                  placeholder="SELECT * FROM &quot;your_table&quot; LIMIT 100;"></textarea>
+                <div class="dbv-sql-actions">
+                  <button type="button"
+                          class="btn smart-btn-secondary dbv-sql-btn"
+                          id="runSqlBtn">
+                    Run query
+                  </button>
+                  <span id="sqlStatus" class="itemsMeta dbv-sql-status"></span>
+                </div>
+              </div>
+            </div>
 
             <!-- Chart -->
             <div class="dbv-chart-wrapper">

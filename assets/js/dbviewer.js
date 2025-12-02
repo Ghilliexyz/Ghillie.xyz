@@ -16,7 +16,16 @@
     chartArea: document.getElementById('chartArea'),
     status: document.getElementById('statusText'),
     clearBtn: document.getElementById('clearBtn'),
-    card: root.querySelector('.cardGlow')
+    card: root.querySelector('.cardGlow'),
+
+    // new toys
+    rowSearchInput: document.getElementById('rowSearchInput'),
+    exportCsvBtn: document.getElementById('exportCsvBtn'),
+    exportJsonBtn: document.getElementById('exportJsonBtn'),
+    columnStats: document.getElementById('columnStats'),
+    sqlInput: document.getElementById('sqlInput'),
+    runSqlBtn: document.getElementById('runSqlBtn'),
+    sqlStatus: document.getElementById('sqlStatus')
   };
 
   if (!els.fileInput || !els.tableList || !els.dataTable) return;
@@ -25,6 +34,17 @@
   let db = null;
   let currentTable = null;
   let chart = null;
+
+  // remember dummy: this is the raw result from the last query (before search/sort)
+  let baseResult = null;
+  // remember dummy: this is what you're actually showing after search/sort
+  let filteredRows = [];
+  // remember dummy: keep track of which column is sorted and how
+  let currentSort = null; // { index, dir: 'asc' | 'desc' }
+  // remember dummy: last search term typed in the quick-search box
+  let currentSearchTerm = '';
+  // remember dummy: types for the *current table* (for stats + smarter graphs)
+  let currentColumnTypes = [];
 
   function setStatus(msg) {
     if (els.status) {
@@ -58,6 +78,15 @@
     els.filterButtons.innerHTML = '';
     els.graphButtons.innerHTML = '';
     els.dataTable.innerHTML = '';
+    if (els.columnStats) els.columnStats.innerHTML = '';
+    if (els.rowSearchInput) els.rowSearchInput.value = '';
+    if (els.sqlInput) els.sqlInput.value = '';
+    if (els.sqlStatus) els.sqlStatus.textContent = '';
+    baseResult = null;
+    filteredRows = [];
+    currentSort = null;
+    currentSearchTerm = '';
+    currentColumnTypes = [];
     clearChart();
   }
 
@@ -104,6 +133,8 @@
           els.dbInfo.textContent = `Loaded ${file.name}`;
         }
         setStatus('');
+        clearChart();
+        clearUi();
         loadTables();
       } catch (e) {
         console.error(e);
@@ -119,6 +150,7 @@
         els.dbInfo.textContent = 'Could not read file.';
       }
       setStatus('Error');
+      clearUi();
     });
   }
 
@@ -195,6 +227,12 @@
       pk
     }));
 
+    // remember dummy: cache column types for stats + numeric/datetime detection
+    currentColumnTypes = cols.map((c) => ({
+      name: c.name,
+      type: (c.type || '').toUpperCase()
+    }));
+
     els.tableMeta.innerHTML = `
       <p class="itemsMeta">${rowCount} rows • ${cols.length} columns</p>
       <ul class="col-list">
@@ -213,22 +251,110 @@
     } catch (e) {
       console.error(e);
       els.dataTable.innerHTML = '<p class="muted">Error reading table data.</p>';
+      baseResult = null;
+      filteredRows = [];
+      updateNumericStats();
       return;
     }
 
     if (!sampleRes.length) {
       els.dataTable.innerHTML = '<p class="muted">No rows in this table.</p>';
+      baseResult = null;
+      filteredRows = [];
+      updateNumericStats();
       return;
     }
 
-    renderResultTable(sampleRes[0], els.dataTable);
+    renderResultTable(sampleRes[0]);
   }
 
-  function renderResultTable(result, containerEl) {
-    const columns = result.columns;
-    const values = result.values;
+  function renderResultTable(result) {
+    if (!result || !result.columns) {
+      els.dataTable.innerHTML = '<p class="muted">No results.</p>';
+      baseResult = null;
+      filteredRows = [];
+      updateNumericStats();
+      return;
+    }
 
-    const rowsHtml = values.map((row) => `
+    // remember dummy: always clone arrays so you don't mutate sql.js internals
+    baseResult = {
+      columns: result.columns.slice(),
+      values: result.values.slice()
+    };
+
+    // reset search + sort whenever the underlying result changes
+    currentSearchTerm = '';
+    currentSort = null;
+    if (els.rowSearchInput) els.rowSearchInput.value = '';
+
+    applySearchAndRender();
+  }
+
+  function applySearchAndRender() {
+    if (!baseResult) {
+      els.dataTable.innerHTML = '<p class="muted">No results.</p>';
+      updateNumericStats();
+      return;
+    }
+
+    // remember dummy: don't touch baseResult.values, always work on a copy
+    let rows = baseResult.values.slice();
+
+    // quick search across all columns
+    if (currentSearchTerm && currentSearchTerm.trim() !== '') {
+      const term = currentSearchTerm.toLowerCase();
+      rows = rows.filter((row) =>
+        row.some((value) =>
+          value !== null && String(value).toLowerCase().includes(term)
+        )
+      );
+    }
+
+    // sorting
+    if (currentSort && typeof currentSort.index === 'number') {
+      const { index, dir } = currentSort;
+      const direction = dir === 'desc' ? -1 : 1;
+
+      rows.sort((a, b) => {
+        const va = a[index];
+        const vb = b[index];
+
+        if (va == null && vb == null) return 0;
+        if (va == null) return 1;
+        if (vb == null) return -1;
+
+        const na = Number(va);
+        const nb = Number(vb);
+        const bothNumeric = !Number.isNaN(na) && !Number.isNaN(nb);
+
+        if (bothNumeric) {
+          if (na === nb) return 0;
+          return na < nb ? -1 * direction : 1 * direction;
+        }
+
+        const sa = String(va).toLowerCase();
+        const sb = String(vb).toLowerCase();
+        if (sa === sb) return 0;
+        return sa < sb ? -1 * direction : 1 * direction;
+      });
+    }
+
+    filteredRows = rows;
+
+    const columns = baseResult.columns;
+
+    const headerHtml = columns.map((c, idx) => {
+      let classes = ['dbv-sortable'];
+      let icon = '';
+      if (currentSort && currentSort.index === idx) {
+        classes.push(currentSort.dir === 'desc' ? 'dbv-sort-desc' : 'dbv-sort-asc');
+        icon = currentSort.dir === 'desc' ? ' ▼' : ' ▲';
+      }
+      return `<th data-col-index="${idx}" class="${classes.join(' ')}">${escapeHtml(c)}${icon}</th>`;
+    }).join('');
+
+    const rowsHtml = filteredRows.map((row) => `
       <tr>
         ${row.map((v) => `
           <td>${v === null ? '<em>null</em>' : escapeHtml(String(v)).slice(0, 200)}</td>
@@ -236,16 +362,92 @@
       </tr>
     `).join('');
 
-    containerEl.innerHTML = `
+    els.dataTable.innerHTML = `
       <div class="dbv-table-inner">
         <table>
           <thead>
-            <tr>${columns.map((c) => `<th>${escapeHtml(c)}</th>`).join('')}</tr>
+            <tr>${headerHtml}</tr>
           </thead>
           <tbody>${rowsHtml}</tbody>
         </table>
       </div>
     `;
+
+    attachHeaderSortHandlers();
+    updateNumericStats();
+  }
+
+  function attachHeaderSortHandlers() {
+    const headers = els.dataTable.querySelectorAll('th.dbv-sortable');
+    headers.forEach((th) => {
+      const idx = Number(th.dataset.colIndex);
+      if (Number.isNaN(idx)) return;
+
+      th.addEventListener('click', () => {
+        if (!baseResult) return;
+        if (currentSort && currentSort.index === idx) {
+          // remember dummy: second click flips ASC <-> DESC
+          currentSort.dir = currentSort.dir === 'asc' ? 'desc' : 'asc';
+        } else {
+          currentSort = { index: idx, dir: 'asc' };
+        }
+        applySearchAndRender();
+      });
+    });
+  }
+
+  function updateNumericStats() {
+    if (!els.columnStats) return;
+
+    if (!baseResult || !currentColumnTypes.length || !baseResult.values.length) {
+      els.columnStats.innerHTML = '';
+      return;
+    }
+
+    const numericCols = currentColumnTypes
+      .map((col, idx) => ({ idx, col }))
+      .filter(({ col }) => {
+        const t = col.type || '';
+        return /INT|REAL|FLOA|DOUB|NUMERIC|DEC/.test(t);
+      });
+
+    if (!numericCols.length) {
+      els.columnStats.innerHTML = '';
+      return;
+    }
+
+    const rows = baseResult.values;
+
+    const pills = numericCols.map(({ idx, col }) => {
+      let count = 0;
+      let min = Number.POSITIVE_INFINITY;
+      let max = Number.NEGATIVE_INFINITY;
+      let sum = 0;
+
+      rows.forEach((row) => {
+        const raw = row[idx];
+        if (raw === null || raw === undefined) return;
+        const n = Number(raw);
+        if (Number.isNaN(n)) return;
+        count += 1;
+        if (n < min) min = n;
+        if (n > max) max = n;
+        sum += n;
+      });
+
+      if (!count) return '';
+
+      const avg = sum / count;
+
+      return `
+        <div class="dbv-stat-pill">
+          <strong>${escapeHtml(col.name)}</strong>
+          <span>min ${min.toFixed(2)} • max ${max.toFixed(2)} • avg ${avg.toFixed(2)} • n ${count}</span>
+        </div>
+      `;
+    }).filter(Boolean);
+
+    els.columnStats.innerHTML = pills.join('');
   }
 
   // Build a single <select> with all suggestions
@@ -285,6 +487,14 @@
     });
 
     container.appendChild(select);
+  }
+
+  function isDateLikeColumn(col) {
+    const name = (col.name || '').toLowerCase();
+    const type = (col.type || '').toUpperCase();
+    if (type.includes('DATE') || type.includes('TIME')) return true;
+    if (name.includes('date') || name.includes('time') || name.endsWith('_at')) return true;
+    return false;
   }
 
   function buildSmartDropdowns(table) {
@@ -383,6 +593,19 @@
       });
     }
 
+    // time-aware graphs for date-ish columns
+    const dateCols = cols.filter(isDateLikeColumn);
+    dateCols.forEach((col) => {
+      graphOptions.push({
+        label: `Rows per day (${col.name})`,
+        run: () => drawTimeBuckets(table, col.name, 'day')
+      });
+      graphOptions.push({
+        label: `Rows per month (${col.name})`,
+        run: () => drawTimeBuckets(table, col.name, 'month')
+      });
+    });
+
     buildDropdown(els.filterButtons, 'Select a filter…', filterOptions);
     buildDropdown(els.graphButtons, 'Select a graph…', graphOptions);
   }
@@ -396,15 +619,21 @@
     } catch (e) {
       console.error(e);
       els.dataTable.innerHTML = '<p class="muted">Error running query.</p>';
+      baseResult = null;
+      filteredRows = [];
+      updateNumericStats();
       return;
     }
 
     if (!res.length || !res[0].values.length) {
       els.dataTable.innerHTML = '<p class="muted">No results.</p>';
+      baseResult = null;
+      filteredRows = [];
+      updateNumericStats();
       return;
     }
 
-    renderResultTable(res[0], els.dataTable);
+    renderResultTable(res[0]);
   }
 
   function drawHistogram(table, colName) {
@@ -523,6 +752,175 @@
     });
   }
 
+  function drawTimeBuckets(table, colName, granularity) {
+    if (!db || !els.chartArea || !window.Chart) return;
+
+    // remember dummy: we assume ISO-ish strings, so substr() is enough here
+    const len = granularity === 'month' ? 7 : 10; // YYYY-MM vs YYYY-MM-DD
+
+    let res;
+    try {
+      res = db.exec(`
+        SELECT substr("${colName}", 1, ${len}) AS bucket, COUNT(*) AS c
+        FROM "${table}"
+        WHERE "${colName}" IS NOT NULL
+        GROUP BY bucket
+        ORDER BY bucket
+      `);
+    } catch (e) {
+      console.error(e);
+      return;
+    }
+
+    if (!res.length || !res[0].values.length) return;
+
+    const labels = res[0].values.map(([bucket]) =>
+      bucket === null ? 'NULL' : String(bucket)
+    );
+    const data = res[0].values.map(([_, c]) => Number(c));
+
+    const ctx = els.chartArea.getContext('2d');
+    els.chartArea.style.display = 'block';
+
+    if (chart) chart.destroy();
+    chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [{
+          label: `${granularity === 'month' ? 'Rows per month' : 'Rows per day'} (${colName})`,
+          data
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: { ticks: { maxRotation: 45, minRotation: 0 } },
+          y: { beginAtZero: true }
+        }
+      }
+    });
+  }
+
+  // exports ----------------------------------------------------
+
+  function csvEscape(value) {
+    if (value === null || value === undefined) return '';
+    const s = String(value);
+    if (/[",\n\r]/.test(s)) {
+      return '"' + s.replace(/"/g, '""') + '"';
+    }
+    return s;
+  }
+
+  function triggerDownload(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function exportAsCsv() {
+    if (!baseResult || !filteredRows.length) {
+      setStatus('Nothing to export, chief.');
+      return;
+    }
+
+    const columns = baseResult.columns;
+    const rows = filteredRows;
+    const csvRows = [];
+
+    csvRows.push(columns.map(csvEscape).join(','));
+    rows.forEach((row) => {
+      const line = row.map((value) => csvEscape(value));
+      csvRows.push(line.join(','));
+    });
+
+    const blob = new Blob([csvRows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+    triggerDownload(blob, `${currentTable || 'result'}.csv`);
+  }
+
+  function exportAsJson() {
+    if (!baseResult || !filteredRows.length) {
+      setStatus('Nothing to export, chief.');
+      return;
+    }
+
+    const columns = baseResult.columns;
+    const rows = filteredRows;
+
+    const data = rows.map((row) => {
+      const obj = {};
+      columns.forEach((col, idx) => {
+        obj[col] = row[idx];
+      });
+      return obj;
+    });
+
+    const blob = new Blob([JSON.stringify(data, null, 2)], {
+      type: 'application/json;charset=utf-8;'
+    });
+    triggerDownload(blob, `${currentTable || 'result'}.json`);
+  }
+
+  // SQL console ------------------------------------------------
+
+  function runSqlConsoleQuery() {
+    if (!db) {
+      if (els.sqlStatus) els.sqlStatus.textContent = 'No DB loaded.';
+      return;
+    }
+    if (!els.sqlInput) return;
+
+    const sql = els.sqlInput.value.trim();
+    if (!sql) {
+      if (els.sqlStatus) els.sqlStatus.textContent = 'Type a SELECT query first.';
+      return;
+    }
+
+    const firstTokenMatch = sql.match(/^\s*([A-Za-z]+)/);
+    const firstToken = firstTokenMatch ? firstTokenMatch[1].toUpperCase() : '';
+
+    // remember dummy: only allow read-only stuff so you don’t accidentally brick anything
+    if (firstToken !== 'SELECT' && firstToken !== 'WITH' && firstToken !== 'PRAGMA') {
+      if (els.sqlStatus) {
+        els.sqlStatus.textContent = 'Read-only only. No INSERT/UPDATE/DELETE today, dummy.';
+      }
+      return;
+    }
+
+    try {
+      const res = db.exec(sql);
+      if (!res.length || !res[0].values.length) {
+        if (els.sqlStatus) els.sqlStatus.textContent = 'Query ran, but no rows came back.';
+        baseResult = null;
+        filteredRows = [];
+        els.dataTable.innerHTML = '<p class="muted">No results.</p>';
+        currentColumnTypes = [];
+        updateNumericStats();
+        return;
+      }
+
+      if (els.sqlStatus) {
+        els.sqlStatus.textContent = `Query ran, showing ${res[0].values.length} rows.`;
+      }
+
+      // console queries can point at anything, so drop column types (stats off)
+      currentColumnTypes = [];
+      renderResultTable(res[0]);
+    } catch (e) {
+      console.error(e);
+      if (els.sqlStatus) els.sqlStatus.textContent = 'SQL error. Check console for details.';
+    }
+  }
+
+  // Event wiring -----------------------------------------------
+
   // File input change
   els.fileInput.addEventListener('change', (e) => {
     const file = e.target.files && e.target.files[0];
@@ -544,7 +942,29 @@
       }
       setStatus('');
       clearUi();
+      clearChart();
     });
+  }
+
+  // Quick search
+  if (els.rowSearchInput) {
+    els.rowSearchInput.addEventListener('input', (e) => {
+      currentSearchTerm = e.target.value || '';
+      applySearchAndRender();
+    });
+  }
+
+  // Export buttons
+  if (els.exportCsvBtn) {
+    els.exportCsvBtn.addEventListener('click', exportAsCsv);
+  }
+  if (els.exportJsonBtn) {
+    els.exportJsonBtn.addEventListener('click', exportAsJson);
+  }
+
+  // SQL console button
+  if (els.runSqlBtn) {
+    els.runSqlBtn.addEventListener('click', runSqlConsoleQuery);
   }
 
   // Drag & drop support on the glow card
