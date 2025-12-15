@@ -37,6 +37,8 @@
 </head>
 
 <body ondragstart="return false">
+
+  <!-- NAVBAR always visible -->
   <div class="main">
     <div class="top_navbar">
       <ul>
@@ -57,139 +59,195 @@
 
   <!-- App -->
   <div id="kleptos">
+
+    <!-- WIP always visible -->
     <div class="workInProgress">
       <h2>Work In Progress</h2>
     </div>
-    <section class="hero">
-      <h1>Kleptos Downloader</h1>
-      <p class="muted">Paste a URL, Configure your Settings, then Download.</p>
-    </section>
 
-    <main class="grid">
-      <section class="cardGlow">
-        <div>
-          <div class="toolbar">
-            <div class="left">
-              <button id="settings" class="btn">Settings</button>
-            </div>
-            <div class="right stats">
-              <div class="stat"><span class="label">Downloads Today:</span> <span id="downloadCountToday">0</span> •</div>
-              <div class="stat"><span class="label">Total Downloads:</span> <span id="downloadCountTotal">0</span> •</div>
-            </div>
-          </div>
+    <!-- LOGGED-OUT VIEW: only this shows -->
+    <div id="loginGate" class="loginGate">
+      <section class="cardGlow loginCard">
+        <div class="loginInner">
+          <h1 class="loginTitle">Kleptos</h1>
+          <p class="muted loginSub">
+            Login with Google to access the downloader.
+          </p>
 
-          <div class="urlInfo">
-            <input class="urlInput" type="url" autocomplete="off" autocapitalize="off" spellcheck="false" inputmode="url" placeholder="Paste URL here...">
-            <button id="downloadBtn" class="btn" disabled>Download</button>
-          </div>
+          <div id="authWrap" class="authWrap loginAuthRow">
+            <button id="authLogin" class="btn secondary">Login with Google</button>
 
-          <!-- Feedback bars -->
-          <div id="metaProgress" class="progress" role="status" aria-live="polite" aria-atomic="true" hidden>
-            <div class="bar"><div class="fill"></div></div>
-            <span>Collecting data…</span>
-          </div>
-          <div id="dlProgress" class="progress" role="status" aria-live="polite" aria-atomic="true" hidden>
-            <div class="bar"><div class="fill"></div></div>
-            <span>Downloading…</span>
-          </div>
-
-          <!-- Results -->
-          <div class="urlResults" style="display:none">
-            <h2></h2>
-            <a href="#" target="_blank" rel="noopener noreferrer"></a>
-            <img class="thumbnail" id="thumbnailPreview" alt="">
-            <div class="videoInfo"><p></p><p></p><p></p><p></p><p></p></div>
-
-            <!-- Playlist info + download zip -->
-            <div id="playlistInfo" class="playlistInfo" hidden>
-              <span class="pill">Playlist</span>
-              <span id="playlistTitle" class="muted"></span>
-              <span class="muted">•</span>
-              <span><strong id="playlistCount">0</strong> videos</span>
-              <button id="downloadPlaylistBtn" class="btn" style="margin-left:auto;">Download playlist (.zip)</button>
+            <!-- still kept for completeness (JS will hide/show) -->
+            <div id="authUser" class="authUser" hidden>
+              <span class="pill">
+                <span class="muted">Signed in:</span>
+                <span id="authEmail" class="authEmail">—</span>
+              </span>
+              <span class="pill">
+                <span class="muted">Remaining today:</span>
+                <span id="quotaRemaining" class="quotaRemaining">—</span>
+              </span>
+              <button id="authLogout" class="btn secondary small">Logout</button>
             </div>
           </div>
+
+          <div id="loginStatus" class="loginStatus muted"></div>
         </div>
       </section>
-    </main>
+    </div>
 
-    <!-- Settings Modal -->
-    <div id="settingsModal" class="kmodal" aria-hidden="true">
-      <div class="kmodal__backdrop"></div>
+    <!-- LOGGED-IN VIEW: your normal UI -->
+    <div id="appGate" hidden>
+      <div class="workInProgress">
+        <h2>Work In Progress</h2>
+      </div>
 
-      <div class="kmodal__dialog" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
-        <button type="button" class="kmodal__close" id="settingsClose" aria-label="Close">×</button>
-        <h3 id="settingsTitle">Download settings</h3>
+      <section class="hero">
+        <h1>Kleptos Downloader</h1>
+        <p class="muted">Paste a URL, Configure your Settings, then Download.</p>
+      </section>
 
-        <div class="kform">
-          <!-- Row 1: File format | File name | Thumbnail only -->
-          <div class="kform__row3">
-            <label class="kform__field">
-              <span>File format</span>
-              <select id="optFileFormat">
-                <optgroup label="Video (container)">
-                  <option value="auto">Auto (best)</option>
-                  <option value="mp4">MP4</option>
-                  <option value="mkv">MKV</option>
-                  <option value="webm">WEBM</option>
-                  <option value="mov">MOV</option>
-                </optgroup>
-                <optgroup label="Audio only">
-                  <option value="audio:mp3">MP3</option>
-                  <option value="audio:m4a">M4A</option>
-                  <option value="audio:opus">OPUS</option>
-                  <option value="audio:flac">FLAC</option>
-                  <option value="audio:wav">WAV</option>
-                  <option value="audio:aac">AAC</option>
-                  <option value="audio:ogg">OGG</option>
-                </optgroup>
-              </select>
-            </label>
+      <main class="grid">
+        <section class="cardGlow">
+          <div>
+            <div class="toolbar">
+              <div class="left">
+                <button id="settings" class="btn">Settings</button>
+              </div>
 
-            <label class="kform__field">
-              <span>File name</span>
-              <input id="optFileName" type="text" placeholder="%(title)s (leave blank to auto)">
-            </label>
+              <div class="right stats">
+                <!-- Auth (same IDs as before) -->
+                <div class="authWrap">
+                  <div class="authUser">
+                    <span class="pill">
+                      <span class="muted">Signed in:</span>
+                      <span id="authEmailInApp" class="authEmail">—</span>
+                    </span>
+                    <span class="pill">
+                      <span class="muted">Remaining today:</span>
+                      <span id="quotaRemainingInApp" class="quotaRemaining">—</span>
+                    </span>
+                    <button id="authLogoutInApp" class="btn secondary small">Logout</button>
+                  </div>
+                </div>
 
-            <label class="kform__check kform__field--checkbox">
-              <input id="optThumbOnly" type="checkbox">
-              <span>Thumbnail only</span>
-            </label>
+                <!-- Existing stats -->
+                <div class="stat"><span class="label">Downloads Today:</span> <span id="downloadCountToday">0</span> •</div>
+                <div class="stat"><span class="label">Total Downloads:</span> <span id="downloadCountTotal">0</span> •</div>
+              </div>
+            </div>
+
+            <div class="urlInfo">
+              <input class="urlInput" type="url" autocomplete="off" autocapitalize="off" spellcheck="false" inputmode="url" placeholder="Paste URL here...">
+              <button id="downloadBtn" class="btn" disabled>Download</button>
+            </div>
+
+            <!-- Feedback bars -->
+            <div id="metaProgress" class="progress" role="status" aria-live="polite" aria-atomic="true" hidden>
+              <div class="bar"><div class="fill"></div></div>
+              <span>Collecting data…</span>
+            </div>
+            <div id="dlProgress" class="progress" role="status" aria-live="polite" aria-atomic="true" hidden>
+              <div class="bar"><div class="fill"></div></div>
+              <span>Downloading…</span>
+            </div>
+
+            <!-- Results -->
+            <div class="urlResults" style="display:none">
+              <h2></h2>
+              <a href="#" target="_blank" rel="noopener noreferrer"></a>
+              <img class="thumbnail" id="thumbnailPreview" alt="">
+              <div class="videoInfo"><p></p><p></p><p></p><p></p><p></p></div>
+
+              <!-- Playlist info + download zip -->
+              <div id="playlistInfo" class="playlistInfo" hidden>
+                <span class="pill">Playlist</span>
+                <span id="playlistTitle" class="muted"></span>
+                <span class="muted">•</span>
+                <span><strong id="playlistCount">0</strong> videos</span>
+                <button id="downloadPlaylistBtn" class="btn" style="margin-left:auto;">Download playlist (.zip)</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Settings Modal -->
+      <div id="settingsModal" class="kmodal" aria-hidden="true">
+        <div class="kmodal__backdrop"></div>
+
+        <div class="kmodal__dialog" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+          <button type="button" class="kmodal__close" id="settingsClose" aria-label="Close">×</button>
+          <h3 id="settingsTitle">Download settings</h3>
+
+          <div class="kform">
+            <div class="kform__row3">
+              <label class="kform__field">
+                <span>File format</span>
+                <select id="optFileFormat">
+                  <optgroup label="Video (container)">
+                    <option value="auto">Auto (best)</option>
+                    <option value="mp4">MP4</option>
+                    <option value="mkv">MKV</option>
+                    <option value="webm">WEBM</option>
+                  </optgroup>
+                  <optgroup label="Audio only">
+                    <option value="audio:mp3">MP3</option>
+                    <option value="audio:m4a">M4A</option>
+                    <option value="audio:opus">OPUS</option>
+                    <option value="audio:flac">FLAC</option>
+                    <option value="audio:wav">WAV</option>
+                    <option value="audio:aac">AAC</option>
+                    <option value="audio:ogg">OGG</option>
+                  </optgroup>
+                </select>
+              </label>
+
+              <label class="kform__field">
+                <span>File name</span>
+                <input id="optFileName" type="text" placeholder="%(title)s (leave blank to auto)">
+              </label>
+
+              <label class="kform__check kform__field--checkbox">
+                <input id="optThumbOnly" type="checkbox">
+                <span>Thumbnail only</span>
+              </label>
+            </div>
+
+            <fieldset class="kform__field">
+              <legend>Quality</legend>
+              <div class="btnset" id="optQuality">
+                <button type="button" data-q="Low">Low</button>
+                <button type="button" data-q="Medium">Medium</button>
+                <button type="button" data-q="High">High</button>
+                <button type="button" data-q="BEST" class="active">BEST</button>
+              </div>
+            </fieldset>
           </div>
 
-          <!-- Row 2: Quality segmented -->
-          <fieldset class="kform__field">
-            <legend>Quality</legend>
-            <div class="btnset" id="optQuality">
-              <button type="button" data-q="Low">Low</button>
-              <button type="button" data-q="Medium">Medium</button>
-              <button type="button" data-q="High">High</button>
-              <button type="button" data-q="BEST" class="active">BEST</button>
-            </div>
-          </fieldset>
-        </div>
-
-        <div class="kmodal__footer">
-          <button type="button" id="settingsSave" class="btn primary">Save</button>
+          <div class="kmodal__footer">
+            <button type="button" id="settingsSave" class="btn primary">Save</button>
+          </div>
         </div>
       </div>
-    </div>
-    
-    <!-- Toast -->
-    <div id="toast" class="toast" hidden>
-      <div class="title"></div>
-      <div class="body"></div>
+
+      <!-- Toast -->
+      <div id="toast" class="toast" hidden>
+        <div class="title"></div>
+        <div class="body"></div>
+      </div>
     </div>
   </div>
-  
-  
-  <div class="footer" style="margin-top:0;">
-    <ul>
-      <li><a href="https://github.com/Ghilliexyz" target="_blank">GITHUB</a></li>
-      <li><a href="https://discordapp.com/users/211851747688185856" target="_blank">DISCORD</a></li>
-      <li><a href="https://twitter.com/Ghilliexyz" target="_blank">TWITTER</a></li>
-      <li><a href="https://buymeacoffee.com/ghillie" target="_blank">BUY ME A COFFEE</a></li>
-    </ul>
+
+  <div id="footerGate">
+    <div class="footer" style="margin-top:0;">
+      <ul>
+        <li><a href="https://github.com/Ghilliexyz" target="_blank">GITHUB</a></li>
+        <li><a href="https://discordapp.com/users/211851747688185856" target="_blank">DISCORD</a></li>
+        <li><a href="https://twitter.com/Ghilliexyz" target="_blank">TWITTER</a></li>
+        <li><a href="https://buymeacoffee.com/ghillie" target="_blank">BUY ME A COFFEE</a></li>
+      </ul>
+    </div>
   </div>
 
   <script src="/assets/js/kleptos.js" defer></script>

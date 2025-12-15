@@ -238,6 +238,99 @@
 #kleptos .btnset button{ border:1px solid var(--outline); background:var(--bg); color:#e1e1e1; border-radius:10px; padding:8px 12px; cursor:pointer; }
 #kleptos .btnset button.active{ background:var(--accent); color:#111; font-weight:700; }
 
+#kleptos .authWrap{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+#kleptos .authUser{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+#kleptos .pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid var(--outline);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 12px;
+}
+
+#kleptos .authEmail,
+#kleptos .quotaRemaining{
+  font-weight: 700;
+}
+
+#kleptos .btn.secondary{
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--outline);
+}
+
+#kleptos .btn.secondary:hover{
+  opacity: .95;
+}
+
+#kleptos .btn.small{
+  padding:8px 12px;
+  border-radius:10px;
+  font-weight:700;
+}
+
+/* ---------------- LOGIN GATE (new) ---------------- */
+
+#kleptos [hidden] { display:none !important; }
+
+/* full-page centered login card, but still inside #kleptos styling */
+#kleptos .loginGate{
+  max-width: var(--spinwglow-width);
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+  display:flex;
+  justify-content:center;
+}
+
+#kleptos .loginCard{
+  width: min(760px, 100%);
+}
+
+#kleptos .loginInner{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+#kleptos .loginTitle{
+  margin:0;
+  text-align:center;
+  font-size: clamp(22px, 3.5vw, 32px);
+  letter-spacing:.4px;
+}
+
+#kleptos .loginSub{
+  text-align:center;
+  margin:0;
+}
+
+#kleptos .loginAuthRow{
+  justify-content:center;
+}
+
+#kleptos .loginStatus{
+  text-align:center;
+  font-size:12px;
+  min-height: 16px;
+  opacity: .8;
+}
+
 @media (max-width:560px){
   #kleptos .kform__row3{ grid-template-columns: 1fr; }
 }
