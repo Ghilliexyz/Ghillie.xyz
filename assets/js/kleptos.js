@@ -5,7 +5,7 @@ const API_BASE =
   (
     location.hostname === 'localhost' || location.hostname === '127.0.0.1'
       ? 'http://127.0.0.1:5000'
-      : '/kleptos'
+      : 'https://kleptos-backend.onrender.com'
   );
 
 const api = (p) => `${API_BASE}${p}`;
@@ -91,7 +91,11 @@ const api = (p) => `${API_BASE}${p}`;
   }
 
   async function fetchJSON(url, init){
-    const r = await fetch(url, { headers:{'Content-Type':'application/json'}, ...init });
+    const r = await fetch(url, {
+      credentials: 'include',
+      headers:{'Content-Type':'application/json'},
+      ...init
+    });
     const ctype = (r.headers.get('Content-Type')||'').toLowerCase();
 
     if (!r.ok){
@@ -145,11 +149,8 @@ const api = (p) => `${API_BASE}${p}`;
   }
 
   function setGate(isLoggedIn){
-    // Logged out: show loginGate, hide appGate
     if (loginGate) loginGate.hidden = !!isLoggedIn;
     if (appGate) appGate.hidden = !isLoggedIn;
-
-    // DO NOT hide navbar/footer anymore
   }
 
   function setAuthed(ok, me){
@@ -208,7 +209,7 @@ const api = (p) => `${API_BASE}${p}`;
   }
 
   async function doLogout(){
-    try{ await fetch(api('/auth/logout'), { method:'POST' }); }catch{}
+    try{ await fetch(api('/auth/logout'), { method:'POST', credentials:'include' }); }catch{}
     hideResults();
     enableDownload(false);
     setAuthed(false);
@@ -369,6 +370,7 @@ const api = (p) => `${API_BASE}${p}`;
       const options = buildOptionsFromSettings();
       const res = await fetch(api('/api/download'), {
         method:'POST',
+        credentials:'include',
         headers:{ 'Content-Type':'application/json', 'Accept':'application/octet-stream' },
         body: JSON.stringify({ url: v, options })
       });
@@ -427,6 +429,7 @@ const api = (p) => `${API_BASE}${p}`;
       const options = buildOptionsFromSettings();
       const res = await fetch(api('/api/download-playlist'), {
         method:'POST',
+        credentials:'include',
         headers:{ 'Content-Type':'application/json', 'Accept':'application/zip' },
         body: JSON.stringify({ url: v, options })
       });
