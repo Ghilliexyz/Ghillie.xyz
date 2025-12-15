@@ -60,6 +60,11 @@
   <!-- App -->
   <div id="kleptos">
 
+    <!-- WIP always visible -->
+    <div class="workInProgress">
+      <h2>Work In Progress</h2>
+    </div>
+
     <!-- LOGGED-OUT VIEW: only this shows -->
     <div id="loginGate" class="loginGate">
       <section class="cardGlow loginCard">
@@ -93,9 +98,6 @@
 
     <!-- LOGGED-IN VIEW: your normal UI -->
     <div id="appGate" hidden>
-      <div class="workInProgress">
-        <h2>Work In Progress</h2>
-      </div>
 
       <section class="hero">
         <h1>Kleptos Downloader</h1>
@@ -234,7 +236,7 @@
     </div>
   </div>
 
-  <div id="footerGate">
+  <div id="footerGate" hidden>
     <div class="footer" style="margin-top:0;">
       <ul>
         <li><a href="https://github.com/Ghilliexyz" target="_blank">GITHUB</a></li>
