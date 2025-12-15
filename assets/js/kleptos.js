@@ -120,7 +120,7 @@ const api = (p) => `${API_BASE}${p}`;
     els.toast.querySelector('.body').textContent = body || '';
     els.toast.classList.toggle('error', type === 'error');
     els.toast.hidden = false;
-    setTimeout(()=>{ els.toast.hidden = true; }, 3500);
+    setTimeout(()=>{ els.toast.hidden = true; }, 10000);
   }
 
   function setMetaLoading(on,msg){
