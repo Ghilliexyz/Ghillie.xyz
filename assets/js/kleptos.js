@@ -1,3 +1,10 @@
+// kleptos.js
+// NOTE (remember dummy): because your frontend is on ghillie.xyz and backend is on onrender.com,
+// every request MUST send cookies -> `credentials: 'include'`.
+// If the backend CORS isn't set to allow credentials + specific origin, login will still fail.
+
+const DEFAULT_PROD_API = 'https://kleptos-backend.onrender.com';
+
 // ---- API base config ----
 const API_BASE =
   (typeof window !== 'undefined' && window.KLEPTOS_API) ||
@@ -5,7 +12,7 @@ const API_BASE =
   (
     location.hostname === 'localhost' || location.hostname === '127.0.0.1'
       ? 'http://127.0.0.1:5000'
-      : 'https://kleptos-backend.onrender.com'
+      : DEFAULT_PROD_API
   );
 
 const api = (p) => `${API_BASE}${p}`;
@@ -92,10 +99,11 @@ const api = (p) => `${API_BASE}${p}`;
 
   async function fetchJSON(url, init){
     const r = await fetch(url, {
-      credentials: 'include',
-      headers:{'Content-Type':'application/json'},
+      credentials: 'include', // IMPORTANT: send auth cookie cross-site
+      headers: { 'Content-Type':'application/json' },
       ...init
     });
+
     const ctype = (r.headers.get('Content-Type')||'').toLowerCase();
 
     if (!r.ok){
@@ -144,7 +152,9 @@ const api = (p) => `${API_BASE}${p}`;
   }
 
   function loginUrl(){
-    const returnTo = location.pathname + location.search + location.hash;
+    // IMPORTANT: send the FULL absolute URL back to the server,
+    // so after Google callback it returns to your ghillie.xyz page, not onrender.
+    const returnTo = location.href;
     return api('/auth/login?returnTo=' + encodeURIComponent(returnTo));
   }
 
@@ -209,7 +219,12 @@ const api = (p) => `${API_BASE}${p}`;
   }
 
   async function doLogout(){
-    try{ await fetch(api('/auth/logout'), { method:'POST', credentials:'include' }); }catch{}
+    try{
+      await fetch(api('/auth/logout'), {
+        method:'POST',
+        credentials: 'include'
+      });
+    }catch{}
     hideResults();
     enableDownload(false);
     setAuthed(false);
@@ -370,7 +385,7 @@ const api = (p) => `${API_BASE}${p}`;
       const options = buildOptionsFromSettings();
       const res = await fetch(api('/api/download'), {
         method:'POST',
-        credentials:'include',
+        credentials: 'include', // IMPORTANT
         headers:{ 'Content-Type':'application/json', 'Accept':'application/octet-stream' },
         body: JSON.stringify({ url: v, options })
       });
@@ -429,7 +444,7 @@ const api = (p) => `${API_BASE}${p}`;
       const options = buildOptionsFromSettings();
       const res = await fetch(api('/api/download-playlist'), {
         method:'POST',
-        credentials:'include',
+        credentials: 'include', // IMPORTANT
         headers:{ 'Content-Type':'application/json', 'Accept':'application/zip' },
         body: JSON.stringify({ url: v, options })
       });
