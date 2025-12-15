@@ -159,8 +159,18 @@ const api = (p) => `${API_BASE}${p}`;
   }
 
   function setGate(isLoggedIn){
-    if (loginGate) loginGate.hidden = !!isLoggedIn;
-    if (appGate) appGate.hidden = !isLoggedIn;
+    // remember dummy: you have TWO layers of "gates":
+    // 1) siteGate/footerGate = the big overlays that block the whole page
+    // 2) loginGate/appGate   = the internal login/app swap
+    //
+    // If you only toggle (2), the overlay (1) can still sit on top forever.
+    const loggedIn = !!isLoggedIn;
+
+    if (siteGate) siteGate.hidden = loggedIn;
+    if (footerGate) footerGate.hidden = loggedIn;
+
+    if (loginGate) loginGate.hidden = loggedIn;
+    if (appGate) appGate.hidden = !loggedIn;
   }
 
   function setAuthed(ok, me){
