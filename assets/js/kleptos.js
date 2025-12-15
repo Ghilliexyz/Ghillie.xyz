@@ -2,7 +2,11 @@
 const API_BASE =
   (typeof window !== 'undefined' && window.KLEPTOS_API) ||
   new URLSearchParams(location.search).get('api') ||
-  ((location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 'http://localhost:5000' : '');
+  (
+    location.hostname === 'localhost' || location.hostname === '127.0.0.1'
+      ? 'http://localhost:5000'
+      : '/kleptos'
+  );
 
 const api = (p) => `${API_BASE}${p}`;
 
