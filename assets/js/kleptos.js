@@ -368,14 +368,32 @@ const api = (p) => `${API_BASE}${p}`;
       renderMeta(meta);
       showResults();
       enableDownload(!meta.isPlaylist);
-    }catch(err){
-      console.error(err);
-      if (handleAuthError(err)) return;
-      showToast('Failed to fetch info', String(err.message||err), 'error');
-      hideResults(); enableDownload(false);
-    }finally{
-      setMetaLoading(false);
-    }
+      }catch(err){
+        console.error(err);
+        if (handleAuthError(err)) return;
+
+        // Metadata failing shouldn't block downloads (YouTube bot-check etc.)
+        showToast(
+          'Info unavailable',
+          'Could not fetch metadata. You can still try downloading.',
+          'error'
+        );
+
+        hideResults();
+        showPlUI(false);     // hide playlist UI
+        enableDownload(true); // allow download anyway
+      }finally{
+        setMetaLoading(false);
+      }
+    // }catch(err){
+    //   console.error(err);
+    //   if (handleAuthError(err)) return;
+    //   showToast('Failed to fetch info', String(err.message||err), 'error');
+    //   hideResults();
+    //   enableDownload(false);
+    // }finally{
+    //   setMetaLoading(false);
+    // }
   }, 250);
 
   // ---------------- Download single ----------------
