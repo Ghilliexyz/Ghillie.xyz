@@ -97,6 +97,12 @@
                         <div class="toolbar">
               <div class="left">
                 <button id="settings" class="btn">Settings</button>
+                <button id="adminBtn" class="iconBtn" type="button" aria-label="Admin tools" hidden>
+                  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                    <path d="M12 2l7 4v6c0 5-3 9-7 10C8 21 5 17 5 12V6l7-4zm0 3.2L7 7.2V12c0 3.8 2.2 6.9 5 7.9 2.8-1 5-4.1 5-7.9V7.2l-5-2z"/>
+                    <path d="M11 11h2v6h-2zM11 8h2v2h-2z"/>
+                  </svg>
+                </button>
               </div>
 
               <div class="right">
@@ -215,6 +221,29 @@
         </div>
       </div>
 
+      <!-- Admin Modal (admins only) -->
+      <div id="adminModal" class="kmodal" aria-hidden="true">
+        <div class="kmodal__backdrop"></div>
+
+        <div class="kmodal__dialog" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
+          <button type="button" class="kmodal__close" id="adminClose" aria-label="Close">×</button>
+          <h3 id="adminTitle">Admin</h3>
+
+          <div class="adminTools">
+            <div class="adminTopbar">
+              <input id="adminSearch" class="adminSearch" type="search" placeholder="Search email / sub…" autocomplete="off">
+              <button id="adminRefresh" class="btn secondary small" type="button">Refresh</button>
+            </div>
+
+            <div id="adminUsers" class="adminUsers" aria-live="polite"></div>
+          </div>
+
+          <div class="kmodal__footer">
+            <button id="adminClose2" class="btn secondary" type="button">Close</button>
+          </div>
+        </div>
+      </div>
+      
       <!-- Toast -->
       <div id="toast" class="toast" hidden>
         <div class="title"></div>
@@ -222,7 +251,7 @@
       </div>
     </div>
   </div>
-
+  
   <div class="footer" style="margin-top:0;">
     <ul>
       <li><a href="https://github.com/Ghilliexyz" target="_blank">GITHUB</a></li>
@@ -231,7 +260,7 @@
       <li><a href="https://buymeacoffee.com/ghillie" target="_blank">BUY ME A COFFEE</a></li>
     </ul>
   </div>
-
+  
   <script src="/assets/js/kleptos.js" defer></script>
 </body>
 </html>

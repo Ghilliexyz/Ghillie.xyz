@@ -44,7 +44,20 @@ const api = (p) => `${API_BASE}${p}`;
   const profileDropdown = document.getElementById('profileDropdown');
 
 
-  // Main app elements
+  
+  // Admin UI
+  const adminBtn = document.getElementById('adminBtn');
+  const adminModal = document.getElementById('adminModal');
+  const adminClose = document.getElementById('adminClose');
+  const adminClose2 = document.getElementById('adminClose2');
+  const adminBackdrop = adminModal?.querySelector('.kmodal__backdrop');
+  const adminRefresh = document.getElementById('adminRefresh');
+  const adminSearch = document.getElementById('adminSearch');
+  const adminUsersWrap = document.getElementById('adminUsers');
+
+  const adminState = { users: [] };
+
+// Main app elements
   const els = {
     input: document.querySelector('.urlInput'),
     downloadBtn: document.getElementById('downloadBtn'),
@@ -79,6 +92,7 @@ const api = (p) => `${API_BASE}${p}`;
 
   const auth = {
     isAuthed: false,
+    isAdmin: false,
     email: null,
     remainingToday: null,
     avatarUrl: null,
@@ -172,15 +186,15 @@ const api = (p) => `${API_BASE}${p}`;
   }
   
 
-//   // remember dummy: flip this to true while doing frontend work locally
-//   const FORCE_SHOW_APP = true;
+  // remember dummy: flip this to true while doing frontend work locally
+  const FORCE_SHOW_APP = true;
 
-// if (FORCE_SHOW_APP) {
-//     setGate(true);
-//     // openSettings();
-//     setLoginStatus('DEV MODE (auth bypassed)');
-//     return; // skip auth checks
-//   }
+if (FORCE_SHOW_APP) {
+    setGate(true);
+    // openSettings();
+    setLoginStatus('DEV MODE (auth bypassed)');
+    return; // skip auth checks
+  }
 
   function setAuthed(ok, me){
     auth.isAuthed = !!ok;
@@ -189,11 +203,14 @@ const api = (p) => `${API_BASE}${p}`;
       auth.email = null;
       auth.remainingToday = null;
       auth.avatarUrl = null;
+      auth.isAdmin = false;
       auth.isBanned = false;
       auth.banReason = null;
 
       if (authUser) authUser.hidden = true;
       if (authLogin) authLogin.hidden = false;
+      if (adminBtn) adminBtn.hidden = true;
+      if (adminModal) adminModal.setAttribute('aria-hidden','true');
 
       setGate(false);
       setLoginStatus('Please login to continue.');
@@ -216,6 +233,9 @@ const api = (p) => `${API_BASE}${p}`;
 
     if (authEmailInApp) authEmailInApp.textContent = auth.email || '—';
     if (quotaRemainingInApp) quotaRemainingInApp.textContent = (auth.remainingToday ?? '—').toString();
+
+    // admin button (server enforced, UI is just a convenience)
+    if (adminBtn) adminBtn.hidden = !auth.isAdmin;
 
     // profile image (optional)
     if (profileImg){
@@ -294,6 +314,235 @@ const api = (p) => `${API_BASE}${p}`;
     }
   }
   function closeSettings(){ modal?.setAttribute('aria-hidden', 'true'); }
+  // ---------------- Admin modal ----------------
+  async function loadAdminUsers(){
+    if (!adminUsersWrap) return;
+    adminUsersWrap.textContent = 'Loading users…';
+
+    try{
+      const raw = await fetchJSON(api('/api/admin/users'));
+      const users = Array.isArray(raw) ? raw : (raw.users || raw.data || []);
+      adminState.users = users;
+      const q = (adminSearch?.value || '').trim().toLowerCase();
+
+      const filtered = !q ? users : users.filter(u => {
+        const email = (u.email || '').toLowerCase();
+        const sub = (u.sub || u.googleSub || '').toLowerCase();
+        return email.includes(q) || sub.includes(q);
+      });
+
+      renderAdminUsers(filtered);
+    }catch(err){
+      console.error(err);
+      if (handleAuthError(err)) return;
+      adminUsersWrap.textContent = 'Failed to load users.';
+      Toast('Admin', 'Failed to load users (check backend admin endpoints).');
+    }
+  }
+
+  function renderAdminUsers(users){
+    if (!adminUsersWrap) return;
+    adminUsersWrap.innerHTML = '';
+
+    if (!users || users.length === 0){
+      const d = document.createElement('div');
+      d.className = 'muted';
+      d.textContent = 'No users found.';
+      adminUsersWrap.appendChild(d);
+      return;
+    }
+
+    users.forEach(u => {
+      const userId = u.userId ?? u.id ?? null;
+      const email = u.email ?? '—';
+      const sub = u.sub ?? u.googleSub ?? '—';
+      const dailyQuota = u.dailyQuota ?? u.tokensPerDay ?? 25;
+      const usedToday = u.usedToday ?? 0;
+      const remaining = (u.remainingTokens ?? u.remainingToday ?? Math.max(0, (dailyQuota||0) - (usedToday||0)));
+
+      const row = document.createElement('div');
+      row.className = 'adminUserRow';
+
+      // top
+      const top = document.createElement('div');
+      top.className = 'adminRowTop';
+
+      const ident = document.createElement('div');
+      ident.className = 'adminIdent';
+
+      const emailEl = document.createElement('div');
+      emailEl.className = 'adminEmail';
+      emailEl.textContent = email;
+
+      const subEl = document.createElement('div');
+      subEl.className = 'adminSub';
+      subEl.textContent = sub;
+
+      ident.appendChild(emailEl);
+      ident.appendChild(subEl);
+
+      const pill = document.createElement('span');
+      pill.className = 'pill ' + (u.isBanned ? 'bad' : 'good');
+      pill.textContent = u.isBanned ? 'BANNED' : 'OK';
+
+      top.appendChild(ident);
+      top.appendChild(pill);
+
+      // mid
+      const mid = document.createElement('div');
+      mid.className = 'adminRowMid';
+      mid.innerHTML = `Used today: <b>${usedToday}</b> • Remaining: <b>${remaining}</b>`;
+
+      // quota editor + actions
+      const actions = document.createElement('div');
+      actions.className = 'adminActions';
+
+      const quotaWrap = document.createElement('div');
+      quotaWrap.className = 'adminQuota';
+
+      const qLabel = document.createElement('span');
+      qLabel.textContent = 'Tokens/day:';
+
+      const qInput = document.createElement('input');
+      qInput.type = 'number';
+      qInput.min = '0';
+      qInput.step = '1';
+      qInput.value = String(dailyQuota);
+
+      const saveBtn = document.createElement('button');
+      saveBtn.className = 'btn secondary small';
+      saveBtn.type = 'button';
+      saveBtn.textContent = 'Save';
+
+      saveBtn.addEventListener('click', async ()=>{
+        const n = Number(qInput.value);
+        if (!Number.isFinite(n) || n < 0){
+          Toast('Admin', 'Enter a valid number.');
+          return;
+        }
+        try{
+          await adminSetQuota(userId, sub, n);
+          Toast('Admin', `Updated tokens/day to ${n}.`);
+          await loadAdminUsers();
+        }catch(err){
+          console.error(err);
+          Toast('Admin', 'Failed to update quota.');
+        }
+      });
+
+      quotaWrap.appendChild(qLabel);
+      quotaWrap.appendChild(qInput);
+      quotaWrap.appendChild(saveBtn);
+
+      const banBtn = document.createElement('button');
+      banBtn.className = 'btn secondary small danger';
+      banBtn.type = 'button';
+      banBtn.textContent = u.isBanned ? 'Unban' : 'Ban';
+
+      banBtn.addEventListener('click', async ()=>{
+        try{
+          if (u.isBanned){
+            if (!confirm(`Unban ${email}?`)) return;
+            await adminUnban(userId, sub);
+          }else{
+            const reason = prompt(`Ban reason for ${email} (optional):`, '');
+            if (reason === null) return; // cancelled
+            await adminBan(userId, sub, reason || null);
+          }
+          await loadAdminUsers();
+        }catch(err){
+          console.error(err);
+          Toast('Admin', 'Ban/unban failed.');
+        }
+      });
+
+      const resetBtn = document.createElement('button');
+      resetBtn.className = 'btn secondary small';
+      resetBtn.type = 'button';
+      resetBtn.textContent = 'Reset usage';
+
+      resetBtn.addEventListener('click', async ()=>{
+        if (!confirm(`Reset used-today counter for ${email}?`)) return;
+        try{
+          await adminResetUsage(userId, sub);
+          await loadAdminUsers();
+        }catch(err){
+          console.error(err);
+          Toast('Admin', 'Reset usage failed.');
+        }
+      });
+
+      const clearBtn = document.createElement('button');
+      clearBtn.className = 'btn secondary small';
+      clearBtn.type = 'button';
+      clearBtn.textContent = 'Clear downloads';
+
+      clearBtn.addEventListener('click', async ()=>{
+        if (!confirm(`Delete ALL download logs for ${email}? This cannot be undone.`)) return;
+        try{
+          await adminClearDownloads(userId, sub);
+          await loadAdminUsers();
+        }catch(err){
+          console.error(err);
+          Toast('Admin', 'Clear downloads failed.');
+        }
+      });
+
+      actions.appendChild(quotaWrap);
+      actions.appendChild(banBtn);
+      actions.appendChild(resetBtn);
+      actions.appendChild(clearBtn);
+
+      row.appendChild(top);
+      row.appendChild(mid);
+      row.appendChild(actions);
+
+      adminUsersWrap.appendChild(row);
+    });
+  }
+
+  async function adminSetQuota(userId, sub, dailyQuota){
+    return fetchJSON(api('/api/admin/set-quota'), {
+      method: 'POST',
+      body: JSON.stringify({ userId, sub, dailyQuota })
+    });
+  }
+  async function adminBan(userId, sub, reason){
+    return fetchJSON(api('/api/admin/ban'), {
+      method: 'POST',
+      body: JSON.stringify({ userId, sub, reason })
+    });
+  }
+  async function adminUnban(userId, sub){
+    return fetchJSON(api('/api/admin/unban'), {
+      method: 'POST',
+      body: JSON.stringify({ userId, sub })
+    });
+  }
+  async function adminResetUsage(userId, sub){
+    return fetchJSON(api('/api/admin/reset-usage'), {
+      method: 'POST',
+      body: JSON.stringify({ userId, sub })
+    });
+  }
+  async function adminClearDownloads(userId, sub){
+    return fetchJSON(api('/api/admin/clear-downloads'), {
+      method: 'POST',
+      body: JSON.stringify({ userId, sub })
+    });
+  }
+
+  function openAdmin(){
+    if (!auth.isAdmin){
+      Toast('Admin', 'Admin only.');
+      return;
+    }
+    adminModal?.setAttribute('aria-hidden','false');
+    loadAdminUsers();
+  }
+  function closeAdmin(){ adminModal?.setAttribute('aria-hidden','true'); }
+
+
 
   const QUALITY_MAP = {
     Low:    'b[height<=360]/bv*[height<=360]+ba/b',
@@ -575,7 +824,25 @@ const api = (p) => `${API_BASE}${p}`;
   document.addEventListener('click', ()=> setProfileMenuOpen(false));
   document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') setProfileMenuOpen(false); });
 
-  els.settingsBtn?.addEventListener('click', openSettings);
+  
+  adminBtn?.addEventListener('click', openAdmin);
+  adminClose?.addEventListener('click', closeAdmin);
+  adminClose2?.addEventListener('click', closeAdmin);
+  adminBackdrop?.addEventListener('click', closeAdmin);
+  adminRefresh?.addEventListener('click', loadAdminUsers);
+  adminSearch?.addEventListener('input', ()=>{
+    // remember dummy: filter locally so you aren't slamming the backend while typing
+    const q = (adminSearch?.value || '').trim().toLowerCase();
+    const users = adminState.users || [];
+    const filtered = !q ? users : users.filter(u => {
+      const email = (u.email || '').toLowerCase();
+      const sub = (u.sub || u.googleSub || '').toLowerCase();
+      return email.includes(q) || sub.includes(q);
+    });
+    renderAdminUsers(filtered);
+  });
+
+els.settingsBtn?.addEventListener('click', openSettings);
   closeBtn?.addEventListener('click', closeSettings);
   modal?.querySelector('.kmodal__backdrop')?.addEventListener('click', closeSettings);
 
