@@ -172,6 +172,16 @@ const api = (p) => `${API_BASE}${p}`;
   }
   
 
+//   // remember dummy: flip this to true while doing frontend work locally
+//   const FORCE_SHOW_APP = true;
+
+// if (FORCE_SHOW_APP) {
+//     setGate(true);
+//     // openSettings();
+//     setLoginStatus('DEV MODE (auth bypassed)');
+//     return; // skip auth checks
+//   }
+
   function setAuthed(ok, me){
     auth.isAuthed = !!ok;
 

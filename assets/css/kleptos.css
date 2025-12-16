@@ -270,11 +270,6 @@
   font-size: 12px;
 }
 
-#kleptos .authEmail,
-#kleptos .quotaRemaining{
-  font-weight: 700;
-}
-
 #kleptos .btn.secondary{
   background: var(--bg);
   color: var(--text);
@@ -356,7 +351,7 @@
   margin-left:auto;
 }
 
-#kleptos .profileMenu{ position:relative; }
+#kleptos .profileMenu{ position:relative;}
 
 #kleptos .profileBtn{
   display:flex;
@@ -365,16 +360,15 @@
   border:1px solid var(--outline);
   background: var(--bg);
   color: var(--text);
-  border-radius:12px;
-  padding:6px 10px;
+  border-radius:100%;
+  padding:0px;
   cursor:pointer;
 }
 
 #kleptos .profileImg{
-  width:32px;
-  height:32px;
-  border-radius:999px;
-  border:1px solid var(--outline);
+  width:44px;
+  height:44px;
+  border-radius:100%;
   background: var(--tile);
   object-fit:cover;
   flex:0 0 auto;
