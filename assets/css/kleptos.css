@@ -345,3 +345,79 @@
   #kleptos .kform__row .urlInput{ width: 100%; }
   #kleptos .videoInfo{ flex-wrap:wrap; }
 }
+
+
+/* ---------------- PROFILE MENU (new) ---------------- */
+
+#kleptos .toolbar .right{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-left:auto;
+}
+
+#kleptos .profileMenu{ position:relative; }
+
+#kleptos .profileBtn{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  border:1px solid var(--outline);
+  background: var(--bg);
+  color: var(--text);
+  border-radius:12px;
+  padding:6px 10px;
+  cursor:pointer;
+}
+
+#kleptos .profileImg{
+  width:32px;
+  height:32px;
+  border-radius:999px;
+  border:1px solid var(--outline);
+  background: var(--tile);
+  object-fit:cover;
+  flex:0 0 auto;
+}
+
+#kleptos .profileMeta{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  text-align:left;
+  max-width: 260px;
+}
+
+#kleptos .profileLine{
+  display:flex;
+  gap:6px;
+  font-size:12px;
+  line-height:1.1;
+  white-space:nowrap;
+  overflow:hidden;
+}
+
+#kleptos .profileLine .authEmail{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width: 220px;
+  display:inline-block;
+}
+
+#kleptos .profileDropdown{
+  position:absolute;
+  right:0;
+  top: calc(100% + 8px);
+  min-width: 160px;
+  padding: 10px;
+  border:1px solid var(--outline);
+  background: var(--card);
+  border-radius: 12px;
+  box-shadow:0 10px 30px rgba(0,0,0,.45), 0 0 0 1px var(--outline) inset;
+  display:none;
+  z-index: 50;
+}
+
+#kleptos .profileMenu.open .profileDropdown{
+  display:block;
+}

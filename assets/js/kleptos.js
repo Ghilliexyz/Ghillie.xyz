@@ -20,6 +20,7 @@ const api = (p) => `${API_BASE}${p}`;
 (() => {
   // Gates
   const siteGate = document.getElementById('siteGate');
+  const footerGate = document.getElementById('footerGate');
   const loginGate = document.getElementById('loginGate');
   const appGate = document.getElementById('appGate');
   const loginStatus = document.getElementById('loginStatus');
@@ -35,6 +36,13 @@ const api = (p) => `${API_BASE}${p}`;
   const authEmailInApp = document.getElementById('authEmailInApp');
   const quotaRemainingInApp = document.getElementById('quotaRemainingInApp');
   const authLogoutInApp = document.getElementById('authLogoutInApp');
+
+  // Profile menu (in-app)
+  const profileMenu = document.getElementById('profileMenu');
+  const profileBtn = document.getElementById('profileBtn');
+  const profileImg = document.getElementById('profileImg');
+  const profileDropdown = document.getElementById('profileDropdown');
+
 
   // Main app elements
   const els = {
@@ -72,7 +80,8 @@ const api = (p) => `${API_BASE}${p}`;
   const auth = {
     isAuthed: false,
     email: null,
-    remainingTokens: null,
+    remainingToday: null,
+    avatarUrl: null,
     isBanned: false,
     banReason: null,
   };
@@ -120,7 +129,7 @@ const api = (p) => `${API_BASE}${p}`;
     els.toast.querySelector('.body').textContent = body || '';
     els.toast.classList.toggle('error', type === 'error');
     els.toast.hidden = false;
-    setTimeout(()=>{ els.toast.hidden = true; }, 10000);
+    setTimeout(()=>{ els.toast.hidden = true; }, 3500);
   }
 
   function setMetaLoading(on,msg){
@@ -158,25 +167,18 @@ const api = (p) => `${API_BASE}${p}`;
   }
 
   function setGate(isLoggedIn){
-    // remember dummy: you have TWO layers of "gates":
-    // 1) siteGate = the big overlays that block the whole page
-    // 2) loginGate/appGate   = the internal login/app swap
-    //
-    // If you only toggle (2), the overlay (1) can still sit on top forever.
-    const loggedIn = !!isLoggedIn;
-
-    if (siteGate) siteGate.hidden = loggedIn;
-
-    if (loginGate) loginGate.hidden = loggedIn;
-    if (appGate) appGate.hidden = !loggedIn;
+    if (loginGate) loginGate.hidden = !!isLoggedIn;
+    if (appGate) appGate.hidden = !isLoggedIn;
   }
+  
 
   function setAuthed(ok, me){
     auth.isAuthed = !!ok;
 
     if (!ok){
       auth.email = null;
-      auth.remainingTokens = null;
+      auth.remainingToday = null;
+      auth.avatarUrl = null;
       auth.isBanned = false;
       auth.banReason = null;
 
@@ -185,11 +187,14 @@ const api = (p) => `${API_BASE}${p}`;
 
       setGate(false);
       setLoginStatus('Please login to continue.');
+      setProfileMenuOpen(false);
       return;
     }
 
     auth.email = me?.email ?? null;
-    auth.remainingTokens = me?.remainingTokens ?? null;
+    // remember dummy: backend calls this remainingTokens now, but older builds used remainingToday
+    auth.remainingToday = (me?.remainingTokens ?? me?.remainingToday) ?? null;
+    auth.avatarUrl = me?.avatarUrl ?? me?.picture ?? null;
     auth.isBanned = !!me?.isBanned;
     auth.banReason = me?.banReason ?? null;
 
@@ -197,19 +202,32 @@ const api = (p) => `${API_BASE}${p}`;
     if (authUser) authUser.hidden = false;
 
     if (authEmail) authEmail.textContent = auth.email || '—';
-    if (quotaRemaining) quotaRemaining.textContent = (auth.remainingTokens ?? '—').toString();
+    if (quotaRemaining) quotaRemaining.textContent = (auth.remainingToday ?? '—').toString();
 
     if (authEmailInApp) authEmailInApp.textContent = auth.email || '—';
-    if (quotaRemainingInApp) quotaRemainingInApp.textContent = (auth.remainingTokens ?? '—').toString();
+    if (quotaRemainingInApp) quotaRemainingInApp.textContent = (auth.remainingToday ?? '—').toString();
+
+    // profile image (optional)
+    if (profileImg){
+      profileImg.src = auth.avatarUrl || '/assets/img/favicon.png';
+      profileImg.alt = auth.email ? `Profile: ${auth.email}` : 'Profile';
+    }
 
     if (auth.isBanned){
       setGate(false);
       setLoginStatus(auth.banReason || 'Your account is banned.');
+      setProfileMenuOpen(false);
       return;
     }
 
     setGate(true);
     setLoginStatus('');
+  }
+
+  function setProfileMenuOpen(open){
+    if (!profileMenu) return;
+    profileMenu.classList.toggle('open', !!open);
+    if (profileBtn) profileBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
   }
 
   function handleAuthError(err){
@@ -368,32 +386,14 @@ const api = (p) => `${API_BASE}${p}`;
       renderMeta(meta);
       showResults();
       enableDownload(!meta.isPlaylist);
-      }catch(err){
-        console.error(err);
-        if (handleAuthError(err)) return;
-
-        // Metadata failing shouldn't block downloads (YouTube bot-check etc.)
-        showToast(
-          'Info unavailable',
-          'Could not fetch metadata. You can still try downloading.',
-          'error'
-        );
-
-        hideResults();
-        showPlUI(false);     // hide playlist UI
-        enableDownload(true); // allow download anyway
-      }finally{
-        setMetaLoading(false);
-      }
-    // }catch(err){
-    //   console.error(err);
-    //   if (handleAuthError(err)) return;
-    //   showToast('Failed to fetch info', String(err.message||err), 'error');
-    //   hideResults();
-    //   enableDownload(false);
-    // }finally{
-    //   setMetaLoading(false);
-    // }
+    }catch(err){
+      console.error(err);
+      if (handleAuthError(err)) return;
+      showToast('Failed to fetch info', String(err.message||err), 'error');
+      hideResults(); enableDownload(false);
+    }finally{
+      setMetaLoading(false);
+    }
   }, 250);
 
   // ---------------- Download single ----------------
@@ -525,8 +525,8 @@ const api = (p) => `${API_BASE}${p}`;
       if (els.total) els.total.textContent = (pub.totalDownloads ?? 0).toLocaleString();
       if (els.today) els.today.textContent = (pub.downloadsToday ?? 0).toLocaleString();
 
-      if (quotaRemaining) quotaRemaining.textContent = (q.remainingTokens ?? '—').toString();
-      if (quotaRemainingInApp) quotaRemainingInApp.textContent = (q.remainingTokens ?? '—').toString();
+      if (quotaRemaining) quotaRemaining.textContent = (q.remainingToday ?? '—').toString();
+      if (quotaRemainingInApp) quotaRemainingInApp.textContent = (q.remainingToday ?? '—').toString();
     }catch(err){
       console.error(err);
       handleAuthError(err);
@@ -551,6 +551,19 @@ const api = (p) => `${API_BASE}${p}`;
   authLogin?.addEventListener('click', ()=>{ location.href = loginUrl(); });
   authLogout?.addEventListener('click', doLogout);
   authLogoutInApp?.addEventListener('click', doLogout);
+
+  // Profile menu interactions (click to open/close; no hover so you can actually reach the Logout button)
+  profileBtn?.addEventListener('click', (e)=>{
+    e.preventDefault();
+    e.stopPropagation();
+    const open = !(profileMenu?.classList.contains('open'));
+    setProfileMenuOpen(open);
+  });
+
+  profileDropdown?.addEventListener('click', (e)=> e.stopPropagation());
+
+  document.addEventListener('click', ()=> setProfileMenuOpen(false));
+  document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') setProfileMenuOpen(false); });
 
   els.settingsBtn?.addEventListener('click', openSettings);
   closeBtn?.addEventListener('click', closeSettings);

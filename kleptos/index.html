@@ -94,32 +94,37 @@
       <main class="grid">
         <section class="cardGlow">
           <div>
-            <div class="toolbar">
+                        <div class="toolbar">
               <div class="left">
                 <button id="settings" class="btn">Settings</button>
-                <button id="authLogoutInApp" class="btn secondary small">Logout</button>
               </div>
-              
-              <div class="right">
-                <!-- Auth (same IDs as before) -->
-                <div class="authWrap">
-                  <div class="stat"><span class="label">Downloads Today:</span> <span id="downloadCountToday">0</span> •</div>
-                  <div class="stat"><span class="label">Total Downloads:</span> <span id="downloadCountTotal">0</span> •</div>
-                </div>
-                <!-- Existing stats -->
-              </div>
-            </div>
 
-            <div class="left">
-              <div class="authUser">
-                <span class="pill">
-                  <span class="muted">Signed in:</span>
-                  <span id="authEmailInApp" class="authEmail">—</span>
-                </span>
-                <span class="pill">
-                  <span class="muted">Tokens:</span>
-                  <span id="quotaRemainingInApp" class="quotaRemaining">—</span>
-                </span>
+              <div class="right">
+                <div class="stats">
+                  <div class="stat"><span class="label">Downloads Today:</span> <span id="downloadCountToday">0</span> •</div>
+                  <div class="stat"><span class="label">Total Downloads:</span> <span id="downloadCountTotal">0</span></div>
+                </div>
+
+                <!-- Profile menu (hover/click) -->
+                <div class="profileMenu" id="profileMenu">
+                  <button id="profileBtn" class="profileBtn" type="button" aria-haspopup="menu" aria-expanded="false">
+                    <img id="profileImg" class="profileImg" alt="Profile" referrerpolicy="no-referrer">
+                    <div class="profileMeta">
+                      <div class="profileLine">
+                        <span class="muted">Signed in:</span>
+                        <span id="authEmailInApp" class="authEmail">—</span>
+                      </div>
+                      <div class="profileLine">
+                        <span class="muted">Tokens:</span>
+                        <span id="quotaRemainingInApp" class="quotaRemaining">—</span>
+                      </div>
+                    </div>
+                  </button>
+
+                  <div id="profileDropdown" class="profileDropdown" role="menu">
+                    <button id="authLogoutInApp" class="btn secondary small" type="button">Logout</button>
+                  </div>
+                </div>
               </div>
             </div>
 
