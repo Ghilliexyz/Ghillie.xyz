@@ -76,19 +76,6 @@
 
           <div id="authWrap" class="authWrap loginAuthRow">
             <button id="authLogin" class="btn secondary">Login with Google</button>
-
-            <!-- still kept for completeness (JS will hide/show) -->
-            <div id="authUser" class="authUser" hidden>
-              <span class="pill">
-                <span class="muted">Signed in:</span>
-                <span id="authEmail" class="authEmail">—</span>
-              </span>
-              <span class="pill">
-                <span class="muted">Tokens:</span>
-                <span id="quotaRemaining" class="quotaRemaining">—</span>
-              </span>
-              <button id="authLogout" class="btn secondary small">Logout</button>
-            </div>
           </div>
 
           <div id="loginStatus" class="loginStatus muted"></div>
@@ -110,27 +97,29 @@
             <div class="toolbar">
               <div class="left">
                 <button id="settings" class="btn">Settings</button>
+                <button id="authLogoutInApp" class="btn secondary small">Logout</button>
               </div>
-
-              <div class="right stats">
+              
+              <div class="right">
                 <!-- Auth (same IDs as before) -->
                 <div class="authWrap">
-                  <div class="authUser">
-                    <span class="pill">
-                      <span class="muted">Signed in:</span>
-                      <span id="authEmailInApp" class="authEmail">—</span>
-                    </span>
-                    <span class="pill">
-                      <span class="muted">Tokens:</span>
-                      <span id="quotaRemainingInApp" class="quotaRemaining">—</span>
-                    </span>
-                    <button id="authLogoutInApp" class="btn secondary small">Logout</button>
-                  </div>
+                  <div class="stat"><span class="label">Downloads Today:</span> <span id="downloadCountToday">0</span> •</div>
+                  <div class="stat"><span class="label">Total Downloads:</span> <span id="downloadCountTotal">0</span> •</div>
                 </div>
-
                 <!-- Existing stats -->
-                <div class="stat"><span class="label">Downloads Today:</span> <span id="downloadCountToday">0</span> •</div>
-                <div class="stat"><span class="label">Total Downloads:</span> <span id="downloadCountTotal">0</span> •</div>
+              </div>
+            </div>
+
+            <div class="left">
+              <div class="authUser">
+                <span class="pill">
+                  <span class="muted">Signed in:</span>
+                  <span id="authEmailInApp" class="authEmail">—</span>
+                </span>
+                <span class="pill">
+                  <span class="muted">Tokens:</span>
+                  <span id="quotaRemainingInApp" class="quotaRemaining">—</span>
+                </span>
               </div>
             </div>
 

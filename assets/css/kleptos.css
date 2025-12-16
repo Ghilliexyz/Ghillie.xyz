@@ -41,6 +41,12 @@
 #kleptos .stats{ display:flex; gap:14px; flex-wrap:wrap; }
 #kleptos .label{ color:var(--muted); margin-right:6px; }
 
+#kleptos .stat{
+  display:inline-flex;
+  gap:6px;
+  font-size:14px;
+}
+
 /* url row */
 #kleptos .urlInfo{
   display:flex;
