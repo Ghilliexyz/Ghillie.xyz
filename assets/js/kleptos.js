@@ -72,7 +72,7 @@ const api = (p) => `${API_BASE}${p}`;
   const auth = {
     isAuthed: false,
     email: null,
-    remainingToday: null,
+    remainingTokens: null,
     isBanned: false,
     banReason: null,
   };
@@ -176,7 +176,7 @@ const api = (p) => `${API_BASE}${p}`;
 
     if (!ok){
       auth.email = null;
-      auth.remainingToday = null;
+      auth.remainingTokens = null;
       auth.isBanned = false;
       auth.banReason = null;
 
@@ -189,7 +189,7 @@ const api = (p) => `${API_BASE}${p}`;
     }
 
     auth.email = me?.email ?? null;
-    auth.remainingToday = me?.remainingToday ?? null;
+    auth.remainingTokens = me?.remainingTokens ?? null;
     auth.isBanned = !!me?.isBanned;
     auth.banReason = me?.banReason ?? null;
 
@@ -197,10 +197,10 @@ const api = (p) => `${API_BASE}${p}`;
     if (authUser) authUser.hidden = false;
 
     if (authEmail) authEmail.textContent = auth.email || '—';
-    if (quotaRemaining) quotaRemaining.textContent = (auth.remainingToday ?? '—').toString();
+    if (quotaRemaining) quotaRemaining.textContent = (auth.remainingTokens ?? '—').toString();
 
     if (authEmailInApp) authEmailInApp.textContent = auth.email || '—';
-    if (quotaRemainingInApp) quotaRemainingInApp.textContent = (auth.remainingToday ?? '—').toString();
+    if (quotaRemainingInApp) quotaRemainingInApp.textContent = (auth.remainingTokens ?? '—').toString();
 
     if (auth.isBanned){
       setGate(false);
@@ -525,8 +525,8 @@ const api = (p) => `${API_BASE}${p}`;
       if (els.total) els.total.textContent = (pub.totalDownloads ?? 0).toLocaleString();
       if (els.today) els.today.textContent = (pub.downloadsToday ?? 0).toLocaleString();
 
-      if (quotaRemaining) quotaRemaining.textContent = (q.remainingToday ?? '—').toString();
-      if (quotaRemainingInApp) quotaRemainingInApp.textContent = (q.remainingToday ?? '—').toString();
+      if (quotaRemaining) quotaRemaining.textContent = (q.remainingTokens ?? '—').toString();
+      if (quotaRemainingInApp) quotaRemainingInApp.textContent = (q.remainingTokens ?? '—').toString();
     }catch(err){
       console.error(err);
       handleAuthError(err);
