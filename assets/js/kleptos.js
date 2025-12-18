@@ -23,12 +23,10 @@ const api = (p) => `${API_BASE}${p}`;
   const footerGate = document.getElementById('footerGate');
   const loginGate = document.getElementById('loginGate');
   const appGate = document.getElementById('appGate');
-  const loginStatus = document.getElementById('loginStatus');
-
-  // Not-whitelisted gate (same look as login)
   const denyGate = document.getElementById('denyGate');
   const denyLogout = document.getElementById('denyLogout');
   const denyStatus = document.getElementById('denyStatus');
+  const loginStatus = document.getElementById('loginStatus');
 
   // Auth UI (login gate)
   const authLogin = document.getElementById('authLogin');
@@ -185,20 +183,29 @@ const api = (p) => `${API_BASE}${p}`;
     return api('/auth/login?returnTo=' + encodeURIComponent(returnTo));
   }
 
-  function setGateMode(mode){
-    // mode: 'login' | 'app' | 'deny'
-    if (loginGate) loginGate.hidden = (mode !== 'login');
-    if (appGate) appGate.hidden = (mode !== 'app');
-    if (denyGate) denyGate.hidden = (mode !== 'deny');
-  }
-
-  // Back-compat: some code still calls setGate(true/false)
   function setGate(isLoggedIn){
-    setGateMode(isLoggedIn ? 'app' : 'login');
+    // remember dummy: keep denyGate off unless we explicitly show it
+    if (denyGate) denyGate.hidden = true;
+    if (loginGate) loginGate.hidden = !!isLoggedIn;
+    if (appGate) appGate.hidden = !isLoggedIn;
   }
-  
 
-  // remember dummy: flip this to true while doing frontend work locally
+  function isNotWhitelisted(err){
+    if (!err) return false;
+    const status = err.status || 0;
+    if (status !== 403) return false;
+    const body = String(err.body || err.message || '');
+    return /not_whitelisted/i.test(body) || /not whitelisted/i.test(body);
+  }
+
+  function showDenied(msg){
+    // same layout as login screen, but you're hard-blocked
+    if (loginGate) loginGate.hidden = true;
+    if (appGate) appGate.hidden = true;
+    if (denyGate) denyGate.hidden = false;
+    if (denyStatus) denyStatus.textContent = msg || 'You are not whitelisted.';
+  }
+// remember dummy: flip this to true while doing frontend work locally
 //   const FORCE_SHOW_APP = true;
 
 // if (FORCE_SHOW_APP) {
@@ -225,7 +232,7 @@ const api = (p) => `${API_BASE}${p}`;
       if (adminModal) adminModal.setAttribute('aria-hidden','true');
 
       setGate(false);
-      setLoginStatus('Please login to continue.');
+      setLoginStatus('Checking login…');
       setProfileMenuOpen(false);
       return;
     }
@@ -272,41 +279,13 @@ const api = (p) => `${API_BASE}${p}`;
     if (profileBtn) profileBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
   }
 
-  function isNotWhitelisted(err){
-    if (!err || err.status !== 403) return false;
-    const b = String(err.body || err.message || '');
-    return /not_whitelisted/i.test(b) || /not whitelisted/i.test(b);
-  }
-
-  function showDenied(msg){
-    // remember dummy: this is the "looks like login" lockout screen.
-    auth.isAuthed = false;
-    auth.email = null;
-    auth.userId = null;
-    auth.isAdmin = false;
-    auth.isBanned = false;
-    auth.banReason = null;
-
-    hideResults();
-    enableDownload(false);
-
-    if (authUser) authUser.hidden = true;
-    if (authLogin) authLogin.hidden = false;
-    if (adminBtn) adminBtn.hidden = true;
-    if (adminModal) adminModal.setAttribute('aria-hidden','true');
-
-    setProfileMenuOpen(false);
-    setGateMode('deny');
-
-    if (denyStatus) denyStatus.textContent = msg || 'You are not whitelisted.';
-    setLoginStatus('');
-  }
-
   function handleAuthError(err){
+    // Whitelist lockout (backend returns 403 + not_whitelisted)
     if (isNotWhitelisted(err)){
       showDenied('You are not whitelisted.');
       return true;
     }
+
     if (err && (err.status === 401 || String(err.message||'').includes('401'))){
       setAuthed(false);
       setLoginStatus('Session expired — please login again.');
@@ -728,6 +707,14 @@ const api = (p) => `${API_BASE}${p}`;
         return;
       }
 
+      if (res.status === 403){
+        const txt = await res.text().catch(()=> '');
+        if (/not_whitelisted/i.test(txt) || /not whitelisted/i.test(txt)){
+          showDenied('You are not whitelisted.');
+          return;
+        }
+      }
+
       if (!res.ok || ctype.includes('application/json') || ctype.includes('problem+json')){
         const txt = await res.text().catch(()=>res.statusText);
         throw new Error(txt || res.statusText);
@@ -785,6 +772,14 @@ const api = (p) => `${API_BASE}${p}`;
       if (res.status === 401){
         setAuthed(false);
         return;
+      }
+
+      if (res.status === 403){
+        const txt = await res.text().catch(()=> '');
+        if (/not_whitelisted/i.test(txt) || /not whitelisted/i.test(txt)){
+          showDenied('You are not whitelisted.');
+          return;
+        }
       }
 
       if (!res.ok || (!ctype.startsWith('application/zip') && !ctype.includes('octet-stream'))){
@@ -846,22 +841,31 @@ const api = (p) => `${API_BASE}${p}`;
       setLoginStatus('');
     }catch(err){
       console.error(err);
+
       if (isNotWhitelisted(err)){
         showDenied('You are not whitelisted.');
         return;
       }
+
       if (handleAuthError(err)) return;
+
+      // Common: CORS/credentials misconfig shows as a plain TypeError in fetch().
+      if (String(err?.message||'').toLowerCase().includes('failed to fetch')){
+        setAuthed(false);
+        setLoginStatus('Can\'t reach the API (CORS/cookies). Check backend CORS + SameSite=None cookies.');
+        return;
+      }
+
       setAuthed(false);
-      setLoginStatus('Please login to continue.');
+      setLoginStatus('Checking login…');
     }
   }
 
   // ---------------- Wire events ----------------
   authLogin?.addEventListener('click', ()=>{ location.href = loginUrl(); });
-  denyLogout?.addEventListener('click', doLogout);
-
   authLogout?.addEventListener('click', doLogout);
   authLogoutInApp?.addEventListener('click', doLogout);
+  denyLogout?.addEventListener('click', doLogout);
 
   // Profile menu interactions (click to open/close; no hover so you can actually reach the Logout button)
   profileBtn?.addEventListener('click', (e)=>{
@@ -929,7 +933,7 @@ els.settingsBtn?.addEventListener('click', openSettings);
   hideResults();
   enableDownload(false);
   setGate(false);
-  setLoginStatus('Please login to continue.');
+  setLoginStatus('Checking login…');
   refreshMe().then(async ()=>{
     if (auth.isAuthed){
       await refreshStats();
