@@ -199,16 +199,16 @@ function setMetaLoading(on,msg){
   
 
   // remember dummy: flip this to true while doing frontend work locally
-  const FORCE_SHOW_APP = true;
+//   const FORCE_SHOW_APP = true;
 
-if (FORCE_SHOW_APP) {
-    setGate(true);
-    // setAuthed(true, { email: 'dev@local', isAdmin: true, remainingToday: 9999 });
-    // openAdmin();
-    // openSettings();
-    setLoginStatus('DEV MODE (auth bypassed)');
-    return; // skip auth checks
-  }
+// if (FORCE_SHOW_APP) {
+//     setGate(true);
+//     // setAuthed(true, { email: 'dev@local', isAdmin: true, remainingToday: 9999 });
+//     // openAdmin();
+//     // openSettings();
+//     setLoginStatus('DEV MODE (auth bypassed)');
+//     return; // skip auth checks
+//   }
 
   function setAuthed(ok, me){
     auth.isAuthed = !!ok;
