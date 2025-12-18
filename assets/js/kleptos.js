@@ -24,7 +24,7 @@ const api = (p) => `${API_BASE}${p}`;
   const loginGate = document.getElementById('loginGate');
   const appGate = document.getElementById('appGate');
   const denyGate = document.getElementById('denyGate');
-  const denyLogout = document.getElementById('denyLogout');
+  const denyLogin = document.getElementById('denyLogin');
   const denyStatus = document.getElementById('denyStatus');
   const loginStatus = document.getElementById('loginStatus');
 
@@ -123,9 +123,18 @@ const api = (p) => `${API_BASE}${p}`;
   }
 
   async function fetchJSON(url, init){
+    const method = String(init?.method || 'GET').toUpperCase();
+
+    // remember dummy: DON'T set Content-Type on GET, it triggers a CORS preflight for no reason.
+    const headers = new Headers(init?.headers || {});
+    if (!headers.has('Accept')) headers.set('Accept', 'application/json');
+    if (method !== 'GET' && method !== 'HEAD' && !headers.has('Content-Type')){
+      headers.set('Content-Type', 'application/json');
+    }
+
     const r = await fetch(url, {
       credentials: 'include', // IMPORTANT: send auth cookie cross-site
-      headers: { 'Content-Type':'application/json' },
+      headers,
       ...init
     });
 
@@ -840,34 +849,30 @@ const api = (p) => `${API_BASE}${p}`;
       setAuthed(true, me);
       setLoginStatus('');
     }catch(err){
-      console.error(err);
-
+      // remember dummy: 401 just means "not logged in", don't spam console
       if (isNotWhitelisted(err)){
         showDenied('You are not whitelisted.');
         return;
       }
-
-      if (handleAuthError(err)) return;
-
-      // Common: CORS/credentials misconfig shows as a plain TypeError in fetch().
-      if (String(err?.message||'').toLowerCase().includes('failed to fetch')){
-        setAuthed(false);
-        setLoginStatus('Can\'t reach the API (CORS/cookies). Check backend CORS + SameSite=None cookies.');
+      if (err && err.status === 401){
+        setGate(false);
+        setLoginStatus('');
         return;
       }
 
-      setAuthed(false);
-      setLoginStatus('Checking login…');
+      console.error(err);
+      handleAuthError(err);
+      setGate(false);
+      setLoginStatus('');
     }
   }
 
   // ---------------- Wire events ----------------
   authLogin?.addEventListener('click', ()=>{ location.href = loginUrl(); });
+  denyLogin?.addEventListener('click', ()=>{ location.href = loginUrl(); });
   authLogout?.addEventListener('click', doLogout);
   authLogoutInApp?.addEventListener('click', doLogout);
-  denyLogout?.addEventListener('click', doLogout);
-
-  // Profile menu interactions (click to open/close; no hover so you can actually reach the Logout button)
+// Profile menu interactions (click to open/close; no hover so you can actually reach the Logout button)
   profileBtn?.addEventListener('click', (e)=>{
     e.preventDefault();
     e.stopPropagation();
