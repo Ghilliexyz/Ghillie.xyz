@@ -23,9 +23,6 @@ const api = (p) => `${API_BASE}${p}`;
   const footerGate = document.getElementById('footerGate');
   const loginGate = document.getElementById('loginGate');
   const appGate = document.getElementById('appGate');
-  const denyGate = document.getElementById('denyGate');
-  const denyLogin = document.getElementById('denyLogin');
-  const denyStatus = document.getElementById('denyStatus');
   const loginStatus = document.getElementById('loginStatus');
 
   // Auth UI (login gate)
@@ -123,19 +120,19 @@ const api = (p) => `${API_BASE}${p}`;
   }
 
   async function fetchJSON(url, init){
-    const method = String(init?.method || 'GET').toUpperCase();
+    // remember dummy: DO NOT set Content-Type on GET/HEAD or the browser will preflight,
+    // which makes CORS 10x more annoying than it needs to be.
+    const method = (init?.method || 'GET').toUpperCase();
 
-    // remember dummy: DON'T set Content-Type on GET, it triggers a CORS preflight for no reason.
-    const headers = new Headers(init?.headers || {});
-    if (!headers.has('Accept')) headers.set('Accept', 'application/json');
-    if (method !== 'GET' && method !== 'HEAD' && !headers.has('Content-Type')){
-      headers.set('Content-Type', 'application/json');
+    const headers = { ...(init?.headers || {}) };
+    if (method !== 'GET' && method !== 'HEAD' && !headers['Content-Type'] && !headers['content-type']){
+      headers['Content-Type'] = 'application/json';
     }
 
     const r = await fetch(url, {
       credentials: 'include', // IMPORTANT: send auth cookie cross-site
-      headers,
-      ...init
+      ...init,
+      headers
     });
 
     const ctype = (r.headers.get('Content-Type')||'').toLowerCase();
@@ -193,28 +190,12 @@ const api = (p) => `${API_BASE}${p}`;
   }
 
   function setGate(isLoggedIn){
-    // remember dummy: keep denyGate off unless we explicitly show it
-    if (denyGate) denyGate.hidden = true;
     if (loginGate) loginGate.hidden = !!isLoggedIn;
     if (appGate) appGate.hidden = !isLoggedIn;
   }
+  
 
-  function isNotWhitelisted(err){
-    if (!err) return false;
-    const status = err.status || 0;
-    if (status !== 403) return false;
-    const body = String(err.body || err.message || '');
-    return /not_whitelisted/i.test(body) || /not whitelisted/i.test(body);
-  }
-
-  function showDenied(msg){
-    // same layout as login screen, but you're hard-blocked
-    if (loginGate) loginGate.hidden = true;
-    if (appGate) appGate.hidden = true;
-    if (denyGate) denyGate.hidden = false;
-    if (denyStatus) denyStatus.textContent = msg || 'You are not whitelisted.';
-  }
-// remember dummy: flip this to true while doing frontend work locally
+  // remember dummy: flip this to true while doing frontend work locally
 //   const FORCE_SHOW_APP = true;
 
 // if (FORCE_SHOW_APP) {
@@ -241,7 +222,7 @@ const api = (p) => `${API_BASE}${p}`;
       if (adminModal) adminModal.setAttribute('aria-hidden','true');
 
       setGate(false);
-      setLoginStatus('Checking login…');
+      setLoginStatus('Please login to continue.');
       setProfileMenuOpen(false);
       return;
     }
@@ -250,6 +231,8 @@ const api = (p) => `${API_BASE}${p}`;
     // remember dummy: backend calls this remainingTokens now, but older builds used remainingToday
     auth.remainingToday = (me?.remainingTokens ?? me?.remainingToday) ?? null;
     auth.avatarUrl = me?.avatarUrl ?? me?.picture ?? null;
+    auth.isAdmin = !!me?.isAdmin;
+    auth.isAdmin = !!me?.isAdmin;
     auth.isBanned = !!me?.isBanned;
     auth.banReason = me?.banReason ?? null;
 
@@ -288,23 +271,36 @@ const api = (p) => `${API_BASE}${p}`;
     if (profileBtn) profileBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
   }
 
+  function isNotWhitelisted(err){
+    if (!err) return false;
+    if (err.status !== 403) return false;
+    const body = String(err.body || err.message || '');
+    return /not_whitelisted/i.test(body) || /not whitelisted/i.test(body);
+  }
+
   function handleAuthError(err){
-    // Whitelist lockout (backend returns 403 + not_whitelisted)
+    // 403: whitelisted gate
     if (isNotWhitelisted(err)){
-      showDenied('You are not whitelisted.');
+      // important: show the NORMAL login screen, just with a message.
+      setAuthed(false);
+      setLoginStatus('You are not whitelisted.');
       return true;
     }
 
+    // 401: not logged in / cookie missing / expired
     if (err && (err.status === 401 || String(err.message||'').includes('401'))){
       setAuthed(false);
-      setLoginStatus('Session expired — please login again.');
+      setLoginStatus('Please login to continue.');
       return true;
     }
+
+    // other 403s: banned/admin/etc
     if (err && (err.status === 403 || String(err.message||'').includes('403'))){
       setAuthed(false);
       setLoginStatus('Access blocked.');
       return true;
     }
+
     return false;
   }
 
@@ -716,14 +712,6 @@ const api = (p) => `${API_BASE}${p}`;
         return;
       }
 
-      if (res.status === 403){
-        const txt = await res.text().catch(()=> '');
-        if (/not_whitelisted/i.test(txt) || /not whitelisted/i.test(txt)){
-          showDenied('You are not whitelisted.');
-          return;
-        }
-      }
-
       if (!res.ok || ctype.includes('application/json') || ctype.includes('problem+json')){
         const txt = await res.text().catch(()=>res.statusText);
         throw new Error(txt || res.statusText);
@@ -783,14 +771,6 @@ const api = (p) => `${API_BASE}${p}`;
         return;
       }
 
-      if (res.status === 403){
-        const txt = await res.text().catch(()=> '');
-        if (/not_whitelisted/i.test(txt) || /not whitelisted/i.test(txt)){
-          showDenied('You are not whitelisted.');
-          return;
-        }
-      }
-
       if (!res.ok || (!ctype.startsWith('application/zip') && !ctype.includes('octet-stream'))){
         const txt = await res.text().catch(()=>res.statusText);
         throw new Error(txt || res.statusText);
@@ -843,36 +823,26 @@ const api = (p) => `${API_BASE}${p}`;
   }
 
   async function refreshMe(){
+    setLoginStatus('Checking login…');
     try{
-      setLoginStatus('Checking login…');
       const me = await fetchJSON(api('/api/me'));
       setAuthed(true, me);
       setLoginStatus('');
     }catch(err){
-      // remember dummy: 401 just means "not logged in", don't spam console
-      if (isNotWhitelisted(err)){
-        showDenied('You are not whitelisted.');
-        return;
-      }
-      if (err && err.status === 401){
-        setGate(false);
-        setLoginStatus('');
-        return;
-      }
-
+      // remember dummy: 401/403 are normal states (logged out / not whitelisted). Don't spam console.
+      if (handleAuthError(err)) return;
       console.error(err);
-      handleAuthError(err);
-      setGate(false);
-      setLoginStatus('');
+      setAuthed(false);
+      setLoginStatus('Please login to continue.');
     }
   }
 
   // ---------------- Wire events ----------------
   authLogin?.addEventListener('click', ()=>{ location.href = loginUrl(); });
-  denyLogin?.addEventListener('click', ()=>{ location.href = loginUrl(); });
   authLogout?.addEventListener('click', doLogout);
   authLogoutInApp?.addEventListener('click', doLogout);
-// Profile menu interactions (click to open/close; no hover so you can actually reach the Logout button)
+
+  // Profile menu interactions (click to open/close; no hover so you can actually reach the Logout button)
   profileBtn?.addEventListener('click', (e)=>{
     e.preventDefault();
     e.stopPropagation();
@@ -938,7 +908,7 @@ els.settingsBtn?.addEventListener('click', openSettings);
   hideResults();
   enableDownload(false);
   setGate(false);
-  setLoginStatus('Checking login…');
+  setLoginStatus('Please login to continue.');
   refreshMe().then(async ()=>{
     if (auth.isAuthed){
       await refreshStats();
