@@ -52,6 +52,7 @@ const api = (p) => `${API_BASE}${p}`;
   const adminClose2 = document.getElementById('adminClose2');
   const adminBackdrop = adminModal?.querySelector('.kmodal__backdrop');
   const adminRefresh = document.getElementById('adminRefresh');
+  const adminDownloadDb = document.getElementById('adminDownloadDb');
   const adminSearch = document.getElementById('adminSearch');
   const adminUsersWrap = document.getElementById('adminUsers');
 
@@ -155,7 +156,11 @@ const api = (p) => `${API_BASE}${p}`;
     setTimeout(()=>{ els.toast.hidden = true; }, 3500);
   }
 
-  function setMetaLoading(on,msg){
+  
+  // remember dummy: older bits of this file still call Toast(...). Make it an alias so nothing crashes.
+  const Toast = (title, body, type) => showToast(title, body, type);
+
+function setMetaLoading(on,msg){
     if(!els.metaBar) return;
     els.metaBar.hidden = !on;
     els.metaBar.querySelector('span').textContent = msg||'Collecting data…';
@@ -573,6 +578,51 @@ const api = (p) => `${API_BASE}${p}`;
   function closeAdmin(){ adminModal?.setAttribute('aria-hidden','true'); }
 
 
+async function downloadDbFromAdmin(){
+  try{
+    const res = await fetch(api('/api/admin/db/download'), {
+      method: 'GET',
+      credentials: 'include'
+    });
+
+    if (res.status === 401){
+      setAuthed(false);
+      return;
+    }
+    if (res.status === 403){
+      showToast('Admin', 'Admin only.', 'error');
+      return;
+    }
+    if (!res.ok){
+      const t = await res.text().catch(()=>res.statusText);
+      throw new Error(t || res.statusText);
+    }
+
+    const blob = await res.blob();
+    const dispo = res.headers.get('Content-Disposition') || '';
+    const star = /filename\*\s*=\s*UTF-8''([^;]+)/i.exec(dispo);
+    const plain = /filename\s*=\s*("?)([^";]+)\1/i.exec(dispo);
+    const nameFromHeader = star
+      ? decodeURIComponent(star[1].replace(/["']/g,''))
+      : (plain ? plain[2] : null);
+
+    const name = nameFromHeader || 'KleptosData.db';
+
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 0);
+
+    showToast('Admin', 'Database downloaded.');
+  }catch(e){
+    console.error(e);
+    showToast('Admin', 'Failed to download DB: ' + String(e.message||e), 'error');
+  }
+}
+
+
 
   const QUALITY_MAP = {
     Low:    'b[height<=360]/bv*[height<=360]+ba/b',
@@ -861,6 +911,7 @@ const api = (p) => `${API_BASE}${p}`;
   adminClose2?.addEventListener('click', closeAdmin);
   adminBackdrop?.addEventListener('click', closeAdmin);
   adminRefresh?.addEventListener('click', loadAdminUsers);
+  adminDownloadDb?.addEventListener('click', downloadDbFromAdmin);
   adminSearch?.addEventListener('input', ()=>{
     // remember dummy: filter locally so you aren't slamming the backend while typing
     const q = (adminSearch?.value || '').trim().toLowerCase();

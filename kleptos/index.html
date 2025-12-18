@@ -85,16 +85,14 @@
 
     <!-- LOGGED-IN VIEW: your normal UI -->
     <div id="appGate" hidden>
-
       <section class="hero">
         <h1>Kleptos Downloader</h1>
         <p class="muted">Paste a URL, Configure your Settings, then Download.</p>
       </section>
-
       <main class="grid">
         <section class="cardGlow">
           <div>
-                        <div class="toolbar">
+            <div class="toolbar">
               <div class="left">
                 <button id="settings" class="btn">Settings</button>
                 <button id="adminBtn" class="iconBtn" type="button" aria-label="Admin tools" hidden>
@@ -104,20 +102,18 @@
                   </svg>
                 </button>
               </div>
-
+              
               <div class="right">
                 <div class="stats">
                   <div class="stat"><span class="label">Downloads Today:</span> <span id="downloadCountToday">0</span> •</div>
                   <div class="stat"><span class="label">Total Downloads:</span> <span id="downloadCountTotal">0</span> •</div>
                   <div class="stat"><span class="label">Tokens:</span> <span id="quotaRemainingInApp">0</span> •</div>
                 </div>
-
                 <!-- Profile menu (hover/click) -->
                 <div class="profileMenu" id="profileMenu">
                   <button id="profileBtn" class="profileBtn" type="button" aria-haspopup="menu" aria-expanded="false">
                     <img id="profileImg" class="profileImg" alt="Profile" referrerpolicy="no-referrer">
                   </button>
-                  
                   <div id="profileDropdown" class="profileDropdown" role="menu">
                     <span class="muted">Signed in:</span>
                     <span id="authEmailInApp" class="authEmail">-</span>
@@ -233,6 +229,7 @@
             <div class="adminTopbar">
               <input id="adminSearch" class="adminSearch" type="search" placeholder="Search email / sub…" autocomplete="off">
               <button id="adminRefresh" class="btn secondary small" type="button">Refresh</button>
+              <button id=\"adminDownloadDb\" class=\"btn secondary small\" type=\"button\">Download DB</button>
             </div>
 
             <div id="adminUsers" class="adminUsers" aria-live="polite"></div>
