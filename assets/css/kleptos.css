@@ -231,15 +231,51 @@
 #kleptos .kmodal[aria-hidden="true"]{ display:none; }
 #kleptos .kmodal{ position:fixed; inset:0; z-index:9999; height: auto;}
 #kleptos .kmodal__backdrop{ position:absolute; inset:0; background:rgba(0,0,0,.5); backdrop-filter:blur(6px); }
-#kleptos .kmodal__dialog{ position:absolute; inset:0; margin:auto; height: 210px; width:min(560px,92vw); background:var(--card); border:1px solid var(--outline); border-radius:14px; box-shadow:0 10px 30px rgba(0,0,0,.45), 0 0 0 1px var(--outline) inset; padding:16px 16px 64px; }
+#kleptos .kmodal__dialog{ position:absolute; inset:0; margin:auto; height: 210px; width:min(720px,92vw); background:var(--card); border:1px solid var(--outline); border-radius:14px; box-shadow:0 10px 30px rgba(0,0,0,.45), 0 0 0 1px var(--outline) inset; padding:16px 16px 64px; }
 #kleptos .kmodal__close{ position:absolute; top:8px; right:8px; width:34px; height:34px; line-height:34px; border:1px solid var(--outline); background:var(--bg); border-radius:10px; font-size:20px; color:var(--muted); cursor:pointer; }
 #kleptos .kmodal__footer{ position:absolute; right:16px; bottom:12px; display:flex; gap:8px; }
 #kleptos .kform{ display:grid; gap:12px; margin-top:8px; }
 #kleptos .kform__field>span{ display:block; font-size:12px; color:var(--muted); margin:2px 0 6px; }
-#kleptos .kform__field input,#kleptos .kform__field select{ width:100%; background:var(--bg); color:#e1e1e1; border:1px solid var(--outline); border-radius:10px; padding:10px 12px; }
+#kleptos .kform__field input,#kleptos .kform__field select{ width:90%; background:var(--bg); color:#e1e1e1; border:1px solid var(--outline); border-radius:10px; padding:10px 12px; }
 #kleptos .kform__check{ display:flex; align-items:center; gap:10px; font-size:14px; color:#e1e1e1;}
 #kleptos .kform__row3{ display:grid; grid-template-columns: 1.2fr 1.2fr auto; gap:12px; align-items:end; }
-#kleptos .kform__field--checkbox{ padding-bottom:2px;}
+/* Custom Styled Checkbox */
+#kleptos .kform__field--checkbox input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 34px;
+    height: 34px;
+    background: var(--bg);
+    border: 1px solid var(--outline);
+    border-radius: 6px; /* Slightly smaller radius looks better on small boxes */
+    cursor: pointer;
+    position: relative;
+    /* display: flex; */
+    transition: all 0.2s ease;
+    margin: auto;
+}
+
+/* Hover & Focus State */
+#kleptos .kform__field--checkbox input[type="checkbox"]:hover {
+    border-color: var(--muted);
+}
+
+/* Checked State - Background change */
+#kleptos .kform__field--checkbox input[type="checkbox"]:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+/* The Checkmark (using a pseudo-element) */
+#kleptos .kform__field--checkbox input[type="checkbox"]:checked::after {
+    content: '';
+    width: 5px;
+    height: 10px;
+    border: solid #111; /* Dark color to contrast with var(--accent) */
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    margin-bottom: 3px;
+}
 #kleptos .btnset{ display:flex; gap:8px; flex-wrap:wrap; }
 #kleptos .btnset button{ border:1px solid var(--outline); background:var(--bg); color:#e1e1e1; border-radius:10px; padding:8px 12px; cursor:pointer; }
 #kleptos .btnset button.active{ background:var(--accent); color:#111; font-weight:700; }
@@ -336,6 +372,7 @@
   #kleptos .kform__row3{ grid-template-columns: 1fr; }
 }
 @media (max-width: 720px){
+  #kleptos .kmodal__dialog{ height:fit-content; }
   #kleptos .kform__row{ grid-template-columns: 1fr; }
   #kleptos .kform__row .urlInput{ width: 100%; }
   #kleptos .videoInfo{ flex-wrap:wrap; }
