@@ -83,6 +83,22 @@
       </section>
     </div>
 
+    <!-- NOT WHITELISTED VIEW: same look as login -->
+    <div id="denyGate" class="loginGate" hidden>
+      <section class="cardGlow loginCard">
+        <div class="loginInner">
+          <h1 class="loginTitle">Kleptos</h1>
+          <p class="muted loginSub">You are not whitelisted.</p>
+
+          <div class="authWrap loginAuthRow">
+            <button id="denyLogout" class="btn secondary" type="button">Sign out</button>
+          </div>
+
+          <div id="denyStatus" class="loginStatus muted"></div>
+        </div>
+      </section>
+    </div>
+
     <!-- LOGGED-IN VIEW: your normal UI -->
     <div id="appGate" hidden>
 

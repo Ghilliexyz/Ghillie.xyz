@@ -25,6 +25,11 @@ const api = (p) => `${API_BASE}${p}`;
   const appGate = document.getElementById('appGate');
   const loginStatus = document.getElementById('loginStatus');
 
+  // Not-whitelisted gate (same look as login)
+  const denyGate = document.getElementById('denyGate');
+  const denyLogout = document.getElementById('denyLogout');
+  const denyStatus = document.getElementById('denyStatus');
+
   // Auth UI (login gate)
   const authLogin = document.getElementById('authLogin');
   const authUser = document.getElementById('authUser');
@@ -180,9 +185,16 @@ const api = (p) => `${API_BASE}${p}`;
     return api('/auth/login?returnTo=' + encodeURIComponent(returnTo));
   }
 
+  function setGateMode(mode){
+    // mode: 'login' | 'app' | 'deny'
+    if (loginGate) loginGate.hidden = (mode !== 'login');
+    if (appGate) appGate.hidden = (mode !== 'app');
+    if (denyGate) denyGate.hidden = (mode !== 'deny');
+  }
+
+  // Back-compat: some code still calls setGate(true/false)
   function setGate(isLoggedIn){
-    if (loginGate) loginGate.hidden = !!isLoggedIn;
-    if (appGate) appGate.hidden = !isLoggedIn;
+    setGateMode(isLoggedIn ? 'app' : 'login');
   }
   
 
@@ -260,7 +272,41 @@ const api = (p) => `${API_BASE}${p}`;
     if (profileBtn) profileBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
   }
 
+  function isNotWhitelisted(err){
+    if (!err || err.status !== 403) return false;
+    const b = String(err.body || err.message || '');
+    return /not_whitelisted/i.test(b) || /not whitelisted/i.test(b);
+  }
+
+  function showDenied(msg){
+    // remember dummy: this is the "looks like login" lockout screen.
+    auth.isAuthed = false;
+    auth.email = null;
+    auth.userId = null;
+    auth.isAdmin = false;
+    auth.isBanned = false;
+    auth.banReason = null;
+
+    hideResults();
+    enableDownload(false);
+
+    if (authUser) authUser.hidden = true;
+    if (authLogin) authLogin.hidden = false;
+    if (adminBtn) adminBtn.hidden = true;
+    if (adminModal) adminModal.setAttribute('aria-hidden','true');
+
+    setProfileMenuOpen(false);
+    setGateMode('deny');
+
+    if (denyStatus) denyStatus.textContent = msg || 'You are not whitelisted.';
+    setLoginStatus('');
+  }
+
   function handleAuthError(err){
+    if (isNotWhitelisted(err)){
+      showDenied('You are not whitelisted.');
+      return true;
+    }
     if (err && (err.status === 401 || String(err.message||'').includes('401'))){
       setAuthed(false);
       setLoginStatus('Session expired — please login again.');
@@ -800,6 +846,10 @@ const api = (p) => `${API_BASE}${p}`;
       setLoginStatus('');
     }catch(err){
       console.error(err);
+      if (isNotWhitelisted(err)){
+        showDenied('You are not whitelisted.');
+        return;
+      }
       if (handleAuthError(err)) return;
       setAuthed(false);
       setLoginStatus('Please login to continue.');
@@ -808,6 +858,8 @@ const api = (p) => `${API_BASE}${p}`;
 
   // ---------------- Wire events ----------------
   authLogin?.addEventListener('click', ()=>{ location.href = loginUrl(); });
+  denyLogout?.addEventListener('click', doLogout);
+
   authLogout?.addEventListener('click', doLogout);
   authLogoutInApp?.addEventListener('click', doLogout);
 
