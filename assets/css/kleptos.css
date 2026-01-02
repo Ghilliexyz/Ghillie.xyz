@@ -239,6 +239,7 @@
 #kleptos .kform__field input,#kleptos .kform__field select{ width:90%; background:var(--bg); color:#e1e1e1; border:1px solid var(--outline); border-radius:10px; padding:10px 12px; }
 #kleptos .kform__check{ display:flex; align-items:center; gap:10px; font-size:14px; color:#e1e1e1;}
 #kleptos .kform__row3{ display:grid; grid-template-columns: 1.2fr 1.2fr auto; gap:12px; align-items:end; }
+#kleptos .kform__row2{ display:grid; grid-template-columns: .6fr .6fr auto; gap:12px; align-items:end; }
 /* Custom Styled Checkbox */
 #kleptos .kform__field--checkbox input[type="checkbox"] {
     appearance: none;
@@ -247,7 +248,7 @@
     height: 34px;
     background: var(--bg);
     border: 1px solid var(--outline);
-    border-radius: 6px; /* Slightly smaller radius looks better on small boxes */
+    border-radius: 100%; /* Slightly smaller radius looks better on small boxes */
     cursor: pointer;
     position: relative;
     /* display: flex; */
@@ -268,7 +269,6 @@
 
 /* The Checkmark (using a pseudo-element) */
 #kleptos .kform__field--checkbox input[type="checkbox"]:checked::after {
-    content: '';
     width: 5px;
     height: 10px;
     border: solid #111; /* Dark color to contrast with var(--accent) */
@@ -453,6 +453,9 @@
   display:block;
 }
 
+#kleptos .fileSelector {
+  color: var(--muted);
+}
 
 /* ---------- Admin UI ---------- */
 #kleptos .toolbar .left{

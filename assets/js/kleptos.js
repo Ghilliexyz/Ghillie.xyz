@@ -211,7 +211,7 @@ function setMetaLoading(on,msg){
 //     setGate(true);
 //     // setAuthed(true, { email: 'dev@local', isAdmin: true, remainingToday: 9999 });
 //     // openAdmin();
-//     // openSettings();
+//     openSettings();
 //     setLoginStatus('DEV MODE (auth bypassed)');
 //     return; // skip auth checks
 //   }
