@@ -417,16 +417,11 @@ const api = (p) => `${API_BASE}${p}`;
       console.error(err);
       if (handleAuthError(err)) return;
       const msg = String(err.message||err);
-      const lower = (msg || '').toLowerCase();
-      const isBotCheck =
-      lower.includes("sign in to confirm you’re not a bot") ||
-      lower.includes("sign in to confirm you're not a bot") ||
-      lower.includes("not a bot") && lower.includes("sign in");
-    if (isBotCheck) {
-      showToast('YouTube needs verification', 'Open Settings → upload cookies.txt (per-user) to continue.\nFor help ask the Developer', 'error');
-    } else {
-      showToast('Failed to fetch info', msg, 'error');
-    }
+      if (msg.includes("Sign in to confirm") || msg.toLowerCase().includes("not a bot")){
+        showToast('YouTube needs verification', 'Open Settings → upload cookies.txt (per-user) to continue.', 'error');
+      } else {
+        showToast('Failed to fetch info', msg, 'error');
+      }
       hideResults(); enableDownload(false);
     }finally{
       setMetaLoading(false);
