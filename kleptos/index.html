@@ -237,7 +237,28 @@
         </div>
       </div>
 
-      <!-- (rest of your file unchanged, including admin modal, toast, scripts...) -->
+      <!-- Admin Modal (admins only) -->
+      <div id="adminModal" class="kmodal" aria-hidden="true">
+        <div class="kmodal__backdrop"></div>
+
+        <div class="kmodal__dialog" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
+          <button type="button" class="kmodal__close" id="adminClose" aria-label="Close">×</button>
+          <h3 id="adminTitle">Admin 2</h3>
+
+          <div class="adminTools">
+            <div class="adminTopbar">
+              <input id="adminSearch" class="adminSearch" type="search" placeholder="Search email / sub…" autocomplete="off">
+              <button id="adminRefresh" class="btn secondary small" type="button">Refresh</button>
+              <button id="adminDownloadDb" class="btn secondary small" type="button">Download DB</button>
+            </div>
+
+            <div id="adminUsers" class="adminUsers" aria-live="polite"></div>
+          </div>
+
+          <div class="kmodal__footer">
+            <button id="adminClose2" class="btn secondary" type="button">Close</button>
+        </div>
+      </div>
 
       <div id="toast" class="toast" hidden>
         <div class="title"></div>
@@ -245,6 +266,15 @@
       </div>
 
     </div>
+  </div>
+  <!-- Footer -->
+  <div class="footer" style="margin-top:0;">
+    <ul>
+      <li><a href="https://github.com/Ghilliexyz" target="_blank">GITHUB</a></li>
+      <li><a href="https://discordapp.com/users/211851747688185856" target="_blank">DISCORD</a></li>
+      <li><a href="https://twitter.com/Ghilliexyz" target="_blank">TWITTER</a></li>
+      <li><a href="https://buymeacoffee.com/ghillie" target="_blank">BUY ME A COFFEE</a></li>
+    </ul>
   </div>
 
   <script src="/assets/js/kleptos.js"></script>

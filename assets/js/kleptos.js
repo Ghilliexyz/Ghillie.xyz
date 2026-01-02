@@ -417,6 +417,17 @@ const api = (p) => `${API_BASE}${p}`;
       console.error(err);
       if (handleAuthError(err)) return;
       const msg = String(err.message||err);
+      // const lower = String(msg || '').toLowerCase();
+      // const isBotCheck =
+      //   lower.includes("sign in to confirm you’re not a bot") ||
+      //   lower.includes("sign in to confirm you're not a bot") ||
+      //   lower.includes("verify that you are not a bot") ||
+      //   (lower.includes("not a bot") && lower.includes("sign in"));
+      // if (isBotCheck) {
+      //   showToast('YouTube needs verification', 'Open Settings → upload cookies.txt (per-user) to continue.', 'error');
+      // } else {
+      //   showToast('Failed', msg, 'error');
+      // }
       if (msg.includes("Sign in to confirm") || msg.toLowerCase().includes("not a bot")){
         showToast('YouTube needs verification', 'Open Settings → upload cookies.txt (per-user) to continue.', 'error');
       } else {
