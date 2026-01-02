@@ -3,7 +3,8 @@
 // every request MUST send cookies -> `credentials: 'include'`.
 // If the backend CORS isn't set to allow credentials + specific origin, login will still fail.
 
-const DEFAULT_PROD_API = '/kleptos'; // prod uses same-origin proxy path (keeps auth cookies first-party)
+// const DEFAULT_PROD_API = '/kleptos'; // prod uses same-origin proxy path (keeps auth cookies first-party)
+const DEFAULT_PROD_API = 'https://kleptos-backend.onrender.com';
 
 // ---- API base config ----
 const API_BASE =
