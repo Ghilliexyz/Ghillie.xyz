@@ -3,7 +3,7 @@
 // every request MUST send cookies -> `credentials: 'include'`.
 // If the backend CORS isn't set to allow credentials + specific origin, login will still fail.
 
-const DEFAULT_PROD_API = 'https://kleptos-backend.onrender.com';
+const DEFAULT_PROD_API = '/kleptos'; // prod uses same-origin proxy path (keeps auth cookies first-party)
 
 // ---- API base config ----
 const API_BASE =
@@ -56,7 +56,7 @@ const api = (p) => `${API_BASE}${p}`;
 
   const adminState = { users: [] };
 
-  // Main app elements
+// Main app elements
   const els = {
     input: document.querySelector('.urlInput'),
     downloadBtn: document.getElementById('downloadBtn'),
@@ -88,6 +88,12 @@ const api = (p) => `${API_BASE}${p}`;
     qualityBox: document.getElementById('optQuality'),
     thumbOnly:  document.getElementById('optThumbOnly'),
   };
+
+  // YouTube verification cookies (per-user)
+  const ytCookiesFile = document.getElementById('ytCookiesFile');
+  const ytCookiesUpload = document.getElementById('ytCookiesUpload');
+  const ytCookiesClear = document.getElementById('ytCookiesClear');
+  const ytCookiesStatus = document.getElementById('ytCookiesStatus');
 
   const auth = {
     isAuthed: false,
@@ -154,58 +160,11 @@ const api = (p) => `${API_BASE}${p}`;
     setTimeout(()=>{ els.toast.hidden = true; }, 3500);
   }
 
+  
   // remember dummy: older bits of this file still call Toast(...). Make it an alias so nothing crashes.
   const Toast = (title, body, type) => showToast(title, body, type);
 
-  // ---------------- yt-dlp / YouTube error helpers ----------------
-  function extractErrMessage(err){
-    // remember dummy: backend often responds with JSON on error: {"error":"..."}
-    // but sometimes it is plain text. Normalize to a useful string.
-    if (!err) return '';
-
-    // HttpError from fetchJSON
-    if (err instanceof HttpError){
-      const raw = String(err.body || err.message || '').trim();
-      if (!raw) return `HTTP ${err.status}`;
-      try{
-        const j = JSON.parse(raw);
-        return String(j.error || j.message || raw);
-      }catch{
-        return raw;
-      }
-    }
-
-    // generic Error
-    const raw = String(err.body || err.message || err).trim();
-    if (!raw) return 'Unknown error';
-    try{
-      const j = JSON.parse(raw);
-      return String(j.error || j.message || raw);
-    }catch{
-      return raw;
-    }
-  }
-
-  function isYouTubeBotCheck(msg){
-    const lower = String(msg || '').toLowerCase();
-    return (
-      lower.includes("sign in to confirm you’re not a bot") ||
-      lower.includes("sign in to confirm you're not a bot") ||
-      lower.includes('verify that you are not a bot') ||
-      (lower.includes('not a bot') && lower.includes('sign in'))
-    );
-  }
-
-  function showYtOrGenericError(title, msg){
-    // remember dummy: do NOT blame cookies unless the message actually says bot-check.
-    if (isYouTubeBotCheck(msg)){
-      showToast('YouTube needs verification', 'Open Settings → upload cookies.txt (per-user) to continue', 'error');
-      return;
-    }
-    showToast(title || 'Failed', msg || 'Unknown error', 'error');
-  }
-
-  function setMetaLoading(on,msg){
+function setMetaLoading(on,msg){
     if(!els.metaBar) return;
     els.metaBar.hidden = !on;
     els.metaBar.querySelector('span').textContent = msg||'Collecting data…';
@@ -243,6 +202,19 @@ const api = (p) => `${API_BASE}${p}`;
     if (loginGate) loginGate.hidden = !!isLoggedIn;
     if (appGate) appGate.hidden = !isLoggedIn;
   }
+  
+
+  // remember dummy: flip this to true while doing frontend work locally
+//   const FORCE_SHOW_APP = true;
+
+// if (FORCE_SHOW_APP) {
+//     setGate(true);
+//     // setAuthed(true, { email: 'dev@local', isAdmin: true, remainingToday: 9999 });
+//     // openAdmin();
+//     // openSettings();
+//     setLoginStatus('DEV MODE (auth bypassed)');
+//     return; // skip auth checks
+//   }
 
   function setAuthed(ok, me){
     auth.isAuthed = !!ok;
@@ -270,6 +242,7 @@ const api = (p) => `${API_BASE}${p}`;
     // remember dummy: backend calls this remainingTokens now, but older builds used remainingToday
     auth.remainingToday = (me?.remainingTokens ?? me?.remainingToday) ?? null;
     auth.avatarUrl = me?.avatarUrl ?? me?.picture ?? null;
+    auth.isAdmin = !!me?.isAdmin;
     auth.isAdmin = !!me?.isAdmin;
     auth.isBanned = !!me?.isBanned;
     auth.banReason = me?.banReason ?? null;
@@ -383,6 +356,98 @@ const api = (p) => `${API_BASE}${p}`;
   }
   function closeSettings(){ modal?.setAttribute('aria-hidden', 'true'); }
 
+  // ---- YouTube cookies helpers ----
+  async function refreshYtCookiesStatus(){
+    if (!ytCookiesStatus) return;
+    if (!auth.isAuthed){
+      ytCookiesStatus.textContent = 'Login to upload cookies.';
+      return;
+    }
+
+    try{
+      const st = await fetchJSON(api('/api/youtube-cookies'));
+      if (!st.enabled){
+        ytCookiesStatus.textContent = 'Cookies feature disabled on server.';
+        return;
+      }
+      if (st.hasCookies){
+        ytCookiesStatus.textContent = `Cookies uploaded${st.updatedUtc ? ' (' + st.updatedUtc + ')' : ''}.`;
+      } else {
+        ytCookiesStatus.textContent = 'No cookies uploaded.';
+      }
+    }catch(err){
+      // don’t spam—just show “unknown”
+      ytCookiesStatus.textContent = 'Cookies status unavailable.';
+    }
+  }
+
+  async function uploadYtCookies(){
+    if (!ytCookiesFile || !ytCookiesFile.files || ytCookiesFile.files.length === 0){
+      showToast('Cookies', 'Choose a cookies.txt file first.', 'error');
+      return;
+    }
+
+    const f = ytCookiesFile.files[0];
+    if (f.size > 1024 * 1024){
+      showToast('Cookies', 'That file is too large (max 1MB).', 'error');
+      return;
+    }
+
+    try{
+      const fd = new FormData();
+      fd.append('file', f);
+
+      const r = await fetch(api('/api/youtube-cookies'), {
+        method: 'POST',
+        credentials: 'include',
+        body: fd
+      });
+
+      if (r.status === 401){ setAuthed(false); return; }
+
+      const txt = await r.text().catch(()=> '');
+      if (!r.ok){
+        let msg = txt || r.statusText;
+        try{ msg = JSON.parse(txt).error || msg; }catch{}
+        showToast('Cookies', msg, 'error');
+        return;
+      }
+
+      showToast('Cookies', 'Uploaded successfully.');
+      ytCookiesFile.value = '';
+      await refreshYtCookiesStatus();
+    }catch(e){
+      console.error(e);
+      showToast('Cookies', 'Upload failed.', 'error');
+    }
+  }
+
+  async function clearYtCookies(){
+    if (!confirm('Remove your uploaded YouTube cookies from the server?')) return;
+
+    try{
+      const r = await fetch(api('/api/youtube-cookies'), {
+        method: 'DELETE',
+        credentials: 'include'
+      });
+
+      if (r.status === 401){ setAuthed(false); return; }
+
+      const txt = await r.text().catch(()=> '');
+      if (!r.ok){
+        let msg = txt || r.statusText;
+        try{ msg = JSON.parse(txt).error || msg; }catch{}
+        showToast('Cookies', msg, 'error');
+        return;
+      }
+
+      showToast('Cookies', 'Removed.');
+      await refreshYtCookiesStatus();
+    }catch(e){
+      console.error(e);
+      showToast('Cookies', 'Remove failed.', 'error');
+    }
+  }
   // ---------------- Admin modal ----------------
   async function loadAdminUsers(){
     if (!adminUsersWrap) return;
@@ -611,49 +676,52 @@ const api = (p) => `${API_BASE}${p}`;
   }
   function closeAdmin(){ adminModal?.setAttribute('aria-hidden','true'); }
 
-  async function downloadDbFromAdmin(){
-    try{
-      const res = await fetch(api('/api/admin/db/download'), {
-        method: 'GET',
-        credentials: 'include'
-      });
 
-      if (res.status === 401){
-        setAuthed(false);
-        return;
-      }
-      if (res.status === 403){
-        showToast('Admin', 'Admin only.', 'error');
-        return;
-      }
-      if (!res.ok){
-        const t = await res.text().catch(()=>res.statusText);
-        throw new Error(t || res.statusText);
-      }
+async function downloadDbFromAdmin(){
+  try{
+    const res = await fetch(api('/api/admin/db/download'), {
+      method: 'GET',
+      credentials: 'include'
+    });
 
-      const blob = await res.blob();
-      const dispo = res.headers.get('Content-Disposition') || '';
-      const star = /filename\*\s*=\s*UTF-8''([^;]+)/i.exec(dispo);
-      const plain = /filename\s*=\s*("?)([^";]+)\1/i.exec(dispo);
-      const nameFromHeader = star
-        ? decodeURIComponent(star[1].replace(/["']/g,''))
-        : (plain ? plain[2] : null);
-
-      const name = nameFromHeader || 'KleptosData.db';
-
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = name;
-      document.body.appendChild(a);
-      a.click();
-      setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 0);
-
-      showToast('Admin', 'Database downloaded.');
-    }catch(e){
-      console.error(e);
-      showToast('Admin', 'Failed to download DB: ' + String(e.message||e), 'error');
+    if (res.status === 401){
+      setAuthed(false);
+      return;
     }
+    if (res.status === 403){
+      showToast('Admin', 'Admin only.', 'error');
+      return;
+    }
+    if (!res.ok){
+      const t = await res.text().catch(()=>res.statusText);
+      throw new Error(t || res.statusText);
+    }
+
+    const blob = await res.blob();
+    const dispo = res.headers.get('Content-Disposition') || '';
+    const star = /filename\*\s*=\s*UTF-8''([^;]+)/i.exec(dispo);
+    const plain = /filename\s*=\s*("?)([^";]+)\1/i.exec(dispo);
+    const nameFromHeader = star
+      ? decodeURIComponent(star[1].replace(/["']/g,''))
+      : (plain ? plain[2] : null);
+
+    const name = nameFromHeader || 'KleptosData.db';
+
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 0);
+
+    showToast('Admin', 'Database downloaded.');
+  }catch(e){
+    console.error(e);
+    showToast('Admin', 'Failed to download DB: ' + String(e.message||e), 'error');
   }
+}
+
+
 
   const QUALITY_MAP = {
     Low:    'b[height<=360]/bv*[height<=360]+ba/b',
@@ -759,7 +827,7 @@ const api = (p) => `${API_BASE}${p}`;
     }catch(err){
       console.error(err);
       if (handleAuthError(err)) return;
-      showYtOrGenericError('Failed to fetch info', extractErrMessage(err));
+      showToast('Failed to fetch info', String(err.message||err), 'error');
       hideResults(); enableDownload(false);
     }finally{
       setMetaLoading(false);
@@ -817,7 +885,7 @@ const api = (p) => `${API_BASE}${p}`;
       await refreshStats();
     }catch(e){
       console.error(e);
-      showYtOrGenericError('Download failed', extractErrMessage(e));
+      showToast('Download failed', String(e.message||e), 'error');
     }finally{
       setDlLoading(false);
       enableDownload(true);
@@ -876,7 +944,7 @@ const api = (p) => `${API_BASE}${p}`;
       await refreshStats();
     }catch(e){
       console.error(e);
-      showYtOrGenericError('Download failed', extractErrMessage(e));
+      showToast('Download failed', String(e.message||e), 'error');
     }finally{
       setDlLoading(false);
       if (els.downloadPlBtn) els.downloadPlBtn.disabled = false;
@@ -936,8 +1004,8 @@ const api = (p) => `${API_BASE}${p}`;
   document.addEventListener('click', ()=> setProfileMenuOpen(false));
   document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') setProfileMenuOpen(false); });
 
-  // remember dummy: stopPropagation here so nothing else can instantly close the modal.
-  adminBtn?.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); openAdmin(); });
+  
+  adminBtn?.addEventListener('click', openAdmin);
   adminClose?.addEventListener('click', closeAdmin);
   adminClose2?.addEventListener('click', closeAdmin);
   adminBackdrop?.addEventListener('click', closeAdmin);
@@ -955,7 +1023,7 @@ const api = (p) => `${API_BASE}${p}`;
     renderAdminUsers(filtered);
   });
 
-  els.settingsBtn?.addEventListener('click', openSettings);
+els.settingsBtn?.addEventListener('click', openSettings);
   closeBtn?.addEventListener('click', closeSettings);
   modal?.querySelector('.kmodal__backdrop')?.addEventListener('click', closeSettings);
 
@@ -981,6 +1049,10 @@ const api = (p) => `${API_BASE}${p}`;
     closeSettings();
   });
 
+
+  // YouTube cookies buttons (per-user)
+  ytCookiesUpload?.addEventListener('click', uploadYtCookies);
+  ytCookiesClear?.addEventListener('click', clearYtCookies);
   els.input?.addEventListener('input', onInput);
   els.input?.addEventListener('paste', ()=>setTimeout(onInput,0));
   els.downloadBtn?.addEventListener('click', doDownload);

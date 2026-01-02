@@ -102,7 +102,7 @@
                   </svg>
                 </button>
               </div>
-
+              
               <div class="right">
                 <div class="stats">
                   <div class="stat"><span class="label">Downloads Today:</span> <span id="downloadCountToday">0</span> •</div>
@@ -209,29 +209,35 @@
                 <button type="button" data-q="BEST" class="active">BEST</button>
               </div>
             </fieldset>
-
-            <div class="kform__divider"></div>
-
-            <div class="kform__field">
-              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-                <strong>YouTube verification</strong>
-                <span id="ytCookieStatus" class="muted">Checking…</span>
-              </div>
-
-              <p class="muted" style="margin-top:6px;">
-                If YouTube blocks the server (“confirm you’re not a bot”), upload your own exported <code>cookies.txt</code>.
-                It’s stored per-user and only used for your downloads.
-              </p>
-
-              <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px;">
-                <input id="ytCookiesFile" type="file" accept=".txt" />
-                <button id="ytCookiesUpload" class="btn secondary small" type="button">Upload</button>
-                <button id="ytCookiesDelete" class="btn secondary small" type="button">Remove</button>
-              </div>
-            </div>
           </div>
 
-          <div class="kmodal__footer">
+          
+            <fieldset class="kform__field">
+              <legend>YouTube verification (optional)</legend>
+              <p class="muted" style="margin:0 0 8px 0;">
+                If YouTube blocks a link with “Sign in to confirm you’re not a bot”, you can upload a
+                <code>cookies.txt</code> export for <b>your account only</b>. Stored encrypted and only used for your downloads.
+              </p>
+
+              <div class="kform__row3" style="align-items:center;">
+                <label class="kform__field">
+                  <span>cookies.txt file</span>
+                  <input id="ytCookiesFile" type="file" accept=".txt">
+                </label>
+
+                <div class="kform__field" style="display:flex; gap:8px; align-items:flex-end;">
+                  <button type="button" id="ytCookiesUpload" class="btn secondary">Upload</button>
+                  <button type="button" id="ytCookiesClear" class="btn secondary">Clear</button>
+                </div>
+
+                <div class="kform__field">
+                  <span>Status</span>
+                  <div id="ytCookiesStatus" class="muted">—</div>
+                </div>
+              </div>
+            </fieldset>
+
+<div class="kmodal__footer">
             <button type="button" id="settingsSave" class="btn primary">Save</button>
           </div>
         </div>
@@ -254,16 +260,21 @@
 
             <div id="adminUsers" class="adminUsers" aria-live="polite"></div>
           </div>
-      </div>
 
+          <div class="kmodal__footer">
+            <button id="adminClose2" class="btn secondary" type="button">Close</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Toast -->
       <div id="toast" class="toast" hidden>
         <div class="title"></div>
         <div class="body"></div>
       </div>
-
     </div>
   </div>
-  <!-- Footer -->
+  
   <div class="footer" style="margin-top:0;">
     <ul>
       <li><a href="https://github.com/Ghilliexyz" target="_blank">GITHUB</a></li>
@@ -272,7 +283,7 @@
       <li><a href="https://buymeacoffee.com/ghillie" target="_blank">BUY ME A COFFEE</a></li>
     </ul>
   </div>
-
-  <script src="/assets/js/kleptos.js"></script>
+  
+  <script src="/assets/js/kleptos.js" defer></script>
 </body>
 </html>
