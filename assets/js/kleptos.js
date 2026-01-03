@@ -95,6 +95,12 @@ const api = (p) => `${API_BASE}${p}`;
   const ytCookiesUpload = document.getElementById('ytCookiesUpload');
   const ytCookiesClear = document.getElementById('ytCookiesClear');
   const ytCookiesStatus = document.getElementById('ytCookiesStatus');
+  const ytCookiesFeaturePill = document.getElementById('ytCookiesFeaturePill');
+  const ytCookiesStatePill = document.getElementById('ytCookiesStatePill');
+
+  // remember dummy: prefer /api/cookies, but keep old /api/youtube-cookies as a fallback
+  let cookiesApiPath = '/api/cookies';
+  let cookiesMaxBytes = 2 * 1024 * 1024;
 
   const auth = {
     isAuthed: false,
@@ -108,6 +114,24 @@ const api = (p) => `${API_BASE}${p}`;
 
   // ---------------- Utils ----------------
   const fmtCount = (n)=> (n==null? '—' : Number(n).toLocaleString());
+  const fmtBytes = (b)=>{
+    if (b==null) return '—';
+    const n = Number(b);
+    if (!isFinite(n)) return '—';
+    const kb = 1024, mb = kb*1024;
+    return n >= mb ? (n/mb).toFixed(2)+' MB' : (n/kb).toFixed(1)+' KB';
+  };
+  const fmtUtc = (iso)=>{
+    if (!iso) return '—';
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return String(iso);
+    return d.toLocaleString(undefined, {
+      year:'numeric', month:'short', day:'2-digit',
+      hour:'2-digit', minute:'2-digit',
+      timeZone:'UTC', timeZoneName:'short'
+    });
+  };
+
   const fmtDuration = (s)=>{
     if (!s && s !== 0) return '—';
     s = Math.max(0, Math.floor(s));
@@ -354,30 +378,91 @@ function setMetaLoading(on,msg){
         b.classList.toggle('active', b.dataset.q === (s.quality || 'BEST'))
       );
     }
+
+    // remember dummy: keep cookie status fresh whenever settings opens
+    refreshYtCookiesStatus();
   }
   function closeSettings(){ modal?.setAttribute('aria-hidden', 'true'); }
 
   // ---- YouTube cookies helpers ----
   async function refreshYtCookiesStatus(){
     if (!ytCookiesStatus) return;
+
+    // default UI state
+    if (ytCookiesFeaturePill) {
+      ytCookiesFeaturePill.classList.remove('good','bad');
+      ytCookiesFeaturePill.textContent = 'Feature: —';
+    }
+    if (ytCookiesStatePill) {
+      ytCookiesStatePill.classList.remove('good','bad');
+      ytCookiesStatePill.textContent = 'Cookies: —';
+    }
+
     if (!auth.isAuthed){
-      ytCookiesStatus.textContent = 'Login to upload cookies.';
+      ytCookiesStatus.textContent = 'Login to manage cookies.';
       return;
     }
 
+    async function tryStatus(path){
+      const st = await fetchJSON(api(path));
+      cookiesApiPath = path; // remember dummy: store the working endpoint for upload/delete
+      if (st && st.maxBytes) cookiesMaxBytes = Number(st.maxBytes) || cookiesMaxBytes;
+      return st;
+    }
+
     try{
-      const st = await fetchJSON(api('/api/youtube-cookies'));
-      if (!st.enabled){
-        ytCookiesStatus.textContent = 'Cookies feature disabled on server.';
+      let st;
+      try{
+        st = await tryStatus('/api/cookies');
+      }catch(e){
+        // back-compat: older servers only had /api/youtube-cookies
+        st = await tryStatus('/api/youtube-cookies');
+      }
+
+      const enabled = !!st.enabled;
+      const hasCookies = !!st.hasCookies;
+      const uploadedIso = st.uploadedAtUtc || st.updatedUtc || null;
+      const sizeBytes = st.sizeBytes ?? st.bytes ?? null;
+
+      if (ytCookiesFeaturePill){
+        ytCookiesFeaturePill.textContent = enabled ? 'Feature: Enabled' : 'Feature: Disabled';
+        ytCookiesFeaturePill.classList.toggle('good', enabled);
+        ytCookiesFeaturePill.classList.toggle('bad', !enabled);
+      }
+
+      if (!enabled){
+        if (ytCookiesStatePill){
+          ytCookiesStatePill.textContent = 'Cookies: Unavailable';
+          ytCookiesStatePill.classList.add('bad');
+        }
+        ytCookiesStatus.textContent = st.message || 'Cookie upload is disabled on the server.';
+        ytCookiesClear && (ytCookiesClear.disabled = true);
+        ytCookiesUpload && (ytCookiesUpload.disabled = true);
         return;
       }
-      if (st.hasCookies){
-        ytCookiesStatus.textContent = `Cookies uploaded${st.updatedUtc ? ' (' + st.updatedUtc + ')' : ''}.`;
+
+      if (ytCookiesUpload) ytCookiesUpload.disabled = false;
+
+      if (hasCookies){
+        if (ytCookiesStatePill){
+          ytCookiesStatePill.textContent = 'Cookies: Uploaded';
+          ytCookiesStatePill.classList.add('good');
+        }
+        const parts = [];
+        parts.push('Uploaded: ' + fmtUtc(uploadedIso));
+        if (sizeBytes != null) parts.push('Size: ' + fmtBytes(sizeBytes));
+        parts.push('Max: ' + fmtBytes(cookiesMaxBytes));
+        ytCookiesStatus.textContent = parts.join(' • ');
+        if (ytCookiesClear) ytCookiesClear.disabled = false;
       } else {
-        ytCookiesStatus.textContent = 'No cookies uploaded.';
+        if (ytCookiesStatePill){
+          ytCookiesStatePill.textContent = 'Cookies: Not uploaded';
+          ytCookiesStatePill.classList.add('bad');
+        }
+        ytCookiesStatus.textContent = 'No cookies uploaded. Max file size: ' + fmtBytes(cookiesMaxBytes) + '.';
+        if (ytCookiesClear) ytCookiesClear.disabled = true;
       }
     }catch(err){
-      // don’t spam—just show “unknown”
       ytCookiesStatus.textContent = 'Cookies status unavailable.';
     }
   }
@@ -389,8 +474,8 @@ function setMetaLoading(on,msg){
     }
 
     const f = ytCookiesFile.files[0];
-    if (f.size > 1024 * 1024){
-      showToast('Cookies', 'That file is too large (max 1MB).', 'error');
+    if (f.size > cookiesMaxBytes){
+      showToast('Cookies', 'That file is too large (max ' + fmtBytes(cookiesMaxBytes) + ').', 'error');
       return;
     }
 
@@ -398,7 +483,7 @@ function setMetaLoading(on,msg){
       const fd = new FormData();
       fd.append('file', f);
 
-      const r = await fetch(api('/api/youtube-cookies'), {
+      const r = await fetch(api(cookiesApiPath), {
         method: 'POST',
         credentials: 'include',
         body: fd
@@ -414,7 +499,13 @@ function setMetaLoading(on,msg){
         return;
       }
 
-      showToast('Cookies', 'Uploaded successfully.');
+      try{
+        const data = JSON.parse(txt || '{}');
+        const when = data.uploadedAtUtc || data.updatedUtc || null;
+        showToast('Cookies', when ? ('Uploaded. ' + fmtUtc(when)) : 'Uploaded.');
+      }catch{
+        showToast('Cookies', 'Uploaded.');
+      }
       ytCookiesFile.value = '';
       await refreshYtCookiesStatus();
     }catch(e){
@@ -424,10 +515,10 @@ function setMetaLoading(on,msg){
   }
 
   async function clearYtCookies(){
-    if (!confirm('Remove your uploaded YouTube cookies from the server?')) return;
+    if (!confirm('Remove your uploaded cookies from the server?')) return;
 
     try{
-      const r = await fetch(api('/api/youtube-cookies'), {
+      const r = await fetch(api(cookiesApiPath), {
         method: 'DELETE',
         credentials: 'include'
       });
@@ -978,6 +1069,7 @@ async function downloadDbFromAdmin(){
       const me = await fetchJSON(api('/api/me'));
       setAuthed(true, me);
       setLoginStatus('');
+      refreshYtCookiesStatus();
     }catch(err){
       // remember dummy: 401/403 are normal states (logged out / not whitelisted). Don't spam console.
       if (handleAuthError(err)) return;

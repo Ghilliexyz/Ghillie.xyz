@@ -215,20 +215,20 @@
             
             <div class="kform__row1">
               <label class="kform__field">
-                <span style="color: #E1E1E1;">YouTube verification (optional)</span>
-                <!-- <legend>YouTube verification (optional)</legend> -->
+                <span style="color: #E1E1E1;">Authentication cookies (optional)</span>
+                <!-- <legend>Authentication cookies (optional)</legend> -->
                 <p class="muted" style="margin:0 0 8px 0; font-size: 12px;">
-                  If YouTube blocks a link with “Sign in to confirm you’re not a bot”, you can upload a
-                  <code>cookies.txt</code> export for <b>your account only</b>. <br>Stored encrypted and only used for your downloads.
+                  If a site blocks you with “Sign in to confirm you’re not a bot” (YouTube / X / Instagram etc), you can upload a
+                  <code>cookies.txt</code> export for <b>your account only</b>. <br>Stored per-user on the server and only used for your requests (metadata + downloads).
                 </p>
     
                 <div class="kform__row3" style="align-items:center;">
                   <label class="kform__field">
                     <span>cookies.txt file</span>
                     <div style="display:flex; gap:8px; align-items:center;">
-                      <input type="file" id="ytCookiesFile" accept=".txt" class="fileSelector" style="width: auto;"/>
-                      <button type="button" id="ytCookiesUpload" class="btn secondary">Upload</button>
-                      <button type="button" id="ytCookiesClear" class="btn secondary">Clear</button>
+                      <input type="file" id="ytCookiesFile" accept=".txt,text/plain" class="fileSelector" style="width: auto;"/>
+                      <button type="button" id="ytCookiesUpload" class="btn secondary">Upload (max 2MB)</button>
+                      <button type="button" id="ytCookiesClear" class="btn secondary">Remove</button>
                     </div>
                   </label>
                   
@@ -237,7 +237,11 @@
     
                   <div class="kform__field">
                     <span>Status</span>
-                    <div id="ytCookiesStatus" class="muted">—</div>
+                    <div class="cookieStatusRow">
+                      <span id="ytCookiesFeaturePill" class="pill">Feature: —</span>
+                      <span id="ytCookiesStatePill" class="pill">Cookies: —</span>
+                    </div>
+                    <div id="ytCookiesStatus" class="muted cookieMeta">—</div>
                   </div>
                 </div>
               </label>
