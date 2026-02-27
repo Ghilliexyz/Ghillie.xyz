@@ -1,5 +1,5 @@
 // /assets/js/dbviewer.js
-// Generic SQLite DB viewer, wired into #db-viewer on ghillie.xyz
+// Generic SQLite DB viewer for ghillie.xyz
 
 (() => {
   const root = document.getElementById('db-viewer');
@@ -14,11 +14,10 @@
     graphButtons: document.getElementById('graphButtons'),
     dataTable: document.getElementById('dataTable'),
     chartArea: document.getElementById('chartArea'),
+    chartWrapper: root.querySelector('.dbv-chart-wrapper'),
     status: document.getElementById('statusText'),
     clearBtn: document.getElementById('clearBtn'),
     card: root.querySelector('.cardGlow'),
-
-    // new toys
     rowSearchInput: document.getElementById('rowSearchInput'),
     exportCsvBtn: document.getElementById('exportCsvBtn'),
     exportJsonBtn: document.getElementById('exportJsonBtn'),
@@ -34,17 +33,18 @@
   let db = null;
   let currentTable = null;
   let chart = null;
+  let dbFileName = '';
 
-  // remember dummy: this is the raw result from the last query (before search/sort)
+  // Result state
   let baseResult = null;
-  // remember dummy: this is what you're actually showing after search/sort
   let filteredRows = [];
-  // remember dummy: keep track of which column is sorted and how
-  let currentSort = null; // { index, dir: 'asc' | 'desc' }
-  // remember dummy: last search term typed in the quick-search box
+  let currentSort = null;
   let currentSearchTerm = '';
-  // remember dummy: types for the *current table* (for stats + smarter graphs)
   let currentColumnTypes = [];
+
+  // ============================================================
+  // Utility Functions
+  // ============================================================
 
   function setStatus(msg) {
     if (els.status) {
@@ -62,6 +62,15 @@
     }[ch]));
   }
 
+  function formatNumber(n) {
+    if (Number.isInteger(n)) return n.toLocaleString();
+    return n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  // ============================================================
+  // Chart Management
+  // ============================================================
+
   function clearChart() {
     if (chart) {
       chart.destroy();
@@ -70,7 +79,23 @@
     if (els.chartArea) {
       els.chartArea.style.display = 'none';
     }
+    if (els.chartWrapper) {
+      els.chartWrapper.style.display = 'none';
+    }
   }
+
+  function showChartArea() {
+    if (els.chartArea) {
+      els.chartArea.style.display = 'block';
+    }
+    if (els.chartWrapper) {
+      els.chartWrapper.style.display = 'block';
+    }
+  }
+
+  // ============================================================
+  // UI Clear/Reset
+  // ============================================================
 
   function clearUi() {
     els.tableList.innerHTML = '<li class="dbv-table-list-empty">No DB loaded</li>';
@@ -90,6 +115,10 @@
     clearChart();
   }
 
+  // ============================================================
+  // SQL.js Initialization
+  // ============================================================
+
   function initSql() {
     if (!window.initSqlJs) {
       setStatus('sql.js failed to load');
@@ -101,7 +130,7 @@
     }).then((SQLLib) => {
       SQL = SQLLib;
       if (els.dbInfo) {
-        els.dbInfo.textContent = 'Ready. Upload a SQLite .db file.';
+        els.dbInfo.textContent = 'Ready. Upload a SQLite .db file or drag & drop.';
       }
       setStatus('');
     }).catch((err) => {
@@ -113,6 +142,10 @@
     });
   }
 
+  // ============================================================
+  // Database Loading
+  // ============================================================
+
   function openDatabase(file) {
     if (!file) return;
     if (!SQL) {
@@ -121,6 +154,7 @@
     }
 
     setStatus('Opening database…');
+    dbFileName = file.name.replace(/\.(db|sqlite|sqlite3)$/i, '');
 
     file.arrayBuffer().then((buf) => {
       try {
@@ -129,8 +163,14 @@
           db = null;
         }
         db = new SQL.Database(new Uint8Array(buf));
+
+        // Get database size info
+        const sizeKb = (file.size / 1024).toFixed(1);
+        const sizeMb = (file.size / (1024 * 1024)).toFixed(2);
+        const sizeStr = file.size > 1024 * 1024 ? `${sizeMb} MB` : `${sizeKb} KB`;
+
         if (els.dbInfo) {
-          els.dbInfo.textContent = `Loaded ${file.name}`;
+          els.dbInfo.textContent = `Loaded ${file.name} (${sizeStr})`;
         }
         setStatus('');
         clearChart();
@@ -139,7 +179,7 @@
       } catch (e) {
         console.error(e);
         if (els.dbInfo) {
-          els.dbInfo.textContent = 'Error opening DB – is it a SQLite file?';
+          els.dbInfo.textContent = 'Error opening DB – is it a valid SQLite file?';
         }
         setStatus('Error');
         clearUi();
@@ -153,6 +193,10 @@
       clearUi();
     });
   }
+
+  // ============================================================
+  // Table Loading
+  // ============================================================
 
   function loadTables() {
     if (!db) return;
@@ -174,9 +218,20 @@
       return;
     }
 
+    const tableCount = res[0].values.length;
+
     res[0].values.forEach(([name], index) => {
+      // Get row count for each table
+      let rowCount = 0;
+      try {
+        const countRes = db.exec(`SELECT COUNT(*) FROM "${name}"`);
+        rowCount = countRes[0].values[0][0];
+      } catch (e) {
+        // Ignore count errors
+      }
+
       const li = document.createElement('li');
-      li.textContent = name;
+      li.innerHTML = `<span class="dbv-table-name">${escapeHtml(name)}</span><span class="dbv-table-count">${rowCount.toLocaleString()}</span>`;
       li.addEventListener('click', () => selectTable(name, li));
       els.tableList.appendChild(li);
 
@@ -184,6 +239,8 @@
         selectTable(name, li);
       }
     });
+
+    setStatus(`${tableCount} table${tableCount !== 1 ? 's' : ''} loaded`);
   }
 
   function selectTable(name, liElement) {
@@ -196,10 +253,18 @@
       liElement.classList.add('dbv-active');
     }
 
+    // Reset search when switching tables
+    currentSearchTerm = '';
+    if (els.rowSearchInput) els.rowSearchInput.value = '';
+
     renderTableMetaAndSample(name);
     buildSmartDropdowns(name);
     clearChart();
   }
+
+  // ============================================================
+  // Table Schema & Data Rendering
+  // ============================================================
 
   function renderTableMetaAndSample(table) {
     if (!db) return;
@@ -223,23 +288,23 @@
 
     const cols = schemaRes[0].values.map(([cid, name, type, notnull, dflt, pk]) => ({
       name,
-      type,
-      pk
+      type: type || 'TEXT',
+      pk,
+      notnull
     }));
 
-    // remember dummy: cache column types for stats + numeric/datetime detection
     currentColumnTypes = cols.map((c) => ({
       name: c.name,
       type: (c.type || '').toUpperCase()
     }));
 
     els.tableMeta.innerHTML = `
-      <p class="itemsMeta">${rowCount} rows • ${cols.length} columns</p>
+      <p class="itemsMeta"><strong>${rowCount.toLocaleString()}</strong> rows • <strong>${cols.length}</strong> columns</p>
       <ul class="col-list">
         ${cols.map((c) => `
           <li>
             <strong>${escapeHtml(c.name)}</strong>
-            <span>${(c.type || 'TEXT')}${c.pk ? ' • PK' : ''}</span>
+            <span>${c.type}${c.pk ? ' • PK' : ''}${c.notnull ? ' • NOT NULL' : ''}</span>
           </li>
         `).join('')}
       </ul>
@@ -247,7 +312,7 @@
 
     let sampleRes;
     try {
-      sampleRes = db.exec(`SELECT * FROM "${table}" LIMIT 100`);
+      sampleRes = db.exec(`SELECT * FROM "${table}" LIMIT 200`);
     } catch (e) {
       console.error(e);
       els.dataTable.innerHTML = '<p class="muted">Error reading table data.</p>';
@@ -277,13 +342,11 @@
       return;
     }
 
-    // remember dummy: always clone arrays so you don't mutate sql.js internals
     baseResult = {
       columns: result.columns.slice(),
       values: result.values.slice()
     };
 
-    // reset search + sort whenever the underlying result changes
     currentSearchTerm = '';
     currentSort = null;
     if (els.rowSearchInput) els.rowSearchInput.value = '';
@@ -298,10 +361,10 @@
       return;
     }
 
-    // remember dummy: don't touch baseResult.values, always work on a copy
     let rows = baseResult.values.slice();
+    const totalRows = rows.length;
 
-    // quick search across all columns
+    // Quick search across all columns
     if (currentSearchTerm && currentSearchTerm.trim() !== '') {
       const term = currentSearchTerm.toLowerCase();
       rows = rows.filter((row) =>
@@ -311,7 +374,7 @@
       );
     }
 
-    // sorting
+    // Sorting
     if (currentSort && typeof currentSort.index === 'number') {
       const { index, dir } = currentSort;
       const direction = dir === 'desc' ? -1 : 1;
@@ -344,25 +407,39 @@
 
     const columns = baseResult.columns;
 
+    // Build header with sort indicators
     const headerHtml = columns.map((c, idx) => {
       let classes = ['dbv-sortable'];
-      let icon = '';
+      let icon = '<span class="sort-icon">⇅</span>';
       if (currentSort && currentSort.index === idx) {
         classes.push(currentSort.dir === 'desc' ? 'dbv-sort-desc' : 'dbv-sort-asc');
-        icon = currentSort.dir === 'desc' ? ' ▼' : ' ▲';
+        icon = currentSort.dir === 'desc' ? '<span class="sort-icon active">▼</span>' : '<span class="sort-icon active">▲</span>';
       }
       return `<th data-col-index="${idx}" class="${classes.join(' ')}">${escapeHtml(c)}${icon}</th>`;
     }).join('');
 
-    const rowsHtml = filteredRows.map((row) => `
+    // Build data rows
+    const rowsHtml = filteredRows.map((row, rowIdx) => `
       <tr>
-        ${row.map((v) => `
-          <td>${v === null ? '<em>null</em>' : escapeHtml(String(v)).slice(0, 200)}</td>
-        `).join('')}
+        ${row.map((v, colIdx) => {
+          if (v === null) {
+            return '<td class="null-value"><em>NULL</em></td>';
+          }
+          const str = String(v);
+          const truncated = str.length > 200 ? str.slice(0, 200) + '…' : str;
+          const isNumeric = !Number.isNaN(Number(v)) && str.trim() !== '';
+          return `<td class="${isNumeric ? 'numeric-value' : ''}" title="${escapeHtml(str)}">${escapeHtml(truncated)}</td>`;
+        }).join('')}
       </tr>
     `).join('');
 
+    // Row count indicator
+    const rowCountHtml = currentSearchTerm
+      ? `<div class="dbv-row-count">Showing ${filteredRows.length} of ${totalRows} rows</div>`
+      : `<div class="dbv-row-count">Showing ${filteredRows.length} rows</div>`;
+
     els.dataTable.innerHTML = `
+      ${rowCountHtml}
       <div class="dbv-table-inner">
         <table>
           <thead>
@@ -386,7 +463,6 @@
       th.addEventListener('click', () => {
         if (!baseResult) return;
         if (currentSort && currentSort.index === idx) {
-          // remember dummy: second click flips ASC <-> DESC
           currentSort.dir = currentSort.dir === 'asc' ? 'desc' : 'asc';
         } else {
           currentSort = { index: idx, dir: 'asc' };
@@ -395,6 +471,10 @@
       });
     });
   }
+
+  // ============================================================
+  // Numeric Column Statistics
+  // ============================================================
 
   function updateNumericStats() {
     if (!els.columnStats) return;
@@ -408,7 +488,7 @@
       .map((col, idx) => ({ idx, col }))
       .filter(({ col }) => {
         const t = col.type || '';
-        return /INT|REAL|FLOA|DOUB|NUMERIC|DEC/.test(t);
+        return /INT|REAL|FLOA|DOUB|NUMERIC|DEC|NUM/.test(t);
       });
 
     if (!numericCols.length) {
@@ -442,7 +522,7 @@
       return `
         <div class="dbv-stat-pill">
           <strong>${escapeHtml(col.name)}</strong>
-          <span>min ${min.toFixed(2)} • max ${max.toFixed(2)} • avg ${avg.toFixed(2)} • n ${count}</span>
+          <span>min: ${formatNumber(min)} • max: ${formatNumber(max)} • avg: ${formatNumber(avg)} • n: ${count.toLocaleString()}</span>
         </div>
       `;
     }).filter(Boolean);
@@ -450,14 +530,17 @@
     els.columnStats.innerHTML = pills.join('');
   }
 
-  // Build a single <select> with all suggestions
+  // ============================================================
+  // Smart Dropdowns (Filters & Graphs)
+  // ============================================================
+
   function buildDropdown(container, placeholder, options) {
     container.innerHTML = '';
 
     if (!options.length) {
       const span = document.createElement('span');
       span.className = 'itemsMeta';
-      span.textContent = 'No suggestions';
+      span.textContent = 'No suggestions available';
       container.appendChild(span);
       return;
     }
@@ -468,7 +551,7 @@
     const defaultOpt = document.createElement('option');
     defaultOpt.value = '';
     defaultOpt.textContent = placeholder;
-    defaultOpt.disabled = true;
+    defaultOpt.disabled = false;
     defaultOpt.selected = true;
     select.appendChild(defaultOpt);
 
@@ -483,6 +566,10 @@
       const idx = parseInt(select.value, 10);
       if (!Number.isNaN(idx) && options[idx] && typeof options[idx].run === 'function') {
         options[idx].run();
+        // Reset dropdown after selection
+        setTimeout(() => {
+          select.value = '';
+        }, 100);
       }
     });
 
@@ -492,9 +579,14 @@
   function isDateLikeColumn(col) {
     const name = (col.name || '').toLowerCase();
     const type = (col.type || '').toUpperCase();
-    if (type.includes('DATE') || type.includes('TIME')) return true;
-    if (name.includes('date') || name.includes('time') || name.endsWith('_at')) return true;
+    if (type.includes('DATE') || type.includes('TIME') || type.includes('TIMESTAMP')) return true;
+    if (name.includes('date') || name.includes('time') || name.endsWith('_at') || name.endsWith('_on')) return true;
     return false;
+  }
+
+  function isNumericColumn(col) {
+    const t = (col.type || '').toUpperCase();
+    return /INT|REAL|FLOA|DOUB|NUMERIC|DEC|NUM/.test(t);
   }
 
   function buildSmartDropdowns(table) {
@@ -519,25 +611,35 @@
     const filterOptions = [];
     const graphOptions = [];
 
-    // Global filter
+    // Global filters
     filterOptions.push({
-      label: 'Show first 500 rows',
+      label: '📋 Show all rows (limit 500)',
       run: () => runAndRender(`SELECT * FROM "${table}" LIMIT 500`)
     });
 
+    filterOptions.push({
+      label: '📋 Show first 100 rows',
+      run: () => runAndRender(`SELECT * FROM "${table}" LIMIT 100`)
+    });
+
     cols.forEach((col) => {
-      const isNumeric = /INT|REAL|FLOA|DOUB|NUMERIC/.test(col.type);
+      const isNumeric = isNumericColumn(col);
 
       if (isNumeric) {
-        // Top 10 by numeric column
+        // Top N by numeric column
         filterOptions.push({
-          label: `Top 10 by ${col.name}`,
+          label: `⬆️ Top 10 by ${col.name}`,
           run: () => runAndRender(`SELECT * FROM "${table}" ORDER BY "${col.name}" DESC LIMIT 10`)
+        });
+
+        filterOptions.push({
+          label: `⬇️ Bottom 10 by ${col.name}`,
+          run: () => runAndRender(`SELECT * FROM "${table}" ORDER BY "${col.name}" ASC LIMIT 10`)
         });
 
         // Histogram graph option
         graphOptions.push({
-          label: `Histogram of ${col.name}`,
+          label: `📊 Histogram: ${col.name}`,
           run: () => drawHistogram(table, col.name)
         });
       } else {
@@ -546,32 +648,22 @@
           const topRes = db.exec(`
             SELECT "${col.name}" AS v, COUNT(*) AS c
             FROM "${table}"
+            WHERE "${col.name}" IS NOT NULL
             GROUP BY "${col.name}"
             ORDER BY c DESC
             LIMIT 5
           `);
 
-          if (topRes.length) {
-            const cats = topRes[0].values;
-            cats.forEach(([val, count]) => {
-              const labelValue = (val === null ? 'NULL' : String(val)).slice(0, 24);
-              const label = `${col.name} = "${labelValue}" (${count})`;
+          if (topRes.length && topRes[0].values.length) {
+            topRes[0].values.forEach(([val, count]) => {
+              const labelValue = String(val).slice(0, 20);
+              const displayValue = labelValue.length < String(val).length ? labelValue + '…' : labelValue;
 
               filterOptions.push({
-                label,
+                label: `🔍 ${col.name} = "${displayValue}" (${count})`,
                 run: () => {
-                  if (val === null) {
-                    runAndRender(
-                      `SELECT * FROM "${table}" WHERE "${col.name}" IS NULL LIMIT 200`
-                    );
-                  } else {
-                    const safeVal = String(val).replace(/'/g, "''");
-                    runAndRender(
-                      `SELECT * FROM "${table}"
-                       WHERE "${col.name}" = '${safeVal}'
-                       LIMIT 200`
-                    );
-                  }
+                  const safeVal = String(val).replace(/'/g, "''");
+                  runAndRender(`SELECT * FROM "${table}" WHERE "${col.name}" = '${safeVal}' LIMIT 200`);
                 }
               });
             });
@@ -582,29 +674,54 @@
       }
     });
 
-    // One generic bar chart (first TEXT vs first NUMERIC)
-    const firstText = cols.find((c) => !/INT|REAL|FLOA|DOUB|NUMERIC/.test(c.type));
-    const firstNum = cols.find((c) => /INT|REAL|FLOA|DOUB|NUMERIC/.test(c.type));
+    // NULL value filter for each column
+    cols.forEach((col) => {
+      filterOptions.push({
+        label: `❓ ${col.name} IS NULL`,
+        run: () => runAndRender(`SELECT * FROM "${table}" WHERE "${col.name}" IS NULL LIMIT 200`)
+      });
+    });
+
+    // Bar chart: first TEXT vs first NUMERIC
+    const firstText = cols.find((c) => !isNumericColumn(c));
+    const firstNum = cols.find((c) => isNumericColumn(c));
 
     if (firstText && firstNum) {
       graphOptions.push({
-        label: `Bar: avg ${firstNum.name} by ${firstText.name}`,
+        label: `📊 Bar: avg ${firstNum.name} by ${firstText.name}`,
         run: () => drawCategoryBar(table, firstText.name, firstNum.name)
+      });
+
+      graphOptions.push({
+        label: `📊 Bar: count by ${firstText.name}`,
+        run: () => drawCategoryCount(table, firstText.name)
       });
     }
 
-    // time-aware graphs for date-ish columns
+    // Time-aware graphs for date-ish columns
     const dateCols = cols.filter(isDateLikeColumn);
     dateCols.forEach((col) => {
       graphOptions.push({
-        label: `Rows per day (${col.name})`,
-        run: () => drawTimeBuckets(table, col.name, 'day')
+        label: `📈 Line: rows per day (${col.name})`,
+        run: () => drawTimeBuckets(table, col.name, 'day', 'line')
       });
       graphOptions.push({
-        label: `Rows per month (${col.name})`,
-        run: () => drawTimeBuckets(table, col.name, 'month')
+        label: `📈 Line: rows per month (${col.name})`,
+        run: () => drawTimeBuckets(table, col.name, 'month', 'line')
+      });
+      graphOptions.push({
+        label: `📊 Bar: rows per day (${col.name})`,
+        run: () => drawTimeBuckets(table, col.name, 'day', 'bar')
       });
     });
+
+    // Pie chart for categorical data
+    if (firstText) {
+      graphOptions.push({
+        label: `🥧 Pie: distribution of ${firstText.name}`,
+        run: () => drawPieChart(table, firstText.name)
+      });
+    }
 
     buildDropdown(els.filterButtons, 'Select a filter…', filterOptions);
     buildDropdown(els.graphButtons, 'Select a graph…', graphOptions);
@@ -636,6 +753,23 @@
     renderResultTable(res[0]);
   }
 
+  // ============================================================
+  // Chart Drawing Functions
+  // ============================================================
+
+  function getChartColors(count) {
+    const baseColors = [
+      '#f64040', '#7f31ff', '#39ce4d', '#f6f340', '#3498db',
+      '#e74c3c', '#9b59b6', '#1abc9c', '#f39c12', '#2ecc71',
+      '#e91e63', '#00bcd4', '#ff9800', '#8bc34a', '#673ab7'
+    ];
+    const colors = [];
+    for (let i = 0; i < count; i++) {
+      colors.push(baseColors[i % baseColors.length]);
+    }
+    return colors;
+  }
+
   function drawHistogram(table, colName) {
     if (!db || !els.chartArea || !window.Chart) return;
 
@@ -645,7 +779,7 @@
         SELECT "${colName}" AS v
         FROM "${table}"
         WHERE "${colName}" IS NOT NULL
-        LIMIT 5000
+        LIMIT 10000
       `);
     } catch (e) {
       console.error(e);
@@ -662,7 +796,7 @@
 
     const min = Math.min(...values);
     const max = Math.max(...values);
-    const bins = 12;
+    const bins = Math.min(20, Math.max(5, Math.ceil(Math.sqrt(values.length))));
     const step = (max - min) / bins || 1;
     const counts = new Array(bins).fill(0);
 
@@ -676,11 +810,11 @@
     const labels = counts.map((_, i) => {
       const start = min + i * step;
       const end = start + step;
-      return `${start.toFixed(1)}–${end.toFixed(1)}`;
+      return `${formatNumber(start)} – ${formatNumber(end)}`;
     });
 
+    showChartArea();
     const ctx = els.chartArea.getContext('2d');
-    els.chartArea.style.display = 'block';
 
     if (chart) chart.destroy();
     chart = new Chart(ctx, {
@@ -688,16 +822,29 @@
       data: {
         labels,
         datasets: [{
-          label: `Histogram of ${colName}`,
-          data: counts
+          label: `Distribution of ${colName}`,
+          data: counts,
+          backgroundColor: '#f64040',
+          borderColor: '#f64040',
+          borderWidth: 1
         }]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
         scales: {
-          x: { ticks: { maxRotation: 0, minRotation: 0 } },
-          y: { beginAtZero: true }
+          x: {
+            ticks: { maxRotation: 45, minRotation: 0, color: '#a0a0a0' },
+            grid: { color: '#2a2a2a' }
+          },
+          y: {
+            beginAtZero: true,
+            ticks: { color: '#a0a0a0' },
+            grid: { color: '#2a2a2a' }
+          }
         }
       }
     });
@@ -714,7 +861,7 @@
         WHERE "${numCol}" IS NOT NULL
         GROUP BY "${catCol}"
         ORDER BY v DESC
-        LIMIT 20
+        LIMIT 15
       `);
     } catch (e) {
       console.error(e);
@@ -724,12 +871,12 @@
     if (!res.length) return;
 
     const labels = res[0].values.map(([cat]) =>
-      cat === null ? 'NULL' : String(cat)
+      cat === null ? 'NULL' : String(cat).slice(0, 20)
     );
     const data = res[0].values.map(([_, v]) => Number(v));
 
+    showChartArea();
     const ctx = els.chartArea.getContext('2d');
-    els.chartArea.style.display = 'block';
 
     if (chart) chart.destroy();
     chart = new Chart(ctx, {
@@ -738,34 +885,160 @@
         labels,
         datasets: [{
           label: `Average ${numCol} by ${catCol}`,
-          data
+          data,
+          backgroundColor: getChartColors(data.length),
+          borderWidth: 0
         }]
       },
       options: {
         indexAxis: 'y',
         responsive: true,
         maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
         scales: {
-          x: { beginAtZero: true }
+          x: {
+            beginAtZero: true,
+            ticks: { color: '#a0a0a0' },
+            grid: { color: '#2a2a2a' }
+          },
+          y: {
+            ticks: { color: '#a0a0a0' },
+            grid: { color: '#2a2a2a' }
+          }
         }
       }
     });
   }
 
-  function drawTimeBuckets(table, colName, granularity) {
+  function drawCategoryCount(table, catCol) {
     if (!db || !els.chartArea || !window.Chart) return;
 
-    // remember dummy: we assume ISO-ish strings, so substr() is enough here
-    const len = granularity === 'month' ? 7 : 10; // YYYY-MM vs YYYY-MM-DD
+    let res;
+    try {
+      res = db.exec(`
+        SELECT "${catCol}" AS cat, COUNT(*) AS c
+        FROM "${table}"
+        GROUP BY "${catCol}"
+        ORDER BY c DESC
+        LIMIT 15
+      `);
+    } catch (e) {
+      console.error(e);
+      return;
+    }
+
+    if (!res.length) return;
+
+    const labels = res[0].values.map(([cat]) =>
+      cat === null ? 'NULL' : String(cat).slice(0, 20)
+    );
+    const data = res[0].values.map(([_, c]) => Number(c));
+
+    showChartArea();
+    const ctx = els.chartArea.getContext('2d');
+
+    if (chart) chart.destroy();
+    chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [{
+          label: `Count by ${catCol}`,
+          data,
+          backgroundColor: getChartColors(data.length),
+          borderWidth: 0
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          x: {
+            beginAtZero: true,
+            ticks: { color: '#a0a0a0' },
+            grid: { color: '#2a2a2a' }
+          },
+          y: {
+            ticks: { color: '#a0a0a0' },
+            grid: { color: '#2a2a2a' }
+          }
+        }
+      }
+    });
+  }
+
+  function drawPieChart(table, catCol) {
+    if (!db || !els.chartArea || !window.Chart) return;
+
+    let res;
+    try {
+      res = db.exec(`
+        SELECT "${catCol}" AS cat, COUNT(*) AS c
+        FROM "${table}"
+        GROUP BY "${catCol}"
+        ORDER BY c DESC
+        LIMIT 10
+      `);
+    } catch (e) {
+      console.error(e);
+      return;
+    }
+
+    if (!res.length) return;
+
+    const labels = res[0].values.map(([cat]) =>
+      cat === null ? 'NULL' : String(cat).slice(0, 20)
+    );
+    const data = res[0].values.map(([_, c]) => Number(c));
+
+    showChartArea();
+    const ctx = els.chartArea.getContext('2d');
+
+    if (chart) chart.destroy();
+    chart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels,
+        datasets: [{
+          data,
+          backgroundColor: getChartColors(data.length),
+          borderColor: '#191919',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'right',
+            labels: { color: '#e7e7e7' }
+          }
+        }
+      }
+    });
+  }
+
+  function drawTimeBuckets(table, colName, granularity, chartType) {
+    if (!db || !els.chartArea || !window.Chart) return;
+
+    const len = granularity === 'month' ? 7 : 10;
 
     let res;
     try {
       res = db.exec(`
         SELECT substr("${colName}", 1, ${len}) AS bucket, COUNT(*) AS c
         FROM "${table}"
-        WHERE "${colName}" IS NOT NULL
+        WHERE "${colName}" IS NOT NULL AND "${colName}" != ''
         GROUP BY bucket
         ORDER BY bucket
+        LIMIT 100
       `);
     } catch (e) {
       console.error(e);
@@ -779,31 +1052,53 @@
     );
     const data = res[0].values.map(([_, c]) => Number(c));
 
+    showChartArea();
     const ctx = els.chartArea.getContext('2d');
-    els.chartArea.style.display = 'block';
 
     if (chart) chart.destroy();
+
+    const isLine = chartType === 'line';
+
     chart = new Chart(ctx, {
-      type: 'bar',
+      type: isLine ? 'line' : 'bar',
       data: {
         labels,
         datasets: [{
           label: `${granularity === 'month' ? 'Rows per month' : 'Rows per day'} (${colName})`,
-          data
+          data,
+          backgroundColor: isLine ? 'rgba(246, 64, 64, 0.2)' : '#f64040',
+          borderColor: '#f64040',
+          borderWidth: isLine ? 2 : 1,
+          fill: isLine,
+          tension: 0.3,
+          pointRadius: isLine ? 3 : 0,
+          pointBackgroundColor: '#f64040'
         }]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
         scales: {
-          x: { ticks: { maxRotation: 45, minRotation: 0 } },
-          y: { beginAtZero: true }
+          x: {
+            ticks: { maxRotation: 45, minRotation: 0, color: '#a0a0a0' },
+            grid: { color: '#2a2a2a' }
+          },
+          y: {
+            beginAtZero: true,
+            ticks: { color: '#a0a0a0' },
+            grid: { color: '#2a2a2a' }
+          }
         }
       }
     });
   }
 
-  // exports ----------------------------------------------------
+  // ============================================================
+  // Export Functions
+  // ============================================================
 
   function csvEscape(value) {
     if (value === null || value === undefined) return '';
@@ -827,7 +1122,7 @@
 
   function exportAsCsv() {
     if (!baseResult || !filteredRows.length) {
-      setStatus('Nothing to export, chief.');
+      setStatus('Nothing to export.');
       return;
     }
 
@@ -841,13 +1136,15 @@
       csvRows.push(line.join(','));
     });
 
+    const filename = `${currentTable || dbFileName || 'export'}.csv`;
     const blob = new Blob([csvRows.join('\n')], { type: 'text/csv;charset=utf-8;' });
-    triggerDownload(blob, `${currentTable || 'result'}.csv`);
+    triggerDownload(blob, filename);
+    setStatus(`Exported ${rows.length} rows to ${filename}`);
   }
 
   function exportAsJson() {
     if (!baseResult || !filteredRows.length) {
-      setStatus('Nothing to export, chief.');
+      setStatus('Nothing to export.');
       return;
     }
 
@@ -862,66 +1159,77 @@
       return obj;
     });
 
+    const filename = `${currentTable || dbFileName || 'export'}.json`;
     const blob = new Blob([JSON.stringify(data, null, 2)], {
       type: 'application/json;charset=utf-8;'
     });
-    triggerDownload(blob, `${currentTable || 'result'}.json`);
+    triggerDownload(blob, filename);
+    setStatus(`Exported ${rows.length} rows to ${filename}`);
   }
 
-  // SQL console ------------------------------------------------
+  // ============================================================
+  // SQL Console
+  // ============================================================
 
   function runSqlConsoleQuery() {
     if (!db) {
-      if (els.sqlStatus) els.sqlStatus.textContent = 'No DB loaded.';
+      if (els.sqlStatus) els.sqlStatus.textContent = 'No database loaded.';
       return;
     }
     if (!els.sqlInput) return;
 
     const sql = els.sqlInput.value.trim();
     if (!sql) {
-      if (els.sqlStatus) els.sqlStatus.textContent = 'Type a SELECT query first.';
+      if (els.sqlStatus) els.sqlStatus.textContent = 'Enter a SELECT query to run.';
       return;
     }
 
     const firstTokenMatch = sql.match(/^\s*([A-Za-z]+)/);
     const firstToken = firstTokenMatch ? firstTokenMatch[1].toUpperCase() : '';
 
-    // remember dummy: only allow read-only stuff so you don’t accidentally brick anything
-    if (firstToken !== 'SELECT' && firstToken !== 'WITH' && firstToken !== 'PRAGMA') {
+    // Only allow read-only queries
+    const allowedTokens = ['SELECT', 'WITH', 'PRAGMA', 'EXPLAIN'];
+    if (!allowedTokens.includes(firstToken)) {
       if (els.sqlStatus) {
-        els.sqlStatus.textContent = 'Read-only only. No INSERT/UPDATE/DELETE today, dummy.';
+        els.sqlStatus.textContent = 'Read-only mode: only SELECT, WITH, PRAGMA, EXPLAIN allowed.';
       }
       return;
     }
 
+    const startTime = performance.now();
+
     try {
       const res = db.exec(sql);
+      const elapsed = (performance.now() - startTime).toFixed(1);
+
       if (!res.length || !res[0].values.length) {
-        if (els.sqlStatus) els.sqlStatus.textContent = 'Query ran, but no rows came back.';
+        if (els.sqlStatus) els.sqlStatus.textContent = `Query executed in ${elapsed}ms. No rows returned.`;
         baseResult = null;
         filteredRows = [];
-        els.dataTable.innerHTML = '<p class="muted">No results.</p>';
+        els.dataTable.innerHTML = '<p class="muted">Query returned no results.</p>';
         currentColumnTypes = [];
         updateNumericStats();
         return;
       }
 
       if (els.sqlStatus) {
-        els.sqlStatus.textContent = `Query ran, showing ${res[0].values.length} rows.`;
+        els.sqlStatus.textContent = `${res[0].values.length} rows in ${elapsed}ms`;
       }
 
-      // console queries can point at anything, so drop column types (stats off)
-      currentColumnTypes = [];
+      // Custom queries don't have column type info
+      currentColumnTypes = res[0].columns.map((name) => ({ name, type: '' }));
       renderResultTable(res[0]);
     } catch (e) {
       console.error(e);
-      if (els.sqlStatus) els.sqlStatus.textContent = 'SQL error. Check console for details.';
+      if (els.sqlStatus) els.sqlStatus.textContent = `Error: ${e.message}`;
     }
   }
 
-  // Event wiring -----------------------------------------------
+  // ============================================================
+  // Event Handlers
+  // ============================================================
 
-  // File input change
+  // File input
   els.fileInput.addEventListener('change', (e) => {
     const file = e.target.files && e.target.files[0];
     openDatabase(file);
@@ -938,19 +1246,24 @@
         els.fileInput.value = '';
       }
       if (els.dbInfo) {
-        els.dbInfo.textContent = '';
+        els.dbInfo.textContent = 'Ready. Upload a SQLite .db file or drag & drop.';
       }
+      dbFileName = '';
       setStatus('');
       clearUi();
       clearChart();
     });
   }
 
-  // Quick search
+  // Quick search with debounce
+  let searchTimeout = null;
   if (els.rowSearchInput) {
     els.rowSearchInput.addEventListener('input', (e) => {
-      currentSearchTerm = e.target.value || '';
-      applySearchAndRender();
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        currentSearchTerm = e.target.value || '';
+        applySearchAndRender();
+      }, 150);
     });
   }
 
@@ -962,12 +1275,22 @@
     els.exportJsonBtn.addEventListener('click', exportAsJson);
   }
 
-  // SQL console button
+  // SQL console
   if (els.runSqlBtn) {
     els.runSqlBtn.addEventListener('click', runSqlConsoleQuery);
   }
 
-  // Drag & drop support on the glow card
+  // Enter key in SQL input
+  if (els.sqlInput) {
+    els.sqlInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        runSqlConsoleQuery();
+      }
+    });
+  }
+
+  // Drag & drop support
   if (els.card) {
     ['dragenter', 'dragover'].forEach((evt) => {
       els.card.addEventListener(evt, (e) => {
@@ -993,7 +1316,22 @@
     });
   }
 
-  // Kick things off
+  // Keyboard shortcuts
+  document.addEventListener('keydown', (e) => {
+    // Ctrl/Cmd + O to open file
+    if ((e.ctrlKey || e.metaKey) && e.key === 'o') {
+      e.preventDefault();
+      els.fileInput.click();
+    }
+    // Escape to clear search
+    if (e.key === 'Escape' && document.activeElement === els.rowSearchInput) {
+      els.rowSearchInput.value = '';
+      currentSearchTerm = '';
+      applySearchAndRender();
+    }
+  });
+
+  // Initialize
   initSql();
   clearUi();
 })();

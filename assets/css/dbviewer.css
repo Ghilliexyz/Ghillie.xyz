@@ -516,9 +516,13 @@
   font-size: 13px;
 }
 #db-viewer .dbv-table-list li {
-  padding: 4px 6px;
+  padding: 6px 8px;
   border-radius: 6px;
   cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
 }
 #db-viewer .dbv-table-list li:hover {
   background: #252525;
@@ -531,6 +535,19 @@
 #db-viewer .dbv-table-list-empty {
   color: var(--muted);
   cursor: default;
+}
+#db-viewer .dbv-table-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#db-viewer .dbv-table-count {
+  font-size: 10px;
+  color: var(--muted);
+  background: var(--bg);
+  padding: 2px 6px;
+  border-radius: 999px;
+  flex-shrink: 0;
 }
 
 #db-viewer .dbv-main {
@@ -558,7 +575,7 @@
 
 /* Sections + chips row */
 #db-viewer .dbv-section {
-  margin-top: 4px;
+  margin-top: 8px;
 }
 #db-viewer .section-label {
   font-size: 11px;
@@ -566,6 +583,16 @@
   letter-spacing: 0.08em;
   color: var(--muted);
   margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+#db-viewer .dbv-hint {
+  font-size: 10px;
+  text-transform: none;
+  letter-spacing: normal;
+  opacity: 0.6;
+  font-style: italic;
 }
 #db-viewer .dbv-chips {
   display: flex;
@@ -578,10 +605,29 @@
   border-radius: 10px;
   border: 1px solid var(--outline);
   background: var(--tile);
+  overflow: hidden;
 }
 #db-viewer .dbv-table-inner {
-  max-height: 360px;
+  max-height: 400px;
   overflow: auto;
+  scroll-behavior: smooth;
+}
+#db-viewer .dbv-table-inner::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+#db-viewer .dbv-table-inner::-webkit-scrollbar-track {
+  background: transparent;
+}
+#db-viewer .dbv-table-inner::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+#db-viewer .dbv-table-inner::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}
+#db-viewer .dbv-table-inner::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 #db-viewer .dbv-table-inner table {
@@ -610,14 +656,16 @@
 
 /* Chart area */
 #db-viewer .dbv-chart-wrapper {
-  margin-top: 6px;
-  height: 220px;
+  display: none;
+  margin-top: 10px;
+  height: 260px;
   border-radius: 10px;
   border: 1px solid var(--outline);
   background: var(--tile);
-  padding: 6px;
+  padding: 12px;
 }
 #db-viewer #chartArea {
+  display: none;
   width: 100%;
   height: 100%;
 }
@@ -657,11 +705,18 @@
   color:var(--text);
   border-radius:8px;
   border:1px solid var(--outline);
-  padding:6px 10px;
-  font-size:12px;
+  padding:8px 12px;
+  font-size:13px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+#db-viewer .dbv-search:focus {
+  outline: none;
+  border-color: var(--spinglow-color2);
+  box-shadow: 0 0 0 2px rgba(246, 64, 64, 0.1);
 }
 #db-viewer .dbv-search::placeholder {
   color:var(--muted);
+  opacity: 0.7;
 }
 #db-viewer .dbv-btn-small {
   padding:6px 10px;
@@ -693,44 +748,97 @@
   margin-top:6px;
   margin-bottom: 6px;
   display:flex;
+  gap: 8px;
 }
 #db-viewer .dbv-sql-input {
-  width: 100%;
-  margin-right: 6px;
+  flex: 1;
   background:var(--bg);
   color:var(--text);
   border-radius:8px;
   border:1px solid var(--outline);
-  padding:6px 8px;
-  font-size:12px;
+  padding:8px 12px;
+  font-size:13px;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  transition: border-color 0.2s ease;
+}
+#db-viewer .dbv-sql-input:focus {
+  outline: none;
+  border-color: var(--spinglow-color2);
+}
+#db-viewer .dbv-sql-input::placeholder {
+  color: var(--muted);
+  opacity: 0.7;
 }
 #db-viewer .dbv-sql-actions {
   display:flex;
   flex-wrap:wrap;
-  gap:6px;
+  gap:8px;
   align-items:center;
-  justify-content:space-between;
 }
 #db-viewer .dbv-sql-btn {
-  padding:6px 10px;
-  font-size:11px;
+  padding:8px 14px;
+  font-size:12px;
+  white-space: nowrap;
 }
 #db-viewer .dbv-sql-status {
-  flex:1 1 auto;
+  font-size: 11px;
+  color: var(--muted);
+  min-width: 100px;
 }
 
 /* Sortable headers */
 #db-viewer th.dbv-sortable {
   cursor:pointer;
   user-select:none;
+  transition: background 0.15s ease;
 }
 #db-viewer th.dbv-sortable:hover {
-  background:#181818;
+  background:#1a1a1a;
 }
 #db-viewer th.dbv-sort-asc,
 #db-viewer th.dbv-sort-desc {
   color:var(--spinglow-color2);
+  background:#151515;
+}
+#db-viewer .sort-icon {
+  margin-left: 4px;
+  opacity: 0.3;
+  font-size: 10px;
+}
+#db-viewer .sort-icon.active {
+  opacity: 1;
+  color: var(--spinglow-color2);
+}
+
+/* Row count indicator */
+#db-viewer .dbv-row-count {
+  font-size: 11px;
+  color: var(--muted);
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--outline);
+  background: #111;
+}
+
+/* NULL and numeric value styling */
+#db-viewer .null-value {
+  color: #666;
+  font-style: italic;
+}
+#db-viewer .null-value em {
+  font-style: normal;
+  opacity: 0.6;
+}
+#db-viewer .numeric-value {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Improved table cell hover */
+#db-viewer .dbv-table-inner tbody tr:hover {
+  background: rgba(246, 64, 64, 0.05);
+}
+#db-viewer .dbv-table-inner tbody tr:hover td {
+  border-bottom-color: rgba(246, 64, 64, 0.2);
 }
 
 /* Responsive */

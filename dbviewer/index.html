@@ -80,14 +80,11 @@
 
   <!-- App -->
   <div id="db-viewer">
-    <div class="workInProgress">
-      <h2>Work In Progress</h2>
-    </div>
-
     <section class="hero">
       <h1>DB Viewer</h1>
       <p class="muted">
-        Drag and drop any SQLite database file (.db / .sqlite) to view and explore it.
+        Drag and drop any SQLite database file (.db / .sqlite) to view, filter, and explore it.
+        <br><span style="font-size: 11px;">All processing happens in your browser. Your data never leaves your device.</span>
       </p>
     </section>
 
@@ -129,7 +126,7 @@
                 type="text"
                 id="rowSearchInput"
                 class="dbv-search"
-                placeholder="Quick search in current result…" />
+                placeholder="Search in results… (Esc to clear)" />
               <div class="dbv-controls-right">
                 <button type="button" class="btn smart-btn-secondary dbv-btn-small" id="exportCsvBtn">
                   Export CSV
@@ -157,17 +154,17 @@
 
             <!-- SQL console -->
             <div class="dbv-section">
-              <div class="section-label">SQL console (read-only)</div>
+              <div class="section-label">SQL console (read-only) <span class="dbv-hint">Press Enter to run</span></div>
               <div class="dbv-sql-console">
                 <input
                   id="sqlInput"
                   class="dbv-sql-input"
-                  placeholder="SELECT * FROM &quot;your_table&quot; LIMIT 100;"></input>
+                  placeholder="SELECT * FROM &quot;your_table&quot; LIMIT 100;"/>
                 <div class="dbv-sql-actions">
                   <button type="button"
                           class="btn smart-btn-secondary dbv-sql-btn"
                           id="runSqlBtn">
-                    Run query
+                    Run
                   </button>
                   <span id="sqlStatus" class="itemsMeta dbv-sql-status"></span>
                 </div>
