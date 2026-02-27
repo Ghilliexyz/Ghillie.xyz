@@ -460,7 +460,7 @@ body.light .slide-buttons li a::before {
 }
 
 body.light .hero-center-section.show {
-    margit-top: 0;
+    margin-top: 0;
     opacity: 0.9;
 }
 

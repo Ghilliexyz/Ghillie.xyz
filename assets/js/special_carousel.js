@@ -1,55 +1,81 @@
-let can_change_slide = true;
-let can_cycle = true;
-let cycle_interval = 5000;
-let cycle_index = 2;
-document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll('.special-carousel-images img').forEach(function (item) {
-        item.addEventListener('click', function (e) {
-            e.preventDefault();
-            if (!can_change_slide) {
-                return;
-            }
-            can_cycle = false;
-            changeSlide(e.target);
-        });
-        item.addEventListener('animationstart', function () {
-            can_change_slide = false;
-        });
-        item.addEventListener('animationend', function () {
-            can_change_slide = true;
-        });
-    });
-    changeSlide(document.querySelectorAll('.special-carousel-images img')[1]);
-    setInterval(function () {
-        if (!can_cycle) {
-            // console.log(cycle_index, 1);
-            return;
-        }
-        if (!can_change_slide) {
-            // console.log(cycle_index, 2);
-            return;
-        }
-        if (cycle_index >= 3) {
-            // console.log(cycle_index, 3);
-            cycle_index = 0;
-        }
-        if (document.querySelectorAll('.special-carousel-images img')[cycle_index] === undefined) {
-            cycle_index = 0;
-            // console.log(cycle_index, 4);
-        }
-        changeSlide(document.querySelectorAll('.special-carousel-images img')[cycle_index]);
-        cycle_index++;
-        // console.log(cycle_index, 5);
-    }, cycle_interval);
-});
+// Special Carousel for home page "Recent Work" section
+(function() {
+    let canChangeSlide = true;
+    let autoCycleEnabled = true;
+    let cycleInterval = 5000;
+    let cycleIndex = 0;
+    let cycleTimer = null;
 
-function changeSlide(target) {
-    document.querySelectorAll('.special-carousel-images img').forEach(function (item) {
-        if (item.classList.contains('active')) {
-            item.classList.add('inactive');
-            item.classList.remove('active');
+    function getImages() {
+        return document.querySelectorAll('.special-carousel-images img');
+    }
+
+    function changeSlide(target) {
+        if (!target) return;
+
+        const images = getImages();
+        images.forEach(function(item) {
+            if (item.classList.contains('active')) {
+                item.classList.add('inactive');
+                item.classList.remove('active');
+            }
+        });
+        target.classList.remove('inactive');
+        target.classList.add('active');
+    }
+
+    function startAutoCycle() {
+        if (cycleTimer) clearInterval(cycleTimer);
+
+        cycleTimer = setInterval(function() {
+            if (!autoCycleEnabled || !canChangeSlide) return;
+
+            const images = getImages();
+            if (images.length === 0) return;
+
+            cycleIndex = (cycleIndex + 1) % images.length;
+            changeSlide(images[cycleIndex]);
+        }, cycleInterval);
+    }
+
+    function pauseAutoCycle() {
+        autoCycleEnabled = false;
+        // Resume after 10 seconds of inactivity
+        setTimeout(function() {
+            autoCycleEnabled = true;
+        }, 10000);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const images = getImages();
+
+        images.forEach(function(item, index) {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (!canChangeSlide) return;
+
+                pauseAutoCycle();
+                cycleIndex = index;
+                changeSlide(e.target);
+            });
+
+            item.addEventListener('animationstart', function() {
+                canChangeSlide = false;
+            });
+
+            item.addEventListener('animationend', function() {
+                canChangeSlide = true;
+            });
+        });
+
+        // Start with middle image (or first if only 1-2 images)
+        const startIndex = images.length > 2 ? 1 : 0;
+        cycleIndex = startIndex;
+        if (images[startIndex]) {
+            changeSlide(images[startIndex]);
         }
+
+        // Start auto-cycling
+        startAutoCycle();
     });
-    target.classList.remove('inactive');
-    target.classList.add('active');
-}
+})();

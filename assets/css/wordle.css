@@ -91,10 +91,11 @@
 /* tiny pills under each tile */
 #wordle .pills{ display:flex; gap:6px; }
 #wordle .pill{
-  width:px; height:14px; border-radius:999px;
-  border:1px solid #0006; cursor:pointer;
-  outline:none; padding:0; background:#2a2a2a;
-  transition:transform .08s ease, box-shadow .08s ease, opacity .08s ease;
+  width:14px; height:14px; border-radius:50%;
+  border:1px solid rgba(255,255,255,0.25);
+  cursor:pointer; outline:none; padding:0;
+  background:#2a2a2a;
+  transition: transform .12s ease, box-shadow .08s ease;
 }
 #wordle .pill.gray{ background:var(--gray);}
 #wordle .pill.yellow{ background:var(--yellow); border-color:#7a6a22; }
@@ -105,14 +106,8 @@
 /* results */
 #wordle .results-header{
   justify-content:space-between;
-  margin-top:14px; 
+  margin-top:14px;
   margin-bottom:8px;
-}
-
-#wordle .pill{
-  width:14px; height:14px; border-radius:50%; border:1px solid rgba(255,255,255,0.25);
-  background:#222; cursor:pointer; padding:0; outline:none;
-  transition: transform .12s ease;
 }
 
 #wordle .wordGuesses{ margin-top:16px; }

@@ -20,7 +20,19 @@ Ghillie.xyz is a static personal portfolio website hosted on GitHub Pages. It sh
 - `/portfolio/` - Thumbnail portfolio gallery with Masonry layout and modal viewer
 - `/wordle/` - Wordle solver tool (client-side word filtering)
 - `/kleptos/` - Video downloader with Google OAuth login (WIP, requires external backend)
-- `/dbviewer/` - SQLite database viewer using sql.js (WIP, fully client-side)
+- `/dbviewer/` - SQLite database viewer (fully client-side, privacy-focused)
+
+### DB Viewer Features
+- Drag & drop or file picker for .db/.sqlite/.sqlite3 files
+- Table sidebar with row counts
+- Column schema display with types and constraints
+- Data table with sortable columns (click headers)
+- Quick search with real-time filtering
+- Smart filters: top/bottom N, value filters, NULL checks
+- Charts: histograms, bar charts, pie charts, line graphs for time series
+- SQL console (read-only: SELECT, WITH, PRAGMA, EXPLAIN)
+- Export to CSV/JSON
+- Keyboard shortcuts: Ctrl+O (open), Enter (run SQL), Esc (clear search)
 
 ### Shared Assets
 - `/assets/css/main.css` - Global styles: navbar, footer, scrollbar, color variables (`--navbar-text-color`, `--navbar-hover-color`)
