@@ -632,3 +632,68 @@
   border-color: rgba(246,64,64,.45);
   color: #f7caca;
 }
+
+/* ---------- Admin Health ---------- */
+#kleptos .adminHealth{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:8px;
+  padding:10px 0;
+  border-bottom:1px solid var(--outline);
+  margin-bottom:4px;
+}
+
+/* ---------- History Table ---------- */
+#kleptos .historyTableWrap{
+  max-height:55vh;
+  overflow:auto;
+  margin-top:12px;
+}
+#kleptos .historyTable{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13px;
+}
+#kleptos .historyTable th{
+  text-align:left;
+  padding:8px 10px;
+  color:var(--muted);
+  font-weight:700;
+  font-size:12px;
+  border-bottom:1px solid var(--outline);
+  position:sticky;
+  top:0;
+  background:var(--card);
+  z-index:1;
+}
+#kleptos .historyTable td{
+  padding:8px 10px;
+  border-bottom:1px solid var(--outline);
+  color:var(--text);
+  max-width:200px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+#kleptos .historyTable tbody tr:nth-child(even){
+  background:var(--tile);
+}
+#kleptos .historyTable tbody tr:hover{
+  background:rgba(246,64,64,.06);
+}
+
+/* ---------- History Pagination ---------- */
+#kleptos .historyPagination{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  margin-top:12px;
+  padding:8px 0;
+}
+
+/* ---------- Rate-limit toast ---------- */
+#kleptos .toast.error .title{
+  color:#f64040;
+}

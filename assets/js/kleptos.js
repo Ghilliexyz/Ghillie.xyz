@@ -149,6 +149,18 @@ const api = (p) => `${API_BASE}${p}`;
     }
   }
 
+  function isRateLimited(status){ return status === 429; }
+
+  function parseRateLimitMessage(bodyText){
+    try{
+      const json = JSON.parse(bodyText);
+      if (/concurrent/i.test(json.detail || json.error || json.message || ''))
+        return 'Too many concurrent downloads. Please wait for existing downloads to finish.';
+      return json.detail || json.error || json.message || 'Too many requests, please slow down.';
+    }catch{}
+    return 'Too many requests, please slow down.';
+  }
+
   async function fetchJSON(url, init){
     // remember dummy: DO NOT set Content-Type on GET/HEAD or the browser will preflight,
     // which makes CORS 10x more annoying than it needs to be.
@@ -217,9 +229,9 @@ function setMetaLoading(on,msg){
   }
 
   function loginUrl(){
-    // IMPORTANT: send the FULL absolute URL back to the server,
-    // so after Google callback it returns to your ghillie.xyz page, not onrender.
-    const returnTo = location.href;
+    // Use a relative path to prevent open-redirect attacks.
+    // The backend should reconstruct the full URL from the known origin.
+    const returnTo = location.pathname + location.search + location.hash;
     return api('/auth/login?returnTo=' + encodeURIComponent(returnTo));
   }
 
@@ -332,8 +344,16 @@ function setMetaLoading(on,msg){
 
     // other 403s: banned/admin/etc
     if (err && (err.status === 403 || String(err.message||'').includes('403'))){
+      const body = String(err.body || err.message || '');
       setAuthed(false);
-      setLoginStatus('Access blocked.');
+      if (/banned/i.test(body)){
+        // Try to extract the ban reason from JSON
+        let reason = 'Your account has been banned.';
+        try{ const j = JSON.parse(body); reason = j.detail || j.reason || j.message || reason; }catch{}
+        setLoginStatus(reason);
+      } else {
+        setLoginStatus('Access blocked.');
+      }
       return true;
     }
 
@@ -490,6 +510,11 @@ function setMetaLoading(on,msg){
       });
 
       if (r.status === 401){ setAuthed(false); return; }
+
+      if (isRateLimited(r.status)){
+        showToast('Rate limited', 'Too many requests, please slow down.', 'error');
+        return;
+      }
 
       const txt = await r.text().catch(()=> '');
       if (!r.ok){
@@ -728,7 +753,7 @@ function setMetaLoading(on,msg){
   }
 
   async function adminSetQuota(userId, sub, dailyQuota){
-    return fetchJSON(api('/api/admin/set-quota'), {
+    return fetchJSON(api('/api/admin/quota'), {
       method: 'POST',
       body: JSON.stringify({ userId, sub, dailyQuota })
     });
@@ -765,8 +790,124 @@ function setMetaLoading(on,msg){
     }
     adminModal?.setAttribute('aria-hidden','false');
     loadAdminUsers();
+    loadHealth();
   }
   function closeAdmin(){ adminModal?.setAttribute('aria-hidden','true'); }
+
+  // ---------------- Admin Health ----------------
+  const adminHealthWrap = document.getElementById('adminHealth');
+
+  async function loadHealth(){
+    if (!adminHealthWrap) return;
+    adminHealthWrap.innerHTML = '<span class="muted">Checking health…</span>';
+
+    try{
+      const data = await fetchJSON(api('/health'));
+      renderHealth(data);
+    }catch(err){
+      console.error(err);
+      adminHealthWrap.innerHTML = '<span class="muted">Health check failed.</span>';
+    }
+  }
+
+  function renderHealth(data){
+    if (!adminHealthWrap) return;
+    adminHealthWrap.innerHTML = '';
+
+    const overall = document.createElement('span');
+    overall.className = 'pill ' + (data.status === 'healthy' ? 'good' : 'bad');
+    overall.textContent = data.status === 'healthy' ? 'Healthy' : 'Degraded';
+    adminHealthWrap.appendChild(overall);
+
+    const checks = data.checks || data.services || {};
+    for (const [name, info] of Object.entries(checks)){
+      const ok = info === true || info === 'ok' || info?.status === 'ok' || info?.ok === true;
+      const pill = document.createElement('span');
+      pill.className = 'pill ' + (ok ? 'good' : 'bad');
+      pill.textContent = name;
+      adminHealthWrap.appendChild(pill);
+    }
+  }
+
+  // ---------------- Download History ----------------
+  const historyBtn = document.getElementById('historyBtn');
+  const historyModal = document.getElementById('historyModal');
+  const historyClose = document.getElementById('historyClose');
+  const historyClose2 = document.getElementById('historyClose2');
+  const historyBackdrop = historyModal?.querySelector('.kmodal__backdrop');
+  const historyBody = document.getElementById('historyBody');
+  const historyPrev = document.getElementById('historyPrev');
+  const historyNext = document.getElementById('historyNext');
+  const historyPageInfo = document.getElementById('historyPageInfo');
+
+  let historyPage = 1;
+  let historyTotalPages = 1;
+
+  function openHistory(){
+    historyModal?.setAttribute('aria-hidden','false');
+    historyPage = 1;
+    loadHistory(1);
+  }
+  function closeHistory(){ historyModal?.setAttribute('aria-hidden','true'); }
+
+  async function loadHistory(page){
+    if (!historyBody) return;
+    historyPage = page || 1;
+    historyBody.innerHTML = '<tr><td colspan="5" class="muted" style="text-align:center;">Loading…</td></tr>';
+
+    try{
+      const data = await fetchJSON(api('/api/my/downloads?page=' + historyPage + '&limit=20'));
+      renderHistory(data);
+    }catch(err){
+      console.error(err);
+      if (handleAuthError(err)) return;
+      historyBody.innerHTML = '<tr><td colspan="5" class="muted" style="text-align:center;">Failed to load history.</td></tr>';
+    }
+  }
+
+  function renderHistory(data){
+    if (!historyBody) return;
+    historyBody.innerHTML = '';
+
+    const items = data.items || data.downloads || [];
+    historyTotalPages = data.totalPages || data.pages || Math.ceil((data.total || 0) / 20) || 1;
+
+    if (historyPageInfo) historyPageInfo.textContent = 'Page ' + historyPage + ' of ' + historyTotalPages;
+    if (historyPrev) historyPrev.disabled = historyPage <= 1;
+    if (historyNext) historyNext.disabled = historyPage >= historyTotalPages;
+
+    if (items.length === 0){
+      historyBody.innerHTML = '<tr><td colspan="5" class="muted" style="text-align:center;">No downloads yet.</td></tr>';
+      return;
+    }
+
+    items.forEach(item => {
+      const tr = document.createElement('tr');
+
+      const tdTitle = document.createElement('td');
+      tdTitle.textContent = item.title || item.fileName || '—';
+      tdTitle.title = item.title || item.fileName || '';
+
+      const tdSource = document.createElement('td');
+      tdSource.textContent = item.source || item.domain || '—';
+
+      const tdFormat = document.createElement('td');
+      tdFormat.textContent = item.format || item.container || '—';
+
+      const tdSize = document.createElement('td');
+      tdSize.textContent = fmtBytes(item.sizeBytes ?? item.size ?? null);
+
+      const tdDate = document.createElement('td');
+      tdDate.textContent = fmtUtc(item.downloadedAt ?? item.createdAt ?? item.date ?? null);
+
+      tr.appendChild(tdTitle);
+      tr.appendChild(tdSource);
+      tr.appendChild(tdFormat);
+      tr.appendChild(tdSize);
+      tr.appendChild(tdDate);
+      historyBody.appendChild(tr);
+    });
+  }
 
 
 async function downloadDbFromAdmin(){
@@ -897,6 +1038,18 @@ async function downloadDbFromAdmin(){
     if (isPl){
       if (els.playlistCount) els.playlistCount.textContent = (meta.playlistCount ?? 0).toLocaleString();
       if (els.playlistTitle) els.playlistTitle.textContent = meta.playlistTitle || '';
+
+      // Warn and disable if playlist exceeds cap
+      if ((meta.playlistCount ?? 0) > 25){
+        if (els.downloadPlBtn){
+          els.downloadPlBtn.disabled = true;
+          els.downloadPlBtn.title = 'Playlist too large (max 25 items)';
+        }
+        showToast('Playlist too large', 'This playlist has more than 25 items. Download is not available.', 'error');
+      } else if (els.downloadPlBtn){
+        els.downloadPlBtn.disabled = false;
+        els.downloadPlBtn.title = '';
+      }
     }
   }
 
@@ -918,6 +1071,10 @@ async function downloadDbFromAdmin(){
       enableDownload(!meta.isPlaylist);
     }catch(err){
       console.error(err);
+      if (err instanceof HttpError && isRateLimited(err.status)){
+        showToast('Rate limited', parseRateLimitMessage(err.body), 'error');
+        return;
+      }
       if (handleAuthError(err)) return;
       showToast('Failed to fetch info', String(err.message||err), 'error');
       hideResults(); enableDownload(false);
@@ -950,6 +1107,12 @@ async function downloadDbFromAdmin(){
 
       if (res.status === 401){
         setAuthed(false);
+        return;
+      }
+
+      if (isRateLimited(res.status)){
+        const txt = await res.text().catch(()=>'');
+        showToast('Rate limited', parseRateLimitMessage(txt), 'error');
         return;
       }
 
@@ -1010,6 +1173,24 @@ async function downloadDbFromAdmin(){
       if (res.status === 401){
         setAuthed(false);
         return;
+      }
+
+      if (isRateLimited(res.status)){
+        const txt = await res.text().catch(()=>'');
+        showToast('Rate limited', parseRateLimitMessage(txt), 'error');
+        return;
+      }
+
+      if (res.status === 400){
+        const txt = await res.text().catch(()=>'');
+        try{
+          const json = JSON.parse(txt);
+          if (json.error === 'playlist_too_large'){
+            showToast('Playlist too large', 'Playlist too large — maximum 25 items allowed.', 'error');
+            return;
+          }
+        }catch{}
+        throw new Error(txt || res.statusText);
       }
 
       if (!res.ok || (!ctype.startsWith('application/zip') && !ctype.includes('octet-stream'))){
@@ -1104,6 +1285,14 @@ async function downloadDbFromAdmin(){
   adminBackdrop?.addEventListener('click', closeAdmin);
   adminRefresh?.addEventListener('click', loadAdminUsers);
   adminDownloadDb?.addEventListener('click', downloadDbFromAdmin);
+
+  // History modal
+  historyBtn?.addEventListener('click', openHistory);
+  historyClose?.addEventListener('click', closeHistory);
+  historyClose2?.addEventListener('click', closeHistory);
+  historyBackdrop?.addEventListener('click', closeHistory);
+  historyPrev?.addEventListener('click', ()=>{ if (historyPage > 1) loadHistory(historyPage - 1); });
+  historyNext?.addEventListener('click', ()=>{ if (historyPage < historyTotalPages) loadHistory(historyPage + 1); });
   adminSearch?.addEventListener('input', ()=>{
     // remember dummy: filter locally so you aren't slamming the backend while typing
     const q = (adminSearch?.value || '').trim().toLowerCase();
