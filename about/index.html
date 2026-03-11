@@ -7,7 +7,7 @@
   <title>Ghillie – About</title>
 
   <meta name="description"
-        content="Learn more about Ghillie, a digital designer and developer behind ghillie.xyz, working on projects like Kleptos, Arc Index and more.">
+        content="Self-taught digital designer and developer from Scotland. 3.5+ years creating thumbnails for Daily Dose of Internet (20M+ subs) and building web tools.">
   <link rel="canonical" href="https://ghillie.xyz/about/">
 
   <!-- Open Graph / Facebook -->
@@ -16,7 +16,7 @@
   <meta property="og:url" content="https://ghillie.xyz/about/">
   <meta property="og:title" content="About Ghillie – Digital Designer & Developer">
   <meta property="og:description"
-        content="Find out who Ghillie is, the tools used, and the story behind projects like Kleptos, Arc Index and other design & dev work.">
+        content="Self-taught designer and developer from Scotland with 3.5+ years at Daily Dose of Internet. Building web tools, games, and creative projects.">
   <meta property="og:image"
         content="https://ghillie.xyz/assets/img/metaImgs/Meta-About.png">
 
@@ -26,7 +26,7 @@
   <meta property="twitter:url" content="https://ghillie.xyz/about/">
   <meta name="twitter:title" content="About Ghillie – Digital Designer & Developer">
   <meta name="twitter:description"
-        content="Learn more about Ghillie, the person behind ghillie.xyz and projects like Kleptos and Arc Index.">
+        content="Self-taught designer and developer from Scotland with 3.5+ years at Daily Dose of Internet. Building web tools, games, and creative projects.">
   <meta name="twitter:image"
         content="https://ghillie.xyz/assets/img/metaImgs/Meta-About.png">
 
@@ -41,18 +41,26 @@
       "name": "Ghillie",
       "url": "https://ghillie.xyz/",
       "image": "https://ghillie.xyz/assets/img/profilePictures/GhilliePFP.png",
-      "jobTitle": "Digital Designer",
-      "description": "Self-taught digital designer and developer from Scotland specializing in YouTube thumbnails, movie posters, and album covers.",
-      "knowsAbout": ["YouTube Thumbnail Design", "Graphic Design", "Photoshop", "Web Development", "Movie Posters", "Album Covers"],
-      "workExample": {
-        "@type": "CreativeWork",
-        "name": "Daily Dose of Internet Thumbnails",
-        "description": "Thumbnail design work for Daily Dose of Internet YouTube channel with over 20 million subscribers"
-      },
+      "jobTitle": "Digital Designer & Developer",
+      "description": "Self-taught digital designer and developer from Scotland. Over 3.5 years creating thumbnails for Daily Dose of Internet and other major YouTube creators, plus building web tools and games.",
+      "knowsAbout": ["YouTube Thumbnail Design", "Graphic Design", "Photoshop", "Web Development", "JavaScript", "Game Development"],
+      "workExample": [
+        {
+          "@type": "CreativeWork",
+          "name": "Daily Dose of Internet Thumbnails",
+          "description": "Thumbnail design work for Daily Dose of Internet YouTube channel with over 20 million subscribers"
+        },
+        {
+          "@type": "WebApplication",
+          "name": "DB Viewer",
+          "url": "https://ghillie.xyz/dbviewer/",
+          "description": "Client-side SQLite database viewer with charts and SQL console"
+        }
+      ],
       "sameAs": [
         "https://github.com/Ghilliexyz",
         "https://twitter.com/Ghilliexyz",
-        "https://discordapp.com/users/211851747688185856"
+        "https://discord.com/users/211851747688185856"
       ]
     }
   }
@@ -65,75 +73,52 @@
   <link rel="stylesheet" href="/assets/css/main.css">
   <link rel="stylesheet" href="/assets/css/about.css">
   <link rel="stylesheet" href="/assets/css/spinglow.css">
+  <link rel="stylesheet" href="/assets/css/divider.css">
   <link rel="shortcut icon" type="image/png" href="/assets/img/favicon.png">
 </head>
 
 <body ondragstart="return false">
-    <!-- Page content -->
-    <div class="about" style="min-height: 100%;">
+    <div class="about-page">
         <div class="top_navbar">
             <ul>
                 <li><a href="/about/" class="nav_active_link">About</a></li>
                 <li><a href="/">Home</a></li>
-                <li class="dropdown">
-                <a class="has-caret">Portfolio</a>
-                <ul class="submenu">
-                    <li><a href="/portfolio/">Thumbnails</a></li>
-                    <li><a href="https://gtahub.xyz/" target="_blank" rel="noopener noreferrer">GTAHub.xyz</a></li>
-                    <li><a href="/wordle/">Wordle Solver</a></li>
-                    <li><a href="/kleptos/">Kleptos</a></li>
-                    <li><a href="/dbviewer/">DB Viewer</a></li>
-                </ul>
-                </li>
+                <li><a href="/portfolio/">Portfolio</a></li>
             </ul>
         </div>
-        <div class="container" style="justify-content: center;
-        align-items: center;
-        display: flex;
-        flex-grow: 1;">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="spinglow spinglow-responsive" data-spinglow-scale="0.8" data-spinglow-max-width="300"
-                        style="background-image: url(/assets/img/profilePictures/GhilliePFP.png); margin-top: 10em;">
+
+        <!-- Bio Section -->
+        <section class="about-bio">
+            <div class="container">
+                <div class="row align-items-start">
+                    <div class="col-md-4 text-center about-pfp-col">
+                        <div class="spinglow spinglow-responsive" data-spinglow-scale="0.8" data-spinglow-max-width="250"
+                            style="background-image: url(/assets/img/profilePictures/GhilliePFP.png);"></div>
+                    </div>
+                    <div class="col-md-8">
+                        <h2 class="about-heading">A little bit about me</h2>
+
+                        <p>I'm a self-taught digital designer and developer from Scotland. What started as a hobby making thumbnails turned into years of working with some of YouTube's biggest creators, and eventually into building my own tools, websites, and games.</p>
+
+                        <p>For over 3.5 years, I've been the thumbnail designer for <strong>Daily Dose of Internet</strong>, a channel with over 20 million subscribers. I've created hundreds of thumbnails that have collectively reached billions of views. Beyond DDOI, I've worked with creators like <strong>Daily Dose of Pets</strong>, <strong>JustRolledIn</strong>, <strong>Mattcs</strong>, <strong>Captain Eggcellent</strong>, <strong>MxR Plays</strong>, and more.</p>
+
+                        <p>On the development side, I'm self-taught in web technologies and have built tools like a <a href="/dbviewer/">client-side SQLite viewer</a>, <a href="https://gtahub.xyz/" target="_blank" rel="noopener noreferrer">GTAHub.xyz</a>, a <a href="/wordle/">Wordle solver</a>, and a video downloader called <a href="/kleptos/">Kleptos</a>. I also co-founded <a href="https://sadghoststudio.com" target="_blank" rel="noopener noreferrer">Sad Ghost Studio</a>, a small game development company.</p>
+
+                        <p>When I'm not designing or coding, I'm usually playing games or finding something new to build. I live for the overlap between creativity and problem-solving.</p>
                     </div>
                 </div>
-                <div class="text-center text-md-start col-md-9">
-                    <h1 class="fs-1" style="margin-top: 3.5em;">A little bit about me</h1>
-                    <p class="fs-6">I am a highly skilled digital designer
-                        with a
-                        passion for
-                        creating movie
-                        posters, album covers, and
-                        thumbnails.<br>
-                        With a keen eye for detail and an ability to quickly adapt to any design software,<br>
-                        I am confident in my ability to bring my clients' visions to life.<br>
-                        As a problem solver, I approach design challenges by taking a step back and gaining new
-                        perspectives,<br>
-                        ensuring the best outcome for my clients.<br>
-                        My work with Daily Dose of Internet, a YouTube channel with over 20 million subscribers,<br>
-                        has been one of my biggest achievements to date.<br>
-                        In terms of software, I specialize in Photoshop and pride myself on staying up-to-date with
-                        the latest design trends and strategies.
-                        When I'm not designing, I enjoy playing and coding games, which helps fuel my
-                        creativity.<br>
-                        Looking ahead, my long-term goal is to turn my passion for digital design into a full-time
-                        career that can support my family.
-                        Collaboration is essential to my process, and I always make sure to share updates and
-                        progress with
-                        my<br>
-                        clients to
-                        ensure their input is valued throughout the project.<br></p>
-                </div>
             </div>
+        </section>
+
+        <!-- Footer -->
+        <div class="footer">
+            <ul>
+                <li><a href="https://github.com/Ghilliexyz" target="_blank" rel="noopener noreferrer">GITHUB</a></li>
+                <li><a href="https://discord.com/users/211851747688185856" target="_blank" rel="noopener noreferrer">DISCORD</a></li>
+                <li><a href="https://twitter.com/Ghilliexyz" target="_blank" rel="noopener noreferrer">TWITTER</a></li>
+                <li><a href="https://buymeacoffee.com/ghillie" target="_blank" rel="noopener noreferrer">BUY ME A COFFEE</a></li>
+            </ul>
         </div>
-    </div>
-    <div class="footer">
-        <ul>
-            <li><a href="https://github.com/Ghilliexyz" target="_blank" rel="noopener noreferrer">GITHUB</a></li>
-            <li><a href="https://discordapp.com/users/211851747688185856" target="_blank" rel="noopener noreferrer">DISCORD</a></li>
-            <li><a href="https://twitter.com/Ghilliexyz" target="_blank" rel="noopener noreferrer">TWITTER</a></li>
-            <li><a href="https://buymeacoffee.com/ghillie" target="_blank" rel="noopener noreferrer">BUY ME A COFFEE</a></li>
-        </ul>
     </div>
     <script src="/assets/js/spinglow_responsive.js"></script>
 </body>

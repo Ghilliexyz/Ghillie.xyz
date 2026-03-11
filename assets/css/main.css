@@ -426,6 +426,105 @@ body {
     transition: opacity 0.5s ease-in-out;
 }
 
+/* Recent Work Grid */
+.recent-work-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.recent-work-item {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    display: block;
+    text-decoration: none;
+}
+
+.recent-work-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s;
+}
+
+.recent-work-item:hover img {
+    transform: scale(1.05);
+}
+
+.recent-work-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(transparent 50%, rgba(0, 0, 0, 0.8));
+    display: flex;
+    align-items: flex-end;
+    padding: 12px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.recent-work-item:hover .recent-work-overlay {
+    opacity: 1;
+}
+
+.recent-work-overlay span {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* CTA Button */
+.recent-work-cta {
+    text-align: center;
+    margin-top: 2.5rem;
+}
+
+.cta-btn {
+    display: inline-block;
+    padding: 0.75rem 2.5rem;
+    background: #1e1e1e;
+    color: #e1e1e1;
+    font-size: 16px;
+    font-family: inherit;
+    text-decoration: none;
+    border-radius: 8px;
+    border: 1px solid #333;
+    transition: all 0.3s;
+}
+
+.cta-btn:hover {
+    color: #fff;
+    border-color: transparent;
+    background: linear-gradient(#1e1e1e, #1e1e1e) padding-box,
+                linear-gradient(135deg, #7f31ff, #f64040) border-box;
+    border: 1px solid transparent;
+    box-shadow: 0 4px 16px rgba(127, 49, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+    .recent-work-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .recent-work-overlay {
+        opacity: 1;
+        background: linear-gradient(transparent 60%, rgba(0, 0, 0, 0.7));
+        padding: 8px;
+    }
+
+    .recent-work-overlay span {
+        font-size: 11px;
+    }
+}
+
 @media (max-width: 900px) {
     .footer ul {
         margin-top: 2rem;

@@ -19,6 +19,8 @@ const API_BASE =
 const api = (p) => `${API_BASE}${p}`;
 
 (() => {
+  let statsIntervalId = null;
+
   // Gates
   const siteGate = document.getElementById('siteGate');
   const footerGate = document.getElementById('footerGate');
@@ -367,6 +369,7 @@ function setMetaLoading(on,msg){
         credentials: 'include'
       });
     }catch{}
+    if (statsIntervalId) { clearInterval(statsIntervalId); statsIntervalId = null; }
     hideResults();
     enableDownload(false);
     setAuthed(false);
@@ -1348,7 +1351,8 @@ els.settingsBtn?.addEventListener('click', openSettings);
   refreshMe().then(async ()=>{
     if (auth.isAuthed){
       await refreshStats();
-      setInterval(refreshStats, 30000);
+      if (statsIntervalId) clearInterval(statsIntervalId);
+      statsIntervalId = setInterval(refreshStats, 30000);
     }
   });
 })();

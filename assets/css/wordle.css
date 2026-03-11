@@ -196,7 +196,7 @@
 
 /* outer soft halo — 1.2x the card, blurred */
 #wordle .cardGlow::after {
-  width: var(--spinwglow-width * 1.1);
+  width: calc(var(--spinwglow-width) * 1.1);
   filter: blur(calc(var(--spinwglow-height) / 20));
   opacity: 1;
 }

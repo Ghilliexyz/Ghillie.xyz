@@ -35,7 +35,6 @@
     height: var(--divider-height);
     position: absolute;
     z-index: -1;
-    animation: divider 2.5s linear infinite;
 }
 
 /* .divider::after {
