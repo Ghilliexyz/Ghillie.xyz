@@ -256,7 +256,7 @@ function render(){
 
   ui.results.innerHTML = CANDIDATES.length
     ? CANDIDATES.slice(0).sort().map(w=>`<div class="result">${w}</div>`).join('')
-    : `<div class="result" style="opacity:.7">— no matches yet —</div>`;
+    : `<div class="result" style="opacity:.7">no matches yet</div>`;
 }
 
 // ---------- Data load ----------

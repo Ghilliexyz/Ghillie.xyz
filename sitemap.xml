@@ -24,12 +24,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  <url>
-    <loc>https://ghillie.xyz/kleptos/</loc>
-    <lastmod>2026-02-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
+
   <url>
     <loc>https://ghillie.xyz/dbviewer/</loc>
     <lastmod>2026-02-27</lastmod>
