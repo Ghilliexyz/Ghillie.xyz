@@ -214,6 +214,66 @@
   #wordle .tile{ width:48px; height:48px; font-size:24px; }
 }
 
+/* Lead answer + info sections (AEO content) */
+#wordle .lead-answer {
+  color: #e1e1e1;
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0.75rem auto 0.5rem;
+  padding: 0 12px;
+}
+
+#wordle .info-section {
+  max-width: 740px;
+  margin: 2.5rem auto 0;
+  padding: 0 16px;
+  color: #c9c9c9;
+}
+
+#wordle .info-section h2 {
+  color: #e1e1e1;
+  font-size: 22px;
+  margin-bottom: 0.75rem;
+  border-left: 3px solid #f64040;
+  padding-left: 10px;
+}
+
+#wordle .info-section h3 {
+  color: #e1e1e1;
+  font-size: 16px;
+  margin-top: 1.25rem;
+  margin-bottom: 0.35rem;
+}
+
+#wordle .info-section p,
+#wordle .info-section li {
+  color: #a1a1a1;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+#wordle .info-section a {
+  color: #f64040;
+  text-decoration: none;
+}
+
+#wordle .info-section a:hover {
+  text-decoration: underline;
+}
+
+#wordle .how-to-list {
+  padding-left: 1.25rem;
+}
+
+#wordle .how-to-list li {
+  margin-bottom: 0.5rem;
+}
+
+#wordle .how-to-list strong {
+  color: #e1e1e1;
+}
+
 @media (max-width: 720px){
   #wordle .wordGuesses{ grid-template-columns: 1fr; }
   #wordle .cells{ grid-template-columns: repeat(5, 48px); gap:8px; }

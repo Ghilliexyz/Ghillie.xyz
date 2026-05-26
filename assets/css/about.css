@@ -34,12 +34,26 @@ body {
     margin-top: 0;
 }
 
-/* "A little bit about me" heading */
+/* "About Ghillie" main heading */
 .about-heading {
     color: #e1e1e1;
     font-weight: bold;
     font-size: 32px;
     margin-bottom: 1rem;
+}
+
+.about-tagline {
+    color: #e1e1e1 !important;
+    font-size: 17px !important;
+    margin-bottom: 1.25rem !important;
+}
+
+.about-subheading {
+    color: #e1e1e1;
+    font-weight: bold;
+    font-size: 22px;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
 }
 
 .about-bio p {

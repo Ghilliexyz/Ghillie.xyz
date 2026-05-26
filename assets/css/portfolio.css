@@ -10,6 +10,15 @@
     color: #e1e1e1;
     font-weight: bold;
     font-size: 50px;
+    margin-bottom: 0.5rem;
+}
+
+.portfolio-tagline {
+    color: #a1a1a1;
+    font-size: 16px;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.5;
 }
 
 /* Tab Bar */

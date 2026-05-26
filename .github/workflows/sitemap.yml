@@ -27,7 +27,7 @@ jobs:
         with:
           base-url-path: https://ghillie.xyz/
           exclude-paths: >  # belongs on this step
-            /404.html
+            /404.html,/google1b419aa971dff850.html
           # drop-html-extension: true   # optional if you want URLs without .html
 
       - name: Create Pull Request

@@ -4,10 +4,10 @@
   <!-- Basic HTML Meta Tags -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ghillie – Wordle Solver</title>
+  <title>Wordle Solver - Free Online Word Helper Tool | Ghillie</title>
 
   <meta name="description"
-        content="Wordle Solver is an easy-to-use helper that filters possible words as you play, helping you solve Wordle puzzles faster and more consistently.">
+        content="Free Wordle Solver that filters possible words as you play. Type a guess, mark letters gray, yellow, or green, and instantly see the remaining candidates. No signup, runs in your browser.">
   <link rel="canonical" href="https://ghillie.xyz/wordle/">
 
   <!-- Open Graph / Facebook -->
@@ -34,23 +34,121 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Wordle Solver",
-    "url": "https://ghillie.xyz/wordle/",
-    "description": "Free online Wordle solver and helper tool that filters possible words as you play, helping you solve Wordle puzzles faster.",
-    "applicationCategory": "GameApplication",
-    "operatingSystem": "Any",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "author": {
-      "@type": "Person",
-      "@id": "https://ghillie.xyz/#person",
-      "name": "Ghillie"
-    },
-    "keywords": "wordle solver, wordle helper, wordle cheat, word game solver, wordle answer finder"
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Wordle Solver",
+        "url": "https://ghillie.xyz/wordle/",
+        "description": "Free online Wordle solver and helper tool that filters possible words as you play, helping you solve Wordle puzzles faster.",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript. Modern browser.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "author": { "@id": "https://ghillie.xyz/#person" },
+        "creator": { "@id": "https://ghillie.xyz/#person" },
+        "keywords": "wordle solver, wordle helper, wordle cheat, word game solver, wordle answer finder"
+      },
+      {
+        "@type": "Person",
+        "@id": "https://ghillie.xyz/#person",
+        "name": "Ghillie",
+        "url": "https://ghillie.xyz/",
+        "sameAs": [
+          "https://github.com/Ghilliexyz",
+          "https://twitter.com/Ghilliexyz",
+          "https://discord.com/users/211851747688185856"
+        ]
+      },
+      {
+        "@type": "HowTo",
+        "name": "How to use the Wordle Solver",
+        "description": "Use the Wordle Solver to narrow down possible answers by entering your guesses and marking each letter's color from the Wordle board.",
+        "totalTime": "PT1M",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "position": 1,
+            "name": "Enter your guess",
+            "text": "Paste or type a 5-letter word into any empty row in the solver."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 2,
+            "name": "Mark each letter's color",
+            "text": "Click the small dots under each tile to set the letter to gray (not in word), yellow (wrong position), or green (correct position) to match the Wordle board."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 3,
+            "name": "Review the remaining candidates",
+            "text": "The Remaining Candidates list updates automatically with every word that still fits your clues. Pick one of those as your next Wordle guess."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 4,
+            "name": "Add more rows as needed",
+            "text": "Click + Row to add another guess. Repeat until only one candidate remains."
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is the Wordle Solver free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The Wordle Solver is completely free, with no signup, ads, or paywalls. It runs entirely in your browser."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does it work for today's Wordle?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The solver uses the Dracos Wordle list, which mirrors the official Wordle answer set, so it works for the daily puzzle."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does the Wordle Solver send my guesses to a server?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. All filtering happens in your browser. Your guesses never leave your device."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What do the gray, yellow, and green colors mean?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Gray means the letter is not in the answer. Yellow means the letter is in the answer but in a different position. Green means the letter is in the correct position. These match the official Wordle color codes."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I solve the Wordle in one guess?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sometimes. With a strong opener like CRANE or SLATE you can occasionally narrow the list to a single candidate after two guesses. The solver shows the live candidate count after every guess so you can see when only one answer remains."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://ghillie.xyz/" },
+          { "@type": "ListItem", "position": 2, "name": "Portfolio", "item": "https://ghillie.xyz/portfolio/" },
+          { "@type": "ListItem", "position": 3, "name": "Wordle Solver", "item": "https://ghillie.xyz/wordle/" }
+        ]
+      }
+    ]
   }
   </script>
 
@@ -76,7 +174,8 @@
   <div id="wordle">
     <section class="hero">
       <h1>Wordle Solver</h1>
-      <p class="muted">Type or paste words, click mini dots to set <span class="legend gray">Gray</span> / <span class="legend yellow">Yellow</span> / <span class="legend green">Green</span> Candidates update automatically.</p>
+      <p class="lead-answer"><strong>Wordle Solver is a free browser-based tool that filters possible Wordle answers as you play.</strong> Enter each guess, mark the letters gray, yellow, or green to match the Wordle board, and the remaining candidates update instantly. No signup, no ads, nothing sent to a server.</p>
+      <p class="muted">Type or paste words, click mini dots to set <span class="legend gray">Gray</span> / <span class="legend yellow">Yellow</span> / <span class="legend green">Green</span>. Candidates update automatically.</p>
     </section>
 
     <main class="grid">
@@ -107,6 +206,40 @@
           <div id="results" class="results"></div>
         </div>
         <p class="creditFooter">Wordle list was provided by <a href="https://gist.github.com/dracos/dd0668f281e685bad51479e5acaadb93" target="_blank" rel="noopener noreferrer">Dracos Wordle List</a></p>
+      </section>
+
+      <section class="info-section">
+        <h2>How to use the Wordle Solver</h2>
+        <ol class="how-to-list">
+          <li><strong>Enter your guess.</strong> Paste or type a 5-letter word into any empty row.</li>
+          <li><strong>Mark each letter's color.</strong> Click the small dots under each tile to set gray (not in word), yellow (wrong position), or green (correct position) to match the Wordle board.</li>
+          <li><strong>Review the candidates.</strong> The Remaining Candidates list updates automatically with every word that still fits your clues.</li>
+          <li><strong>Add another row</strong> with the <em>+ Row</em> button and repeat until only one candidate remains.</li>
+        </ol>
+      </section>
+
+      <section class="info-section">
+        <h2>Frequently Asked Questions</h2>
+
+        <h3>Is the Wordle Solver free?</h3>
+        <p>Yes. The Wordle Solver is completely free, with no signup, ads, or paywalls. It runs entirely in your browser.</p>
+
+        <h3>Does it work for today's Wordle?</h3>
+        <p>Yes. The solver uses the Dracos Wordle list, which mirrors the official Wordle answer set, so it works for the daily puzzle.</p>
+
+        <h3>Does the Wordle Solver send my guesses to a server?</h3>
+        <p>No. All filtering happens in your browser. Your guesses never leave your device.</p>
+
+        <h3>What do the gray, yellow, and green colors mean?</h3>
+        <p>Gray means the letter is not in the answer. Yellow means the letter is in the answer but in a different position. Green means the letter is in the correct position. These match the official Wordle color codes.</p>
+
+        <h3>Can I solve the Wordle in one guess?</h3>
+        <p>Sometimes. With a strong opener like CRANE or SLATE you can occasionally narrow the list to a single candidate after two guesses. The solver shows the live candidate count after every guess so you can see when only one answer remains.</p>
+      </section>
+
+      <section class="info-section">
+        <h2>More from Ghillie</h2>
+        <p>Like the Wordle Solver? You might also like the <a href="/dbviewer/">SQLite DB Viewer</a>, browse the rest of the <a href="/portfolio/">portfolio</a>, or read more <a href="/about/">about Ghillie</a>.</p>
       </section>
     </main>
   </div>

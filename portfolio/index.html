@@ -4,10 +4,10 @@
   <!-- Basic HTML Meta Tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ghillie – Portfolio</title>
+  <title>Portfolio - YouTube Thumbnails & Web Projects by Ghillie</title>
 
   <meta name="description"
-        content="Explore Ghillie's portfolio of YouTube thumbnails for Daily Dose of Internet, JustRolledIn, and more, plus coding projects like DB Viewer, GTAHub, and Sad Ghost Studio.">
+        content="Browse Ghillie's portfolio: YouTube thumbnails for Daily Dose of Internet, JustRolledIn, Mattcs and more, plus web tools (DB Viewer, GTAHub), Minecraft plugins, desktop apps, and games.">
   <link rel="canonical" href="https://ghillie.xyz/portfolio/">
 
   <!-- Open Graph / Facebook -->
@@ -34,20 +34,44 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    "name": "Portfolio – Design & Code",
-    "description": "Portfolio of YouTube thumbnails and coding projects by Ghillie, including work for Daily Dose of Internet, JustRolledIn, and web tools like DB Viewer and GTAHub.",
-    "url": "https://ghillie.xyz/portfolio/",
-    "author": {
-      "@type": "Person",
-      "@id": "https://ghillie.xyz/#person",
-      "name": "Ghillie"
-    },
-    "about": [
-      { "@type": "Thing", "name": "YouTube Thumbnail Design" },
-      { "@type": "Thing", "name": "Web Development" }
-    ],
-    "keywords": "YouTube thumbnails, thumbnail design, web development, portfolio, graphic design, coding projects"
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "name": "Portfolio - YouTube Thumbnails & Web Projects by Ghillie",
+        "description": "Portfolio of YouTube thumbnails and coding projects by Ghillie, including work for Daily Dose of Internet, JustRolledIn, Mattcs, plus Minecraft plugins, web tools, desktop apps, and games.",
+        "url": "https://ghillie.xyz/portfolio/",
+        "author": { "@id": "https://ghillie.xyz/#person" },
+        "creator": { "@id": "https://ghillie.xyz/#person" },
+        "about": [
+          { "@type": "Thing", "name": "YouTube Thumbnail Design" },
+          { "@type": "Thing", "name": "Web Development" },
+          { "@type": "Thing", "name": "Minecraft Plugin Development" },
+          { "@type": "Thing", "name": "Game Development" }
+        ],
+        "keywords": "YouTube thumbnails, thumbnail design, web development, portfolio, graphic design, coding projects, Minecraft plugins, game development"
+      },
+      {
+        "@type": "Person",
+        "@id": "https://ghillie.xyz/#person",
+        "name": "Ghillie",
+        "url": "https://ghillie.xyz/",
+        "sameAs": [
+          "https://github.com/Ghilliexyz",
+          "https://twitter.com/Ghilliexyz",
+          "https://discord.com/users/211851747688185856",
+          "https://ghilliexyz.itch.io/",
+          "https://www.spigotmc.org/resources/authors/ghilliexyz.1828307/",
+          "https://buymeacoffee.com/ghillie"
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://ghillie.xyz/" },
+          { "@type": "ListItem", "position": 2, "name": "Portfolio", "item": "https://ghillie.xyz/portfolio/" }
+        ]
+      }
+    ]
   }
   </script>
 
@@ -74,6 +98,7 @@
     <!-- Page Hero -->
     <div class="portfolio-hero">
         <h1>PORTFOLIO</h1>
+        <p class="portfolio-tagline">YouTube thumbnails, web tools, Minecraft plugins, desktop apps, and games by Ghillie.</p>
     </div>
 
     <!-- Tab Bar -->

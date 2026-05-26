@@ -4,10 +4,10 @@
   <!-- Basic HTML Meta Tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <title>Ghillie – About</title>
+  <title>About Ghillie - YouTube Thumbnail Designer & Developer in Scotland</title>
 
   <meta name="description"
-        content="Self-taught digital designer and developer from Scotland. 3.5+ years as thumbnail designer and lead video editor for Daily Dose of Internet (20M+ subs) and building web tools.">
+        content="Meet Ghillie: a self-taught digital designer and developer from Scotland. 3.5+ years as thumbnail designer and lead video editor for Daily Dose of Internet (20M+ subs), plus building web tools, Minecraft plugins, and games.">
   <link rel="canonical" href="https://ghillie.xyz/about/">
 
   <!-- Open Graph / Facebook -->
@@ -34,35 +34,70 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "AboutPage",
-    "mainEntity": {
-      "@type": "Person",
-      "@id": "https://ghillie.xyz/#person",
-      "name": "Ghillie",
-      "url": "https://ghillie.xyz/",
-      "image": "https://ghillie.xyz/assets/img/profilePictures/GhilliePFP.png",
-      "jobTitle": "Digital Designer & Developer",
-      "description": "Self-taught digital designer and developer from Scotland. Over 3.5 years as thumbnail designer and lead video editor for Daily Dose of Internet and other major YouTube creators, plus building web tools and games.",
-      "knowsAbout": ["YouTube Thumbnail Design", "Video Editing", "Graphic Design", "Photoshop", "Web Development", "JavaScript", "Game Development"],
-      "workExample": [
-        {
-          "@type": "CreativeWork",
-          "name": "Daily Dose of Internet",
-          "description": "Thumbnail design and lead video editing for Daily Dose of Internet YouTube channel with over 20 million subscribers"
+    "@graph": [
+      {
+        "@type": "AboutPage",
+        "url": "https://ghillie.xyz/about/",
+        "name": "About Ghillie",
+        "mainEntity": { "@id": "https://ghillie.xyz/#person" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://ghillie.xyz/#person",
+        "name": "Ghillie",
+        "url": "https://ghillie.xyz/",
+        "image": "https://ghillie.xyz/assets/img/profilePictures/GhilliePFP.png",
+        "jobTitle": "Digital Designer & Developer",
+        "description": "Self-taught digital designer and developer from Scotland. Over 3.5 years as thumbnail designer and lead video editor for Daily Dose of Internet and other major YouTube creators, plus building web tools and games.",
+        "knowsAbout": ["YouTube Thumbnail Design", "Video Editing", "Graphic Design", "Photoshop", "Web Development", "JavaScript", "Game Development", "Minecraft Plugin Development"],
+        "homeLocation": {
+          "@type": "Place",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "Scotland"
+          }
         },
-        {
-          "@type": "WebApplication",
-          "name": "DB Viewer",
-          "url": "https://ghillie.xyz/dbviewer/",
-          "description": "Client-side SQLite database viewer with charts and SQL console"
-        }
-      ],
-      "sameAs": [
-        "https://github.com/Ghilliexyz",
-        "https://twitter.com/Ghilliexyz",
-        "https://discord.com/users/211851747688185856"
-      ]
-    }
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "Business inquiries",
+          "url": "https://twitter.com/Ghilliexyz"
+        },
+        "workExample": [
+          {
+            "@type": "CreativeWork",
+            "name": "Daily Dose of Internet",
+            "description": "Thumbnail design and lead video editing for Daily Dose of Internet YouTube channel with over 20 million subscribers"
+          },
+          {
+            "@type": "WebApplication",
+            "name": "DB Viewer",
+            "url": "https://ghillie.xyz/dbviewer/",
+            "description": "Client-side SQLite database viewer with charts and SQL console"
+          },
+          {
+            "@type": "WebApplication",
+            "name": "Wordle Solver",
+            "url": "https://ghillie.xyz/wordle/",
+            "description": "Client-side Wordle helper that filters possible words as you play"
+          }
+        ],
+        "sameAs": [
+          "https://github.com/Ghilliexyz",
+          "https://twitter.com/Ghilliexyz",
+          "https://discord.com/users/211851747688185856",
+          "https://ghilliexyz.itch.io/",
+          "https://www.spigotmc.org/resources/authors/ghilliexyz.1828307/",
+          "https://buymeacoffee.com/ghillie"
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://ghillie.xyz/" },
+          { "@type": "ListItem", "position": 2, "name": "About", "item": "https://ghillie.xyz/about/" }
+        ]
+      }
+    ]
   }
   </script>
 
@@ -92,11 +127,12 @@
             <div class="container">
                 <div class="row align-items-start">
                     <div class="col-md-4 text-center about-pfp-col">
-                        <div class="spinglow spinglow-responsive" data-spinglow-scale="0.8" data-spinglow-max-width="250"
+                        <div class="spinglow spinglow-responsive" role="img" aria-label="Ghillie profile picture" data-spinglow-scale="0.8" data-spinglow-max-width="250"
                             style="background-image: url(/assets/img/profilePictures/GhilliePFP.png);"></div>
                     </div>
                     <div class="col-md-8">
-                        <h2 class="about-heading">A little bit about me</h2>
+                        <h1 class="about-heading">About Ghillie</h1>
+                        <p class="about-tagline"><strong>Self-taught digital designer and developer from Scotland.</strong> Building YouTube thumbnails, web tools, and games since 2021.</p>
 
                         <p>I'm a self-taught digital designer and developer from Scotland. What started as a hobby making thumbnails turned into years of working with some of YouTube's biggest creators, and eventually into building my own tools, websites, and games.</p>
 
@@ -105,6 +141,9 @@
                         <p>On the development side, I'm self-taught in web technologies and have built tools like a <a href="/dbviewer/">client-side SQLite viewer</a>, <a href="https://gtahub.xyz/" target="_blank" rel="noopener noreferrer">GTAHub.xyz</a>, and a <a href="/wordle/">Wordle solver</a>. I also develop Minecraft plugins under the <a href="/portfolio/">Atlas</a> name, and co-founded <a href="https://sadghoststudio.com" target="_blank" rel="noopener noreferrer">Sad Ghost Studio</a>, a small game development company.</p>
 
                         <p>When I'm not designing or coding, I'm usually playing games or finding something new to build. I live for the overlap between creativity and problem-solving.</p>
+
+                        <h2 class="about-subheading">Get in touch</h2>
+                        <p>For collaborations, commissions, or just to say hi, the fastest way to reach me is on <a href="https://twitter.com/Ghilliexyz" target="_blank" rel="noopener noreferrer">Twitter</a> or <a href="https://discord.com/users/211851747688185856" target="_blank" rel="noopener noreferrer">Discord</a>. You can also browse my code on <a href="https://github.com/Ghilliexyz" target="_blank" rel="noopener noreferrer">GitHub</a> or support my work via <a href="https://buymeacoffee.com/ghillie" target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>.</p>
                     </div>
                 </div>
             </div>

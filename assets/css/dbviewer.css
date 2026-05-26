@@ -869,3 +869,65 @@
     justify-content:flex-start;
   }
 }
+
+/* Lead answer + info sections (AEO content) */
+#db-viewer .lead-answer {
+  color: #e1e1e1;
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0.75rem auto 0;
+  padding: 0 12px;
+}
+
+#db-viewer .info-section {
+  max-width: 900px;
+  margin: 2.5rem auto 0;
+  padding: 0 16px;
+  color: #c9c9c9;
+}
+
+#db-viewer .info-section h2 {
+  color: #e1e1e1;
+  font-size: 22px;
+  margin-bottom: 0.75rem;
+  border-left: 3px solid #f64040;
+  padding-left: 10px;
+}
+
+#db-viewer .info-section h3 {
+  color: #e1e1e1;
+  font-size: 16px;
+  margin-top: 1.25rem;
+  margin-bottom: 0.35rem;
+}
+
+#db-viewer .info-section p,
+#db-viewer .info-section li {
+  color: #a1a1a1;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+#db-viewer .info-section a {
+  color: #f64040;
+  text-decoration: none;
+}
+
+#db-viewer .info-section a:hover {
+  text-decoration: underline;
+}
+
+#db-viewer .how-to-list,
+#db-viewer .feature-list {
+  padding-left: 1.25rem;
+}
+
+#db-viewer .how-to-list li,
+#db-viewer .feature-list li {
+  margin-bottom: 0.4rem;
+}
+
+#db-viewer .how-to-list strong {
+  color: #e1e1e1;
+}

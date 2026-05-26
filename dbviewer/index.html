@@ -4,18 +4,18 @@
   <!-- Basic HTML Meta Tags -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ghillie – DB Viewer</title>
+  <title>SQLite DB Viewer - Free Online Database Viewer in Your Browser | Ghillie</title>
   <meta name="description"
-        content="DB Viewer is a free Database viewer tool to easily view and filter your database files.">
+        content="Free online SQLite database viewer. Drag and drop any .db or .sqlite file to view tables, filter rows, run read-only SQL, draw charts, and export CSV/JSON. Runs entirely in your browser; your data never leaves your device.">
   <link rel="canonical" href="https://ghillie.xyz/dbviewer/">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Ghillie">
   <meta property="og:url" content="https://ghillie.xyz/dbviewer/">
-  <meta property="og:title" content="Ghillie – DB Viewer">
+  <meta property="og:title" content="SQLite DB Viewer - Free Online Database Viewer | Ghillie">
   <meta property="og:description"
-        content="DB Viewer is a free Database viewer tool to easily view and filter your database files.">
+        content="Free online SQLite database viewer. Drag and drop any .db or .sqlite file to view tables, filter rows, run SQL, and draw charts. Runs in your browser, your data never leaves your device.">
   <meta property="og:image"
         content="https://ghillie.xyz/assets/img/metaImgs/Meta-DB-Viewer.png">
 
@@ -23,9 +23,9 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta property="twitter:domain" content="ghillie.xyz">
   <meta property="twitter:url" content="https://ghillie.xyz/dbviewer/">
-  <meta name="twitter:title" content="Ghillie – DB Viewer">
+  <meta name="twitter:title" content="SQLite DB Viewer - Free Online Database Viewer | Ghillie">
   <meta name="twitter:description"
-        content="DB Viewer is a free Database viewer tool to easily view and filter your database files.">
+        content="Free online SQLite database viewer. Drag and drop a .db or .sqlite file to view tables, filter rows, run SQL, and draw charts in your browser.">
   <meta name="twitter:image"
         content="https://ghillie.xyz/assets/img/metaImgs/Meta-DB-Viewer.png">
 
@@ -33,23 +33,152 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "DB Viewer - SQLite Database Viewer",
-    "url": "https://ghillie.xyz/dbviewer/",
-    "description": "Free online SQLite database viewer. View, filter, and explore .db and .sqlite files directly in your browser.",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "author": {
-      "@type": "Person",
-      "@id": "https://ghillie.xyz/#person",
-      "name": "Ghillie"
-    },
-    "keywords": "sqlite viewer, database viewer, db viewer online, sqlite browser, view sqlite file"
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "DB Viewer - SQLite Database Viewer",
+        "url": "https://ghillie.xyz/dbviewer/",
+        "description": "Free online SQLite database viewer. View, filter, and explore .db and .sqlite files directly in your browser with sortable tables, smart filters, charts, and a read-only SQL console.",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript. Modern browser with WebAssembly support.",
+        "featureList": [
+          "Drag and drop .db / .sqlite / .sqlite3 files",
+          "Sortable data tables with quick search",
+          "Smart filters (top N, bottom N, value filters, NULL checks)",
+          "Charts: histograms, bar charts, pie charts, line graphs",
+          "Read-only SQL console (SELECT, WITH, PRAGMA, EXPLAIN)",
+          "Export to CSV or JSON",
+          "Runs 100% in your browser; no upload"
+        ],
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "author": { "@id": "https://ghillie.xyz/#person" },
+        "creator": { "@id": "https://ghillie.xyz/#person" },
+        "keywords": "sqlite viewer, database viewer, db viewer online, sqlite browser, view sqlite file, open sqlite in browser"
+      },
+      {
+        "@type": "Person",
+        "@id": "https://ghillie.xyz/#person",
+        "name": "Ghillie",
+        "url": "https://ghillie.xyz/",
+        "sameAs": [
+          "https://github.com/Ghilliexyz",
+          "https://twitter.com/Ghilliexyz",
+          "https://discord.com/users/211851747688185856"
+        ]
+      },
+      {
+        "@type": "HowTo",
+        "name": "How to view a SQLite database in your browser with DB Viewer",
+        "description": "Open and explore any .db or .sqlite file without installing software using DB Viewer.",
+        "totalTime": "PT1M",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "position": 1,
+            "name": "Load your database",
+            "text": "Drag and drop a .db, .sqlite, or .sqlite3 file onto the page, or click the file picker to choose one. The file is read locally in your browser."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 2,
+            "name": "Pick a table",
+            "text": "Choose any table from the sidebar to see its columns, row count, and contents."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 3,
+            "name": "Filter, sort, and search",
+            "text": "Click column headers to sort. Use the search box to filter rows. Apply smart filters for top N, bottom N, NULL checks, or value matches."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 4,
+            "name": "Run SQL or chart the data",
+            "text": "Use the read-only SQL console to write SELECT, WITH, PRAGMA, or EXPLAIN queries. Switch to Graphs to draw histograms, bar charts, pie charts, or line graphs for time series columns."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 5,
+            "name": "Export",
+            "text": "Export the current result set to CSV or JSON with one click."
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is the DB Viewer free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. DB Viewer is completely free, with no signup, no ads, and no upload. It runs entirely in your browser."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does my database leave my device?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. All processing happens locally in your browser using sql.js (a WebAssembly build of SQLite). Your data is never uploaded to a server."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What file types are supported?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "DB Viewer supports SQLite database files with .db, .sqlite, and .sqlite3 extensions."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I run SQL queries?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, with limitations. The built-in SQL console is read-only and accepts SELECT, WITH, PRAGMA, and EXPLAIN statements. INSERT, UPDATE, DELETE, and schema changes are blocked to protect your file."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I export the data?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. You can export the current table or query results to CSV or JSON with the Export buttons."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What charts can DB Viewer draw?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "DB Viewer can draw histograms for numeric columns, bar and pie charts for categorical columns, and line graphs for time-series data."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are there keyboard shortcuts?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Ctrl+O opens the file picker, Enter runs a SQL query while focused on the console, and Escape clears the search box."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://ghillie.xyz/" },
+          { "@type": "ListItem", "position": 2, "name": "Portfolio", "item": "https://ghillie.xyz/portfolio/" },
+          { "@type": "ListItem", "position": 3, "name": "DB Viewer", "item": "https://ghillie.xyz/dbviewer/" }
+        ]
+      }
+    ]
   }
   </script>
 
@@ -74,10 +203,7 @@
   <div id="db-viewer">
     <section class="hero">
       <h1>DB Viewer</h1>
-      <p class="muted">
-        Drag and drop any SQLite database file (.db / .sqlite) to view, filter, and explore it.
-        <br><span style="font-size: 11px;">All processing happens in your browser. Your data never leaves your device.</span>
-      </p>
+      <p class="lead-answer"><strong>DB Viewer is a free in-browser SQLite database viewer.</strong> Drag and drop any .db, .sqlite, or .sqlite3 file to browse tables, filter and sort rows, run read-only SQL, draw charts, and export to CSV or JSON. All processing happens locally; your data never leaves your device.</p>
     </section>
 
     <main class="grid">
@@ -173,9 +299,64 @@
           </section>
         </div>
       </section>
+
+      <section class="info-section">
+        <h2>How to view a SQLite database in your browser</h2>
+        <ol class="how-to-list">
+          <li><strong>Load your database.</strong> Drag and drop a .db, .sqlite, or .sqlite3 file onto the page, or click the file picker. The file is read locally.</li>
+          <li><strong>Pick a table.</strong> Choose any table from the sidebar to see its columns, row count, and contents.</li>
+          <li><strong>Filter, sort, and search.</strong> Click column headers to sort. Use the search box to filter rows. Apply smart filters for top N, bottom N, NULL checks, or specific values.</li>
+          <li><strong>Run SQL or chart the data.</strong> Use the read-only SQL console (SELECT, WITH, PRAGMA, EXPLAIN), or switch to Graphs to draw histograms, bar charts, pie charts, or line graphs.</li>
+          <li><strong>Export.</strong> Send your current view to CSV or JSON with one click.</li>
+        </ol>
+      </section>
+
+      <section class="info-section">
+        <h2>Features</h2>
+        <ul class="feature-list">
+          <li>Supports .db, .sqlite, and .sqlite3 files</li>
+          <li>Sortable data tables with quick search</li>
+          <li>Smart filters: top N, bottom N, value filters, NULL checks</li>
+          <li>Charts: histograms, bar charts, pie charts, line graphs</li>
+          <li>Read-only SQL console (SELECT, WITH, PRAGMA, EXPLAIN)</li>
+          <li>CSV and JSON export</li>
+          <li>Keyboard shortcuts: Ctrl+O to open, Enter to run SQL, Esc to clear search</li>
+          <li>Runs 100% client-side; no uploads</li>
+        </ul>
+      </section>
+
+      <section class="info-section">
+        <h2>Frequently Asked Questions</h2>
+
+        <h3>Is the DB Viewer free?</h3>
+        <p>Yes. DB Viewer is completely free, with no signup, no ads, and no upload. It runs entirely in your browser.</p>
+
+        <h3>Does my database leave my device?</h3>
+        <p>No. All processing happens locally in your browser using sql.js (a WebAssembly build of SQLite). Your data is never uploaded to a server.</p>
+
+        <h3>What file types are supported?</h3>
+        <p>DB Viewer supports SQLite database files with .db, .sqlite, and .sqlite3 extensions.</p>
+
+        <h3>Can I run SQL queries?</h3>
+        <p>Yes, with limitations. The built-in SQL console is read-only and accepts SELECT, WITH, PRAGMA, and EXPLAIN statements. INSERT, UPDATE, DELETE, and schema changes are blocked to protect your file.</p>
+
+        <h3>Can I export the data?</h3>
+        <p>Yes. Export the current table or query results to CSV or JSON with the Export buttons.</p>
+
+        <h3>What charts can DB Viewer draw?</h3>
+        <p>Histograms for numeric columns, bar and pie charts for categorical columns, and line graphs for time-series data.</p>
+
+        <h3>Are there keyboard shortcuts?</h3>
+        <p>Yes. Ctrl+O opens the file picker, Enter runs a SQL query while the console is focused, and Escape clears the search box.</p>
+      </section>
+
+      <section class="info-section">
+        <h2>More from Ghillie</h2>
+        <p>Like DB Viewer? Try the <a href="/wordle/">Wordle Solver</a>, browse the full <a href="/portfolio/">portfolio</a>, or read more <a href="/about/">about Ghillie</a>.</p>
+      </section>
     </main>
   </div>
-  
+
   <div class="footer" style="margin-top:0;">
     <ul>
       <li><a href="https://github.com/Ghilliexyz" target="_blank" rel="noopener noreferrer">GITHUB</a></li>
