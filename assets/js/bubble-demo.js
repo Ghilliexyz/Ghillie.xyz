@@ -7,6 +7,10 @@
 // snapshot, which is exactly what we're avoiding here.)
 
 import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 // Per-view targets the stage eases toward. x/y are world units at the z=0 plane
 // (camera sits at z=5.2, so ~2 units = half the viewport), title is the GHILLIE
@@ -54,18 +58,52 @@ function initBubble(container) {
     console.error('Bubble: WebGL unavailable', err);
     return null;
   }
-  renderer.setClearColor(0x000000, 0);
+  // OPAQUE dark canvas: real transmission glass needs a solid background to
+  // refract. On a transparent canvas Three hardcodes the glass background to
+  // white, which is why the bubble was a white blob. The portfolio cards stay
+  // visible because the bubble canvas is layered BEHIND them (see index.html).
+  renderer.setClearColor(0x060606, 1);
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;  // filmic look, same as the glass preview
+  renderer.toneMappingExposure = 1;
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
   container.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x060606);
   const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
   camera.position.set(0, 0, 5.2);
 
-  scene.add(new THREE.AmbientLight(0xffffff, 0.42));
-  const keyLight = new THREE.DirectionalLight(0xffffff, 1.15);
-  keyLight.position.set(5.4, 5.4, 2.6);
-  scene.add(keyLight);
-  scene.add(keyLight.target);
+  // ---- Environment: the demo's three Lightformers baked into a PMREM map ----
+  // Exact preview values (red rect behind, two white at the sides).
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  {
+    const envScene = new THREE.Scene();
+    envScene.background = new THREE.Color(0x141414);
+    const rect = (hex, intensity, sx, sy, pos) => {
+      const m = new THREE.Mesh(
+        new THREE.PlaneGeometry(sx, sy),
+        new THREE.MeshBasicMaterial({ color: new THREE.Color(hex).multiplyScalar(intensity), side: THREE.DoubleSide })
+      );
+      m.position.set(pos[0], pos[1], pos[2]);
+      m.lookAt(0, 0, 0);
+      envScene.add(m);
+    };
+    rect(0xffffff, 5, 10, 5, [0, 5, -10]);
+    rect(0xffffff, 2, 10, 5, [5, 0, 0]);
+    rect(0xffffff, 2, 10, 5, [-5, 0, 0]);
+    scene.environment = pmrem.fromScene(envScene, 0.04).texture;
+  }
+
+  // ---- Post-processing: bloom (demo: strength 0.1, radius 0.8, threshold 1) --
+  const fxTarget = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, samples: 4 });
+  const composer = new EffectComposer(renderer, fxTarget);
+  const renderPass = new RenderPass(scene, camera);
+  renderPass.clearColor = new THREE.Color(0x060606);
+  renderPass.clearAlpha = 1;                 // opaque: stops Three's white glass-background
+  composer.addPass(renderPass);
+  const bloomPass = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.1, 0.8, 1.0);
+  composer.addPass(bloomPass);
+  composer.addPass(new OutputPass());
 
   // ---- starfield: a fixed night sky at "infinity" -----------------------
   // A dome of points wrapping the camera (which sits inside it). It never drifts
@@ -117,7 +155,7 @@ function initBubble(container) {
         map: starTex,
         vertexColors: true,
         transparent: true,
-        depthTest: false,
+        depthTest: true,    // so the transmissive glass (drawn before transparents) occludes them
         depthWrite: false,
         blending: THREE.AdditiveBlending,
         sizeAttenuation: true,
@@ -132,28 +170,19 @@ function initBubble(container) {
   }
   scene.add(starfield);
 
-  // ---- ribbon ----
+  // ---- ribbon: real MeshPhysicalMaterial transmission glass (preview settings)
   const geometry = buildRibbon();
-  // uAbout / uPortfolio: morph + tint weights, eased toward the active view so
-  // the ribbon changes both shape (via the delta attributes) and colour.
-  const uniforms = {
-    uTime: { value: 0 },
-    uAbout: { value: 0 },
-    uPortfolio: { value: 0 },
-    // uDetail: while a discipline is open, swaps the portfolio's violet film to
-    // teal/cyan (the shape stays the portfolio knot, driven by uPortfolio).
-    uDetail: { value: 0 },
-  };
-  const material = new THREE.ShaderMaterial({
-    uniforms,
-    vertexShader: VERTEX_SHADER,
-    fragmentShader: FRAGMENT_SHADER,
-    transparent: true,
-    depthWrite: false,
+  const material = new THREE.MeshPhysicalMaterial({
+    transmission: 1,
+    roughness: 0,
+    thickness: 0.25,
+    ior: 1.5,
+    metalness: 0,
+    envMapIntensity: 1,
     side: THREE.DoubleSide,
-    blending: THREE.NormalBlending,
   });
   const bubble = new THREE.Mesh(geometry, material);
+  bubble.morphTargetInfluences = [0, 0]; // [about, portfolio], eased each frame
 
   const ribbonGroup = new THREE.Group();
   ribbonGroup.add(bubble);
@@ -176,15 +205,16 @@ function initBubble(container) {
   const title = new THREE.Group();
   for (let i = 0; i < TITLE_LAYERS; i++) {
     const f = TITLE_LAYERS === 1 ? 1 : i / (TITLE_LAYERS - 1); // 0 = back .. 1 = front face
-    const shade = 0.16 + 0.74 * f;                             // ambient-occluded extrude
+    // Boosted above 1.0 at the front face so the bloom pass (threshold 1) catches
+    // it and the wordmark glows white. The back of the extrude stays dim.
+    const shade = (0.16 + 0.74 * f) * 2.2;
     const layer = new THREE.Mesh(
       titleGeo,
       new THREE.MeshBasicMaterial({
         map: titleTex,
         color: new THREE.Color(shade, shade, shade),
-        transparent: true,   // so the whole word can fade between views
-        opacity: 1,
-        depthWrite: false,
+        alphaTest: 0.5,      // opaque letters, so the glass can refract them
+        depthWrite: true,
         side: THREE.DoubleSide,
         toneMapped: false,
       })
@@ -204,9 +234,7 @@ function initBubble(container) {
   const logoTex = makeLogoTexture('/assets/img/profilePictures/GhilliePFP.png', renderer);
   const logoMat = new THREE.MeshBasicMaterial({
     map: logoTex,
-    transparent: true,
-    opacity: 0,
-    depthWrite: true,
+    depthWrite: true,        // opaque photo, so the glass refracts it
     side: THREE.DoubleSide,
     toneMapped: false,
   });
@@ -418,6 +446,8 @@ function initBubble(container) {
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
+    composer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    composer.setSize(w, h);
   }
   resize();
   new ResizeObserver(resize).observe(container);
@@ -426,7 +456,6 @@ function initBubble(container) {
   const clock = new THREE.Clock();
   function tick() {
     const t = prefersReducedMotion ? 0 : clock.getElapsedTime();
-    uniforms.uTime.value = t;
 
     // critically-damped-ish ease toward the active view's target
     const k = (prefersReducedMotion || SNAP) ? 1 : 0.075;
@@ -440,10 +469,9 @@ function initBubble(container) {
     cur.menu  += (target.menu  - cur.menu)  * k;
     cur.detail += (target.detail - cur.detail) * k;
 
-    // Drive the ribbon's shape + colour morph from the same eased view weights.
-    uniforms.uAbout.value = cur.logo;
-    uniforms.uPortfolio.value = cur.menu;
-    uniforms.uDetail.value = cur.detail;
+    // Drive the ribbon's shape morph (native morph targets): 0 = about, 1 = portfolio.
+    bubble.morphTargetInfluences[0] = cur.logo;
+    bubble.morphTargetInfluences[1] = cur.menu;
 
     let orbitSpin = 0;
     const vl = VIEW_LOOK[currentView] || VIEW_LOOK.cover;
@@ -480,19 +508,13 @@ function initBubble(container) {
     stage.rotation.x = tilt.x;
     stage.rotation.z = cur.rotZ - tilt.y * 0.15;
 
-    const titleOpacity = Math.max(0, cur.title);
+    // Opaque title fades by scaling away (opacity no longer applies).
     title.visible = cur.title > 0.01;
-    for (let i = 0; i < title.children.length; i++) {
-      title.children[i].material.opacity = titleOpacity;
-    }
+    title.scale.setScalar(Math.max(0.0001, cur.title));
 
-    // Keep the logo facing the camera (counter the stage rotation) so the
-    // photo stays readable while still sitting inside the tilted bubble.
-    logoMat.opacity = Math.max(0, cur.logo);
-    // Only occlude the ribbon once the logo is substantially faded in, so a
-    // near-invisible logo doesn't carve a circular gap out of the back strands.
-    logoMat.depthWrite = cur.logo > 0.6;
+    // Keep the logo facing the camera; opaque photo fades by scaling in/out.
     logo.visible = cur.logo > 0.01;
+    logo.scale.setScalar(Math.max(0.0001, cur.logo));
     logo.rotation.x = -stage.rotation.x;
     logo.rotation.y = -stage.rotation.y;
     logo.rotation.z = -stage.rotation.z;
@@ -550,10 +572,78 @@ function initBubble(container) {
       document.body.style.cursor = '';
     }
 
-    renderer.render(scene, camera);
+    composer.render();
     requestAnimationFrame(tick);
   }
   tick();
+
+  // ---- optional live tuning panel (open the page with ?tune) -------------
+  // A dependency-free slider panel so the glass can be dialled by eye instead of
+  // by editing constants. Never shows for normal visitors (no ?tune in the URL).
+  if (new URLSearchParams(location.search).has('tune')) buildTuneUI();
+  function buildTuneUI() {
+    const panel = document.createElement('div');
+    panel.style.cssText =
+      'position:fixed;top:12px;left:12px;z-index:99999;background:rgba(10,10,10,0.86);' +
+      'border:1px solid #333;border-radius:10px;padding:12px 14px;width:240px;' +
+      'font:12px/1.4 system-ui,sans-serif;color:#e1e1e1;pointer-events:auto;' +
+      'backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);';
+    panel.innerHTML =
+      '<div style="font-weight:700;margin-bottom:6px;letter-spacing:.05em">BUBBLE GLASS TUNER</div>';
+
+    const rows = [
+      ['Roughness', 0, 1, 0.01, () => material.roughness, (v) => (material.roughness = v)],
+      ['Thickness', 0, 2, 0.01, () => material.thickness, (v) => (material.thickness = v)],
+      ['Transmission', 0, 1, 0.01, () => material.transmission, (v) => (material.transmission = v)],
+      ['IOR', 1, 2.333, 0.01, () => material.ior, (v) => (material.ior = v)],
+      ['Env intensity', 0, 3, 0.01, () => material.envMapIntensity, (v) => (material.envMapIntensity = v)],
+      ['Bloom strength', 0, 3, 0.01, () => bloomPass.strength, (v) => (bloomPass.strength = v)],
+      ['Bloom threshold', 0, 1, 0.01, () => bloomPass.threshold, (v) => (bloomPass.threshold = v)],
+    ];
+
+    rows.forEach(([label, min, max, step, get, set]) => {
+      const wrap = document.createElement('div');
+      wrap.style.cssText = 'margin:9px 0;';
+      const head = document.createElement('div');
+      head.style.cssText = 'display:flex;justify-content:space-between;margin-bottom:3px;';
+      const name = document.createElement('span');
+      name.textContent = label;
+      const out = document.createElement('span');
+      out.style.color = '#ff3c3c';
+      out.textContent = (+get()).toFixed(4);
+      head.append(name, out);
+      const input = document.createElement('input');
+      input.type = 'range';
+      input.min = min; input.max = max; input.step = step; input.value = get();
+      input.style.cssText = 'width:100%;accent-color:#ff3c3c;';
+      input.addEventListener('input', () => {
+        const v = parseFloat(input.value);
+        set(v);
+        out.textContent = v.toFixed(4);
+      });
+      wrap.append(head, input);
+      panel.appendChild(wrap);
+    });
+
+    const btn = document.createElement('button');
+    btn.textContent = 'Log values to console';
+    btn.style.cssText =
+      'margin-top:8px;width:100%;padding:6px;background:#ff3c3c;color:#fff;border:none;' +
+      'border-radius:6px;cursor:pointer;font:inherit;font-weight:600;';
+    btn.addEventListener('click', () => {
+      console.log('Bubble glass settings:\n' + JSON.stringify({
+        roughness: material.roughness,
+        thickness: material.thickness,
+        transmission: material.transmission,
+        ior: material.ior,
+        envMapIntensity: material.envMapIntensity,
+        bloomStrength: bloomPass.strength,
+        bloomThreshold: bloomPass.threshold,
+      }, null, 2));
+    });
+    panel.appendChild(btn);
+    document.body.appendChild(panel);
+  }
 
   return {
     setState(name) {
@@ -624,14 +714,6 @@ function buildRibbon({ segU = 520, segV = 40 } = {}) {
   const about = ribbonPositions(RIBBON_SHAPES.about, segU, segV);
   const port  = ribbonPositions(RIBBON_SHAPES.portfolio, segU, segV);
 
-  // Deltas the vertex shader adds, weighted by each view's morph factor.
-  const deltaA = new Float32Array(base.length);
-  const deltaP = new Float32Array(base.length);
-  for (let k = 0; k < base.length; k++) {
-    deltaA[k] = about[k] - base[k];
-    deltaP[k] = port[k]  - base[k];
-  }
-
   const uvs = [], indices = [];
   for (let i = 0; i <= segU; i++)
     for (let j = 0; j <= segV; j++) uvs.push(i / segU, j / segV);
@@ -647,13 +729,42 @@ function buildRibbon({ segU = 520, segV = 40 } = {}) {
     }
   }
 
+  // Per-shape normals so the glass shades correctly as it morphs between views.
+  const normalsFor = (positions) => {
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.Float32BufferAttribute(positions.slice(), 3));
+    g.setIndex(indices.slice());
+    g.computeVertexNormals();
+    const n = g.getAttribute('normal').array.slice();
+    g.dispose();
+    return n;
+  };
+  const nBase = normalsFor(base), nAbout = normalsFor(about), nPort = normalsFor(port);
+
+  // Native morph targets (relative deltas): [0] = about, [1] = portfolio.
+  const posA = new Float32Array(base.length), posP = new Float32Array(base.length);
+  const norA = new Float32Array(base.length), norP = new Float32Array(base.length);
+  for (let k = 0; k < base.length; k++) {
+    posA[k] = about[k] - base[k];
+    posP[k] = port[k]  - base[k];
+    norA[k] = nAbout[k] - nBase[k];
+    norP[k] = nPort[k]  - nBase[k];
+  }
+
   const geo = new THREE.BufferGeometry();
   geo.setAttribute('position', new THREE.Float32BufferAttribute(base, 3));
-  geo.setAttribute('aDeltaA', new THREE.BufferAttribute(deltaA, 3));
-  geo.setAttribute('aDeltaP', new THREE.BufferAttribute(deltaP, 3));
+  geo.setAttribute('normal', new THREE.Float32BufferAttribute(nBase, 3));
   geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
   geo.setIndex(indices);
-  geo.computeVertexNormals();
+  geo.morphTargetsRelative = true;
+  geo.morphAttributes.position = [
+    new THREE.Float32BufferAttribute(posA, 3),
+    new THREE.Float32BufferAttribute(posP, 3),
+  ];
+  geo.morphAttributes.normal = [
+    new THREE.Float32BufferAttribute(norA, 3),
+    new THREE.Float32BufferAttribute(norP, 3),
+  ];
   return geo;
 }
 
@@ -680,6 +791,27 @@ function makeTextTexture(text, renderer) {
   tex.minFilter = THREE.LinearMipmapLinearFilter;
   tex.magFilter = THREE.LinearFilter;
   tex.needsUpdate = true;
+  return tex;
+}
+
+// A soft radial red disc used as the glow halo behind the profile photo. The
+// centre is brightest (it sits behind the opaque photo, so only the ring beyond
+// the photo's edge is seen) and pushed above 1.0 by the material colour so the
+// bloom pass picks it up and bleeds a real red glow.
+function makeGlowTexture() {
+  const size = 256;
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  const grd = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+  grd.addColorStop(0.0, 'rgba(255,60,60,0.95)');
+  grd.addColorStop(0.38, 'rgba(255,60,60,0.62)');
+  grd.addColorStop(0.58, 'rgba(255,40,40,0.28)');
+  grd.addColorStop(1.0, 'rgba(255,40,40,0.0)');
+  ctx.fillStyle = grd;
+  ctx.fillRect(0, 0, size, size);
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.colorSpace = THREE.SRGBColorSpace;
   return tex;
 }
 
@@ -801,6 +933,14 @@ uniform float uTime;
 uniform float uAbout;
 uniform float uPortfolio;
 uniform float uDetail;
+uniform samplerCube uEnv;
+uniform sampler2D uBg;
+uniform vec2 uResolution;
+uniform float uRefract;
+uniform float uEnvIntensity;
+uniform float uRoughness;
+uniform float uGlassMix;
+uniform float uOpacity;
 varying vec3  vN;
 varying vec3  vV;
 varying vec3  vWPos;
@@ -879,12 +1019,46 @@ void main() {
   float g2 = pow(max(dot(N, normalize(L2 + V)), 0.0), 85.0);
   float glint = g1 * 1.0 + g2 * 0.45;
   col += vec3(glint) * (0.04 + 0.96 * lit);
+
+  // ---- Glass refraction: the film reads as a frosted glass band ------------
+  // The strand doesn't just ADD a bent copy over a still-clear view (that double
+  // image is what made it look like a faint wrap). Instead it samples the scene
+  // behind it along the view-space normal (so it warps), blurs a few taps so it's
+  // FROSTED rather than a clean window, and lets that bent image largely REPLACE
+  // the straight-through view - so you can't see cleanly past the glass.
+  vec3 Nv = normalize(mat3(viewMatrix) * N);
+  vec2 suv = gl_FragCoord.xy / uResolution;
+  vec2 roff = Nv.xy * uRefract;
+  vec2 jx = vec2(uRoughness, 0.0);
+  vec2 jy = vec2(0.0, uRoughness);
+  vec3 refr = vec3(
+    texture2D(uBg, suv + roff * 1.05).r,
+    texture2D(uBg, suv + roff       ).g,
+    texture2D(uBg, suv + roff * 0.95).b) * 0.4;
+  refr += texture2D(uBg, suv + roff + jx).rgb * 0.15;
+  refr += texture2D(uBg, suv + roff - jx).rgb * 0.15;
+  refr += texture2D(uBg, suv + roff + jy).rgb * 0.15;
+  refr += texture2D(uBg, suv + roff - jy).rgb * 0.15;
+  float refrLum = dot(refr, vec3(0.299, 0.587, 0.114));
+  // the bent, frosted background becomes the body of the glass (still tinted by
+  // the film), instead of a faint overlay on a clear strand.
+  col = mix(col, col * 0.5 + refr, uGlassMix);
+
+  // ---- Environment reflection: the star dome mirrored on the wet sheen ------
+  vec3 Rdir = reflect(-V, N);
+  vec3 env = textureCube(uEnv, Rdir).rgb;
+  col += env * uEnvIntensity * (0.15 + 0.85 * fres);
+
   // overall saturation lift so the film reads more vivid
   float luma = dot(col, vec3(0.299, 0.587, 0.114));
   col = max(mix(vec3(luma), col, 1.35), 0.0);
-  float alpha = clamp(0.08 + fres * 0.7 + ilum * 0.16 + glint * 0.7
-                      + (uAbout + uPortfolio) * 0.06 * tintFlow, 0.0, 1.0);
-  alpha *= (1.0 - 0.45 * drain);
+  // Frosted-glass opacity: the strand must OBSCURE what's behind it (show the
+  // bent, frosted version) rather than let the clear background read through, or
+  // it looks like a transparent wrap again. High body alpha, near-solid at the
+  // lit rim and on glints.
+  float alpha = clamp(uOpacity + fres * 0.4 + glint * 0.6 + refrLum * 0.3
+                      + (uAbout + uPortfolio) * 0.05 * tintFlow, 0.0, 1.0);
+  alpha *= (1.0 - 0.4 * drain);
   gl_FragColor = vec4(col, alpha);
 }
 `;

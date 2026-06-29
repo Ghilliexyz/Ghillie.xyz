@@ -1313,7 +1313,8 @@
   <script type="importmap">
   {
     "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
     }
   }
   </script>
@@ -1761,7 +1762,10 @@
             const cs = getComputedStyle(portfolioView);
             if (parseFloat(cs.opacity) > 0.99 && cs.transform === 'none') {
               deckStage.insertBefore(bubbleStage, deckFront);
-              bubbleStage.style.zIndex = '2';
+              // Bubble is now an OPAQUE glass canvas, so it must sit BEHIND both
+              // card layers (back deck z1, front deck z3) or it would hide the
+              // back cards. z-index 0 keeps all cards visible in front of it.
+              bubbleStage.style.zIndex = '0';
               bubbleInDeck = true;
             }
           } else if (!active && bubbleInDeck) {
