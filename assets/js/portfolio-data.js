@@ -2344,45 +2344,6 @@ const views = [
 		]
 	},
 	{
-		"Name": "CaptainEggcellent",
-		"Logo": "/assets/img/portfolio/CaptainEggcellent/CaptainEggcellent_SheCanHearYou.jpg",
-		"Anchor": "CaptainEggcellent",
-		"Entries": [
-			{
-				"Image": "/assets/img/portfolio/CaptainEggcellent/CaptainEggcellent_SheCanHearYou.jpg",
-				"Link": "https://www.youtube.com/watch?v=a0VPzUwjszM",
-				"Title": "Hidden Video Game Details #133 (Saints Row 2, Demonologist, Metal Gear Solid 3 Snake Eater & More)",
-				"Views": "147K Views"
-			}
-		]
-	},
-	{
-		"Name": "Quqco",
-		"Logo": "/assets/img/portfolio/Quqco/QUQCO_IGotBeatUp.jpg",
-		"Anchor": "Quqco",
-		"Entries": [
-			{
-				"Image": "/assets/img/portfolio/Quqco/QUQCO_IGotBeatUp.jpg",
-				"Link": "",
-				"Title": "Not Uploaded!",
-				"Views": "# Views"
-			}
-		]
-	},
-	{
-		"Name": "MxRPlays",
-		"Logo": "/assets/img/portfolio/MxRPlays/MxRPlays_FloorDance.jpg",
-		"Anchor": "MxRPlays",
-		"Entries": [
-			{
-				"Image": "/assets/img/portfolio/MxRPlays/MxRPlays_FloorDance.jpg",
-				"Link": "https://www.youtube.com/watch?v=pCbcOmUdpx8",
-				"Title": "when you finally realize.. but it's too late",
-				"Views": "1M Views"
-			}
-		]
-	},
-	{
 		"Name": "ConnorEatsPants",
 		"Logo": "/assets/img/portfolio/ConnorEatsPants/ConnorEatsPants-ClashOfClans.jpg",
 		"Anchor": "ConnorEatsPants",

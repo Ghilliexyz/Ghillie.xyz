@@ -154,92 +154,113 @@
 
   <!-- Styles & Favicon -->
   <link rel="stylesheet" href="/assets/css/main.css" />
+  <link rel="stylesheet" href="/assets/css/theme.css" />
   <link rel="stylesheet" href="/assets/css/wordle.css" />
   <link rel="shortcut icon" type="image/png" href="/assets/img/favicon.png">
 </head>
 
-<body ondragstart="return false">
-  <!-- your site navbar -->
-  <div class="main">
-    <div class="top_navbar">
-      <ul>
-        <li><a href="/about/">About</a></li>
-        <li><a href="/">Home</a></li>
-        <li><a href="/portfolio/">Portfolio</a></li>
-      </ul>
-    </div>
+<body class="tool-page" ondragstart="return false">
+
+  <!-- Film grain + CRT vignette + album-jacket framing (shared VOL.01 chrome) -->
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vhs" aria-hidden="true"></div>
+  <div class="crop" aria-hidden="true">
+    <i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i>
   </div>
+  <span class="meta meta-tl" aria-hidden="true">GHILLIE.XYZ</span>
+  <span class="meta meta-tr" aria-hidden="true">EST. 2016 / SCOTLAND</span>
+  <span class="meta meta-bl" aria-hidden="true">DIGITAL DESIGNER / DEVELOPER</span>
+  <span class="meta meta-br" aria-hidden="true">WORDLE SOLVER</span>
+
+  <!-- Top nav -->
+  <nav class="tool-nav" aria-label="Primary">
+    <a href="/#about">ABOUT</a>
+    <a href="/">HOME</a>
+    <a href="/#portfolio">PORTFOLIO</a>
+  </nav>
 
   <!-- Centered Wordle app -->
   <div id="wordle">
     <section class="hero">
       <h1>Wordle Solver</h1>
-      <p class="lead-answer"><strong>Wordle Solver is a free browser-based tool that filters possible Wordle answers as you play.</strong> Enter each guess, mark the letters gray, yellow, or green to match the Wordle board, and the remaining candidates update instantly. No signup, no ads, nothing sent to a server.</p>
+      <p class="lead-answer">Wordle Solver is a free browser-based tool that filters possible Wordle answers as you play. Enter each guess, mark the letters gray, yellow, or green to match the Wordle board, and the remaining candidates update instantly. No signup, no ads, nothing sent to a server.</p>
       <p class="muted">Type or paste words, click mini dots to set <span class="legend gray">Gray</span> / <span class="legend yellow">Yellow</span> / <span class="legend green">Green</span>. Candidates update automatically.</p>
     </section>
 
     <main class="grid">
       <section class="cardGlow">
-        <div>
-          <div class="toolbar">
-            <div class="left">
-              <button id="addRow" class="btn">+ Row</button>
+        <div class="wordle-app">
+          <div class="wordle-col wordle-col-guesses">
+            <div class="toolbar">
+              <div class="left">
+                <button id="addRow" class="btn">+ Row</button>
+              </div>
+              <div class="right stats">
+                <div class="stat"><span class="label">Words</span> <span id="wordCount">0</span></div>
+                <div class="stat"><span class="label">Candidates</span> <span data-result-count>0</span></div>
+              </div>
             </div>
-            <div class="right stats">
-              <div class="stat"><span class="label">Words:</span> <span id="wordCount">0</span> •</div>
-              <div class="stat"><span class="label">Candidates:</span> <span data-result-count>0</span> •</div>
+
+            <div class="wordGuesses">
+              <h2>Your Guesses</h2>
+              <div id="grid" class="rows"></div>
+              <p class="help muted">
+                Paste a 5-letter word into any tile to fill a row. Click the tiny dots to set a tile’s color.
+              </p>
             </div>
           </div>
-          
-          <div class="wordGuesses">
-            <h2>Your Guesses</h2>
-            <div id="grid" class="rows"></div>
-            
-            <p class="help muted">
-              Paste a 5-letter word into any tile to fill a row. Click the tiny dots to set a tile’s color.
-            </p>
+
+          <div class="wordle-col wordle-col-results">
+            <div class="results-header">
+              <h2>Remaining Candidates</h2>
+            </div>
+            <div id="results" class="results"></div>
           </div>
-          
-          <div class="results-header">
-            <h2>Remaining Candidates</h2>
-          </div>
-          <div id="results" class="results"></div>
         </div>
         <p class="creditFooter">Wordle list was provided by <a href="https://gist.github.com/dracos/dd0668f281e685bad51479e5acaadb93" target="_blank" rel="noopener noreferrer">Dracos Wordle List</a></p>
       </section>
 
-      <section class="info-section">
-        <h2>How to use the Wordle Solver</h2>
-        <ol class="how-to-list">
-          <li><strong>Enter your guess.</strong> Paste or type a 5-letter word into any empty row.</li>
-          <li><strong>Mark each letter's color.</strong> Click the small dots under each tile to set gray (not in word), yellow (wrong position), or green (correct position) to match the Wordle board.</li>
-          <li><strong>Review the candidates.</strong> The Remaining Candidates list updates automatically with every word that still fits your clues.</li>
-          <li><strong>Add another row</strong> with the <em>+ Row</em> button and repeat until only one candidate remains.</li>
-        </ol>
-      </section>
+      <section class="info-accordion">
+        <h2 class="acc-title">Guide &amp; FAQ</h2>
 
-      <section class="info-section">
-        <h2>Frequently Asked Questions</h2>
+        <details class="acc">
+          <summary>How to use the Wordle Solver</summary>
+          <div class="acc-body">
+            <ol class="how-to-list">
+              <li><strong>Enter your guess.</strong> Paste or type a 5-letter word into any empty row.</li>
+              <li><strong>Mark each letter's color.</strong> Click the small dots under each tile to set gray (not in word), yellow (wrong position), or green (correct position) to match the Wordle board.</li>
+              <li><strong>Review the candidates.</strong> The Remaining Candidates list updates automatically with every word that still fits your clues.</li>
+              <li><strong>Add another row</strong> with the <em>+ Row</em> button and repeat until only one candidate remains.</li>
+            </ol>
+          </div>
+        </details>
 
-        <h3>Is the Wordle Solver free?</h3>
-        <p>Yes. The Wordle Solver is completely free, with no signup, ads, or paywalls. It runs entirely in your browser.</p>
+        <details class="acc">
+          <summary>Is the Wordle Solver free?</summary>
+          <div class="acc-body"><p>Yes. The Wordle Solver is completely free, with no signup, ads, or paywalls. It runs entirely in your browser.</p></div>
+        </details>
 
-        <h3>Does it work for today's Wordle?</h3>
-        <p>Yes. The solver uses the Dracos Wordle list, which mirrors the official Wordle answer set, so it works for the daily puzzle.</p>
+        <details class="acc">
+          <summary>Does it work for today's Wordle?</summary>
+          <div class="acc-body"><p>Yes. The solver uses the Dracos Wordle list, which mirrors the official Wordle answer set, so it works for the daily puzzle.</p></div>
+        </details>
 
-        <h3>Does the Wordle Solver send my guesses to a server?</h3>
-        <p>No. All filtering happens in your browser. Your guesses never leave your device.</p>
+        <details class="acc">
+          <summary>Does the Wordle Solver send my guesses to a server?</summary>
+          <div class="acc-body"><p>No. All filtering happens in your browser. Your guesses never leave your device.</p></div>
+        </details>
 
-        <h3>What do the gray, yellow, and green colors mean?</h3>
-        <p>Gray means the letter is not in the answer. Yellow means the letter is in the answer but in a different position. Green means the letter is in the correct position. These match the official Wordle color codes.</p>
+        <details class="acc">
+          <summary>What do the gray, yellow, and green colors mean?</summary>
+          <div class="acc-body"><p>Gray means the letter is not in the answer. Yellow means the letter is in the answer but in a different position. Green means the letter is in the correct position. These match the official Wordle color codes.</p></div>
+        </details>
 
-        <h3>Can I solve the Wordle in one guess?</h3>
-        <p>Sometimes. With a strong opener like CRANE or SLATE you can occasionally narrow the list to a single candidate after two guesses. The solver shows the live candidate count after every guess so you can see when only one answer remains.</p>
-      </section>
+        <details class="acc">
+          <summary>Can I solve the Wordle in one guess?</summary>
+          <div class="acc-body"><p>Sometimes. With a strong opener like CRANE or SLATE you can occasionally narrow the list to a single candidate after two guesses. The solver shows the live candidate count after every guess so you can see when only one answer remains.</p></div>
+        </details>
 
-      <section class="info-section">
-        <h2>More from Ghillie</h2>
-        <p>Like the Wordle Solver? You might also like the <a href="/dbviewer/">SQLite DB Viewer</a>, browse the rest of the <a href="/portfolio/">portfolio</a>, or read more <a href="/about/">about Ghillie</a>.</p>
+        <p class="acc-more">Like the Wordle Solver? You might also like the <a href="/dbviewer/">SQLite DB Viewer</a>, browse the rest of the <a href="/portfolio/">portfolio</a>, or read more <a href="/#about">about Ghillie</a>.</p>
       </section>
     </main>
   </div>

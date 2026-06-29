@@ -1,0 +1,292 @@
+/* ============================================================
+   VOL.01 shared theme
+   The dark, film-framed aesthetic from the homepage, factored
+   out so the tool pages (wordle, dbviewer) read as the same set.
+   Load AFTER main.css so it wins, BEFORE the page-specific sheet.
+   ============================================================ */
+
+/* ===== Cross-document View Transitions =====
+   Every page that links this sheet opts in, so navigating between documents
+   (home <-> about <-> portfolio <-> tools) cross-fades instead of hard-cutting.
+   The shared dark frame (canvas + grain + crop marks) stays put through the
+   dissolve, so it reads as one continuous surface with the content morphing. */
+@view-transition { navigation: auto; }
+@keyframes vt-fade-zoom-out { to   { opacity: 0; transform: scale(0.98); } }
+@keyframes vt-fade-zoom-in  { from { opacity: 0; transform: scale(1.02); } }
+::view-transition-old(root) { animation: 0.5s cubic-bezier(0.4, 0, 0.2, 1) both vt-fade-zoom-out; }
+::view-transition-new(root) { animation: 0.5s cubic-bezier(0.4, 0, 0.2, 1) both vt-fade-zoom-in; }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) { animation: none !important; }
+}
+
+:root {
+  --bg: #060606;
+  --text: #e1e1e1;
+  --muted: #8a8a8a;
+  --accent: #ff3c3c;
+
+  /* surfaces */
+  --panel: linear-gradient(135deg, #161616, #0c0c0c);
+  --panel-solid: #0d0d0d;
+  --tile: #0d0d0d;
+  --line: rgba(255, 255, 255, 0.07);
+  --line-hover: rgba(255, 60, 60, 0.55);
+}
+
+/* Canvas + base type (overrides main.css) */
+body.tool-page {
+  background: var(--bg) !important;
+  color: var(--text);
+  font-family: "Segoe UI", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* Text-selection highlight uses the site accent red */
+::selection { background: var(--accent); color: #fff; }
+::-moz-selection { background: var(--accent); color: #fff; }
+
+/* Thin accent scrollbars (kept visible on tools, unlike the home hero) */
+body.tool-page * { scrollbar-width: thin; scrollbar-color: var(--accent) transparent; }
+body.tool-page *::-webkit-scrollbar { width: 6px; height: 6px; }
+body.tool-page *::-webkit-scrollbar-track { background: transparent; }
+body.tool-page *::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 999px; }
+
+/* ===== Minimal top nav (replaces .top_navbar on tool pages) ===== */
+.tool-nav {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1.6rem, 5vw, 3.2rem);
+  padding: 2.4rem 6vw 0;
+}
+@media (max-width: 600px) {
+  .tool-nav { gap: 1.4rem 1.8rem; padding-top: 1.6rem; }
+}
+.tool-nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: clamp(0.68rem, 1.5vmin, 0.9rem);
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  transition: color 0.25s ease;
+}
+.tool-nav a:hover,
+.tool-nav a:focus-visible { color: var(--accent); }
+.tool-nav a.active { color: var(--text); }
+
+/* ===== Footer (re-skinned for the dark canvas) ===== */
+body.tool-page .footer { position: relative; z-index: 5; }
+body.tool-page .footer ul { gap: clamp(1.5rem, 6vw, 5rem); }
+body.tool-page .footer a {
+  color: var(--muted);
+  opacity: 1;
+  font-size: clamp(0.62rem, 1.35vmin, 0.85rem);
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  transition: color 0.25s ease;
+}
+body.tool-page .footer a:hover { color: var(--accent); opacity: 1; }
+
+/* ===== Film grain (subtler than the home hero so data stays legible) ===== */
+.grain {
+  position: fixed;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.18;
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 300px 300px;
+  animation: grain-shift 0.7s steps(5) infinite;
+  will-change: transform;
+}
+@keyframes grain-shift {
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(-6%, 4%); }
+  40%  { transform: translate(5%, -5%); }
+  60%  { transform: translate(-4%, -6%); }
+  80%  { transform: translate(6%, 3%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* ===== VHS tape effect (full strength, matching the home hero) =====
+   Scanlines with a faint RGB bleed, a periodic brightness flicker, and a
+   darkened CRT vignette. All layers are pointer-events:none so the UI
+   underneath stays clickable. */
+.vhs {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  overflow: hidden;
+  box-shadow: inset 0 0 9vmax rgba(0, 0, 0, 0.55); /* CRT vignette */
+  animation: vhs-flicker 5s steps(48) infinite;
+}
+/* Scanlines + chromatic (red/cyan) bleed */
+.vhs::before {
+  content: "";
+  position: absolute;
+  inset: -3px 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 30, 70, 0.06) 0px,
+    rgba(0, 230, 200, 0.05) 1px,
+    rgba(0, 0, 0, 0.22) 2px,
+    rgba(0, 0, 0, 0.00) 3px
+  );
+  background-size: 100% 3px;
+  mix-blend-mode: overlay;
+  opacity: 0.7;
+  animation: vhs-scroll 0.45s steps(3) infinite;
+}
+@keyframes vhs-scroll {
+  from { transform: translateY(0); }
+  to   { transform: translateY(3px); }
+}
+@keyframes vhs-flicker {
+  0%, 100% { opacity: 1; }
+  48% { opacity: 0.97; }
+  50% { opacity: 0.91; }
+  52% { opacity: 0.99; }
+  72% { opacity: 0.95; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vhs, .vhs::before { animation: none; }
+}
+
+/* ===== Album-jacket framing: crop marks + corner liner notes ===== */
+.crop .c {
+  position: fixed;
+  z-index: 40;
+  width: clamp(16px, 2.6vmin, 30px);
+  height: clamp(16px, 2.6vmin, 30px);
+  border: 0 solid rgba(255, 255, 255, 0.18);
+  pointer-events: none;
+}
+.crop .tl { top: clamp(16px,2.6vmin,30px); left: clamp(16px,2.6vmin,30px); border-top-width: 1px; border-left-width: 1px; }
+.crop .tr { top: clamp(16px,2.6vmin,30px); right: clamp(16px,2.6vmin,30px); border-top-width: 1px; border-right-width: 1px; }
+.crop .bl { bottom: clamp(16px,2.6vmin,30px); left: clamp(16px,2.6vmin,30px); border-bottom-width: 1px; border-left-width: 1px; }
+.crop .br { bottom: clamp(16px,2.6vmin,30px); right: clamp(16px,2.6vmin,30px); border-bottom-width: 1px; border-right-width: 1px; }
+
+.meta {
+  position: fixed;
+  z-index: 41;
+  pointer-events: none;
+  font-size: clamp(0.5rem, 1.1vmin, 0.7rem);
+  letter-spacing: 0.3em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.meta-tl { top: clamp(22px,3.3vmin,40px); left: clamp(42px,5.4vmin,68px); }
+.meta-tr { top: clamp(22px,3.3vmin,40px); right: clamp(42px,5.4vmin,68px); }
+.meta-bl { bottom: clamp(22px,3.3vmin,40px); left: clamp(42px,5.4vmin,68px); }
+.meta-br { bottom: clamp(22px,3.3vmin,40px); right: clamp(42px,5.4vmin,68px); color: #cfcfcf; }
+.meta-br::before {
+  content: ""; display: inline-block; vertical-align: middle;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--accent); margin-right: 0.85em;
+  animation: meta-pulse 2.4s ease-in-out infinite;
+}
+@keyframes meta-pulse { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+/* Hide the corner liner notes on small screens so they never crowd the UI */
+@media (max-width: 720px) {
+  .meta { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain { animation: none; }
+  .meta-br::before { animation: none; }
+}
+
+/* ===== Info accordion (How-to / Features / FAQ dropdowns) =====
+   Shared by the tool pages so the guide + FAQ content collapses into clean,
+   keyboard-accessible <details> rows instead of a long wall of text. */
+.info-accordion {
+  max-width: 880px;
+  margin: 3.5rem auto 0;
+  padding: 0 20px;
+}
+.info-accordion .acc-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 0.4rem;
+  padding-left: 2px;
+}
+details.acc { border-bottom: 1px solid var(--line); }
+details.acc:first-of-type { border-top: 1px solid var(--line); }
+details.acc summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.05rem 0.25rem;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ededed;
+  transition: color 0.2s ease;
+}
+details.acc summary::-webkit-details-marker { display: none; }
+/* Chevron that rotates open/closed */
+details.acc summary::after {
+  content: "";
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-right: 1.5px solid var(--muted);
+  border-bottom: 1.5px solid var(--muted);
+  transform: rotate(45deg);
+  transition: transform 0.25s ease, border-color 0.2s ease;
+}
+details.acc summary:hover { color: var(--accent); }
+details.acc summary:hover::after { border-color: var(--accent); }
+details.acc[open] summary { color: var(--accent); }
+details.acc[open] summary::after { transform: rotate(-135deg); border-color: var(--accent); }
+
+.acc-body {
+  padding: 0 0.25rem 1.15rem;
+  color: #a9a9a9;
+  font-size: 14px;
+  line-height: 1.7;
+  animation: acc-reveal 0.25s ease;
+}
+@keyframes acc-reveal {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: none; }
+}
+.acc-body p { margin: 0 0 0.6rem; }
+.acc-body p:last-child { margin-bottom: 0; }
+.acc-body a { color: var(--accent); text-decoration: none; }
+.acc-body a:hover { text-decoration: underline; }
+.acc-body ol,
+.acc-body ul { margin: 0; padding-left: 1.25rem; }
+.acc-body li { margin-bottom: 0.5rem; }
+.acc-body strong { color: #ededed; }
+
+.acc-more {
+  margin: 1.5rem auto 0;
+  max-width: 60ch;
+  color: #9a9a9a;
+  font-size: 13px;
+  line-height: 1.7;
+  text-align: center;
+}
+.acc-more a { color: var(--accent); text-decoration: none; }
+.acc-more a:hover { text-decoration: underline; }
+
+@media (prefers-reduced-motion: reduce) {
+  .acc-body { animation: none; }
+}

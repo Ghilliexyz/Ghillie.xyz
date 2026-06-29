@@ -42,6 +42,13 @@
   let currentSearchTerm = '';
   let currentColumnTypes = [];
 
+  // Cell selection state
+  const cellSelection = new Set(); // keys: "row:col"
+  let selAnchor = null;            // { r, c }
+  let isDragSelecting = false;
+  let copyFab = null;
+  let colTooltip = null;
+
   // ============================================================
   // Utility Functions
   // ============================================================
@@ -295,7 +302,9 @@
 
     currentColumnTypes = cols.map((c) => ({
       name: c.name,
-      type: (c.type || '').toUpperCase()
+      type: (c.type || '').toUpperCase(),
+      pk: c.pk,
+      notnull: c.notnull
     }));
 
     els.tableMeta.innerHTML = `
@@ -423,12 +432,12 @@
       <tr>
         ${row.map((v, colIdx) => {
           if (v === null) {
-            return '<td class="null-value"><em>NULL</em></td>';
+            return `<td class="null-value" data-row="${rowIdx}" data-col="${colIdx}"><em>NULL</em></td>`;
           }
           const str = String(v);
           const truncated = str.length > 200 ? str.slice(0, 200) + '…' : str;
           const isNumeric = !Number.isNaN(Number(v)) && str.trim() !== '';
-          return `<td class="${isNumeric ? 'numeric-value' : ''}" title="${escapeHtml(str)}">${escapeHtml(truncated)}</td>`;
+          return `<td class="${isNumeric ? 'numeric-value' : ''}" data-row="${rowIdx}" data-col="${colIdx}" title="${escapeHtml(str)}">${escapeHtml(truncated)}</td>`;
         }).join('')}
       </tr>
     `).join('');
@@ -451,6 +460,8 @@
     `;
 
     attachHeaderSortHandlers();
+    clearCellSelection();
+    ensureCopyFab();
     updateNumericStats();
   }
 
@@ -469,7 +480,232 @@
         }
         applySearchAndRender();
       });
+
+      // Column-type tooltip on hover
+      th.addEventListener('mouseenter', () => showColTooltip(th, idx));
+      th.addEventListener('mouseleave', hideColTooltip);
     });
+  }
+
+  // ============================================================
+  // Column Type Tooltip
+  // ============================================================
+
+  function showColTooltip(th, idx) {
+    if (!colTooltip) return;
+    const meta = currentColumnTypes[idx] || {};
+    const type = meta.type ? meta.type : 'UNKNOWN';
+    const flags = [];
+    if (meta.pk) flags.push('PRIMARY KEY');
+    if (meta.notnull) flags.push('NOT NULL');
+
+    colTooltip.innerHTML = `
+      <div class="tt-name">${escapeHtml(meta.name || '')}</div>
+      <div class="tt-type">${escapeHtml(type)}</div>
+      ${flags.length ? `<div class="tt-flags">${flags.join(' • ')}</div>` : ''}
+    `;
+
+    colTooltip.classList.add('show');
+    const r = th.getBoundingClientRect();
+    const tw = colTooltip.offsetWidth;
+    let left = r.left;
+    if (left + tw > window.innerWidth - 8) left = window.innerWidth - tw - 8;
+    if (left < 8) left = 8;
+    colTooltip.style.left = `${left}px`;
+    colTooltip.style.top = `${r.bottom + 6}px`;
+  }
+
+  function hideColTooltip() {
+    if (colTooltip) colTooltip.classList.remove('show');
+  }
+
+  // ============================================================
+  // Cell Selection & Copy
+  // ============================================================
+
+  function cellKey(r, c) { return `${r}:${c}`; }
+
+  function cellValueAt(r, c) {
+    return filteredRows[r] ? filteredRows[r][c] : null;
+  }
+
+  function getCellEl(r, c) {
+    return els.dataTable.querySelector(`td[data-row="${r}"][data-col="${c}"]`);
+  }
+
+  function clearCellSelection() {
+    cellSelection.clear();
+    selAnchor = null;
+    renderCellSelection();
+  }
+
+  function renderCellSelection() {
+    els.dataTable.querySelectorAll('td.dbv-cell-selected, td.dbv-cell-anchor')
+      .forEach((td) => td.classList.remove('dbv-cell-selected', 'dbv-cell-anchor'));
+
+    cellSelection.forEach((k) => {
+      const [r, c] = k.split(':').map(Number);
+      const td = getCellEl(r, c);
+      if (td) td.classList.add('dbv-cell-selected');
+    });
+
+    if (selAnchor) {
+      const a = getCellEl(selAnchor.r, selAnchor.c);
+      if (a) a.classList.add('dbv-cell-anchor');
+    }
+
+    updateCopyFab();
+  }
+
+  function selectRange(anchor, target, additive) {
+    if (!additive) cellSelection.clear();
+    const r0 = Math.min(anchor.r, target.r);
+    const r1 = Math.max(anchor.r, target.r);
+    const c0 = Math.min(anchor.c, target.c);
+    const c1 = Math.max(anchor.c, target.c);
+    for (let r = r0; r <= r1; r++) {
+      for (let c = c0; c <= c1; c++) {
+        cellSelection.add(cellKey(r, c));
+      }
+    }
+  }
+
+  function buildSelectionText() {
+    if (!cellSelection.size) return '';
+
+    let minR = Infinity, maxR = -Infinity, minC = Infinity, maxC = -Infinity;
+    cellSelection.forEach((k) => {
+      const [r, c] = k.split(':').map(Number);
+      if (r < minR) minR = r;
+      if (r > maxR) maxR = r;
+      if (c < minC) minC = c;
+      if (c > maxC) maxC = c;
+    });
+
+    if (cellSelection.size === 1) {
+      const v = cellValueAt(minR, minC);
+      return v == null ? '' : String(v);
+    }
+
+    const lines = [];
+    for (let r = minR; r <= maxR; r++) {
+      const cells = [];
+      for (let c = minC; c <= maxC; c++) {
+        if (cellSelection.has(cellKey(r, c))) {
+          const v = cellValueAt(r, c);
+          cells.push(v == null ? '' : String(v));
+        } else {
+          cells.push('');
+        }
+      }
+      lines.push(cells.join('\t'));
+    }
+    return lines.join('\n');
+  }
+
+  function fallbackCopy(text, done) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) { /* ignore */ }
+    document.body.removeChild(ta);
+    if (done) done();
+  }
+
+  function copySelection() {
+    if (!cellSelection.size) return;
+    const text = buildSelectionText();
+    const n = cellSelection.size;
+    const done = () => {
+      setStatus(`Copied ${n} cell${n !== 1 ? 's' : ''} to clipboard`);
+      flashCopyFab();
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+    } else {
+      fallbackCopy(text, done);
+    }
+  }
+
+  function ensureCopyFab() {
+    if (!copyFab) {
+      copyFab = document.createElement('button');
+      copyFab.type = 'button';
+      copyFab.className = 'dbv-copy-fab';
+      copyFab.addEventListener('click', copySelection);
+    }
+    // innerHTML of the container is rebuilt each render, so re-attach the fab
+    if (copyFab.parentElement !== els.dataTable) {
+      els.dataTable.appendChild(copyFab);
+    }
+    updateCopyFab();
+  }
+
+  function updateCopyFab() {
+    if (!copyFab) return;
+    const n = cellSelection.size;
+    if (n > 0) {
+      copyFab.style.display = 'inline-flex';
+      copyFab.classList.remove('copied');
+      copyFab.textContent = `⧉ Copy ${n} cell${n !== 1 ? 's' : ''}`;
+    } else {
+      copyFab.style.display = 'none';
+    }
+  }
+
+  let fabFlashTimeout = null;
+  function flashCopyFab() {
+    if (!copyFab) return;
+    copyFab.classList.add('copied');
+    copyFab.textContent = '✓ Copied';
+    clearTimeout(fabFlashTimeout);
+    fabFlashTimeout = setTimeout(updateCopyFab, 1100);
+  }
+
+  function onCellMouseDown(e) {
+    if (e.button !== 0) return;
+    const td = e.target.closest('td[data-row]');
+    if (!td) return;
+
+    e.preventDefault(); // avoid native text selection while dragging
+    const r = Number(td.dataset.row);
+    const c = Number(td.dataset.col);
+
+    if (e.shiftKey && selAnchor) {
+      selectRange(selAnchor, { r, c }, false);
+    } else if (e.ctrlKey || e.metaKey) {
+      const k = cellKey(r, c);
+      if (cellSelection.has(k)) cellSelection.delete(k);
+      else cellSelection.add(k);
+      selAnchor = { r, c };
+    } else {
+      cellSelection.clear();
+      cellSelection.add(cellKey(r, c));
+      selAnchor = { r, c };
+      isDragSelecting = true;
+      const inner = els.dataTable.querySelector('.dbv-table-inner');
+      if (inner) inner.classList.add('dbv-selecting');
+    }
+
+    renderCellSelection();
+  }
+
+  function onCellMouseOver(e) {
+    if (!isDragSelecting || !selAnchor) return;
+    const td = e.target.closest('td[data-row]');
+    if (!td) return;
+    selectRange(selAnchor, { r: Number(td.dataset.row), c: Number(td.dataset.col) }, false);
+    renderCellSelection();
+  }
+
+  function onDocMouseUp() {
+    if (!isDragSelecting) return;
+    isDragSelecting = false;
+    const inner = els.dataTable.querySelector('.dbv-table-inner');
+    if (inner) inner.classList.remove('dbv-selecting');
   }
 
   // ============================================================
@@ -1217,7 +1453,7 @@
       }
 
       // Custom queries don't have column type info
-      currentColumnTypes = res[0].columns.map((name) => ({ name, type: '' }));
+      currentColumnTypes = res[0].columns.map((name) => ({ name, type: '', pk: 0, notnull: 0 }));
       renderResultTable(res[0]);
     } catch (e) {
       console.error(e);
@@ -1316,6 +1552,18 @@
     });
   }
 
+  // Cell selection (event delegation: table innerHTML is rebuilt each render)
+  els.dataTable.addEventListener('mousedown', onCellMouseDown);
+  els.dataTable.addEventListener('mouseover', onCellMouseOver);
+  document.addEventListener('mouseup', onDocMouseUp);
+
+  // Clear cell selection when clicking outside the table (but not the copy button)
+  document.addEventListener('mousedown', (e) => {
+    if (!cellSelection.size) return;
+    if (e.target.closest('.dbv-table-inner') || e.target.closest('.dbv-copy-fab')) return;
+    clearCellSelection();
+  });
+
   // Keyboard shortcuts
   document.addEventListener('keydown', (e) => {
     // Ctrl/Cmd + O to open file
@@ -1323,15 +1571,36 @@
       e.preventDefault();
       els.fileInput.click();
     }
-    // Escape to clear search
-    if (e.key === 'Escape' && document.activeElement === els.rowSearchInput) {
-      els.rowSearchInput.value = '';
-      currentSearchTerm = '';
-      applySearchAndRender();
+    // Ctrl/Cmd + C to copy selected cells (only when no native text selection)
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'C') && cellSelection.size) {
+      const tag = document.activeElement ? document.activeElement.tagName : '';
+      const inField = tag === 'INPUT' || tag === 'TEXTAREA';
+      const nativeSel = window.getSelection && String(window.getSelection());
+      if (!inField && !nativeSel) {
+        e.preventDefault();
+        copySelection();
+      }
+    }
+    // Escape to clear search or cell selection
+    if (e.key === 'Escape') {
+      if (document.activeElement === els.rowSearchInput) {
+        els.rowSearchInput.value = '';
+        currentSearchTerm = '';
+        applySearchAndRender();
+      } else if (cellSelection.size) {
+        clearCellSelection();
+      }
     }
   });
 
   // Initialize
+  colTooltip = document.createElement('div');
+  colTooltip.className = 'dbv-col-tooltip';
+  root.appendChild(colTooltip);
+
+  // Hide the column tooltip while the table is scrolling
+  els.dataTable.addEventListener('scroll', hideColTooltip, true);
+
   initSql();
   clearUi();
 })();

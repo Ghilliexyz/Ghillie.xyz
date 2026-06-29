@@ -184,26 +184,36 @@
 
   <!-- Styles & Favicon -->
   <link rel="stylesheet" href="/assets/css/main.css" />
+  <link rel="stylesheet" href="/assets/css/theme.css" />
   <link rel="stylesheet" href="/assets/css/dbviewer.css" />
   <link rel="shortcut icon" type="image/png" href="/assets/img/favicon.png">
 </head>
 
-<body ondragstart="return false">
-  <div class="main">
-    <div class="top_navbar">
-      <ul>
-        <li><a href="/about/">About</a></li>
-        <li><a href="/">Home</a></li>
-        <li><a href="/portfolio/">Portfolio</a></li>
-      </ul>
-    </div>
+<body class="tool-page" ondragstart="return false">
+
+  <!-- Film grain + CRT vignette + album-jacket framing (shared VOL.01 chrome) -->
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vhs" aria-hidden="true"></div>
+  <div class="crop" aria-hidden="true">
+    <i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i>
   </div>
+  <span class="meta meta-tl" aria-hidden="true">GHILLIE.XYZ</span>
+  <span class="meta meta-tr" aria-hidden="true">EST. 2016 / SCOTLAND</span>
+  <span class="meta meta-bl" aria-hidden="true">DIGITAL DESIGNER / DEVELOPER</span>
+  <span class="meta meta-br" aria-hidden="true">DB VIEWER</span>
+
+  <!-- Top nav -->
+  <nav class="tool-nav" aria-label="Primary">
+    <a href="/#about">ABOUT</a>
+    <a href="/">HOME</a>
+    <a href="/#portfolio">PORTFOLIO</a>
+  </nav>
 
   <!-- App -->
   <div id="db-viewer">
     <section class="hero">
       <h1>DB Viewer</h1>
-      <p class="lead-answer"><strong>DB Viewer is a free in-browser SQLite database viewer.</strong> Drag and drop any .db, .sqlite, or .sqlite3 file to browse tables, filter and sort rows, run read-only SQL, draw charts, and export to CSV or JSON. All processing happens locally; your data never leaves your device.</p>
+      <p class="lead-answer">DB Viewer is a free in-browser SQLite database viewer. Drag and drop any .db, .sqlite, or .sqlite3 file to browse tables, filter and sort rows, run read-only SQL, draw charts, and export to CSV or JSON. All processing happens locally; your data never leaves your device.</p>
     </section>
 
     <main class="grid">
@@ -300,59 +310,74 @@
         </div>
       </section>
 
-      <section class="info-section">
-        <h2>How to view a SQLite database in your browser</h2>
-        <ol class="how-to-list">
-          <li><strong>Load your database.</strong> Drag and drop a .db, .sqlite, or .sqlite3 file onto the page, or click the file picker. The file is read locally.</li>
-          <li><strong>Pick a table.</strong> Choose any table from the sidebar to see its columns, row count, and contents.</li>
-          <li><strong>Filter, sort, and search.</strong> Click column headers to sort. Use the search box to filter rows. Apply smart filters for top N, bottom N, NULL checks, or specific values.</li>
-          <li><strong>Run SQL or chart the data.</strong> Use the read-only SQL console (SELECT, WITH, PRAGMA, EXPLAIN), or switch to Graphs to draw histograms, bar charts, pie charts, or line graphs.</li>
-          <li><strong>Export.</strong> Send your current view to CSV or JSON with one click.</li>
-        </ol>
-      </section>
+      <section class="info-accordion">
+        <h2 class="acc-title">Guide &amp; FAQ</h2>
 
-      <section class="info-section">
-        <h2>Features</h2>
-        <ul class="feature-list">
-          <li>Supports .db, .sqlite, and .sqlite3 files</li>
-          <li>Sortable data tables with quick search</li>
-          <li>Smart filters: top N, bottom N, value filters, NULL checks</li>
-          <li>Charts: histograms, bar charts, pie charts, line graphs</li>
-          <li>Read-only SQL console (SELECT, WITH, PRAGMA, EXPLAIN)</li>
-          <li>CSV and JSON export</li>
-          <li>Keyboard shortcuts: Ctrl+O to open, Enter to run SQL, Esc to clear search</li>
-          <li>Runs 100% client-side; no uploads</li>
-        </ul>
-      </section>
+        <details class="acc">
+          <summary>How to view a SQLite database in your browser</summary>
+          <div class="acc-body">
+            <ol class="how-to-list">
+              <li><strong>Load your database.</strong> Drag and drop a .db, .sqlite, or .sqlite3 file onto the page, or click the file picker. The file is read locally.</li>
+              <li><strong>Pick a table.</strong> Choose any table from the sidebar to see its columns, row count, and contents.</li>
+              <li><strong>Filter, sort, and search.</strong> Click column headers to sort. Use the search box to filter rows. Apply smart filters for top N, bottom N, NULL checks, or specific values.</li>
+              <li><strong>Run SQL or chart the data.</strong> Use the read-only SQL console (SELECT, WITH, PRAGMA, EXPLAIN), or switch to Graphs to draw histograms, bar charts, pie charts, or line graphs.</li>
+              <li><strong>Export.</strong> Send your current view to CSV or JSON with one click.</li>
+            </ol>
+          </div>
+        </details>
 
-      <section class="info-section">
-        <h2>Frequently Asked Questions</h2>
+        <details class="acc">
+          <summary>Features</summary>
+          <div class="acc-body">
+            <ul class="feature-list">
+              <li>Supports .db, .sqlite, and .sqlite3 files</li>
+              <li>Sortable data tables with quick search</li>
+              <li>Smart filters: top N, bottom N, value filters, NULL checks</li>
+              <li>Charts: histograms, bar charts, pie charts, line graphs</li>
+              <li>Read-only SQL console (SELECT, WITH, PRAGMA, EXPLAIN)</li>
+              <li>CSV and JSON export</li>
+              <li>Keyboard shortcuts: Ctrl+O to open, Enter to run SQL, Esc to clear search</li>
+              <li>Runs 100% client-side; no uploads</li>
+            </ul>
+          </div>
+        </details>
 
-        <h3>Is the DB Viewer free?</h3>
-        <p>Yes. DB Viewer is completely free, with no signup, no ads, and no upload. It runs entirely in your browser.</p>
+        <details class="acc">
+          <summary>Is the DB Viewer free?</summary>
+          <div class="acc-body"><p>Yes. DB Viewer is completely free, with no signup, no ads, and no upload. It runs entirely in your browser.</p></div>
+        </details>
 
-        <h3>Does my database leave my device?</h3>
-        <p>No. All processing happens locally in your browser using sql.js (a WebAssembly build of SQLite). Your data is never uploaded to a server.</p>
+        <details class="acc">
+          <summary>Does my database leave my device?</summary>
+          <div class="acc-body"><p>No. All processing happens locally in your browser using sql.js (a WebAssembly build of SQLite). Your data is never uploaded to a server.</p></div>
+        </details>
 
-        <h3>What file types are supported?</h3>
-        <p>DB Viewer supports SQLite database files with .db, .sqlite, and .sqlite3 extensions.</p>
+        <details class="acc">
+          <summary>What file types are supported?</summary>
+          <div class="acc-body"><p>DB Viewer supports SQLite database files with .db, .sqlite, and .sqlite3 extensions.</p></div>
+        </details>
 
-        <h3>Can I run SQL queries?</h3>
-        <p>Yes, with limitations. The built-in SQL console is read-only and accepts SELECT, WITH, PRAGMA, and EXPLAIN statements. INSERT, UPDATE, DELETE, and schema changes are blocked to protect your file.</p>
+        <details class="acc">
+          <summary>Can I run SQL queries?</summary>
+          <div class="acc-body"><p>Yes, with limitations. The built-in SQL console is read-only and accepts SELECT, WITH, PRAGMA, and EXPLAIN statements. INSERT, UPDATE, DELETE, and schema changes are blocked to protect your file.</p></div>
+        </details>
 
-        <h3>Can I export the data?</h3>
-        <p>Yes. Export the current table or query results to CSV or JSON with the Export buttons.</p>
+        <details class="acc">
+          <summary>Can I export the data?</summary>
+          <div class="acc-body"><p>Yes. Export the current table or query results to CSV or JSON with the Export buttons.</p></div>
+        </details>
 
-        <h3>What charts can DB Viewer draw?</h3>
-        <p>Histograms for numeric columns, bar and pie charts for categorical columns, and line graphs for time-series data.</p>
+        <details class="acc">
+          <summary>What charts can DB Viewer draw?</summary>
+          <div class="acc-body"><p>Histograms for numeric columns, bar and pie charts for categorical columns, and line graphs for time-series data.</p></div>
+        </details>
 
-        <h3>Are there keyboard shortcuts?</h3>
-        <p>Yes. Ctrl+O opens the file picker, Enter runs a SQL query while the console is focused, and Escape clears the search box.</p>
-      </section>
+        <details class="acc">
+          <summary>Are there keyboard shortcuts?</summary>
+          <div class="acc-body"><p>Yes. Ctrl+O opens the file picker, Enter runs a SQL query while the console is focused, and Escape clears the search box.</p></div>
+        </details>
 
-      <section class="info-section">
-        <h2>More from Ghillie</h2>
-        <p>Like DB Viewer? Try the <a href="/wordle/">Wordle Solver</a>, browse the full <a href="/portfolio/">portfolio</a>, or read more <a href="/about/">about Ghillie</a>.</p>
+        <p class="acc-more">Like DB Viewer? Try the <a href="/wordle/">Wordle Solver</a>, browse the full <a href="/portfolio/">portfolio</a>, or read more <a href="/#about">about Ghillie</a>.</p>
       </section>
     </main>
   </div>

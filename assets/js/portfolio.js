@@ -8,19 +8,6 @@
     let lightboxIndex = 0;
     let lightboxEntries = [];
 
-    // ===== TAB SWITCHING =====
-    const tabBtns = document.querySelectorAll(".tab-btn");
-    const tabContents = document.querySelectorAll(".tab-content");
-
-    tabBtns.forEach(function (btn) {
-        btn.addEventListener("click", function () {
-            tabBtns.forEach(function (b) { b.classList.remove("active"); });
-            tabContents.forEach(function (tc) { tc.classList.remove("active"); });
-            btn.classList.add("active");
-            document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
-        });
-    });
-
     // ===== FILTER PILLS =====
     var pillsContainer = document.getElementById("filter-pills");
 
@@ -41,6 +28,12 @@
             currentFilter = name;
             currentPage = 1;
             renderGallery();
+            // Reflect the selected creator in the URL (All clears the hash)
+            if (name === "All") {
+                history.replaceState(null, "", location.pathname + location.search);
+            } else {
+                history.replaceState(null, "", "#" + name);
+            }
         });
         pillsContainer.appendChild(pill);
     });
@@ -176,15 +169,9 @@
     });
 
     // ===== HANDLE URL HASH =====
+    // A hash like #DailyDoseOfInternet selects that creator's filter on load.
     var hash = location.hash.substring(1);
-    if (hash === "code") {
-        // Switch to code tab
-        tabBtns.forEach(function (b) { b.classList.remove("active"); });
-        tabContents.forEach(function (tc) { tc.classList.remove("active"); });
-        document.querySelector('[data-tab="code"]').classList.add("active");
-        document.getElementById("tab-code").classList.add("active");
-    } else if (hash) {
-        // Try to select a creator filter
+    if (hash) {
         var matchedPill = document.querySelector('.filter-pill[data-filter="' + hash + '"]');
         if (matchedPill) {
             matchedPill.click();

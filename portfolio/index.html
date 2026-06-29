@@ -4,19 +4,19 @@
   <!-- Basic HTML Meta Tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio - YouTube Thumbnails & Web Projects by Ghillie</title>
+  <title>YouTube Thumbnail Portfolio by Ghillie</title>
 
   <meta name="description"
-        content="Browse Ghillie's portfolio: YouTube thumbnails for Daily Dose of Internet, JustRolledIn, Mattcs and more, plus web tools (DB Viewer, GTAHub), Minecraft plugins, desktop apps, and games.">
+        content="Browse Ghillie's YouTube thumbnail portfolio: designs for Daily Dose of Internet, Daily Dose of Pets, JustRolledIn, Connor Eats Pants, and more. Hundreds of thumbnails, billions of views.">
   <link rel="canonical" href="https://ghillie.xyz/portfolio/">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Ghillie">
   <meta property="og:url" content="https://ghillie.xyz/portfolio/">
-  <meta property="og:title" content="Portfolio | Ghillie – Design & Code">
+  <meta property="og:title" content="YouTube Thumbnail Portfolio | Ghillie">
   <meta property="og:description"
-        content="Thumbnails, web tools, and coding projects by Ghillie, a digital designer and developer from Scotland.">
+        content="YouTube thumbnail design for some of the platform's biggest creators, by Ghillie, a digital designer from Scotland.">
   <meta property="og:image"
         content="https://ghillie.xyz/assets/img/metaImgs/Meta-Portfolio.png">
 
@@ -24,9 +24,9 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta property="twitter:domain" content="ghillie.xyz">
   <meta property="twitter:url" content="https://ghillie.xyz/portfolio/">
-  <meta name="twitter:title" content="Portfolio | Ghillie – Design & Code">
+  <meta name="twitter:title" content="YouTube Thumbnail Portfolio | Ghillie">
   <meta name="twitter:description"
-        content="Thumbnails, web tools, and coding projects by Ghillie, a digital designer and developer from Scotland.">
+        content="YouTube thumbnail design for some of the platform's biggest creators, by Ghillie, a digital designer from Scotland.">
   <meta name="twitter:image"
         content="https://ghillie.xyz/assets/img/metaImgs/Meta-Portfolio.png">
 
@@ -37,18 +37,15 @@
     "@graph": [
       {
         "@type": "CollectionPage",
-        "name": "Portfolio - YouTube Thumbnails & Web Projects by Ghillie",
-        "description": "Portfolio of YouTube thumbnails and coding projects by Ghillie, including work for Daily Dose of Internet, JustRolledIn, Mattcs, plus Minecraft plugins, web tools, desktop apps, and games.",
+        "name": "YouTube Thumbnail Portfolio by Ghillie",
+        "description": "Portfolio of YouTube thumbnails by Ghillie, including work for Daily Dose of Internet, Daily Dose of Pets, JustRolledIn, and Connor Eats Pants.",
         "url": "https://ghillie.xyz/portfolio/",
         "author": { "@id": "https://ghillie.xyz/#person" },
         "creator": { "@id": "https://ghillie.xyz/#person" },
         "about": [
-          { "@type": "Thing", "name": "YouTube Thumbnail Design" },
-          { "@type": "Thing", "name": "Web Development" },
-          { "@type": "Thing", "name": "Minecraft Plugin Development" },
-          { "@type": "Thing", "name": "Game Development" }
+          { "@type": "Thing", "name": "YouTube Thumbnail Design" }
         ],
-        "keywords": "YouTube thumbnails, thumbnail design, web development, portfolio, graphic design, coding projects, Minecraft plugins, game development"
+        "keywords": "YouTube thumbnails, thumbnail design, portfolio, graphic design, Daily Dose of Internet thumbnails, YouTube thumbnail designer"
       },
       {
         "@type": "Person",
@@ -80,34 +77,42 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
         crossorigin="anonymous">
   <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/theme.css">
   <link rel="stylesheet" href="/assets/css/portfolio.css">
   <link rel="stylesheet" href="/assets/css/divider.css">
   <link rel="shortcut icon" type="image/png" href="/assets/img/favicon.png">
+  <!-- Hold the first render (and the view-transition snapshot) until the hero
+       is parsed, so the cross-fade doesn't reveal a half-built page. -->
+  <link rel="expect" href="#vt-ready" blocking="render">
 </head>
 
-<body ondragstart="return false">
-    <!-- Navbar -->
-    <div class="top_navbar">
-        <ul>
-            <li><a href="/about/">About</a></li>
-            <li><a href="/">Home</a></li>
-            <li><a href="/portfolio/" class="nav_active_link">Portfolio</a></li>
-        </ul>
+<body class="tool-page" ondragstart="return false">
+
+    <!-- Film grain + CRT vignette + album-jacket framing (shared VOL.01 chrome) -->
+    <div class="grain" aria-hidden="true"></div>
+    <div class="vhs" aria-hidden="true"></div>
+    <div class="crop" aria-hidden="true">
+      <i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i>
     </div>
+    <span class="meta meta-tl" aria-hidden="true">GHILLIE.XYZ</span>
+    <span class="meta meta-tr" aria-hidden="true">EST. 2016 / SCOTLAND</span>
+    <span class="meta meta-bl" aria-hidden="true">DIGITAL DESIGNER / DEVELOPER</span>
+    <span class="meta meta-br" aria-hidden="true">PORTFOLIO</span>
+
+    <!-- Navbar -->
+    <nav class="tool-nav" aria-label="Primary">
+        <a href="/#about">ABOUT</a>
+        <a href="/">HOME</a>
+        <a href="/#portfolio" class="active">PORTFOLIO</a>
+    </nav>
 
     <!-- Page Hero -->
-    <div class="portfolio-hero">
+    <div class="portfolio-hero" id="vt-ready">
         <h1>PORTFOLIO</h1>
-        <p class="portfolio-tagline">YouTube thumbnails, web tools, Minecraft plugins, desktop apps, and games by Ghillie.</p>
+        <p class="portfolio-tagline">YouTube thumbnail design for some of the platform's biggest creators. Hundreds of thumbnails, billions of views.</p>
     </div>
 
-    <!-- Tab Bar -->
-    <div class="tab-bar">
-        <button class="tab-btn active" data-tab="design">Design</button>
-        <button class="tab-btn" data-tab="code">Code</button>
-    </div>
-
-    <!-- Design Tab -->
+    <!-- Thumbnail Gallery -->
     <section id="tab-design" class="tab-content active">
         <!-- Creator Filter Pills -->
         <div class="filter-pills" id="filter-pills"></div>
@@ -119,298 +124,6 @@
         <div class="load-more-wrap" id="load-more-wrap" style="display: none;">
             <span class="gallery-count" id="gallery-count"></span>
             <button class="load-more-btn" id="load-more-btn">Load More</button>
-        </div>
-    </section>
-
-    <!-- Code Tab -->
-    <section id="tab-code" class="tab-content">
-        <div class="project-category">
-            <h2 class="category-title">Minecraft Plugins</h2>
-            <div class="projects-grid">
-                <div class="project-card featured">
-                    <div class="project-info">
-                        <h3>Atlas Enchants</h3>
-                        <p>21+ custom enchantments across 6 rarity tiers with upgrade GUIs, special crafting items, and WorldGuard integration</p>
-                        <div class="project-tags">
-                            <span class="tag">Java</span>
-                            <span class="tag">Spigot API</span>
-                            <span class="tag">WorldGuard</span>
-                            <span class="tag">PlaceholderAPI</span>
-                        </div>
-                        <div class="featured-highlights">
-                            <span class="tag">21+ Enchantments</span>
-                            <span class="tag">6 Rarity Tiers</span>
-                            <span class="tag">GUI System</span>
-                            <span class="tag">Custom Crafting</span>
-                        </div>
-                    </div>
-                    <div class="project-meta">
-                        <span class="status-badge wip">WIP</span>
-                        <div class="project-links">
-                            <a href="https://github.com/Ghilliexyz/AtlasEnchants" target="_blank" rel="noopener noreferrer">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-info">
-                        <h3>Atlas Skills</h3>
-                        <p>Level up 12 skills like Mining, Fishing & Combat with EXP rewards and leaderboards</p>
-                        <div class="project-tags">
-                            <span class="tag">Java</span>
-                            <span class="tag">Spigot API</span>
-                        </div>
-                    </div>
-                    <div class="project-meta">
-                        <span class="status-badge live">Live</span>
-                        <div class="project-links">
-                            <a href="https://www.spigotmc.org/resources/atlas-skills.119586/" target="_blank" rel="noopener noreferrer">SpigotMC</a>
-                            <a href="https://github.com/Ghilliexyz/AtlasSkills" target="_blank" rel="noopener noreferrer">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-info">
-                        <h3>Atlas Time</h3>
-                        <p>Execute commands based on player playtime milestones with total and daily tracking</p>
-                        <div class="project-tags">
-                            <span class="tag">Java</span>
-                            <span class="tag">Spigot API</span>
-                        </div>
-                    </div>
-                    <div class="project-meta">
-                        <span class="status-badge live">Live</span>
-                        <div class="project-links">
-                            <a href="https://www.spigotmc.org/resources/atlas-time.118357/" target="_blank" rel="noopener noreferrer">SpigotMC</a>
-                            <a href="https://github.com/Ghilliexyz/AtlasTime" target="_blank" rel="noopener noreferrer">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-info">
-                        <h3>Atlas Deaths</h3>
-                        <p>Custom challenges for players to complete on death, announced server-wide</p>
-                        <div class="project-tags">
-                            <span class="tag">Java</span>
-                            <span class="tag">Spigot API</span>
-                        </div>
-                    </div>
-                    <div class="project-meta">
-                        <span class="status-badge live">Live</span>
-                        <div class="project-links">
-                            <a href="https://www.spigotmc.org/resources/atlas-deaths.117671/" target="_blank" rel="noopener noreferrer">SpigotMC</a>
-                            <a href="https://github.com/Ghilliexyz/AtlasDeaths" target="_blank" rel="noopener noreferrer">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-info">
-                        <h3>Atlas Graves</h3>
-                        <p>Spawns graves at death locations to preserve items and XP without keep inventory</p>
-                        <div class="project-tags">
-                            <span class="tag">Java</span>
-                            <span class="tag">Spigot API</span>
-                        </div>
-                    </div>
-                    <div class="project-meta">
-                        <span class="status-badge live">Live</span>
-                        <div class="project-links">
-                            <a href="https://www.spigotmc.org/resources/atlas-graves.117975/" target="_blank" rel="noopener noreferrer">SpigotMC</a>
-                            <a href="https://github.com/Ghilliexyz/AtlasGraves" target="_blank" rel="noopener noreferrer">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-info">
-                        <h3>Atlas Stats</h3>
-                        <p>View and share player stats with anyone on the server with in-game compass</p>
-                        <div class="project-tags">
-                            <span class="tag">Java</span>
-                            <span class="tag">Spigot API</span>
-                        </div>
-                    </div>
-                    <div class="project-meta">
-                        <span class="status-badge live">Live</span>
-                        <div class="project-links">
-                            <a href="https://www.spigotmc.org/resources/atlas-stats.117556/" target="_blank" rel="noopener noreferrer">SpigotMC</a>
-                            <a href="https://github.com/Ghilliexyz/AtlasStats" target="_blank" rel="noopener noreferrer">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="project-category">
-            <h2 class="category-title">Websites & Web Apps</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-info">
-                        <h3>Gleaming Demon</h3>
-                        <p>Built for a mobile car valeting business in Fife, Scotland. A clean, mobile-first site showcasing services, pricing, and booking info</p>
-                        <div class="project-tags">
-                            <span class="tag">HTML/CSS</span>
-                            <span class="tag">JavaScript</span>
-                        </div>
-                    </div>
-                    <div class="project-meta">
-                        <span class="status-badge live">Live</span>
-                        <div class="project-links">
-                            <a href="https://www.gleamingdemon.uk/" target="_blank" rel="noopener noreferrer">View Project</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-info">
-                        <h3>Helens Bakery</h3>
-                        <p>Built for a little bakery business in Falkland, Scotland. A clean, friendly site showcasing their menu and contact info</p>
-                        <div class="project-tags">
-                            <span class="tag">HTML/CSS</span>
-                            <span class="tag">JavaScript</span>
-                        </div>
-                    </div>
-                    <div class="project-meta">
-                        <span class="status-badge live">Live</span>
-                        <div class="project-links">
-                            <a href="https://helensbakery.uk/" target="_blank" rel="noopener noreferrer">View Project</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-info">
-                        <h3>GTAHub.xyz</h3>
-                        <p>GTA resource hub for the community</p>
-                        <div class="project-tags">
-                            <span class="tag">HTML/CSS</span>
-                            <span class="tag">JavaScript</span>
-                        </div>
-                    </div>
-                    <div class="project-meta">
-                        <span class="status-badge live">Live</span>
-                        <div class="project-links">
-                            <a href="https://gtahub.xyz/" target="_blank" rel="noopener noreferrer">View Project</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-info">
-                        <h3>DB Viewer</h3>
-                        <p>Client-side SQLite viewer with charts & SQL console</p>
-                        <div class="project-tags">
-                            <span class="tag">JavaScript</span>
-                            <span class="tag">sql.js</span>
-                            <span class="tag">Chart.js</span>
-                        </div>
-                    </div>
-                    <div class="project-meta">
-                        <span class="status-badge live">Live</span>
-                        <div class="project-links">
-                            <a href="/dbviewer/">View Project</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-info">
-                        <h3>Wordle Solver</h3>
-                        <p>Client-side word filtering tool for Wordle</p>
-                        <div class="project-tags">
-                            <span class="tag">JavaScript</span>
-                        </div>
-                    </div>
-                    <div class="project-meta">
-                        <span class="status-badge live">Live</span>
-                        <div class="project-links">
-                            <a href="/wordle/">View Project</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-info">
-                        <h3>ghillie.xyz</h3>
-                        <p>This portfolio site. Design, code, everything</p>
-                        <div class="project-tags">
-                            <span class="tag">HTML/CSS</span>
-                            <span class="tag">JavaScript</span>
-                        </div>
-                    </div>
-                    <div class="project-meta">
-                        <span class="status-badge live">Live</span>
-                        <div class="project-links">
-                            <a href="/">View Project</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="project-category">
-            <h2 class="category-title">Desktop Apps</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-info">
-                        <h3>Kleptos</h3>
-                        <p>Desktop download manager built on top of YT-DLP with a clean UI. Supports 1800+ websites without touching the command line</p>
-                        <div class="project-tags">
-                            <span class="tag">Desktop</span>
-                            <span class="tag">YT-DLP</span>
-                        </div>
-                    </div>
-                    <div class="project-meta">
-                        <span class="status-badge live">Live</span>
-                        <div class="project-links">
-                            <a href="https://github.com/Ghilliexyz/Kleptos" target="_blank" rel="noopener noreferrer">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="project-category">
-            <h2 class="category-title">Games</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-info">
-                        <h3>Overheat</h3>
-                        <p>GameJam game built with sJames. Race against the clock with online leaderboards for quickest times. Runs in the browser</p>
-                        <div class="project-tags">
-                            <span class="tag">Game Jam</span>
-                            <span class="tag">Leaderboards</span>
-                            <span class="tag">Browser</span>
-                        </div>
-                    </div>
-                    <div class="project-meta">
-                        <span class="status-badge live">Live</span>
-                        <div class="project-links">
-                            <a href="https://ghilliexyz.itch.io/overheat" target="_blank" rel="noopener noreferrer">itch.io</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-info">
-                        <h3>Sad Ghost Studio</h3>
-                        <p>Video game company. Games & dev updates</p>
-                        <div class="project-tags">
-                            <span class="tag">Game Dev</span>
-                            <span class="tag">Web</span>
-                        </div>
-                    </div>
-                    <div class="project-meta">
-                        <span class="status-badge live">Live</span>
-                        <div class="project-links">
-                            <a href="https://sadghoststudio.com" target="_blank" rel="noopener noreferrer">View Project</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 

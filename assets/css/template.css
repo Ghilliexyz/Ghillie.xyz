@@ -1,0 +1,141 @@
+:root {
+  --bg: #060606;
+  --text: #e1e1e1;
+  --muted: #8a8a8a;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", system-ui, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Square album-cover canvas, centered */
+.cover {
+  position: relative;
+  width: min(100vw, 100vh);
+  height: min(100vw, 100vh);
+  overflow: hidden;
+}
+
+/* ===== Soap-film ribbon stage (Three.js canvas) ===== */
+#bubble-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none; /* let clicks pass through to the nav links beneath */
+}
+
+#bubble-stage canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ===== Sparkle dividers ===== */
+.sparkle {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.7vmin;
+  color: var(--text);
+  z-index: 2; /* sit above the bubble canvas so the links are clickable */
+}
+
+.sparkle-left  { left: 7%; }
+.sparkle-right { right: 7%; }
+
+.sparkle .star {
+  width: clamp(14px, 2.4vmin, 24px);
+  height: clamp(14px, 2.4vmin, 24px);
+  flex: none;
+}
+
+.sparkle .line {
+  width: clamp(28px, 5vmin, 52px);
+  height: 1.5px;
+  background: linear-gradient(to right, rgba(225, 225, 225, 0), rgba(225, 225, 225, 0.9));
+}
+
+.sparkle-right .line {
+  background: linear-gradient(to left, rgba(225, 225, 225, 0), rgba(225, 225, 225, 0.9));
+}
+
+.sparkle .dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--text);
+  flex: none;
+}
+
+/* ===== Sparkle navigation links (ABOUT / PORTFOLIO) ===== */
+.nav-link {
+  text-decoration: none;
+  cursor: pointer;
+  outline-offset: 6px;
+}
+
+.nav-label {
+  /* mirror the VOL. 01 lettering so the nav reads as part of the cover */
+  font-size: clamp(0.7rem, 1.7vmin, 1.05rem);
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  padding-left: 0.35em; /* optical balance for the trailing letter-spacing */
+  color: var(--muted);
+  transition: color 0.25s ease, opacity 0.25s ease;
+}
+
+/* Brighten the whole sparkle + label on hover/focus */
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: #fff;
+}
+
+.nav-link:hover .nav-label,
+.nav-link:focus-visible .nav-label {
+  color: var(--text);
+}
+
+/* ===== Cross-document view transitions =====
+   Opting in here (and on the /about/ + /portfolio/ pages) lets the browser
+   cross-fade between documents on navigation instead of a hard page swap. */
+@view-transition {
+  navigation: auto;
+}
+
+/* Polished cross-fade: a gentle zoom so the dissolve reads as deliberate
+   rather than an abrupt swap. Overrides the browser's default root fade. */
+@keyframes vt-fade-zoom-out {
+  to   { opacity: 0; transform: scale(0.98); }
+}
+@keyframes vt-fade-zoom-in {
+  from { opacity: 0; transform: scale(1.02); }
+}
+
+::view-transition-old(root) {
+  animation: 0.5s cubic-bezier(0.4, 0, 0.2, 1) both vt-fade-zoom-out;
+}
+::view-transition-new(root) {
+  animation: 0.5s cubic-bezier(0.4, 0, 0.2, 1) both vt-fade-zoom-in;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

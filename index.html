@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Basic HTML Meta Tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ghillie - YouTube Thumbnail Designer & Web Developer (Scotland)</title>
@@ -71,170 +70,1953 @@
   }
   </script>
 
-  <!-- Styles & Favicon -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-        crossorigin="anonymous">
-  <link rel="stylesheet" href="/assets/css/main.css">
-  <link rel="stylesheet" href="/assets/css/spinglow.css">
-  <link rel="stylesheet" href="/assets/css/divider.css">
   <link rel="shortcut icon" type="image/png" href="/assets/img/favicon.png">
+  <style>
+    /* Cross-document View Transitions: cross-fade when arriving from / leaving
+       to the standalone pages (about, portfolio, tools) so the whole site feels
+       like one continuous surface. Within this page navigation stays live (the
+       bubble keeps rendering); this only governs document-to-document hops. */
+    @view-transition { navigation: auto; }
+    @keyframes vt-fade-zoom-out { to   { opacity: 0; transform: scale(0.98); } }
+    @keyframes vt-fade-zoom-in  { from { opacity: 0; transform: scale(1.02); } }
+    ::view-transition-old(root) { animation: 0.5s cubic-bezier(0.4, 0, 0.2, 1) both vt-fade-zoom-out; }
+    ::view-transition-new(root) { animation: 0.5s cubic-bezier(0.4, 0, 0.2, 1) both vt-fade-zoom-in; }
+    @media (prefers-reduced-motion: reduce) {
+      ::view-transition-group(*),
+      ::view-transition-old(*),
+      ::view-transition-new(*) { animation: none !important; }
+    }
+
+    :root { --bg: #060606; --text: #e1e1e1; --muted: #8a8a8a; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body { height: 100%; overflow: hidden; }
+
+    /* Hide scrollbars everywhere (content stays scrollable) */
+    * { scrollbar-width: none; -ms-overflow-style: none; }
+    *::-webkit-scrollbar { width: 0; height: 0; display: none; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Text-selection highlight uses the site accent red */
+    ::selection { background: #ff3c3c; color: #fff; }
+    ::-moz-selection { background: #ff3c3c; color: #fff; }
+
+    /* ===== Galaxy backdrop ===== */
+    /* A static deep-space wash behind everything. The actual STARS are a real 3D
+       dome rendered inside the bubble canvas (bubble-demo.js) so they rotate with
+       the first-person mouse-look; this layer is just the dark haze they sit in
+       front of. pointer-events:none, sits behind the bubble (z-index 0) and the
+       views (z-index 1). */
+    .galaxy {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      overflow: hidden;
+      background: radial-gradient(150% 150% at 50% 40%, #0b0b0b 0%, #080808 50%, #050505 80%);
+    }
+
+    /* The discipline picker now renders in 3D inside the bubble (bubble-demo.js),
+       so the HTML list is hidden. (It stays in the DOM only as the data source.) */
+    #discipline-list { display: none; }
+
+    /* Persistent, full-bleed live bubble. It is NEVER torn down, so it keeps
+       rendering (and animating) as we move between views. */
+    #bubble-stage { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    #bubble-stage canvas { display: block; width: 100%; height: 100%; }
+
+    /* ===== Views (HTML overlays) ===== */
+    .view {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      display: flex;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.55s ease, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .view.active { opacity: 1; pointer-events: auto; }
+
+    /* Scrim so text stays legible over the bubble on the content side */
+    #view-about::before, #view-portfolio::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+    }
+    #view-about::before {
+      background: radial-gradient(70% 90% at 22% 50%, rgba(6,6,6,0.92), rgba(6,6,6,0) 70%);
+    }
+    #view-portfolio::before {
+      background: radial-gradient(70% 90% at 78% 50%, rgba(6,6,6,0.92), rgba(6,6,6,0) 70%);
+    }
+
+    /* ===== Cover view ===== */
+    #view-cover { align-items: center; justify-content: center; }
+
+    .sparkle {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      gap: 0.7vmin;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .sparkle-left  { left: 6%; }
+    .sparkle-right { right: 6%; }
+    .sparkle .star { width: clamp(14px, 2.4vmin, 24px); height: clamp(14px, 2.4vmin, 24px); flex: none; }
+    .sparkle .line {
+      width: clamp(28px, 5vmin, 52px); height: 1.5px;
+      background: linear-gradient(to right, rgba(225,225,225,0), rgba(225,225,225,0.9));
+    }
+    .sparkle-right .line { background: linear-gradient(to left, rgba(225,225,225,0), rgba(225,225,225,0.9)); }
+    .sparkle .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--text); flex: none; }
+    .nav-label {
+      font-size: clamp(0.7rem, 1.6vmin, 1.05rem);
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      padding-left: 0.35em;
+      color: var(--muted);
+      transition: color 0.25s ease;
+    }
+    .sparkle:hover .nav-label, .sparkle:focus-visible .nav-label { color: var(--text); }
+    .sparkle:hover, .sparkle:focus-visible { color: #fff; }
+
+    /* ===== About view ===== */
+    #view-about { align-items: center; justify-content: flex-start; padding: 0 9vw; }
+    #view-about:not(.active) { transform: translateX(-26px); }
+    #view-portfolio { align-items: center; justify-content: flex-end; padding: 0 9vw; }
+    #view-portfolio:not(.active) { transform: translateX(26px); }
+
+    .panel { width: min(560px, 100%); }
+    .panel.right { text-align: right; }
+
+    .panel h1 {
+      font-size: clamp(2.6rem, 11vmin, 6.5rem);
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      color: #ededed;
+      margin: 2vmin 0 3vmin;
+    }
+    .panel p {
+      color: #bdbdbd;
+      font-size: clamp(0.95rem, 1.9vmin, 1.12rem);
+      line-height: 1.7;
+      margin-bottom: 1.1rem;
+    }
+    .panel p.tagline { color: #e1e1e1; font-weight: 600; }
+    /* #ff3c3c is the site accent: reserve it for the important callouts */
+    .panel p strong { color: #ff3c3c; font-weight: 700; }
+    .panel p a {
+      color: var(--text);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: rgba(225,225,225,0.4);
+      transition: text-decoration-color 0.25s ease;
+    }
+    .panel p a:hover { color: #ff3c3c; text-decoration-color: #ff3c3c; }
+
+    /* Social row standing in for the about page's "Get in touch" links */
+    .socials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.3vmin 2.2vmin;
+      margin-top: 2.4vmin;
+    }
+    .panel.right .socials { justify-content: flex-end; }
+    .socials a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: clamp(0.62rem, 1.35vmin, 0.85rem);
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      transition: color 0.25s ease;
+    }
+    .socials a:hover, .socials a:focus-visible { color: #ff3c3c; }
+
+    /* portfolio grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.6vmin;
+      margin-top: 1vmin;
+    }
+    /* Discipline cards: one per thing Ghillie does */
+    .cat-card {
+      display: block;
+      text-align: left;
+      text-decoration: none;
+      padding: 1.5vmin 1.7vmin;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: linear-gradient(135deg, #161616, #0c0c0c);
+      transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
+    }
+    .cat-card:hover, .cat-card:focus-visible {
+      border-color: rgba(255,60,60,0.55);
+      background:
+        radial-gradient(140% 140% at 15% 0%, rgba(255,60,60,0.16), transparent 60%),
+        linear-gradient(135deg, #1a1414, #0c0c0c);
+      transform: translateY(-2px);
+    }
+    .cat-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1vmin;
+    }
+    .cat-head h3 {
+      font-size: clamp(1rem, 2.1vmin, 1.25rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: #ededed;
+      transition: color 0.25s ease;
+    }
+    .cat-card:hover .cat-head h3, .cat-card:focus-visible .cat-head h3 { color: #ff3c3c; }
+    .cat-count {
+      font-size: clamp(0.58rem, 1.25vmin, 0.78rem);
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      flex: none;
+    }
+    .cat-card p {
+      color: #a9a9a9;
+      font-size: clamp(0.72rem, 1.5vmin, 0.9rem);
+      line-height: 1.4;
+      margin: 0.6vmin 0 0;
+    }
+
+    /* ===== Discipline index (portfolio view) ===== */
+    .disc-list {
+      display: flex;
+      flex-direction: column;
+      margin-top: 1.6vmin;
+      border-top: 1px solid rgba(255,255,255,0.09);
+    }
+    .disc-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 1.6vmin;
+      text-align: left;
+      padding: 1.7vmin 0.3vmin;
+      border-bottom: 1px solid rgba(255,255,255,0.09);
+      background: none;
+      text-decoration: none;
+      cursor: pointer;
+      transition: padding-left 0.3s ease, border-color 0.3s ease;
+    }
+    .disc-item:hover, .disc-item:focus-visible {
+      padding-left: 1.4vmin;
+      border-bottom-color: rgba(255,60,60,0.45);
+      outline: none;
+    }
+    .disc-body h3 {
+      font-size: clamp(1.05rem, 2.4vmin, 1.45rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: #ededed;
+      transition: color 0.25s ease;
+    }
+    .disc-item:hover .disc-body h3, .disc-item:focus-visible .disc-body h3 { color: #ff3c3c; }
+    .disc-body p { color: #9a9a9a; font-size: clamp(0.72rem, 1.5vmin, 0.9rem); margin-top: 0.35vmin; }
+    .disc-arrow {
+      font-size: 1.1rem; color: var(--muted);
+      opacity: 0; transform: translateX(-6px);
+      transition: opacity 0.25s ease, transform 0.25s ease, color 0.25s ease;
+    }
+    .disc-item:hover .disc-arrow, .disc-item:focus-visible .disc-arrow { opacity: 1; transform: translateX(0); color: #ff3c3c; }
+
+    /* ===== Discipline detail: scroll-driven 3D showcase =====
+       The title + intro are pinned in the centre of the view, living on a plane
+       in 3D space. As you scroll, project cards fly in from the left, sweep in
+       front of the centred title, and settle as they reach the middle, then
+       scroll on past. Pure CSS 3D (per-card perspective()) + scroll, no WebGL.
+       --tint is set per discipline and drives placeholders + accents. */
+    #view-detail {
+      display: block;            /* own scroll column */
+      overflow-y: auto;
+      overflow-x: hidden;
+      /* No background wash: the bubble's star dome shows straight through behind
+         the cards (the cards/topbar carry their own backing for legibility). */
+      background: transparent;
+      --tint: 255, 60, 60;
+    }
+    /* Pressing a discipline pans the "camera" DOWN into its detail, like dropping
+       into another area below: the new area rises up from below into place while the
+       bubble slides UP and out + recolours above it (STATES.detail), instead of
+       cross-fading. Eased to settle on arrival. */
+    #view-detail { transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+    #view-detail:not(.active) { transform: translateY(70px); }
+
+    .detail-stage { position: relative; max-width: 1500px; margin: 0 auto; padding: 0 5vw 16vh; }
+
+    /* Sticky top bar: keeps "back" reachable the whole way down. */
+    .detail-topbar {
+      position: sticky; top: 0; z-index: 6;
+      display: flex; align-items: center; gap: 1.6vmin;
+      padding: 3.2vh 0 2vh;
+      background: linear-gradient(#060606 62%, rgba(6,6,6,0));
+    }
+    .detail-back {
+      display: inline-flex; align-items: center; gap: 0.6em;
+      background: none; border: none; padding: 0; cursor: pointer; font: inherit;
+      color: var(--muted);
+      font-size: clamp(0.7rem, 1.5vmin, 0.95rem); letter-spacing: 0.22em;
+      transition: color 0.25s ease;
+    }
+    .detail-back:hover, .detail-back:focus-visible { color: #ff3c3c; outline: none; }
+    .detail-kicker { font-size: clamp(0.62rem, 1.3vmin, 0.85rem); letter-spacing: 0.35em; color: var(--muted); }
+    .detail-topbar .detail-kicker::before { content: "/ "; opacity: 0.5; }
+
+    /* Centre stage: the discipline's title + intro, pinned mid-view. Its
+       opacity/blur are driven by scroll so it recedes behind the flying cards. */
+    .stage-center {
+      position: fixed; inset: 0;       /* locked to the viewport: never scrolls */
+      display: flex; flex-direction: column; justify-content: flex-start; align-items: center;
+      padding-top: 10vh;               /* title/intro sit ~10% down from the top, not dead-centre */
+      text-align: center;
+      pointer-events: none;            /* clicks pass through to the cards */
+      z-index: 1;
+      opacity: var(--center-op, 1);
+      filter: blur(var(--center-blur, 0px));
+    }
+    /* in-flow spacer: reserves the opening title-only screen and pushes the
+       first card down, since the title itself is now fixed (out of flow) */
+    .stage-gap { height: 100vh; }
+    .stage-center .detail-title {
+      font-size: clamp(2.6rem, 12vmin, 7rem);
+      font-weight: 800; letter-spacing: 0.04em; line-height: 0.95;
+      color: #ededed; margin: 0;
+      text-shadow: -0.8px 0 rgba(255,0,70,0.45), 0.8px 0 rgba(0,235,220,0.4);
+    }
+    .stage-center .detail-intro {
+      color: #bdbdbd; max-width: 48ch; margin: 2.6vmin auto 0;
+      font-size: clamp(0.92rem, 1.9vmin, 1.12rem); line-height: 1.65;
+    }
+    .stage-scrollcue {
+      margin-top: 4.5vmin; font-size: 0.6rem; letter-spacing: 0.42em; color: var(--muted);
+      animation: cueBob 1.8s ease-in-out infinite;
+    }
+    @keyframes cueBob { 0%,100% { transform: translateY(0); opacity: 0.45; } 50% { transform: translateY(7px); opacity: 1; } }
+
+    /* All cards share ONE pinned stage (.pf-stage) and a single scroll timeline
+       (see updateFly): each flies in from the left, holds dead-centre, then
+       recedes while the NEXT is already flying in. The windows overlap, so the
+       scroll is never empty between cards. .pf-items is the tall scroll track
+       whose height (set per-discipline in JS) gives the timeline its length. */
+    .pf-items { position: relative; z-index: 2; display: block; margin: 0; padding: 0; }
+    .pf-stage { position: sticky; top: 0; height: 100vh; }
+    .fly-card {
+      position: absolute; left: 50%; top: 50%;
+      width: min(540px, 86vw);
+      text-decoration: none;
+      border-radius: 16px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.09);
+      background: linear-gradient(135deg, #181818, #0c0c0c);
+      /* --glow is the card's own dominant cover colour (set in JS); until the
+         image is sampled it falls back to the discipline tint. The coloured
+         glow only shows on hover (see :hover below); resting state is dark. */
+      box-shadow: 0 34px 90px rgba(0,0,0,0.6);
+      transform-origin: center;
+      /* JS sets transform / opacity / z-index each frame; this is the parked start. */
+      transform: translate(-50%, -50%) translate3d(-55vw, 0, 0) scale(0.66);
+      opacity: 0;
+      will-change: transform, opacity;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+    }
+    .fly-card:hover {
+      border-color: rgba(var(--glow, var(--tint)), 0.6);
+      box-shadow: 0 34px 90px rgba(0,0,0,0.6), 0 0 85px rgba(var(--glow, var(--tint)), 0.55);
+    }
+    .fly-cover {
+      display: block; width: 100%; aspect-ratio: 16 / 9;
+      background-size: cover; background-position: center top;
+      position: relative; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    /* logo covers (e.g. plugin wordmarks): keep the mark centred on its own dark
+       backdrop rather than cropping from the top like a screenshot. */
+    .fly-cover.logo { background-position: center; background-color: #131313; }
+    /* placeholder cover for items with no screenshot (tinted, with a monogram) */
+    .fly-cover.ph {
+      display: flex; align-items: center; justify-content: center;
+      background:
+        radial-gradient(120% 120% at 20% 0%, rgba(var(--tint), 0.30), transparent 60%),
+        linear-gradient(135deg, #1d1d1d, #0c0c0c);
+    }
+    .fly-cover.ph .ph-mono {
+      font-size: clamp(3rem, 9vmin, 5.5rem); font-weight: 800;
+      color: rgba(255,255,255,0.13); letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .fly-cover .ph-tag {
+      position: absolute; bottom: 1.1rem; left: 1.3rem;
+      font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: rgba(var(--tint), 0.9);
+    }
+    .fly-body { display: block; padding: 1.6rem 1.7rem 1.7rem; }
+    .fly-body h3 { font-size: clamp(1.15rem, 2.3vmin, 1.45rem); font-weight: 700; color: #ededed; margin: 0; }
+    .fly-body p { color: #a9a9a9; font-size: clamp(0.85rem, 1.6vmin, 0.96rem); line-height: 1.55; margin: 0.85vmin 0 0; }
+    .fly-tags { display: flex; flex-wrap: wrap; gap: 0.5vmin; margin-top: 1.2vmin; }
+    .fly-tags span {
+      font-size: 0.66rem; letter-spacing: 0.05em; color: #cfcfcf;
+      padding: 0.32em 0.75em; border-radius: 999px; background: rgba(255,255,255,0.06);
+    }
+    .fly-foot { display: flex; align-items: center; justify-content: space-between; gap: 1vmin; margin-top: 1.6vmin; }
+    .status { font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.32em 0.7em; border-radius: 6px; }
+    .status.live { color: #7ee787; background: rgba(46,160,67,0.15); }
+    .status.wip  { color: #ffd366; background: rgba(210,153,34,0.15); }
+    .fly-link { color: var(--muted); font-size: 0.76rem; letter-spacing: 0.1em; transition: color 0.25s ease; }
+    .fly-card:hover .fly-link { color: rgba(var(--glow, var(--tint)), 1); }
+
+    /* pricing block (websites) rides above the faint pinned title */
+    .detail-extra { position: relative; z-index: 3; }
+
+    @media (prefers-reduced-motion: reduce) {
+      /* No timeline: the title leads a plain, readable column of cards. */
+      .stage-center { position: static; min-height: auto; opacity: 1 !important; filter: none !important; padding: 12vh 0 6vh; }
+      .stage-scrollcue { display: none; }
+      .stage-gap { display: none; }
+      .pf-items { height: auto !important; }
+      .pf-stage { position: static; height: auto; display: flex; flex-direction: column; align-items: center; gap: 5vh; }
+      .fly-card { position: static; left: auto; top: auto; opacity: 1 !important; transform: none !important; }
+    }
+
+    /* Scroll-reveal disabled (FLY_OFF): the detail showcase just displays the
+       title followed by every card in a plain static column. Mirrors the
+       reduced-motion layout; remove alongside FLY_OFF to restore the fly-in. */
+    #view-detail.fly-off .stage-center { position: static; min-height: auto; opacity: 1 !important; filter: none !important; padding: 10vh 0 6vh; }
+    #view-detail.fly-off .stage-scrollcue { display: none; }
+    #view-detail.fly-off .stage-gap { display: none; }
+    #view-detail.fly-off .pf-items { height: auto !important; }
+    #view-detail.fly-off .pf-stage {
+      position: static; height: auto;
+      display: grid; grid-template-columns: repeat(3, minmax(0, 360px));
+      grid-auto-rows: 1fr;             /* every row the same height */
+      gap: 3vh 2.2vw; align-items: stretch; justify-content: center;
+      max-width: 1200px; margin: 0 auto;
+      /* shared depth so each card's cursor-facing 3D tilt (set in JS) reads */
+      perspective: 1100px;
+    }
+    /* With only one or two projects, centre them instead of leaving empty
+       columns to the right. (Wide screens only; narrow screens collapse below.) */
+    @media (min-width: 641px) {
+      #view-detail.fly-off .pf-stage:has(.fly-card:only-child) { grid-template-columns: minmax(0, 420px); }
+      #view-detail.fly-off .pf-stage:has(.fly-card:nth-child(2):last-child) { grid-template-columns: repeat(2, minmax(0, 380px)); }
+    }
+    /* Stretch each card to fill its (uniform) grid cell so all cards match in
+       height; the body grows to take up the slack below the cover. */
+    #view-detail.fly-off .fly-card {
+      position: static; left: auto; top: auto; width: auto;
+      display: flex; flex-direction: column;
+      /* --card-tilt is the per-card "face the cursor" rotation set by JS each
+         frame; defaults flat. transform-style keeps the 3D under the perspective. */
+      opacity: 1 !important; transform: var(--card-tilt, none) !important;
+      transform-style: preserve-3d;
+      /* track the cursor near-instantly (the base 0.25s transform ease made the
+         tilt feel sluggish); keep the slower border/shadow fades. */
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.07s linear;
+    }
+    #view-detail.fly-off .fly-body { flex: 1 1 auto; }
+    /* Short disciplines (e.g. Game Dev / App Dev: a couple of cards, no pricing)
+       don't fill the viewport, which left a tiny dead scroll below. Make the stage
+       at least full-height and lay it out as a column: the topbar stays pinned at
+       the TOP (so the "ALL WORK" back button is always in the same spot), while the
+       title + cards centre in the space beneath it via auto margins — nothing to
+       scroll to. When a discipline IS tall enough to overflow, the auto margins
+       collapse to 0 and it scrolls normally. The 16vh runway (a leftover from the
+       fly-in timeline) is trimmed to a small bottom breathing space. */
+    #view-detail.fly-off .detail-stage {
+      display: flex; flex-direction: column;
+      min-height: 100%; padding-bottom: 6vh;
+    }
+    #view-detail.fly-off .stage-center { margin-top: auto; }
+    #view-detail.fly-off .pf-items { margin-bottom: auto; }
+    /* Hover gives the card a subtle pop and lifts it above its neighbours,
+       keeping whatever cursor-facing tilt it currently holds. */
+    #view-detail.fly-off .fly-card:hover { transform: var(--card-tilt, none) scale(1.05) !important; position: relative; z-index: 5; }
+    @media (max-width: 980px) { #view-detail.fly-off .pf-stage { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px)  { #view-detail.fly-off .pf-stage { grid-template-columns: 1fr; } }
+
+    /* ===== Pricing (Websites discipline detail) ===== */
+    .detail-extra:empty { display: none; }
+    .pricing { margin-top: 8vh; padding-top: 6vh; border-top: 1px solid rgba(255,255,255,0.09); }
+    .pricing-head h3 { font-size: clamp(1.7rem, 5vmin, 2.6rem); font-weight: 800; letter-spacing: 0.02em; color: #ededed; }
+    .pricing-head > p { color: #a9a9a9; font-size: clamp(0.9rem, 1.8vmin, 1.05rem); line-height: 1.6; margin: 1.4vmin 0 0; white-space: nowrap; }
+    .pricing-legend { display: flex; flex-wrap: wrap; gap: 1.2vmin 2.6vmin; margin-top: 2.8vmin; }
+    .pricing-legend span { color: #9a9a9a; font-size: clamp(0.74rem, 1.4vmin, 0.85rem); }
+    .pricing-legend strong { color: #ededed; font-weight: 700; letter-spacing: 0.08em; margin-right: 0.45em; }
+
+    .tiers {
+      display: grid; align-items: stretch; gap: 2vmin; margin-top: 4vh;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .tier {
+      position: relative; display: flex; flex-direction: column;
+      padding: 2.6vmin 2.2vmin; border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(135deg, #161616, #0d0d0d);
+      transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .tier:hover { border-color: rgba(255,60,60,0.45); transform: translateY(-3px); }
+    .tier.popular { border-color: rgba(255,60,60,0.5); box-shadow: 0 0 42px rgba(255,60,60,0.1); }
+    .tier-flag {
+      position: absolute; top: 0; right: 1.8vmin; transform: translateY(-50%);
+      background: #ff3c3c; color: #fff; font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase; padding: 0.42em 0.85em; border-radius: 999px;
+    }
+    .tier-name { font-size: clamp(0.95rem, 2vmin, 1.15rem); font-weight: 700; letter-spacing: 0.02em; color: #ededed; }
+    .tier-price { font-size: clamp(1.7rem, 4.5vmin, 2.3rem); font-weight: 800; color: #fff; margin-top: 0.5vmin; }
+    .tier-desc { color: #a9a9a9; font-size: clamp(0.78rem, 1.5vmin, 0.9rem); line-height: 1.55; margin: 1.3vmin 0 1.8vmin; }
+    .tier-inc-label { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+    .tier-inc { list-style: none; padding: 0; margin: 1.1vmin 0 2vmin; display: flex; flex-direction: column; gap: 0.75vmin; flex: 1; }
+    .tier-inc li { position: relative; padding-left: 1.5em; color: #cfcfcf; font-size: clamp(0.78rem, 1.5vmin, 0.9rem); line-height: 1.4; }
+    .tier-inc li::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 0.5em; height: 0.5em; border-radius: 50%; background: #ff3c3c; opacity: 0.7; }
+    .tier-caps { display: flex; flex-wrap: wrap; gap: 0.5vmin; margin-top: auto; }
+    .tier-caps span { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; padding: 0.4em 0.7em; border-radius: 6px; }
+    /* Colour-coded capabilities: SEO green, AEO blue, GEO violet */
+    .tier-caps .cap-seo { color: #7ee787; background: rgba(46,160,67,0.15); }
+    .tier-caps .cap-aeo { color: #6cb6ff; background: rgba(56,139,253,0.15); }
+    .tier-caps .cap-geo { color: #c8a2ff; background: rgba(163,113,247,0.16); }
+    .pricing-legend .cap-seo strong { color: #7ee787; }
+    .pricing-legend .cap-aeo strong { color: #6cb6ff; }
+    .pricing-legend .cap-geo strong { color: #c8a2ff; }
+
+    .support { margin-top: 6vh; }
+    .support h3 { font-size: clamp(1.2rem, 3vmin, 1.6rem); font-weight: 800; color: #ededed; margin-bottom: 2.6vmin; }
+    .plans { display: grid; gap: 2vmin; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .plan { padding: 2.2vmin; border-radius: 12px; border: 1px solid rgba(255,255,255,0.07); background: linear-gradient(135deg, #141414, #0d0d0d); }
+    .plan-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1vmin; }
+    .plan-head h4 { font-size: clamp(0.95rem, 2vmin, 1.15rem); font-weight: 700; color: #ededed; }
+    .plan-price { font-size: clamp(1.1rem, 2.6vmin, 1.4rem); font-weight: 800; color: #ff8a8a; flex: none; }
+    .plan p { color: #a9a9a9; font-size: clamp(0.78rem, 1.5vmin, 0.9rem); line-height: 1.5; margin-top: 1vmin; }
+
+    .pricing-note { color: var(--muted); font-size: clamp(0.74rem, 1.4vmin, 0.85rem); line-height: 1.6; margin-top: 4vh; max-width: 72ch; }
+    .pricing-cta {
+      display: inline-flex; align-items: center; gap: 0.5em; margin-top: 3.4vmin;
+      padding: 0.85em 1.8em; border-radius: 999px;
+      background: #ff3c3c; color: #fff; text-decoration: none;
+      font-size: clamp(0.82rem, 1.6vmin, 0.95rem); font-weight: 700; letter-spacing: 0.04em;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+    .pricing-cta:hover { transform: translateY(-2px); background: #ff5252; box-shadow: 0 8px 28px rgba(255,60,60,0.28); }
+
+    /* Pricing falls back gracefully on small screens */
+    @media (max-width: 760px) {
+      .tiers { grid-template-columns: repeat(2, 1fr); }
+      .pricing-head > p { white-space: normal; }
+    }
+    @media (max-width: 460px) {
+      .tiers { grid-template-columns: 1fr; }
+    }
+
+    .back {
+      display: inline-block;
+      margin-top: 3.4vmin;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: clamp(0.7rem, 1.6vmin, 1rem);
+      letter-spacing: 0.25em;
+      transition: color 0.25s ease;
+    }
+    .back:hover, .back:focus-visible { color: var(--text); }
+    /* The About back link sits at the top-left of the view (same spot as the
+       portfolio / detail back buttons) so every page's "back" is in one
+       consistent, easy-to-reach place rather than buried at the foot of the bio. */
+    #view-about .back {
+      position: absolute;
+      top: clamp(4.5vh, 6vh, 8vh);
+      left: 6vw;
+      margin: 0;
+      z-index: 5;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .view { transition: opacity 0.2s linear; }
+      #view-about:not(.active), #view-portfolio:not(.active), #view-detail:not(.active) { transform: none; }
+    }
+
+    /* ===== Film grain ===== */
+    /* A full-bleed fractal-noise layer over everything. It's oversized and
+       nudged each frame so the grain shimmers like film. Blended with `screen`
+       so it only ever LIGHTENS: it sprinkles visible grain across the near-black
+       void (where `overlay` would have left it untouched) without darkening the
+       bubble's glints. pointer-events:none keeps the nav clickable. */
+    .grain {
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      z-index: 50;
+      pointer-events: none;
+      opacity: 0.2;
+      mix-blend-mode: screen;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 300px 300px;
+      animation: grain-shift 0.7s steps(5) infinite;
+      will-change: transform;
+    }
+    @keyframes grain-shift {
+      0%   { transform: translate(0, 0); }
+      20%  { transform: translate(-6%, 4%); }
+      40%  { transform: translate(5%, -5%); }
+      60%  { transform: translate(-4%, -6%); }
+      80%  { transform: translate(6%, 3%); }
+      100% { transform: translate(0, 0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .grain { animation: none; }
+    }
+
+    /* ===== VHS tape effect ===== */
+    /* A stack of fixed, non-interactive overlays above the grain that give the
+       whole page an old VCR look: fine scanlines with a faint RGB bleed, a
+       periodic brightness flicker, and a darkened CRT vignette.
+       pointer-events:none keeps the nav clickable. */
+    .vhs {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      pointer-events: none;
+      overflow: hidden;
+      box-shadow: inset 0 0 9vmax rgba(0, 0, 0, 0.55); /* CRT vignette */
+      animation: vhs-flicker 5s steps(48) infinite;
+    }
+    /* Scanlines + chromatic (red/cyan) bleed. */
+    .vhs::before {
+      content: "";
+      position: absolute;
+      inset: -3px 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 30, 70, 0.06) 0px,
+        rgba(0, 230, 200, 0.05) 1px,
+        rgba(0, 0, 0, 0.22) 2px,
+        rgba(0, 0, 0, 0.00) 3px
+      );
+      background-size: 100% 3px;
+      mix-blend-mode: overlay;
+      opacity: 0.7;
+      animation: vhs-scroll 0.45s steps(3) infinite;
+    }
+    @keyframes vhs-scroll {
+      from { transform: translateY(0); }
+      to   { transform: translateY(3px); }
+    }
+    @keyframes vhs-flicker {
+      0%, 100% { opacity: 1; }
+      48% { opacity: 0.97; }
+      50% { opacity: 0.91; }
+      52% { opacity: 0.99; }
+      72% { opacity: 0.95; }
+    }
+    /* Classic colour-fringed VHS text on the big headings. */
+    #view-about h1, #view-portfolio h1, .detail-title {
+      text-shadow: -0.7px 0 rgba(255, 0, 70, 0.5), 0.7px 0 rgba(0, 235, 220, 0.45);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .vhs, .vhs::before { animation: none; }
+    }
+
+    /* ===== Album-jacket framing ===== */
+    /* Four viewfinder crop marks + corner liner-note metadata sit on top of
+       every view, so the bubble reads as a framed cover print rather than an
+       object floating in a void. */
+    .crop .c {
+      position: fixed;
+      z-index: 40;
+      width: clamp(16px, 2.6vmin, 30px);
+      height: clamp(16px, 2.6vmin, 30px);
+      border: 0 solid rgba(255, 255, 255, 0.18);
+      pointer-events: none;
+    }
+    .crop .tl { top: clamp(16px,2.6vmin,30px); left: clamp(16px,2.6vmin,30px); border-top-width: 1px; border-left-width: 1px; }
+    .crop .tr { top: clamp(16px,2.6vmin,30px); right: clamp(16px,2.6vmin,30px); border-top-width: 1px; border-right-width: 1px; }
+    .crop .bl { bottom: clamp(16px,2.6vmin,30px); left: clamp(16px,2.6vmin,30px); border-bottom-width: 1px; border-left-width: 1px; }
+    .crop .br { bottom: clamp(16px,2.6vmin,30px); right: clamp(16px,2.6vmin,30px); border-bottom-width: 1px; border-right-width: 1px; }
+
+    .meta {
+      position: fixed;
+      z-index: 41;
+      pointer-events: none;
+      font-size: clamp(0.5rem, 1.1vmin, 0.7rem);
+      letter-spacing: 0.3em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .meta-tl { top: clamp(22px,3.3vmin,40px); left: clamp(42px,5.4vmin,68px); }
+    .meta-tr { top: clamp(22px,3.3vmin,40px); right: clamp(42px,5.4vmin,68px); }
+    .meta-bl { bottom: clamp(22px,3.3vmin,40px); left: clamp(42px,5.4vmin,68px); }
+    .meta-br { bottom: clamp(22px,3.3vmin,40px); right: clamp(42px,5.4vmin,68px); color: #cfcfcf; }
+    .meta-br::before {
+      content: ""; display: inline-block; vertical-align: middle;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: #ff3c3c; margin-right: 0.85em;
+      animation: meta-pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes meta-pulse { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { .meta-br::before { animation: none; } }
+
+    /* ===== Staggered panel reveal ===== */
+    /* Each direct child of a content panel rises + fades in turn whenever its
+       view becomes active, so navigating feels choreographed rather than a swap. */
+    .panel > * {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.55s ease, transform 0.65s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+    .view.active .panel > * { opacity: 1; transform: none; }
+    .view.active .panel > *:nth-child(1) { transition-delay: 0.05s; }
+    .view.active .panel > *:nth-child(2) { transition-delay: 0.10s; }
+    .view.active .panel > *:nth-child(3) { transition-delay: 0.15s; }
+    .view.active .panel > *:nth-child(4) { transition-delay: 0.20s; }
+    .view.active .panel > *:nth-child(5) { transition-delay: 0.25s; }
+    .view.active .panel > *:nth-child(6) { transition-delay: 0.30s; }
+    .view.active .panel > *:nth-child(7) { transition-delay: 0.35s; }
+    .view.active .panel > *:nth-child(8) { transition-delay: 0.40s; }
+    .view.active .panel > *:nth-child(9) { transition-delay: 0.45s; }
+    @media (prefers-reduced-motion: reduce) {
+      .panel > * { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ===== About: credentials strip ===== */
+    .stats { display: flex; flex-wrap: wrap; gap: 1.1vmin; margin-top: 2.2vmin; }
+    .panel.right .stats { justify-content: flex-end; }
+    .stat {
+      flex: 1 1 0;
+      min-width: 92px;
+      padding: 1.3vmin 1.5vmin;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.045), rgba(255,255,255,0));
+      transition: border-color 0.25s ease, transform 0.25s ease;
+    }
+    .stat:hover { border-color: rgba(255,60,60,0.4); transform: translateY(-2px); }
+    .stat b {
+      display: block;
+      font-size: clamp(1.1rem, 2.6vmin, 1.6rem);
+      font-weight: 800;
+      color: #ededed;
+      letter-spacing: 0.01em;
+    }
+    .stat span {
+      display: block; margin-top: 0.3vmin;
+      font-size: clamp(0.5rem, 1.05vmin, 0.66rem);
+      letter-spacing: 0.18em;
+      color: var(--muted);
+    }
+
+    /* ===== Portfolio: centred bubble menu + background showcase ===== */
+    /* The discipline picker renders in the bubble (centre); the hovered
+       discipline is showcased full-bleed in the background and captioned at
+       the bottom. Overrides the side-panel layout the about view uses. */
+    /* The view itself is the scroll column that drives the deck (like #view-detail). */
+    #view-portfolio { display: block; overflow-y: auto; overflow-x: hidden; padding: 0; }
+    /* Portfolio is the "room" to the RIGHT: the bubble (camera) swings left+rotates
+       into the portfolio pose (STATES.portfolio), mirroring About. The card deck
+       would normally cover the bubble and hide that swing, so the deck is revealed
+       on a DELAY (see .deck-stage rule below): you watch the camera rotate in first,
+       then the cards arrive. The view itself just slides in slightly. */
+    #view-portfolio:not(.active) { transform: translateX(40px); }
+    /* Hold the deck (both card layers + the dimming scrim) back while the camera
+       swings into place, then fade them in after a delay; quick fade-out on the way
+       back (no delay). The bubble (#bubble-stage) is deliberately NOT in this set, so
+       it stays bright and visible as it rotates in before the cards cover it. */
+    #view-portfolio #deck,
+    #view-portfolio #deck-front,
+    #view-portfolio .deck-scrollcue,
+    #view-portfolio .deck-stage::before { transition: opacity 0.4s ease; }
+    #view-portfolio:not(.active) #deck,
+    #view-portfolio:not(.active) #deck-front,
+    #view-portfolio:not(.active) .deck-scrollcue,
+    #view-portfolio:not(.active) .deck-stage::before { opacity: 0; }
+    #view-portfolio.active #deck,
+    #view-portfolio.active #deck-front,
+    #view-portfolio.active .deck-scrollcue,
+    #view-portfolio.active .deck-stage::before { opacity: 1; transition: opacity 0.5s ease 0.5s; }
+    #view-portfolio::before { display: none; }
+
+    /* Pinned stage: stays centred in the viewport for the whole scroll. */
+    .deck-stage { position: sticky; top: 0; height: 100vh; width: 100%; overflow: hidden; }
+    /* Dimming scrim so the receded bubble reads as a glow behind the deck and the
+       header / cue stay legible. Sits above the bubble, below the cards. */
+    .deck-stage::before {
+      content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(56% 60% at 50% 52%, rgba(6,6,6,0.55), rgba(6,6,6,0) 72%),
+        radial-gradient(85% 55% at 50% 110%, rgba(6,6,6,0.96), rgba(6,6,6,0) 72%),
+        radial-gradient(85% 45% at 50% -10%, rgba(6,6,6,0.88), rgba(6,6,6,0) 72%);
+    }
+    .pf-head, .pf-back { z-index: 5; }   /* above both card layers and the bubble */
+    /* Scroll spacer: its height (set in JS = N segments) gives the deck its scroll length. */
+    .deck-spacer { width: 100%; }
+
+    /* The 3D deck: cards are absolutely stacked dead-centre; JS sets each card's
+       transform from the scroll position. */
+    .deck { position: absolute; inset: 0; z-index: 1; perspective: 1600px; pointer-events: none; }
+    /* The FRONT card layer sits above the bubble (z-index 2, set on #bubble-stage
+       when it is slotted in); the back .deck stays at z-index 1, below it. */
+    #deck-front { z-index: 3; }
+    /* When the portfolio view is CLOSED, neither its card deck nor the cards
+       inside it may capture taps. The deck (and, on desktop, the cards via an
+       inline pointer-events the render loop sets) re-enable pointer-events, which
+       would otherwise leave an invisible, full-height tap-trap sitting on top of
+       the about/cover views on mobile — swallowing taps like the about BACK link.
+       This overrides those, so only the ACTIVE view is ever interactive. */
+    #view-portfolio:not(.active) .deck,
+    #view-portfolio:not(.active) .deck-card { pointer-events: none !important; }
+    /* The rotating 3D group: camera-pan leans this, the cards ride inside it. */
+    .deck-world { position: absolute; inset: 0; transform-style: preserve-3d; pointer-events: none; will-change: transform; }
+
+    /* Top-centred page header. */
+    .pf-head {
+      position: absolute;
+      top: clamp(6vh, 9vh, 12vh);
+      left: 0; right: 0;
+      text-align: center;
+      padding: 0 6vw;
+    }
+    .pf-head h1 {
+      font-size: clamp(2rem, 6.5vmin, 3.6rem);
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      line-height: 1;
+      color: #ededed;
+      margin: 0 0 1.2vmin;
+    }
+    .pf-head .tagline {
+      margin: 0;
+      color: #c9c9c9;
+      font-weight: 600;
+      font-size: clamp(0.82rem, 1.7vmin, 1rem);
+      letter-spacing: 0.02em;
+    }
+
+    /* ===== Discipline card (one per discipline in the deck) ===== */
+    .deck-card {
+      position: absolute; left: 50%; top: 50%;
+      /* Every card is the SAME width and height so the fan tiles cleanly and no
+         card pokes past another. Height is locked to the width for one shape. */
+      --card-w: min(260px, 62vw);
+      width: var(--card-w);
+      height: calc(var(--card-w) * 1.5);
+      display: flex; flex-direction: column;
+      border-radius: 18px; overflow: hidden;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: linear-gradient(135deg, #181818, #0c0c0c);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+      transform-origin: center;
+      will-change: transform, opacity, filter;
+      backface-visibility: hidden;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .deck-card.front {
+      border-color: rgba(var(--tint, 255,60,60), 0.55);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 70px rgba(var(--tint, 255,60,60), 0.18);
+    }
+    .deck-cover {
+      display: block; width: 100%; aspect-ratio: 16 / 9; flex: none;
+      background-size: cover; background-position: center top;
+      background-color: #131313; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    /* Fill the remaining card height; clip anything that would overflow so the
+       card stays a fixed size regardless of how long the blurb is. */
+    .deck-info { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; overflow: hidden; padding: 1.5rem 1.6rem 1.7rem; }
+    .deck-count { display: block; font-size: clamp(0.55rem, 1.2vmin, 0.72rem); letter-spacing: 0.3em; color: rgb(var(--tint, 255,60,60)); }
+    .deck-name { display: block; font-size: clamp(1.5rem, 4vmin, 2.25rem); font-weight: 800; letter-spacing: 0.02em; color: #ededed; margin: 0.6vmin 0 0; }
+    .deck-blurb {
+      display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3;
+      color: #bcbcbc; font-size: clamp(0.85rem, 1.7vmin, 1rem); line-height: 1.55; margin: 0.9vmin 0 0; overflow: hidden;
+    }
+    .deck-cue {
+      display: inline-block; margin-top: 1.3vmin;
+      font-size: 0.72rem; letter-spacing: 0.14em; color: var(--muted);
+      opacity: 0; transform: translateX(-6px);
+      transition: opacity 0.3s ease, transform 0.3s ease, color 0.25s ease;
+    }
+    .deck-card.front .deck-cue { opacity: 1; transform: none; color: rgb(var(--tint, 255,60,60)); }
+
+    .deck-scrollcue {
+      position: absolute; bottom: clamp(5vh, 7vh, 9vh); left: 50%; transform: translateX(-50%);
+      z-index: 5; font-size: 0.6rem; letter-spacing: 0.42em; color: var(--muted);
+      animation: cueBob 1.8s ease-in-out infinite;
+    }
+
+    /* Reduced motion: drop the 3D stack to a plain, readable column of cards. */
+    @media (prefers-reduced-motion: reduce) {
+      .deck-stage { position: static; height: auto; overflow: visible; padding: 12vh 0 8vh; }
+      .deck-stage::before { display: none; }
+      .deck-spacer { display: none; }
+      .deck { position: static; inset: auto; perspective: none; pointer-events: auto;
+              display: flex; flex-direction: column; align-items: center; gap: 3vh; padding: 0 6vw; }
+      .deck-world { display: contents; }   /* collapse the 3D group so cards flow */
+      .deck-card { position: relative; left: auto; top: auto; transform: none !important;
+                   opacity: 1 !important; filter: none !important; --card-w: min(360px, 86vw); height: auto; }
+      .deck-info { overflow: visible; }
+      .deck-blurb { -webkit-line-clamp: none; display: block; }
+      .deck-card .deck-cue { opacity: 1; transform: none; }
+      .deck-scrollcue { display: none; }
+      .pf-head { position: static; margin: 0 0 4vh; }
+      /* Keep the back button top-left here too (the static column layout used to
+         drop it to the bottom), matching the about / detail back buttons. */
+      .pf-back { position: absolute; top: clamp(4.5vh, 6vh, 8vh); left: 6vw; margin: 0; }
+    }
+
+    .pf-back { position: absolute; top: clamp(4.5vh, 6vh, 8vh); left: 6vw; margin: 0; }
+
+    /* ===== Dev-only deck tuner (?tune) ===== */
+    #deck-tuner {
+      position: fixed; top: 12px; right: 12px; z-index: 99999;
+      width: 264px; max-height: 88vh; display: flex; flex-direction: column;
+      background: rgba(14, 14, 20, 0.92); color: #e8e8ef;
+      border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 10px;
+      font: 12px/1.35 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      backdrop-filter: blur(8px); box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+    }
+    #deck-tuner .dt-head {
+      display: flex; align-items: center; gap: 6px; padding: 8px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    #deck-tuner .dt-head strong { flex: 1; letter-spacing: 0.04em; }
+    #deck-tuner button {
+      cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.08); color: #e8e8ef;
+      border-radius: 6px; padding: 3px 9px; font: inherit;
+    }
+    #deck-tuner button:hover { background: rgba(255, 255, 255, 0.16); }
+    #deck-tuner .dt-body {
+      padding: 8px 10px 10px; overflow-y: auto;
+      display: flex; flex-direction: column; gap: 9px;
+    }
+    #deck-tuner.collapsed .dt-body { display: none; }
+    #deck-tuner .dt-row { display: grid; grid-template-columns: 1fr auto auto; gap: 2px 8px; align-items: center; }
+    #deck-tuner .dt-label { opacity: 0.85; }
+    #deck-tuner .dt-val { text-align: right; color: #9fd0ff; }
+    #deck-tuner .dt-rowreset {
+      padding: 0; width: 20px; height: 20px; line-height: 1; font-size: 13px;
+      border-radius: 5px; opacity: 0.6;
+    }
+    #deck-tuner .dt-rowreset:hover { opacity: 1; }
+    #deck-tuner input[type="range"] { grid-column: 1 / -1; width: 100%; margin: 2px 0 0; accent-color: #6db4ff; }
+
+    /* ============================================================
+       Mobile / touch support
+       The portfolio deck is hover-driven (there is no hover on a touch
+       screen), so on coarse pointers it drops to the same plain, scrollable
+       column the reduced-motion path uses — every discipline card visible and
+       tappable. The matching JS (see staticDeck) stops driving the 3D cascade
+       so the cards stay put. The about panel also gains its own scroll so its
+       copy is never clipped on short screens.
+       ============================================================ */
+    @media (hover: none) and (pointer: coarse) {
+      .deck-stage { position: static; height: auto; overflow: visible; padding: 12vh 0 8vh; }
+      .deck-stage::before { display: none; }
+      .deck-spacer { display: none; }
+      .deck {
+        position: static; inset: auto; perspective: none; pointer-events: auto;
+        display: flex; flex-direction: column; align-items: center; gap: 3vh; padding: 0 6vw;
+      }
+      .deck-world { display: contents; }   /* collapse the 3D group so cards flow */
+      .deck-card {
+        position: relative; left: auto; top: auto;
+        transform: none !important; opacity: 1 !important; filter: none !important;
+        --card-w: min(360px, 86vw); height: auto;
+        /* The cards are real links, but .deck-world sets pointer-events:none and
+           that inherits down to them (display:contents doesn't stop inheritance),
+           so without this every discipline card is untappable. The closed-view
+           rule above still neutralises them when the portfolio isn't active. */
+        pointer-events: auto;
+      }
+      .deck-info { overflow: visible; }
+      .deck-blurb { -webkit-line-clamp: none; display: block; }
+      .deck-card .deck-cue { opacity: 1; transform: none; }
+      .deck-scrollcue { display: none; }
+      .pf-head { position: static; margin: 0 0 4vh; }
+      /* Keep the back button top-left here too (the static column layout used to
+         drop it to the bottom), matching the about / detail back buttons. */
+      .pf-back { position: absolute; top: clamp(4.5vh, 6vh, 8vh); left: 6vw; margin: 0; }
+    }
+
+    @media (max-width: 760px) {
+      /* Cover nav: on a phone the GHILLIE title fills the centre of the screen,
+         so the edge-pinned ABOUT / PORTFOLIO controls overlapped it AND each
+         other — a tap near the middle landed on whichever link stacked on top
+         (portfolio), so pressing "About" opened the portfolio. Lift both into a
+         row across the TOP, clear of the title, each on its own side of centre.
+         Generous padding makes each a finger-sized (~48px) tap target — the bare
+         text alone was only ~15px tall and far too small to reliably hit. */
+      #view-cover .sparkle {
+        top: clamp(54px, 10vh, 120px);
+        transform: none;
+        padding: 14px 8px;
+        z-index: 45;               /* sit above the grain/VHS chrome, just in case */
+      }
+      .sparkle-left  { left: auto; right: 51%; justify-content: flex-end; }
+      .sparkle-right { left: 51%; right: auto; justify-content: flex-start; }
+      #view-cover .nav-label { font-size: 0.9rem; letter-spacing: 0.28em; }
+      #view-cover .sparkle .star { width: 18px; height: 18px; }
+      #view-cover .sparkle .line { width: 22px; }
+
+      /* About panel: scroll its own column from the top so tall copy is always
+         reachable on short phones (the view is position:fixed, so without this
+         the overflow would be clipped by the body). */
+      #view-about {
+        align-items: flex-start; justify-content: flex-start;
+        overflow-y: auto; -webkit-overflow-scrolling: touch;
+        padding: 13vh 7vw 12vh;
+      }
+      .panel { width: 100%; }
+      /* Bigger BACK tap target (the bare text is only ~15px tall) */
+      #view-about .back { padding: 12px 4px; }
+      /* Reclaim a little side room in the discipline detail on small screens. */
+      .detail-stage { padding-left: 6vw; padding-right: 6vw; }
+    }
+  </style>
 </head>
 
-<body ondragstart="return false">
-    <!-- Page content -->
-    <div class="section hero">
-        <div class="main">
-            <div class="top_navbar">
-                <ul>
-                    <li><a href="/about/">About</a></li>
-                    <li><a href="/" class="nav_active_link">Home</a></li>
-                    <li><a href="/portfolio/">Portfolio</a></li>
-                </ul>
-            </div>
-            <div>
-                <div class="spinglow" role="img" aria-label="Ghillie profile picture" style="background-image: url(/assets/img/profilePictures/GhilliePFP.png); margin-top: 12.5em;"></div>
-                <div>
-                    <h1>GHILLIE</h1>
-                    <h3>Digital Designer & Developer</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="divider"></div>
-    <div class="section worked_with">
-        <div class="container worked_with">
-            <div class="row">
-                <h2 style="font-weight: bold; margin-top: 2.5em; margin-bottom: 1em; font-size: 2.5rem;">WORKED WITH</h2>
-                <div class="col-12 col-md-4">
-                    <a href="https://www.youtube.com/@Mattcs">
-                    <div style="height: 250px; width: 100%; margin-top: 2.5rem; display: flex; justify-content: center; align-items: center;">
-                        <div class="spinglow" role="img" aria-label="Mattcs YouTube channel" style="--spinwglow-width: 150px;--spinwglow-height: 150px;background-image: url(/assets/img/profilePictures/Mattcs.jpg);"></div>
-                    </div>
-                    </a>
-                    <h3 style="margin-top: 15px; font-size: 1.5rem; font-weight: bold;">Mattcs</h3>
-                    <p style="font-size: 20px; color: #a1a1a1; font-weight: normal;">377K Subs</p>
-                </div>
-                <div class="col-12 col-md-4">
-                    <a href="https://www.youtube.com/@DailyDoseOfInternet">
-                        <div class="spinglow spinglow-responsive" role="img" aria-label="Daily Dose Of Internet YouTube channel" data-spinglow-max-width="250" style="background-image: url(/assets/img/profilePictures/DailyDoseOfInternetPFP.png);"></div>
-                    </a>
-                    <h3 style="margin-top: 1em; font-size: 2.5rem; font-weight: bold;">Daily Dose Of Internet</h3>
-                    <p style="font-size: 25px; color: #a1a1a1; font-weight: normal;">20.8M Subs</p>
-                    <div class="explain_box d-none d-md-block">
-                        <h4>Review</h4>
-                        <p>"The greatest thumbnail artist I ever worked with. Will go above and beyond to do what is asked."</p>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4">
-                    <a href="https://www.youtube.com/@JustRolledIn">
-                    <div style="height: 250px; width: 100%; margin-top: 2.5rem; display: flex; justify-content: center; align-items: center;">
-                        <div class="spinglow" role="img" aria-label="JustRolledIn YouTube channel" style="--spinwglow-width: 150px;--spinwglow-height: 150px;background-image: url(/assets/img/profilePictures/JustRolledInPFP.jpg);"></div>
-                    </div>
-                    </a>
-                    <h3 style="margin-top: 15px; font-size: 1.5rem; font-weight: bold;">JustRolledIn</h3>
-                    <p style="font-size: 20px; color: #a1a1a1; font-weight: normal;">671K Subs</p>
-                    <div class="explain_box d-none d-md-block">
-                        <h4>Review</h4>
-                        <p>"He's done an excellent job with all the thumbnails he has created for my channel! Highly recommended."</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 col-md-3" style="margin-bottom: 30px;">
-                    <a href="https://www.youtube.com/@Mxrplays">
-                    <div style="height: 200px; width: 100%; display: flex; justify-content: center; align-items: center;">
-                        <div class="spinglow" role="img" aria-label="MxR Plays YouTube channel" style="--spinwglow-width: 100px; --spinwglow-height: 100px; background-image: url(/assets/img/profilePictures/MxRPlaysPFP.jpg);"></div>
-                    </div>
-                    </a>
-                    <h3 style="font-size: 20px; font-weight: bold;">MxR Plays (Banned)</h3>
-                    <p style="font-size: 15px; color: #a1a1a1; font-weight: normal;">2.0M Subs</p>
-                    <!-- <h3 style="font-size: 15px;" class="subcount" data-channel-id="UCXWEa9Rl4LPMG0dygqnVCQg">2.0M Subs</h3> -->
-                </div>
-                <div class="col-12 col-md-3" style="margin-bottom: 30px;">
-                    <a href="https://www.youtube.com/@CaptainEggcellent">
-                    <div style="height: 200px; width: 100%; display: flex; justify-content: center; align-items: center;">
-                        <div class="spinglow" role="img" aria-label="Captain Eggcellent YouTube channel" style="--spinwglow-width: 100px; --spinwglow-height: 100px; background-image: url(/assets/img/profilePictures/CaptainEggcellent.jpg);"></div>
-                    </div>
-                    </a>
-                    <h3 style="font-size: 20px; font-weight: bold;">Captain Eggcellent</h3>
-                    <p style="font-size: 15px; color: #a1a1a1; font-weight: normal;">976K Subs</p>
-                </div>
-                <div class="col-12 col-md-3" style="margin-bottom: 30px;">
-                    <a href="https://www.youtube.com/@Quqco">
-                    <div style="height: 200px; width: 100%; display: flex; justify-content: center; align-items: center;">
-                        <div class="spinglow" role="img" aria-label="Quqco YouTube channel" style="--spinwglow-width: 100px; --spinwglow-height: 100px; background-image: url(/assets/img/profilePictures/quqco.jpg);"></div>
-                    </div>
-                    </a>
-                    <h3 style="font-size: 20px; font-weight: bold;">Quqco</h3>
-                    <p style="font-size: 15px; color: #a1a1a1; font-weight: normal;">45.2K Subs</p>
-                </div>
-                <div class="col-12 col-md-3" style="margin-bottom: 30px;">
-                    <a href="https://www.youtube.com/@ConnorEatsPantsLIVE">
-                    <div style="height: 200px; width: 100%; display: flex; justify-content: center; align-items: center;">
-                        <div class="spinglow" role="img" aria-label="ConnorEatsPants YouTube channel" style="--spinwglow-width: 100px; --spinwglow-height: 100px; background-image: url(/assets/img/profilePictures/ConnorEatsPants.jpg);"></div>
-                    </div>
-                    </a>
-                    <h3 style="font-size: 20px; font-weight: bold;">ConnorEatsPants</h3>
-                    <p style="font-size: 15px; color: #a1a1a1; font-weight: normal;">284K Subs</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="divider"></div>
-    <div class="section recent_work">
-        <div class="recent_work">
-            <div class="recent_work_content">
-                <h2>RECENT WORK</h2>
-                <div class="recent-work-grid">
-                    <a href="/portfolio/" class="recent-work-item">
-                        <img src="/assets/img/portfolio/DailyDoseOfInternet/How_to_Stop_a_Riot.jpg"
-                             alt="How to Stop a Riot" loading="lazy">
-                        <div class="recent-work-overlay"><span>How to Stop a Riot</span></div>
-                    </a>
-                    <a href="/portfolio/" class="recent-work-item">
-                        <img src="/assets/img/portfolio/JustRolledIn/JustRolledIn-CustomerStatesNewJaguarShutOffAfterWaterGotSplashedOnIt.jpg"
-                             alt="Customer States New Jaguar Shut Off" loading="lazy">
-                        <div class="recent-work-overlay"><span>Customer States New Jaguar Shut Off</span></div>
-                    </a>
-                    <a href="/portfolio/" class="recent-work-item">
-                        <img src="/assets/img/portfolio/DailyDoseOfInternet/Amazing_Use_of_Free_Will.jpg"
-                             alt="Amazing Use of Free Will" loading="lazy">
-                        <div class="recent-work-overlay"><span>Amazing Use of Free Will</span></div>
-                    </a>
-                    <a href="/portfolio/" class="recent-work-item">
-                        <img src="/assets/img/portfolio/DailyDoseOfPets/Cat_Is_Tired_of_Pretending.jpg"
-                             alt="Cat Is Tired of Pretending" loading="lazy">
-                        <div class="recent-work-overlay"><span>Cat Is Tired of Pretending</span></div>
-                    </a>
-                    <a href="/portfolio/" class="recent-work-item">
-                        <img src="/assets/img/portfolio/JustRolledIn/JustRolledIn-CustomerStatesCarLostAllGearsDrivingOnTheHighway(FordFocusST).jpg"
-                             alt="Customer States Car Lost All Gears" loading="lazy">
-                        <div class="recent-work-overlay"><span>Customer States Car Lost All Gears</span></div>
-                    </a>
-                    <a href="/portfolio/" class="recent-work-item">
-                        <img src="/assets/img/portfolio/DailyDoseOfInternet/DailyDoseOfInternet-TheyHaveFinallyArrived.jpg"
-                             alt="They Have Finally Arrived" loading="lazy">
-                        <div class="recent-work-overlay"><span>They Have Finally Arrived</span></div>
-                    </a>
-                </div>
-                <div class="recent-work-cta">
-                    <a href="/portfolio/" class="cta-btn">View Full Portfolio</a>
-                </div>
-            </div>
-            <div class="footer">
-                <ul>
-                    <li><a href="https://github.com/Ghilliexyz" target="_blank" rel="noopener noreferrer">GITHUB</a></li>
-                    <li><a href="https://discord.com/users/211851747688185856" target="_blank" rel="noopener noreferrer">DISCORD</a></li>
-                    <li><a href="https://twitter.com/Ghilliexyz" target="_blank" rel="noopener noreferrer">TWITTER</a></li>
-                    <li><a href="https://buymeacoffee.com/ghillie" target="_blank" rel="noopener noreferrer">BUY ME A COFFEE</a></li>
-                </ul>
-            </div>
-            <!-- <div class="bottom-glows bottom-glow1"></div>
-            <div class="bottom-glows bottom-glow2"></div> -->
-        </div>
-    </div>
-    <script src="/assets/js/spinglow_responsive.js"></script>
-</body>
+<body data-view="cover">
 
+  <!-- Galaxy backdrop: static nebula wash. The stars themselves are a 3D dome
+       rendered in the bubble canvas (bubble-demo.js) so they rotate with the
+       mouse-look. -->
+  <div class="galaxy" aria-hidden="true"></div>
+
+  <!-- Persistent live 3D layer -->
+  <div id="bubble-stage" aria-hidden="true"></div>
+
+  <!-- Film grain over the whole page -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- VHS tape effect: scanlines, RGB bleed, vignette -->
+  <div class="vhs" aria-hidden="true"></div>
+
+  <!-- Album-jacket framing: viewfinder crop marks and corner liner-note
+       metadata. Persistent across every view. -->
+  <div class="crop" aria-hidden="true">
+    <i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i>
+  </div>
+  <span class="meta meta-tl" aria-hidden="true">GHILLIE.XYZ</span>
+  <span class="meta meta-tr" aria-hidden="true">EST. 2016 / SCOTLAND</span>
+  <span class="meta meta-bl" aria-hidden="true">DIGITAL DESIGNER / DEVELOPER</span>
+  <span class="meta meta-br" id="meta-section" aria-hidden="true">COVER</span>
+
+  <!-- COVER -->
+  <section class="view active" id="view-cover">
+    <a class="sparkle sparkle-left" href="#about" aria-label="About">
+      <span class="nav-label">ABOUT</span>
+      <span class="dot"></span>
+      <svg class="star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0 Z"/>
+      </svg>
+      <span class="line"></span>
+    </a>
+
+    <a class="sparkle sparkle-right" href="#portfolio" aria-label="Portfolio">
+      <span class="line"></span>
+      <svg class="star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0 Z"/>
+      </svg>
+      <span class="dot"></span>
+      <span class="nav-label">PORTFOLIO</span>
+    </a>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="view" id="view-about">
+    <div class="panel">
+      <h1>ABOUT</h1>
+      <p class="tagline">Self-taught designer and developer from Scotland. 9+ years building thumbnails, web tools, and games.</p>
+      <p>I'm the thumbnail designer and lead video editor for <strong>Daily Dose of Internet</strong> (20.7M+ subscribers), working as a Multimedia Creative at <strong>KOMI</strong> across the wider Daily Dose Network. I also helped launch <strong>Daily Dose of Pets</strong> from zero to 200K+ subscribers in under 10 months.</p>
+      <p>On the dev side I build Minecraft plugins under <strong>Atlas</strong>, desktop apps like <strong>Kleptos</strong>, and web tools like a client-side <a href="/dbviewer/">SQLite viewer</a> and a <a href="/wordle/">Wordle solver</a>. I also made <a href="https://gtahub.xyz/" target="_blank" rel="noopener noreferrer">GTAHub.xyz</a> and co-founded <a href="https://sadghoststudio.com" target="_blank" rel="noopener noreferrer">Sad Ghost Studio</a>.</p>
+      <div class="stats" aria-hidden="true">
+        <div class="stat"><b>20.7M+</b><span>Subscribers · DDoI</span></div>
+        <div class="stat"><b>24.67B</b><span>Impressions</span></div>
+        <div class="stat"><b>7.09%</b><span>Average CTR</span></div>
+        <div class="stat"><b>Billions</b><span>Of Views</span></div>
+      </div>
+      <nav class="socials" aria-label="Get in touch">
+        <a href="https://github.com/Ghilliexyz" target="_blank" rel="noopener noreferrer">GITHUB</a>
+        <a href="https://discord.com/users/211851747688185856" target="_blank" rel="noopener noreferrer">DISCORD</a>
+        <a href="https://twitter.com/Ghilliexyz" target="_blank" rel="noopener noreferrer">TWITTER</a>
+        <a href="https://buymeacoffee.com/ghillie" target="_blank" rel="noopener noreferrer">BUY ME A COFFEE</a>
+      </nav>
+      <a class="back" href="#cover">&larr; BACK</a>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO: a scroll-driven deck of discipline cards, pinned centre-stage
+       in front of the receded bubble. Scrolling lifts the front card out of the
+       angled stack, holds it, then lays it back as the next rises. Each card is
+       also a plain link to its detail, so the picker works with JS off. -->
+  <section class="view" id="view-portfolio">
+    <div class="deck-stage" id="deck-stage">
+      <header class="pf-head">
+        <h1>PORTFOLIO</h1>
+        <p class="tagline">Thumbnails, websites, games, apps, and more.</p>
+      </header>
+      <!-- The discipline card deck is injected here from DISCIPLINES. -->
+      <div class="deck" id="deck" aria-label="Disciplines"></div>
+      <span class="deck-scrollcue" aria-hidden="true">HOVER A CARD</span>
+      <a class="back pf-back" href="#cover">&larr; BACK</a>
+    </div>
+    <!-- Scroll spacer: height set in JS (= one segment per discipline). -->
+    <div class="deck-spacer" id="deck-spacer" aria-hidden="true"></div>
+  </section>
+
+  <!-- DISCIPLINE DETAIL: content is built only when a discipline is opened and
+       cleared again when you go back, so nothing here is preloaded. -->
+  <section class="view" id="view-detail" aria-live="polite">
+    <div class="detail-stage" id="detail-stage">
+      <div class="detail-topbar">
+        <button class="detail-back" id="detail-back" type="button">&larr; ALL WORK</button>
+        <span class="detail-kicker">PORTFOLIO</span>
+      </div>
+      <!-- title + intro live pinned in the centre of the page, in 3D space -->
+      <div class="stage-center" id="stage-center">
+        <h2 class="detail-title" id="detail-title"></h2>
+        <p class="detail-intro" id="detail-intro"></p>
+        <span class="stage-scrollcue" aria-hidden="true">SCROLL</span>
+      </div>
+      <div class="stage-gap" aria-hidden="true"></div>
+      <!-- cards fly in from the left and pass the centre as you scroll -->
+      <div class="pf-items" id="detail-items"></div>
+      <div class="detail-extra" id="detail-extra"></div>
+    </div>
+  </section>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+    }
+  }
+  </script>
+  <script type="module" src="/assets/js/bubble-demo.js"></script>
+
+  <!-- Portfolio disciplines. Edit ONE array to change both the index rows and the
+       detail view each opens. Items with an `image` render as thumbnail shots,
+       the rest as project cards. Detail content is built only when opened. -->
+  <script>
+    const DISCIPLINES = [
+      {
+        id: 'thumbnails', name: 'Thumbnails',
+        blurb: 'Daily Dose of Internet & top YouTube creators',
+        intro: 'Thumbnail design and lead editing for some of YouTube’s biggest channels. Hundreds of thumbnails, billions of views.',
+        hero: '/assets/img/portfolio/DailyDoseOfInternet/She_Took_a_Huge_Risk.jpg', tint: '255, 60, 60',
+        items: [
+          { image: '/assets/img/portfolio/DailyDoseOfInternet/She_Took_a_Huge_Risk.jpg', title: 'Daily Dose of Internet', desc: 'Thumbnail designer & lead editor · 3.5+ yrs · 20M+ subscribers', href: '/portfolio/#DailyDoseOfInternet', glow: '230, 40, 40' },
+          { image: '/assets/img/portfolio/DailyDoseOfPets/Funniest_Golden_Retriever_Videos.jpg', title: 'Daily Dose of Pets', desc: 'Thumbnails for the pets spin-off channel', href: '/portfolio/#DailyDoseOfPets', glow: '240, 200, 40' },
+          { image: '/assets/img/portfolio/JustRolledIn/JustRolledIn-CustomerStatesNewJaguarShutOffAfterWaterGotSplashedOnIt.jpg', title: 'JustRolledIn', desc: 'Automotive fails & finds', href: '/portfolio/#JustRolledIn', glow: '150, 60, 220' },
+          { image: '/assets/img/portfolio/ConnorEatsPants/ConnorEatsPants-ClashOfClans.jpg', title: 'Connor Eats Pants', desc: 'Gaming & challenge videos', href: '/portfolio/#ConnorEatsPants', glow: '46, 204, 113' },
+        ],
+      },
+      {
+        id: 'websites', name: 'Websites',
+        blurb: 'Helens Bakery, Gleaming Demon, GTAHub & more',
+        intro: 'Fast, hand-coded websites for small businesses, plus a few self-built web tools. No page builders, no bloated agencies. Here is recent work, and below it, exactly what I can build for you and what it costs.',
+        hero: '/assets/img/portfolio/Websites/HelensBakery.png', tint: '74, 144, 226',
+        items: [
+          { image: '/assets/img/portfolio/Websites/HelensBakery.png', title: 'Helens Bakery', desc: 'Friendly site for a bakery in Falkland, Scotland, with menu and contact.', tags: ['HTML/CSS', 'JavaScript'], status: 'Live', href: 'https://helensbakery.uk/', linkLabel: 'Visit', glow: '255, 40, 40' },
+          { image: '/assets/img/portfolio/Websites/GleamingDemon.png', title: 'Gleaming Demon', desc: 'Mobile-first site for a car valeting business in Fife, Scotland, with services, pricing and booking.', tags: ['HTML/CSS', 'JavaScript'], status: 'Live', href: 'https://www.gleamingdemon.uk/', linkLabel: 'Visit' },
+          { image: '/assets/img/portfolio/Websites/GTAHub.png', title: 'GTAHub.xyz', desc: 'A GTA resource hub built for the community.', tags: ['HTML/CSS', 'JavaScript'], status: 'Live', href: 'https://gtahub.xyz/', linkLabel: 'Visit', glow: '46, 204, 113' },
+          { image: '/assets/img/portfolio/Websites/DBViewer.png', title: 'DB Viewer', desc: 'Client-side SQLite viewer with charts and a read-only SQL console.', tags: ['JavaScript', 'sql.js', 'Chart.js'], status: 'Live', href: '/dbviewer/', linkLabel: 'Open', glow: '150, 60, 220' },
+          { image: '/assets/img/portfolio/Websites/WordleSolver.png', title: 'Wordle Solver', desc: 'Client-side word-filtering helper for Wordle.', tags: ['JavaScript'], status: 'Live', href: '/wordle/', linkLabel: 'Open', glow: '150, 60, 220' },
+        ],
+        pricing: {
+          heading: 'Pricing',
+          blurb: 'Straightforward builds for small businesses. No jargon, no bloated agencies.',
+          legend: [
+            { tag: 'SEO', label: 'Search engines' },
+            { tag: 'AEO', label: 'Direct answers' },
+            { tag: 'GEO', label: 'AI search' },
+          ],
+          tiers: [
+            {
+              name: 'Single page', price: '£200',
+              desc: 'One focused page. Good for landing pages, link-in-bio, or a simple online presence.',
+              includes: ['Single scrollable page', 'Mobile responsive', 'Contact form', 'Basic SEO setup'],
+              caps: ['SEO'],
+            },
+            {
+              name: 'Starter', price: '£350',
+              desc: 'Up to 5 pages, no backend. The essentials for a small business that needs a clean web presence.',
+              includes: ['Up to 5 pages', 'Mobile responsive', 'Contact form', 'On-page SEO', 'Schema markup'],
+              caps: ['SEO', 'AEO'],
+            },
+            {
+              name: 'Standard', price: '£650', popular: true,
+              desc: 'Multi-page site with a full brand presence. Suited to most small businesses.',
+              includes: ['Up to 6 pages', 'Mobile responsive', 'Gallery, FAQ, contact', '3rd party integrations', 'On-page SEO + schema', 'FAQ structured data', 'Local & AI citations'],
+              caps: ['SEO', 'AEO', 'GEO'],
+            },
+            {
+              name: 'Custom', price: '£1,200 +',
+              desc: 'Bespoke builds with backend logic, payments, dashboards, or user accounts.',
+              includes: ['Everything in Standard', 'Custom backend / API', 'Payment integration', 'Dashboards & portals', 'Quoted after a brief'],
+              caps: ['SEO', 'AEO', 'GEO'],
+            },
+          ],
+          support: {
+            heading: 'Ongoing support',
+            plans: [
+              { name: 'Basic care', price: '£30 /mo', desc: 'Hosting managed, dependencies updated, one small change per month.' },
+              { name: 'Active', price: '£70 /mo', desc: 'Everything in Basic care, plus up to two hours of active work each month.' },
+            ],
+          },
+          note: 'All prices are in GBP and exclude domain registration and third-party hosting costs. Custom projects are quoted after a free brief. Final price depends on scope and complexity.',
+          cta: { label: 'Start a project', href: 'mailto:hello@ghillie.xyz' },
+        },
+      },
+      {
+        id: 'gamedev', name: 'Game Dev',
+        blurb: 'Overheat & Sad Ghost Studio',
+        intro: 'Game jams and an indie studio I co-founded.',
+        hero: '/assets/img/portfolio/GameDev/IWasAlone_Banner_1.png', tint: '200, 150, 100',
+        items: [
+          { image: '/assets/img/portfolio/GameDev/Overheat.jpg', title: 'Overheat', desc: 'Game-jam racer built with sJames. Beat the clock with online leaderboards, runs in the browser.', tags: ['Game Jam', 'Leaderboards', 'Browser'], status: 'Live', href: 'https://ghilliexyz.itch.io/overheat', linkLabel: 'itch.io' },
+          { image: '/assets/img/portfolio/GameDev/SadGhostStudio.png', title: 'Sad Ghost Studio', desc: 'Indie game company I co-founded, with games and dev updates.', tags: ['Game Dev', 'Web'], status: 'Live', href: 'https://sadghoststudio.com', linkLabel: 'Visit' },
+        ],
+      },
+      {
+        id: 'appdev', name: 'App Dev',
+        blurb: 'Blackbox vehicle tracker & Kleptos download manager',
+        intro: 'Desktop and mobile apps with clean, no-terminal UIs.',
+        hero: '/assets/img/portfolio/AppDev/Kleptos.png', tint: '255, 60, 60',
+        frontGap: 120,                   // comes out a little less than the default
+
+        items: [
+          { image: '/assets/img/portfolio/AppDev/Blackbox.png', title: 'Blackbox', desc: 'UK car cost tracker: fuel, real MPG, servicing, mods and GPS trips, with DVLA plate lookup and a digital glovebox. No ads or trackers.', tags: ['Mobile', 'Android'], status: 'Live', href: 'https://blackbox.ghillie.xyz/', linkLabel: 'Visit' },
+          { image: '/assets/img/portfolio/AppDev/Kleptos.png', title: 'Kleptos', desc: 'Desktop download manager built on YT-DLP. 1800+ sites, no command line, clean UI.', tags: ['Desktop', 'YT-DLP'], status: 'Live', href: 'https://github.com/Ghilliexyz/Kleptos', linkLabel: 'GitHub' },
+        ],
+      },
+      {
+        id: 'plugins', name: 'Minecraft Plugins',
+        blurb: 'The Atlas suite, live on SpigotMC',
+        intro: 'The Atlas plugin suite. Java / Spigot, most live on SpigotMC.',
+        hero: '/assets/img/portfolio/Plugins/Minecraft.jpg', tint: '96, 165, 230',
+        frontGap: 112,                   // comes out a little less than the default
+
+        items: [
+          { image: '/assets/img/portfolio/Plugins/AtlasPlugins_Enchants_Logo.jpg', logo: true, title: 'Atlas Enchants', desc: '21+ custom enchantments across 6 rarity tiers with upgrade GUIs, custom crafting and WorldGuard integration.', tags: ['Java', 'Spigot', 'WorldGuard'], status: 'WIP', href: 'https://github.com/Ghilliexyz/AtlasEnchants', linkLabel: 'GitHub' },
+          { image: '/assets/img/portfolio/Plugins/AtlasPlugins_Skills_Logo.jpg', logo: true, title: 'Atlas Skills', desc: 'Level up 12 skills like Mining, Fishing and Combat with EXP rewards and leaderboards.', tags: ['Java', 'Spigot'], status: 'Live', href: 'https://www.spigotmc.org/resources/atlas-skills.119586/', linkLabel: 'SpigotMC' },
+          { image: '/assets/img/portfolio/Plugins/AtlasPlugins_Time_Logo.jpg', logo: true, title: 'Atlas Time', desc: 'Run commands on playtime milestones with total and daily tracking.', tags: ['Java', 'Spigot'], status: 'Live', href: 'https://www.spigotmc.org/resources/atlas-time.118357/', linkLabel: 'SpigotMC' },
+          { image: '/assets/img/portfolio/Plugins/AtlasPlugins_Deaths_Logo.jpg', logo: true, title: 'Atlas Deaths', desc: 'Custom challenges for players to complete on death, announced server-wide.', tags: ['Java', 'Spigot'], status: 'Live', href: 'https://www.spigotmc.org/resources/atlas-deaths.117671/', linkLabel: 'SpigotMC' },
+          { image: '/assets/img/portfolio/Plugins/AtlasPlugins_Graves_Logo.jpg', logo: true, title: 'Atlas Graves', desc: 'Spawns graves at death locations to preserve items and XP without keep-inventory.', tags: ['Java', 'Spigot'], status: 'Live', href: 'https://www.spigotmc.org/resources/atlas-graves.117975/', linkLabel: 'SpigotMC' },
+          { image: '/assets/img/portfolio/Plugins/AtlasPlugins_Stats_Logo.jpg', logo: true, title: 'Atlas Stats', desc: 'View and share player stats with an in-game compass.', tags: ['Java', 'Spigot'], status: 'Live', href: 'https://www.spigotmc.org/resources/atlas-stats.117556/', linkLabel: 'SpigotMC' },
+        ],
+      },
+    ];
+
+    const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const ext = (href) => /^https?:/i.test(href);
+    const linkAttrs = (href) => ext(href) ? ` target="_blank" rel="noopener noreferrer"` : '';
+
+    // ---- discipline card deck (portfolio view) ----
+    // One card per discipline, carrying its hero art + blurb. They render as a
+    // scroll-driven 3D stack (see the deck loop below); each card is also a plain
+    // link to its detail, so the picker works with JS off and via the keyboard.
+    const deck = document.getElementById('deck');
+    const deckCards = [];
+    // The deck is split into two 3D layers with the live bubble slotted between
+    // them: cards nearer than the bubble's depth ride in the FRONT layer (over the
+    // bubble), the rest in the BACK layer (occluded by it). Refs live out here so
+    // the render loop and the pan loop can reach them.
+    const deckStage = document.getElementById('deck-stage');
+    const bubbleStage = document.getElementById('bubble-stage');
+    let deckBackWorld = null, deckFront = null, deckFrontWorld = null;
+    if (deck) {
+      deck.innerHTML = DISCIPLINES.map((d) => {
+        const cover = `<span class="deck-cover"${d.hero ? ` style="background-image:url('${esc(d.hero)}')"` : ''}></span>`;
+        return `<a class="deck-card" href="#portfolio/${esc(d.id)}" data-id="${esc(d.id)}" style="--tint:${esc(d.tint || '255, 60, 60')}">
+          ${cover}
+          <span class="deck-info">
+            <span class="deck-name">${esc(d.name)}</span>
+            <span class="deck-blurb">${esc(d.intro || d.blurb || '')}</span>
+            <span class="deck-cue">View work &rarr;</span>
+          </span>
+        </a>`;
+      }).join('');
+      // Wrap the cards in a preserve-3d group: rotating this group (camera pan)
+      // leans the whole cascade as one rigid object in the bubble's 3D space.
+      deck.innerHTML = '<div class="deck-world" id="deck-world">' + deck.innerHTML + '</div>';
+      deckCards.push(...deck.querySelectorAll('.deck-card'));
+      deckBackWorld = deck.querySelector('#deck-world');
+      // Build the matching FRONT layer (same perspective/preserve-3d, higher
+      // z-index) right after the back deck; cards get moved into it on the fly.
+      deckFront = document.createElement('div');
+      deckFront.className = 'deck';
+      deckFront.id = 'deck-front';
+      deckFront.setAttribute('aria-hidden', 'true');
+      deckFrontWorld = document.createElement('div');
+      deckFrontWorld.className = 'deck-world';
+      deckFrontWorld.id = 'deck-world-front';
+      deckFront.appendChild(deckFrontWorld);
+      deck.insertAdjacentElement('afterend', deckFront);
+    }
+
+    // ---- a single detail item: one image-forward card that flies in on scroll.
+    // Items with an `image` show a screenshot; the rest get a tinted placeholder
+    // cover (a monogram + the discipline name). `disc` supplies that label. ----
+    function itemHTML(it, disc) {
+      const cover = it.image
+        ? `<div class="fly-cover${it.logo ? ' logo' : ''}" style="background-image:url('${esc(it.image)}')"></div>`
+        : `<div class="fly-cover ph"><span class="ph-mono">${esc((it.title || '?').trim().charAt(0))}</span><span class="ph-tag">${esc(disc.name)}</span></div>`;
+      const tags = (it.tags || []).map((t) => `<span>${esc(t)}</span>`).join('');
+      const status = it.status ? `<span class="status ${esc(it.status.toLowerCase())}">${esc(it.status)}</span>` : '';
+      const link = it.href ? `<span class="fly-link">${esc(it.linkLabel || 'View')} ↗</span>` : '';
+      const foot = (status || link) ? `<div class="fly-foot">${status}${link}</div>` : '';
+      const body = `<div class="fly-body">
+        <h3>${esc(it.title)}</h3>
+        ${it.desc ? `<p>${esc(it.desc)}</p>` : ''}
+        ${tags ? `<div class="fly-tags">${tags}</div>` : ''}
+        ${foot}
+      </div>`;
+      const inner = cover + body;
+      // Optional per-item glow override (e.g. art whose dominant colour samples
+      // poorly): locks --glow and tells applyGlows to leave this card alone.
+      const glow = it.glow ? ` style="--glow:${esc(it.glow)}" data-glow-lock` : '';
+      // The card mounts on the shared pinned stage; updateFly drives its
+      // transform / opacity / z-index from the global scroll timeline.
+      return it.href
+        ? `<a class="fly-card" href="${esc(it.href)}"${linkAttrs(it.href)}${glow}>${inner}</a>`
+        : `<div class="fly-card"${glow}>${inner}</div>`;
+    }
+
+    // ---- optional pricing block (built only for disciplines that define one) ----
+    function pricingHTML(p) {
+      if (!p) return '';
+      const tier = (t) => `
+        <article class="tier${t.popular ? ' popular' : ''}">
+          ${t.popular ? '<span class="tier-flag">Most popular</span>' : ''}
+          <h4 class="tier-name">${esc(t.name)}</h4>
+          <div class="tier-price">${esc(t.price)}</div>
+          <p class="tier-desc">${esc(t.desc)}</p>
+          <span class="tier-inc-label">Includes</span>
+          <ul class="tier-inc">${(t.includes || []).map((i) => `<li>${esc(i)}</li>`).join('')}</ul>
+          ${(t.caps || []).length ? `<div class="tier-caps">${t.caps.map((c) => `<span class="cap-${esc(c.toLowerCase())}">${esc(c)}</span>`).join('')}</div>` : ''}
+        </article>`;
+      const plan = (pl) => `
+        <article class="plan">
+          <div class="plan-head"><h4>${esc(pl.name)}</h4><span class="plan-price">${esc(pl.price)}</span></div>
+          <p>${esc(pl.desc)}</p>
+        </article>`;
+      const legend = (p.legend || []).map((l) => `<span class="cap-${esc(l.tag.toLowerCase())}"><strong>${esc(l.tag)}</strong> ${esc(l.label)}</span>`).join('');
+      const support = p.support ? `
+        <div class="support">
+          <h3>${esc(p.support.heading)}</h3>
+          <div class="plans">${(p.support.plans || []).map(plan).join('')}</div>
+        </div>` : '';
+      const cta = p.cta ? `<a class="pricing-cta" href="${esc(p.cta.href)}"${linkAttrs(p.cta.href)}>${esc(p.cta.label)} &rarr;</a>` : '';
+      return `
+        <section class="pricing">
+          <div class="pricing-head">
+            <h3>${esc(p.heading)}</h3>
+            ${p.blurb ? `<p>${esc(p.blurb)}</p>` : ''}
+            ${legend ? `<div class="pricing-legend">${legend}</div>` : ''}
+          </div>
+          <div class="tiers">${(p.tiers || []).map(tier).join('')}</div>
+          ${support}
+          ${p.note ? `<p class="pricing-note">${esc(p.note)}</p>` : ''}
+          ${cta}
+        </section>`;
+    }
+
+    // ---- open / close a discipline, building content only on demand ----
+    const portfolioView = document.getElementById('view-portfolio');
+    const detailView = document.getElementById('view-detail');
+    const detailStage = document.getElementById('detail-stage');
+    const stageCenter = document.getElementById('stage-center');
+    const detailTitle = document.getElementById('detail-title');
+    const detailIntro = document.getElementById('detail-intro');
+    const detailItems = document.getElementById('detail-items');
+    const detailExtra = document.getElementById('detail-extra');
+    let unloadTimer = null;
+
+    // ---- scroll-driven fly-in for the detail showcase ----
+    // All cards share ONE pinned stage and a single scroll timeline `g`, measured
+    // in cards (g advances by 1 every STEP viewport-heights of scroll). Card k is
+    // centred when g == 0.9 + k; it flies in over the 0.9 steps before that, holds
+    // dead-centre, then recedes over the next ~0.5. The windows OVERLAP: as one
+    // card starts to leave the next is already ~40% flown in, so the scroll is
+    // never just empty background. The intro title recedes only as the first card
+    // lands (no empty pre-card frame); the last card holds to the end (no empty
+    // tail). Honours reduced motion.
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Touch screens have no hover, so the cursor-driven 3D card deck can't be
+    // browsed. On a coarse pointer we lay the deck out as a plain scrollable
+    // column (see the matching CSS) and skip the cascade render entirely so the
+    // JS never shoves the cards back into 3D positions. `staticDeck` is the
+    // single switch the deck render paths check (reduced motion OR touch).
+    const touchNoHover = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    const staticDeck = reduceMotion || touchNoHover;
+    // Scroll-reveal is disabled for now: the detail showcase just displays every
+    // card in a plain static column (same layout as the reduced-motion path).
+    // Flip FLY_OFF back to false to re-enable the scroll-driven fly-in.
+    const FLY_OFF = true;
+    const flyStatic = reduceMotion || FLY_OFF;
+    const clamp01 = (n) => (n < 0 ? 0 : n > 1 ? 1 : n);
+    const lerp = (a, b, t) => a + (b - a) * t;   // shared with the deck renderer
+    const STEP = 72;   // viewport-heights of scroll to advance one card
+    // Track length: first card's fly-in (0.9) + the gaps between centres (n-1), in
+    // STEPs, + one viewport for the pinned stage. With no trailing content the last
+    // card then sits centred exactly at the bottom; a pricing block adds a short
+    // hold so it doesn't cut straight from the last card to pricing.
+    function sizeTrack(n, hasExtra) {
+      if (flyStatic) { detailItems.style.height = ''; return; }
+      const lastCenter = 0.9 + Math.max(0, n - 1);
+      detailItems.style.height = (lastCenter * STEP + 100 + (hasExtra ? 45 : 0)).toFixed(2) + 'vh';
+    }
+    let flyTicking = false;
+    function updateFly() {
+      flyTicking = false;
+      if (!detailView.classList.contains('active')) return;
+      const stage = document.getElementById('pf-stage');
+      if (!stage) return;
+      const vh = detailView.clientHeight || window.innerHeight;
+      // g: how far the track top has scrolled past the viewport top, in STEPs.
+      const rel = detailItems.getBoundingClientRect().top - detailView.getBoundingClientRect().top;
+      const g = -rel / ((STEP / 100) * vh);
+      // Title recedes only as the first card arrives (g: 0 -> 0.9), never before.
+      const past = clamp01(g / 0.9);
+      stageCenter.style.setProperty('--center-op', (1 - past * 0.72).toFixed(3));
+      stageCenter.style.setProperty('--center-blur', (past * 2.6).toFixed(2) + 'px');
+      const cards = stage.children;
+      const last = cards.length - 1;
+      for (let k = 0; k < cards.length; k++) {
+        const card = cards[k];
+        const lp = g - (0.9 + k);                // this card's local phase
+        let x, s, op;
+        if (lp <= -0.9) {                        // parked off-stage (not yet in)
+          x = -55; s = 0.66; op = 0;
+        } else if (lp < 0) {                     // fly in from the left, scaling up
+          const e = 1 - Math.pow(1 - (lp + 0.9) / 0.9, 3);   // easeOutCubic
+          x = (e - 1) * 55; s = 0.66 + e * 0.34; op = e;
+        } else if (lp < 0.45 || k === last) {    // hold; the last card holds to the end
+          x = 0; s = 1; op = 1;
+        } else if (lp < 0.95) {                  // recede + fade as the next flies in
+          const e = (lp - 0.45) / 0.5;
+          x = -e * 8; s = 1 - e * 0.16; op = 1 - e;
+        } else {                                 // gone
+          x = -8; s = 0.84; op = 0;
+        }
+        card.style.transform = 'translate(-50%,-50%) translate3d(' + x.toFixed(2) + 'vw,0,0) scale(' + s.toFixed(3) + ')';
+        card.style.opacity = op.toFixed(3);
+        card.style.zIndex = k;                   // later cards ride above (incoming overlays leaving)
+      }
+    }
+    function requestFly() {
+      if (!flyTicking) { flyTicking = true; requestAnimationFrame(updateFly); }
+    }
+
+    // ---- per-card glow: sample the dominant colour of each cover image ----
+    // Pick the most prominent vivid colour (skipping near-black/white pixels and
+    // favouring saturated buckets) so the glow behind a card reflects its art.
+    function dominantColor(img) {
+      const w = 24, h = 24;
+      const cv = document.createElement('canvas');
+      cv.width = w; cv.height = h;
+      const ctx = cv.getContext('2d');
+      ctx.drawImage(img, 0, 0, w, h);
+      let data;
+      try { data = ctx.getImageData(0, 0, w, h).data; } catch (e) { return null; }
+      const buckets = {};
+      for (let i = 0; i < data.length; i += 4) {
+        const r = data[i], g = data[i + 1], b = data[i + 2], a = data[i + 3];
+        if (a < 125) continue;
+        const max = Math.max(r, g, b), min = Math.min(r, g, b);
+        const light = (max + min) / 2;
+        if (light < 26 || light > 232) continue;          // skip near-black/white
+        const sat = max === 0 ? 0 : (max - min) / max;
+        const key = (r >> 4) + ',' + (g >> 4) + ',' + (b >> 4);
+        const bk = buckets[key] || (buckets[key] = { r: 0, g: 0, b: 0, n: 0, sat: 0 });
+        bk.r += r; bk.g += g; bk.b += b; bk.n++; bk.sat += sat;
+      }
+      let best = null, bestScore = -1;
+      for (const k in buckets) {
+        const bk = buckets[k];
+        const score = bk.n * (0.25 + bk.sat / bk.n);       // count, weighted by vividness
+        if (score > bestScore) { bestScore = score; best = bk; }
+      }
+      if (!best) return null;
+      return Math.round(best.r / best.n) + ', ' + Math.round(best.g / best.n) + ', ' + Math.round(best.b / best.n);
+    }
+    // Read each cover's background image, sample it, and set the card's --glow.
+    // Cards with no image (placeholders) keep the discipline tint fallback.
+    function applyGlows() {
+      detailItems.querySelectorAll('.fly-cover').forEach((cover) => {
+        const card = cover.closest('.fly-card');
+        const m = (cover.style.backgroundImage || '').match(/url\(["']?(.*?)["']?\)/);
+        if (!card || !m || card.hasAttribute('data-glow-lock')) return;
+        const img = new Image();
+        img.onload = () => {
+          const col = dominantColor(img);
+          if (col) card.style.setProperty('--glow', col);
+        };
+        img.src = m[1];
+      });
+    }
+    if (!flyStatic) {
+      detailView.addEventListener('scroll', requestFly, { passive: true });
+      window.addEventListener('resize', requestFly);
+    }
+    // When the fly-in is off, render the detail showcase as a plain static column.
+    if (flyStatic) detailView.classList.add('fly-off');
+
+    // ---- sub-portfolio cards face the cursor ----
+    // In the static (fly-off) detail grid, every card tilts in 3D to "look at"
+    // the pointer: we measure the vector from each card's OWN centre to the
+    // cursor and rotate the card so its face turns toward the mouse (the further
+    // a card sits from the cursor, the harder it faces it, clamped). Desktop
+    // only — needs a hovering pointer — and skipped under reduced motion.
+    if (flyStatic && !staticDeck) {
+      const TILT_MAX = 5;         // degrees at full deflection
+      const TILT_REF = 620;       // px from a card's centre that reaches full tilt
+      let curX = 0, curY = 0, tiltRAF = 0;
+      function faceCursor() {
+        tiltRAF = 0;
+        if (!detailView.classList.contains('active')) return;
+        detailItems.querySelectorAll('.fly-card').forEach((card) => {
+          const r = card.getBoundingClientRect();
+          const dx = curX - (r.left + r.width / 2);
+          const dy = curY - (r.top + r.height / 2);
+          const ry = clamp01half(dx) *  TILT_MAX;
+          const rx = clamp01half(dy) * -TILT_MAX;
+          card.style.setProperty('--card-tilt', 'rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)');
+        });
+      }
+      const clamp01half = (v) => Math.max(-1, Math.min(1, v / TILT_REF));
+      window.addEventListener('pointermove', (e) => {
+        curX = e.clientX; curY = e.clientY;
+        if (!tiltRAF) tiltRAF = requestAnimationFrame(faceCursor);
+      });
+    }
+
+    // The discipline picker now lives in the 3D bubble (bubble-demo.js). Once
+    // the WebGL module is ready it hands us its API: we feed it the disciplines
+    // and it calls openDiscipline() on click. We also keep it informed of the
+    // detail overlay so it stops accepting picks while a discipline is open.
+
+    // ---- camera-pan parallax ----
+    // The cards live in the SAME 3D space as the bubble, so the whole cascade
+    // leans with the cursor, mirroring the bubble's mouse-look. We ease our own
+    // pan toward the pointer with the same feel as bubble-demo and rotate the
+    // `deck-world` group; every per-card transform rides along inside it. (No
+    // pan under reduced motion.)
+    const deckWorld = document.getElementById('deck-world');
+    const pointer = { x: 0, y: 0 };
+    const pan = { x: 0, y: 0 };
+    const CARD_YAW = 12, CARD_PITCH = 7;   // degrees of lean at a full cursor sweep
+    if (!staticDeck && deckWorld) {
+      window.addEventListener('pointermove', (e) => {
+        pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
+        pointer.y = (e.clientY / window.innerHeight) * 2 - 1;
+      });
+      let bubbleInDeck = false;
+      (function panTick() {
+        pan.x += (pointer.x - pan.x) * 0.06;
+        pan.y += (pointer.y - pan.y) * 0.06;
+        const active = portfolioView.classList.contains('active');
+        if (active) {
+          // Both layers lean identically so the split is invisible: the bubble
+          // sits in one fixed plane while the cascade tilts around it as one.
+          const lean =
+            'rotateX(' + (-pan.y * CARD_PITCH).toFixed(2) + 'deg) rotateY(' + (pan.x * CARD_YAW).toFixed(2) + 'deg)';
+          deckWorld.style.transform = lean;
+          if (deckFrontWorld) deckFrontWorld.style.transform = lean;
+          requestDeck();   // keep the cursor-driven deck loop alive while open
+        }
+        // Slot the live bubble between the two card layers — but only once the
+        // portfolio view is fully opaque, so moving it never blinks the bubble
+        // mid-transition. Pull it back out to the body the moment we leave.
+        if (bubbleStage && deckStage && deckFront) {
+          if (active && !bubbleInDeck) {
+            // Wait until the view is fully settled: opaque AND no transform (a
+            // transformed ancestor would reposition/clip the fixed bubble canvas).
+            const cs = getComputedStyle(portfolioView);
+            if (parseFloat(cs.opacity) > 0.99 && cs.transform === 'none') {
+              deckStage.insertBefore(bubbleStage, deckFront);
+              bubbleStage.style.zIndex = '2';
+              bubbleInDeck = true;
+            }
+          } else if (!active && bubbleInDeck) {
+            document.body.appendChild(bubbleStage);
+            bubbleStage.style.zIndex = '';
+            bubbleInDeck = false;
+          }
+        }
+        requestAnimationFrame(panTick);
+      })();
+    }
+
+    // ---- scroll-driven 3D card deck (the portfolio picker) ----
+    // The cards rest in a diagonal CASCADE: every card is visible, fanning to
+    // the right and receding back under a shared tilt (like a spread hand). As
+    // you scroll, f (scroll in "card units") picks the FRONT card: it flies out
+    // of its cascade slot toward a forward focal spot, faces you, scales up and
+    // brightens, then settles back as the next takes over. Honours reduced
+    // motion (CSS lays the cards out as a plain column instead).
+    const deckSpacer = document.getElementById('deck-spacer');
+    // Tunable deck geometry/feel. Every value the renderer reads lives here so the
+    // ?tune control panel (below) can drive them live and copy them back out.
+    const DECK = {
+      stepXCap: 124,  stepXMul: 0.094,   // rest cascade: rightward step (cap px, and per-px-of-vw)
+      stepYCap: 22,   stepYMul: 0.016,   // rest cascade: upward rise
+      stepZ: 112,                        // rest cascade: depth recede per card
+      fanRY: -22,     fanRX: 5,          // shared fan tilt at rest
+      baseXFactor: 0.5,                  // fan centring on the bubble (0.5 = centred; lower shifts left, higher right)
+      focusSC: 1.06,                     // scale of the hovered card when tilted out
+      tiltX: 64,                         // tilt-out: slight slide to the RIGHT out of the pack (small, so the card stays under the cursor to click)
+      tiltRY: 0, tiltRX: 5,              // tilt-out: rotateY swings to face you (0 = face-on); rotateX held at the fan value so it does NOT lean forward. Pivots on the LEFT edge, so the right edge / top-right corner is what swings.
+      frontGap: 142,                     // how far a hovered (non-first) card sits IN FRONT of the card immediately ahead of it — same for every card, so they all match (Game Dev's distance)
+      bubbleZ: -280,                     // depth of the bubble plane: cards with tz above this are IN FRONT of the bubble, below it are behind
+      approach: 1.0,                     // card-units of influence each side; wider = the card eases the WHOLE way (no last-instant pop), neighbours cross-fade
+      startGap: 1.0,                     // rest lead-in (card-units) so the whole fan sits at rest until a card is hovered
+      segFactor: 0.9,                    // scroll distance per card (× viewport height)
+      ease: 0.12,                        // glide toward the target card (lower = slower, smoother)
+      brightMin: 0.6,                    // brightness of a card at the back of the pack
+    };
+    const SEG = () => Math.max(1, (portfolioView.clientHeight || window.innerHeight) * DECK.segFactor);
+    function setDeckSpacer() {
+      // The deck is mouse-driven now, so the view no longer scrolls: no spacer.
+      if (deckSpacer) deckSpacer.style.height = '0px';
+    }
+    // The deck reads from an EASED scroll position (deckPos) rather than the raw
+    // scrollTop: each frame we glide deckPos toward the live target, so wheel and
+    // trackpad steps melt into continuous motion instead of snapping card-to-card.
+    let deckPos = portfolioView.scrollTop / SEG();
+    let deckRAF = 0;
+    let hoverIndex = -1;   // index of the card the cursor is over (-1 = none)
+    function renderDeck(f) {
+      const n = deckCards.length;
+      if (!n) return;
+
+      // Cascade geometry: each card steps right (+X), rises (-Y) and recedes
+      // (-Z) from the one before, all sharing one tilt — so the whole hand is
+      // visible at once. Steps scale with viewport width so it fits small screens.
+      const vw = window.innerWidth;
+      const STEPX = Math.min(DECK.stepXCap, vw * DECK.stepXMul);
+      const STEPY = -Math.min(DECK.stepYCap, vw * DECK.stepYMul);
+      const STEPZ = DECK.stepZ;
+      const FAN_RY = DECK.fanRY, FAN_RX = DECK.fanRX;
+      // The fan sits centred; the active card stays in its slot and tilts OUT of
+      // the pack (it does not fly to the centre).
+      const baseX = -(n - 1) * STEPX * DECK.baseXFactor; // 0.5 = fan centred on the bubble
+      const baseY = -(n - 1) * STEPY / 2;    // vertically centred on the bubble
+      // Card size (matches CSS --card-w: min(260px, 62vw); height = 1.5×). Used to
+      // pivot the tilt about the card's TOP-RIGHT corner.
+      const cardW = Math.min(260, vw * 0.62);
+      const cardH = cardW * 1.5;
+      const pvX = -cardW / 2, pvY = 0;  // LEFT edge (mid-height): a vertical hinge, so the right edge / top-right corner swings toward the viewer
+
+      for (let i = 0; i < n; i++) {
+        const card = deckCards[i];
+        const rel = i - (f - DECK.startGap);  // startGap delays card 0's focus so a scroll is needed first
+        const a = Math.abs(rel);
+        // Continuous approach: a card influences the front over a FULL card-unit
+        // on each side (no flat dead zone where scrolling does nothing), eased
+        // with smoothstep so the motion is spread evenly across the scroll with
+        // only a gentle settle as a card reaches the front.
+        const near = clamp01(1 - a / DECK.approach);
+        const e = near * near * (3 - 2 * near);
+        const lift = e;
+        // resting slot in the cascade (fixed by index)
+        const restX = baseX + i * STEPX;
+        const restY = baseY + i * STEPY;
+        const restZ = -i * STEPZ;
+        // FOCUS: tilt OUT of the pack by sliding RIGHT and rotating to face the
+        // viewer. The card keeps its depth (no forward lunge) and slides right out
+        // of the cascade. The rotation pivots about the card's LEFT EDGE (translate
+        // to the edge, rotate, translate back), so the right edge / top-right
+        // corner swings toward the viewer like a door instead of spinning in place.
+        const tx = lerp(restX, restX + DECK.tiltX, e);   // slide right out of the pack
+        const ty = restY;
+        // Cards after the first sit behind the card ahead of them, so a hovered
+        // one would be partly covered. Lift it forward to sit a FIXED gap in front
+        // of its immediate neighbour (one depth step + frontGap) — the same gap for
+        // every card, so they all match instead of deeper cards flying out further.
+        // The first card (i === 0) has nothing in front, so it stays at its depth.
+        // A discipline may override frontGap to come out a little less/more.
+        const disc = DISCIPLINES[i];
+        const gap = disc && disc.frontGap != null ? disc.frontGap : DECK.frontGap;
+        const fwd = i > 0 ? DECK.stepZ + gap : 0;
+        const tz = restZ + fwd * e;
+        const ry = lerp(FAN_RY, DECK.tiltRY, e);
+        const rx = lerp(FAN_RX, DECK.tiltRX, e);
+        const sc = lerp(1, DECK.focusSC, e);
+        const bright = lerp(DECK.brightMin, 1, lift);
+        card.style.transform =
+          'translate(-50%,-50%) translate3d(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px,' + tz.toFixed(1) + 'px) ' +
+          'translate3d(' + pvX.toFixed(1) + 'px,' + pvY.toFixed(1) + 'px,0) ' +
+          'rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg) ' +
+          'translate3d(' + (-pvX).toFixed(1) + 'px,' + (-pvY).toFixed(1) + 'px,0) ' +
+          'scale(' + sc.toFixed(3) + ')';
+        card.style.opacity = '1';
+        card.style.filter = 'brightness(' + bright.toFixed(3) + ')';
+        // front card on top; the rest stack by index (nearer = higher)
+        card.style.zIndex = String(Math.round((n - i) * 10 + lift * 1000));
+        const front = lift > 0.6;
+        card.style.pointerEvents = 'auto';   // any visible card is clickable
+        card.classList.toggle('front', front);
+        // Slot the card into the layer that matches its depth: nearer than the
+        // bubble plane -> FRONT layer (paints over the bubble); behind it -> BACK
+        // layer (the bubble paints over it). Cards cross over as you scroll.
+        if (deckFrontWorld && deckBackWorld) {
+          const targetWorld = (lift > 0.5 || tz >= DECK.bubbleZ) ? deckFrontWorld : deckBackWorld;
+          if (card.parentNode !== targetWorld) targetWorld.appendChild(card);
+        }
+      }
+    }
+    // Hover-driven: present the card the cursor is over (hoverIndex), or rest the
+    // whole fan when the cursor is off the cards. Card i is centred at
+    // f = i + startGap; f = 0 leaves the fan at rest. (Replaces scroll/sweep.)
+    function deckTarget() {
+      return hoverIndex >= 0 ? hoverIndex + DECK.startGap : 0;
+    }
+    function deckLoop() {
+      deckRAF = 0;
+      if (staticDeck || !portfolioView.classList.contains('active')) return;
+      const target = deckTarget();
+      // glide toward the cursor-picked card
+      deckPos += (target - deckPos) * DECK.ease;
+      if (Math.abs(target - deckPos) < 0.0008) deckPos = target;
+      renderDeck(deckPos);
+      // keep tracking the cursor for as long as the picker is open
+      deckRAF = requestAnimationFrame(deckLoop);
+    }
+    function requestDeck() {
+      if (!deckRAF) deckRAF = requestAnimationFrame(deckLoop);
+    }
+    // Snap instantly (no glide) — used when the view resets so the first card is
+    // already front on arrival instead of sliding in from the old position.
+    function snapDeck() {
+      deckPos = deckTarget();
+      if (!staticDeck && portfolioView.classList.contains('active')) renderDeck(deckPos);
+    }
+    setDeckSpacer();
+    if (!staticDeck) {
+      window.addEventListener('resize', () => { setDeckSpacer(); requestDeck(); });
+      // Hover-pick: map the cursor's X across the deck to the nearest card, with
+      // hysteresis (must move >0.6 of a card before switching) so it doesn't
+      // jitter at the seams. Selection is read from the RAW cursor, not the cards'
+      // live transforms, so a card popping out can't re-trigger the pick (the old
+      // pointerenter approach fed back on itself and flickered). The fan rests
+      // again once the cursor leaves the deck stage entirely.
+      if (deckStage) {
+        deckStage.addEventListener('pointermove', (e) => {
+          const n = deckCards.length;
+          if (!n) return;
+          const rect = deckStage.getBoundingClientRect();
+          // Map the cursor onto the fan with the SAME spacing the cards use
+          // (STEPX), measured from the fan's centre — so each card's hover band
+          // lands where the card actually sits (the fan is clustered mid-screen,
+          // NOT spread edge-to-edge). pos is in card-units; 0..n-1.
+          const STEPX = Math.min(DECK.stepXCap, window.innerWidth * DECK.stepXMul);
+          const centerX = rect.left + rect.width / 2;
+          let pos = (e.clientX - centerX) / STEPX + (n - 1) / 2;
+          pos = Math.max(0, Math.min(n - 1, pos));
+          const target = Math.round(pos);
+          if (target !== hoverIndex && Math.abs(pos - hoverIndex) > 0.6) {
+            hoverIndex = target;
+            requestDeck();
+          }
+        });
+        deckStage.addEventListener('pointerleave', () => { hoverIndex = -1; requestDeck(); });
+      }
+    }
+
+    // ---- live tuning panel (dev only: add ?tune to the URL) -----------------
+    // Sliders drive the DECK config in real time; Copy puts the current settings
+    // on the clipboard so they can be pasted back and baked into the defaults.
+    if (new URLSearchParams(location.search).has('tune')) {
+      const SPECS = [
+        ['stepXCap', 'Step X cap', 0, 240, 1],
+        ['stepXMul', 'Step X /vw', 0, 0.2, 0.001],
+        ['stepYCap', 'Step Y cap', 0, 60, 1],
+        ['stepYMul', 'Step Y /vw', 0, 0.05, 0.001],
+        ['stepZ', 'Step Z (depth)', 0, 260, 1],
+        ['fanRY', 'Fan rotateY', -60, 60, 1],
+        ['fanRX', 'Fan rotateX', -30, 30, 1],
+        ['baseXFactor', 'Fan centre X', 0, 1, 0.01],
+        ['focusSC', 'Tilt scale', 0.8, 2, 0.01],
+        ['tiltX', 'Tilt slide X', 0, 480, 1],
+        ['frontGap', 'Front gap', 0, 320, 1],
+        ['tiltRY', 'Tilt rotateY', -60, 60, 1],
+        ['tiltRX', 'Tilt rotateX', -60, 60, 1],
+        ['bubbleZ', 'Bubble depth', -460, 160, 1],
+        ['approach', 'Approach units', 0.4, 2, 0.05],
+        ['startGap', 'Start lead-in', 0, 2, 0.05],
+        ['segFactor', 'Scroll per card', 0.4, 1.6, 0.05],
+        ['ease', 'Glide ease', 0.05, 0.6, 0.01],
+        ['brightMin', 'Back brightness', 0.2, 1, 0.02],
+      ];
+      // Snapshot the shipped defaults so the reset buttons have something to
+      // restore to (DECK is still untouched at this point).
+      const DEFAULTS = Object.assign({}, DECK);
+      const panel = document.createElement('div');
+      panel.id = 'deck-tuner';
+      panel.innerHTML =
+        '<div class="dt-head"><strong>Deck tuner</strong>' +
+        '<button type="button" class="dt-copy">Copy</button>' +
+        '<button type="button" class="dt-reset">Reset all</button>' +
+        '<button type="button" class="dt-min">–</button></div>' +
+        '<div class="dt-body"></div>';
+      const body = panel.querySelector('.dt-body');
+      const inputs = {};
+      // Push a value into the config + slider + readout, then re-render the deck.
+      function applyValue(key, value) {
+        DECK[key] = value;
+        if (inputs[key]) {
+          inputs[key].input.value = value;
+          inputs[key].out.textContent = value;
+        }
+        setDeckSpacer();
+        snapDeck();
+      }
+      SPECS.forEach(([key, label, min, max, step]) => {
+        const row = document.createElement('div');
+        row.className = 'dt-row';
+        row.innerHTML = '<span class="dt-label">' + label + '</span>' +
+          '<output class="dt-val"></output>' +
+          '<button type="button" class="dt-rowreset" title="Reset to default">↺</button>';
+        const input = document.createElement('input');
+        input.type = 'range';
+        input.min = min; input.max = max; input.step = step;
+        input.value = DECK[key];
+        const out = row.querySelector('.dt-val');
+        inputs[key] = { input: input, out: out };
+        out.textContent = DECK[key];
+        input.addEventListener('input', () => {
+          DECK[key] = parseFloat(input.value);
+          out.textContent = DECK[key];
+          setDeckSpacer();
+          snapDeck();
+        });
+        // Reset just this one value to its shipped default.
+        row.querySelector('.dt-rowreset').addEventListener('click', () => {
+          applyValue(key, DEFAULTS[key]);
+        });
+        row.appendChild(input);
+        body.appendChild(row);
+      });
+      panel.querySelector('.dt-reset').addEventListener('click', () => {
+        SPECS.forEach(([key]) => applyValue(key, DEFAULTS[key]));
+      });
+      panel.querySelector('.dt-copy').addEventListener('click', (ev) => {
+        const lines = SPECS.map(([k]) => '      ' + k + ': ' + DECK[k] + ',').join('\n');
+        const text = 'DECK settings:\n{\n' + lines + '\n}';
+        const btn = ev.currentTarget;
+        const done = () => { btn.textContent = 'Copied!'; setTimeout(() => { btn.textContent = 'Copy'; }, 1200); };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done).catch(() => { window.prompt('Copy settings:', text); });
+        } else {
+          window.prompt('Copy settings:', text);
+        }
+      });
+      panel.querySelector('.dt-min').addEventListener('click', () => panel.classList.toggle('collapsed'));
+      document.body.appendChild(panel);
+    }
+
+    // Bottom-right liner note tracks the current section (or open discipline).
+    const metaSection = document.getElementById('meta-section');
+    function syncMeta(label) {
+      if (!metaSection) return;
+      const v = label || (location.hash || '#cover').slice(1);
+      metaSection.textContent = String(v).toUpperCase();
+    }
+    // Meta is kept in sync by the route:detail handler below (fires on every
+    // hashchange via the router); we only need to seed it for first paint.
+    syncMeta();
+
+    let bubble = null;
+    // Disciplines are reached by URL: picking one navigates the hash, and the
+    // router (bubble-demo.js) opens the matching detail. That makes every
+    // discipline, and the website pricing block, a shareable link:
+    //   #portfolio/websites           -> Websites work
+    //   #portfolio/websites/pricing   -> scrolled straight to pricing
+    function gotoDiscipline(id) { location.hash = 'portfolio/' + id; }
+
+    // The discipline picker is now the DOM card deck, so we no longer feed the
+    // bubble a 3D menu; we just keep a handle on it to tell it when the detail
+    // overlay opens (so it stops accepting stray picks) and for its morph state.
+    window.addEventListener('bubble:ready', (e) => { bubble = e.detail; });
+
+    // Build a discipline's detail content. Which view is active is owned by the
+    // router; here we only fill content, sync the bubble/meta, and place scroll.
+    function openDiscipline(id, scrollToPricing) {
+      const d = DISCIPLINES.find((x) => x.id === id);
+      if (!d) return;
+      clearTimeout(unloadTimer);
+      detailTitle.textContent = d.name;
+      detailIntro.textContent = d.intro || '';
+      // tint drives placeholder covers + card accents for this discipline
+      detailView.style.setProperty('--tint', d.tint || '255, 60, 60');
+      detailItems.className = 'pf-items';
+      // All cards mount on one pinned stage; sizeTrack gives the track the scroll
+      // length the timeline needs (a little longer when a pricing block follows).
+      detailItems.innerHTML = '<div class="pf-stage" id="pf-stage">' +
+        d.items.map((it) => itemHTML(it, d)).join('') + '</div>';
+      sizeTrack(d.items.length, !!d.pricing);
+      applyGlows();                                           // per-card glow from cover art
+      detailExtra.innerHTML = pricingHTML(d.pricing);         // pricing (websites only)
+      if (bubble) bubble.setDetailOpen(true);
+      syncMeta(d.name);
+      // Land at the top, with the centre title fully present, and seed the cards
+      // into their pre-fly positions so the first scroll sweeps them in cleanly.
+      detailView.scrollTop = 0;
+      stageCenter.style.setProperty('--center-op', '1');
+      stageCenter.style.setProperty('--center-blur', '0px');
+      if (!flyStatic) requestAnimationFrame(updateFly);
+      if (scrollToPricing) {
+        requestAnimationFrame(() => {
+          const pricing = detailExtra.querySelector('.pricing');
+          if (pricing) pricing.scrollIntoView({ block: 'start' });
+        });
+      }
+    }
+
+    // Tear down detail content once the view is no longer active.
+    function clearDetail() {
+      if (bubble) bubble.setDetailOpen(false);
+      clearTimeout(unloadTimer);
+      unloadTimer = setTimeout(() => {
+        if (!detailView.classList.contains('active')) {
+          detailItems.innerHTML = '';
+          detailItems.className = 'pf-items';
+          detailExtra.innerHTML = '';
+        }
+      }, 650);
+    }
+
+    // Back returns to the discipline menu via the URL (keeps history sane).
+    document.getElementById('detail-back').addEventListener('click', () => { location.hash = 'portfolio'; });
+
+    // The router tells us which discipline (and sub-section) the URL points at;
+    // we build it, or tear the detail down when none is selected.
+    window.addEventListener('route:detail', (e) => {
+      const { id, sub } = e.detail || {};
+      if (id && DISCIPLINES.some((x) => x.id === id)) {
+        openDiscipline(id, sub === 'pricing');
+      } else {
+        syncMeta();
+        clearDetail();
+      }
+      // Landing on (or returning to) the bare portfolio menu: reset the deck to
+      // the top so the first card is front again, and size its scroll length.
+      if (!id && portfolioView.classList.contains('active')) {
+        portfolioView.scrollTop = 0;
+        setDeckSpacer();
+        snapDeck();
+      }
+    });
+  </script>
+</body>
 </html>
