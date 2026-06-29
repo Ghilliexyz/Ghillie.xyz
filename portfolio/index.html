@@ -38,13 +38,26 @@
       {
         "@type": "CollectionPage",
         "name": "YouTube Thumbnail Portfolio by Ghillie",
-        "description": "Portfolio of YouTube thumbnails by Ghillie, including work for Daily Dose of Internet, Daily Dose of Pets, JustRolledIn, and Connor Eats Pants.",
+        "description": "Portfolio of 389 YouTube thumbnails by Ghillie across 4 channels, including work for Daily Dose of Internet, Daily Dose of Pets, JustRolledIn, and Connor Eats Pants.",
         "url": "https://ghillie.xyz/portfolio/",
         "author": { "@id": "https://ghillie.xyz/#person" },
         "creator": { "@id": "https://ghillie.xyz/#person" },
         "about": [
-          { "@type": "Thing", "name": "YouTube Thumbnail Design" }
+          { "@type": "Thing", "name": "YouTube Thumbnail Design" },
+          { "@type": "Thing", "name": "Graphic Design" }
         ],
+        "numberOfItems": 389,
+        "mainEntity": {
+          "@type": "ItemList",
+          "name": "Thumbnail collections by channel",
+          "numberOfItems": 4,
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Daily Dose of Internet", "description": "329 thumbnails for Daily Dose of Internet (20.7M+ subscribers)." },
+            { "@type": "ListItem", "position": 2, "name": "Daily Dose of Pets", "description": "49 thumbnails for the Daily Dose of Pets channel." },
+            { "@type": "ListItem", "position": 3, "name": "JustRolledIn", "description": "8 thumbnails for the JustRolledIn channel." },
+            { "@type": "ListItem", "position": 4, "name": "Connor Eats Pants", "description": "3 thumbnails for the Connor Eats Pants channel." }
+          ]
+        },
         "keywords": "YouTube thumbnails, thumbnail design, portfolio, graphic design, Daily Dose of Internet thumbnails, YouTube thumbnail designer"
       },
       {
@@ -67,6 +80,44 @@
           { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://ghillie.xyz/" },
           { "@type": "ListItem", "position": 2, "name": "Portfolio", "item": "https://ghillie.xyz/portfolio/" }
         ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://ghillie.xyz/portfolio/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Who does Ghillie make YouTube thumbnails for?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Ghillie designs thumbnails for some of YouTube's biggest channels, including Daily Dose of Internet (20.7M+ subscribers) as thumbnail designer and lead editor, plus Daily Dose of Pets, JustRolledIn, and Connor Eats Pants."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How many YouTube thumbnails has Ghillie designed?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "This portfolio collects 389 thumbnails across 4 channels, and the full body of work runs into the hundreds, together representing billions of views."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I hire Ghillie to design my YouTube thumbnails?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Ghillie takes on thumbnail and design work for creators and brands. Get in touch by email at hello@ghillie.xyz or through the social links in the footer."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What makes a good YouTube thumbnail?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A strong thumbnail reads instantly at small sizes: a clear focal point, bold contrast, expressive faces or a single obvious subject, and just enough text to add curiosity without clutter. Across these designs the average click-through rate is 7.09%."
+            }
+          }
+        ]
       }
     ]
   }
@@ -84,6 +135,32 @@
   <!-- Hold the first render (and the view-transition snapshot) until the hero
        is parsed, so the cross-fade doesn't reveal a half-built page. -->
   <link rel="expect" href="#vt-ready" blocking="render">
+
+  <!-- Crawlable supporting copy + FAQ. Real, always-in-DOM content so search and
+       AI engines have substantive text here, not just the JS-injected gallery. -->
+  <style>
+    .portfolio-intro { color: #a9a9a9; font-size: 15px; max-width: 720px; margin: 1.1rem auto 0; line-height: 1.6; }
+    .portfolio-faq { max-width: 760px; margin: 3.5rem auto 1rem; padding: 0 1rem; }
+    .portfolio-faq h2 {
+      color: #ededed; font-weight: 800; font-size: clamp(1.4rem, 4vmin, 2rem);
+      letter-spacing: 0.04em; text-transform: uppercase; text-align: center; margin-bottom: 1.6rem;
+      text-shadow: -0.7px 0 rgba(255, 0, 70, 0.45), 0.7px 0 rgba(0, 235, 220, 0.4);
+    }
+    .portfolio-faq details {
+      border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px;
+      background: linear-gradient(135deg, #161616, #0d0d0d); margin-bottom: 0.8rem;
+    }
+    .portfolio-faq summary {
+      cursor: pointer; padding: 1rem 1.2rem; color: #ededed; font-weight: 600;
+      font-size: 15px; list-style: none; display: flex; justify-content: space-between; gap: 1rem;
+    }
+    .portfolio-faq summary::-webkit-details-marker { display: none; }
+    .portfolio-faq summary::after { content: "+"; color: #ff3c3c; font-weight: 700; }
+    .portfolio-faq details[open] summary::after { content: "-"; }
+    .portfolio-faq .faq-a { padding: 0 1.2rem 1.1rem; color: #a9a9a9; font-size: 14px; line-height: 1.6; }
+    .portfolio-faq .faq-a a { color: #ff8a8a; text-decoration: none; }
+    .portfolio-faq .faq-a a:hover { text-decoration: underline; }
+  </style>
 </head>
 
 <body class="tool-page" ondragstart="return false">
@@ -110,6 +187,7 @@
     <div class="portfolio-hero" id="vt-ready">
         <h1>PORTFOLIO</h1>
         <p class="portfolio-tagline">YouTube thumbnail design for some of the platform's biggest creators. Hundreds of thumbnails, billions of views.</p>
+        <p class="portfolio-intro">I design and edit YouTube thumbnails for some of the platform's biggest channels, including <strong>Daily Dose of Internet</strong> (20.7M+ subscribers), <strong>Daily Dose of Pets</strong>, <strong>JustRolledIn</strong>, and <strong>Connor Eats Pants</strong>. This gallery collects 389 thumbnails across 4 channels, together representing billions of views and an average 7.09% click-through rate. Use the filters to browse by creator, or open any thumbnail to watch the original video.</p>
     </div>
 
     <!-- Thumbnail Gallery -->
@@ -125,6 +203,27 @@
             <span class="gallery-count" id="gallery-count"></span>
             <button class="load-more-btn" id="load-more-btn">Load More</button>
         </div>
+    </section>
+
+    <!-- Crawlable FAQ (mirrors the FAQPage schema in the head) -->
+    <section class="portfolio-faq" aria-label="Frequently asked questions">
+        <h2>Thumbnail FAQ</h2>
+        <details>
+            <summary>Who does Ghillie make YouTube thumbnails for?</summary>
+            <div class="faq-a">Ghillie designs thumbnails for some of YouTube's biggest channels, including Daily Dose of Internet (20.7M+ subscribers) as thumbnail designer and lead editor, plus Daily Dose of Pets, JustRolledIn, and Connor Eats Pants.</div>
+        </details>
+        <details>
+            <summary>How many YouTube thumbnails has Ghillie designed?</summary>
+            <div class="faq-a">This portfolio collects 389 thumbnails across 4 channels, and the full body of work runs into the hundreds, together representing billions of views.</div>
+        </details>
+        <details>
+            <summary>Can I hire Ghillie to design my YouTube thumbnails?</summary>
+            <div class="faq-a">Yes. Ghillie takes on thumbnail and design work for creators and brands. Get in touch by email at <a href="mailto:hello@ghillie.xyz">hello@ghillie.xyz</a> or through the social links in the footer.</div>
+        </details>
+        <details>
+            <summary>What makes a good YouTube thumbnail?</summary>
+            <div class="faq-a">A strong thumbnail reads instantly at small sizes: a clear focal point, bold contrast, expressive faces or a single obvious subject, and just enough text to add curiosity without clutter. Across these designs the average click-through rate is 7.09%.</div>
+        </details>
     </section>
 
     <!-- Footer -->

@@ -6,7 +6,7 @@
   <title>Ghillie - YouTube Thumbnail Designer & Web Developer (Scotland)</title>
 
   <meta name="description"
-        content="Self-taught digital designer and developer from Scotland, creating YouTube thumbnails, web tools, and apps for creators and brands. 3.5+ years with Daily Dose of Internet.">
+        content="Self-taught designer and developer from Scotland with 9+ years' experience creating YouTube thumbnails, web tools, and apps for creators and brands, including 3.5+ years with Daily Dose of Internet.">
   <link rel="canonical" href="https://ghillie.xyz/">
 
   <!-- Open Graph / Facebook -->
@@ -65,6 +65,106 @@
           "https://www.spigotmc.org/resources/authors/ghilliexyz.1828307/",
           "https://buymeacoffee.com/ghillie"
         ]
+      },
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://ghillie.xyz/#service",
+        "name": "Ghillie Web Design & Development",
+        "url": "https://ghillie.xyz/",
+        "image": "https://ghillie.xyz/assets/img/metaImgs/Meta-Home.png",
+        "description": "Fast, hand-coded websites and web tools for small businesses and creators, built by Ghillie in Scotland. SEO, AEO and GEO ready, with no page builders or bloated agencies.",
+        "priceRange": "£200 to £1,200+",
+        "areaServed": [
+          { "@type": "Country", "name": "United Kingdom" },
+          { "@type": "AdministrativeArea", "name": "Scotland" }
+        ],
+        "founder": { "@id": "https://ghillie.xyz/#person" },
+        "provider": { "@id": "https://ghillie.xyz/#person" },
+        "knowsAbout": ["Web Design", "Web Development", "SEO", "Answer Engine Optimization", "Generative Engine Optimization", "YouTube Thumbnail Design"],
+        "sameAs": [
+          "https://github.com/Ghilliexyz",
+          "https://twitter.com/Ghilliexyz"
+        ],
+        "makesOffer": [
+          {
+            "@type": "Offer",
+            "name": "Single page website",
+            "price": "200",
+            "priceCurrency": "GBP",
+            "description": "One focused page: landing page, link-in-bio, or a simple online presence. Mobile responsive, contact form, basic SEO setup.",
+            "itemOffered": { "@type": "Service", "name": "Single page website" }
+          },
+          {
+            "@type": "Offer",
+            "name": "Starter website",
+            "price": "350",
+            "priceCurrency": "GBP",
+            "description": "Up to 5 pages, no backend. Mobile responsive, contact form, on-page SEO and schema markup.",
+            "itemOffered": { "@type": "Service", "name": "Starter website (up to 5 pages)" }
+          },
+          {
+            "@type": "Offer",
+            "name": "Standard website",
+            "price": "650",
+            "priceCurrency": "GBP",
+            "description": "Multi-page business site, up to 6 pages, with gallery, FAQ, contact, third-party integrations, on-page SEO plus schema, FAQ structured data, and local and AI citations.",
+            "itemOffered": { "@type": "Service", "name": "Standard multi-page website" }
+          },
+          {
+            "@type": "Offer",
+            "name": "Custom website",
+            "price": "1200",
+            "priceCurrency": "GBP",
+            "description": "Bespoke builds from £1,200 with custom backend or API, payment integration, dashboards and portals. Quoted after a free brief.",
+            "itemOffered": { "@type": "Service", "name": "Custom website build" }
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://ghillie.xyz/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How much does a website cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Builds start at £200 for a single page, £350 for a starter site (up to 5 pages), £650 for a standard multi-page business site, and £1,200+ for custom builds with backend logic, payments or dashboards. All prices are in GBP and exclude domain registration and third-party hosting."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you work with YouTubers and content creators?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Ghillie is the thumbnail designer and lead editor for Daily Dose of Internet (20.7M+ subscribers) and helped launch Daily Dose of Pets from zero to 200K+ subscribers in under 10 months, alongside thumbnail work for other large YouTube channels."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What can Ghillie build?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "YouTube thumbnails, hand-coded websites, web tools, desktop and mobile apps, Minecraft (Spigot) plugins, and games. Recent work includes a client-side SQLite viewer, a Wordle solver, the Atlas plugin suite, and the Kleptos download manager."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Where is Ghillie based?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Scotland, United Kingdom. Web work is available remotely for clients anywhere, with local clients across Scotland such as Falkland and Fife."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are the websites optimised for search and AI?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Every build includes on-page SEO and schema markup, and higher tiers add FAQ structured data plus local and AI citations (AEO and GEO) so the site can surface in Google, featured snippets, and AI search engines like ChatGPT Search and Perplexity."
+            }
+          }
+        ]
       }
     ]
   }
@@ -105,6 +205,18 @@
     /* Text-selection highlight uses the site accent red */
     ::selection { background: #ff3c3c; color: #fff; }
     ::-moz-selection { background: #ff3c3c; color: #fff; }
+
+    /* Accessible, crawlable-but-invisible text (e.g. the page's real H1, which
+       the cover only shows as the WebGL "GHILLIE" wordmark). Uses the clip
+       technique rather than display:none so it stays in the accessibility tree
+       and is read by search / AI crawlers. */
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px; height: 1px;
+      margin: -1px; padding: 0; border: 0;
+      clip: rect(0 0 0 0); clip-path: inset(50%);
+      overflow: hidden; white-space: nowrap;
+    }
 
     /* ===== Galaxy backdrop ===== */
     /* A static deep-space wash behind everything. The actual STARS are a real 3D
@@ -198,7 +310,7 @@
     .panel { width: min(560px, 100%); }
     .panel.right { text-align: right; }
 
-    .panel h1 {
+    .panel h2 {
       font-size: clamp(2.6rem, 11vmin, 6.5rem);
       font-weight: 800;
       letter-spacing: 0.04em;
@@ -719,7 +831,7 @@
       72% { opacity: 0.95; }
     }
     /* Classic colour-fringed VHS text on the big headings. */
-    #view-about h1, #view-portfolio h1, .detail-title {
+    #view-about h2, #view-portfolio h2, .detail-title {
       text-shadow: -0.7px 0 rgba(255, 0, 70, 0.5), 0.7px 0 rgba(0, 235, 220, 0.45);
     }
     @media (prefers-reduced-motion: reduce) {
@@ -884,7 +996,7 @@
       text-align: center;
       padding: 0 6vw;
     }
-    .pf-head h1 {
+    .pf-head h2 {
       font-size: clamp(2rem, 6.5vmin, 3.6rem);
       font-weight: 800;
       letter-spacing: 0.05em;
@@ -1085,6 +1197,11 @@
 
 <body data-view="cover">
 
+  <!-- The page's real, single H1. The cover only renders "GHILLIE" as a WebGL
+       wordmark (not text), so this gives crawlers and screen readers one clear,
+       descriptive heading for the site. Visually hidden, semantically present. -->
+  <h1 class="visually-hidden">Ghillie, YouTube Thumbnail Designer and Web Developer in Scotland</h1>
+
   <!-- Galaxy backdrop: static nebula wash. The stars themselves are a 3D dome
        rendered in the bubble canvas (bubble-demo.js) so they rotate with the
        mouse-look. -->
@@ -1133,7 +1250,7 @@
   <!-- ABOUT -->
   <section class="view" id="view-about">
     <div class="panel">
-      <h1>ABOUT</h1>
+      <h2>ABOUT</h2>
       <p class="tagline">Self-taught designer and developer from Scotland. 9+ years building thumbnails, web tools, and games.</p>
       <p>I'm the thumbnail designer and lead video editor for <strong>Daily Dose of Internet</strong> (20.7M+ subscribers), working as a Multimedia Creative at <strong>KOMI</strong> across the wider Daily Dose Network. I also helped launch <strong>Daily Dose of Pets</strong> from zero to 200K+ subscribers in under 10 months.</p>
       <p>On the dev side I build Minecraft plugins under <strong>Atlas</strong>, desktop apps like <strong>Kleptos</strong>, and web tools like a client-side <a href="/dbviewer/">SQLite viewer</a> and a <a href="/wordle/">Wordle solver</a>. I also made <a href="https://gtahub.xyz/" target="_blank" rel="noopener noreferrer">GTAHub.xyz</a> and co-founded <a href="https://sadghoststudio.com" target="_blank" rel="noopener noreferrer">Sad Ghost Studio</a>.</p>
@@ -1160,7 +1277,7 @@
   <section class="view" id="view-portfolio">
     <div class="deck-stage" id="deck-stage">
       <header class="pf-head">
-        <h1>PORTFOLIO</h1>
+        <h2>PORTFOLIO</h2>
         <p class="tagline">Thumbnails, websites, games, apps, and more.</p>
       </header>
       <!-- The discipline card deck is injected here from DISCIPLINES. -->
