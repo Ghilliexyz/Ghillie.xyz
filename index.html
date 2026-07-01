@@ -573,7 +573,7 @@
       font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase;
       color: rgba(var(--tint), 0.9);
     }
-    .fly-body { display: block; padding: 1.6rem 1.7rem 1.7rem; }
+    .fly-body { display: flex; flex-direction: column; padding: 1.6rem 1.7rem 1.7rem; }
     .fly-body h3 { font-size: clamp(1.15rem, 2.3vmin, 1.45rem); font-weight: 700; color: #ededed; margin: 0; }
     .fly-body p { color: #a9a9a9; font-size: clamp(0.85rem, 1.6vmin, 0.96rem); line-height: 1.55; margin: 0.85vmin 0 0; }
     .fly-tags { display: flex; flex-wrap: wrap; gap: 0.5vmin; margin-top: 1.2vmin; }
@@ -581,12 +581,19 @@
       font-size: 0.66rem; letter-spacing: 0.05em; color: #cfcfcf;
       padding: 0.32em 0.75em; border-radius: 999px; background: rgba(255,255,255,0.06);
     }
-    .fly-foot { display: flex; align-items: center; justify-content: space-between; gap: 1vmin; margin-top: 1.6vmin; }
+    .fly-foot { display: flex; align-items: center; justify-content: space-between; gap: 1vmin; margin-top: auto; padding-top: 1.6vmin; }
     .status { font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.32em 0.7em; border-radius: 6px; }
     .status.live { color: #7ee787; background: rgba(46,160,67,0.15); }
     .status.wip  { color: #ffd366; background: rgba(210,153,34,0.15); }
-    .fly-link { color: var(--muted); font-size: 0.76rem; letter-spacing: 0.1em; transition: color 0.25s ease; }
-    .fly-card:hover .fly-link { color: rgba(var(--glow, var(--tint)), 1); }
+    .fly-links { display: flex; align-items: center; gap: 1.1vmin; }
+    .fly-link { color: var(--muted); font-size: 0.76rem; letter-spacing: 0.1em; text-decoration: none; transition: color 0.2s ease; }
+    /* Hovering the card tints every link with its glow colour. On cards with
+       several real links (the plugins), the one under the cursor then takes a
+       brighter secondary colour + underline so it's clear which you're picking. */
+    .fly-card:hover .fly-link { color: rgba(var(--glow, var(--tint)), 0.85); }
+    a.fly-link:hover { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+    .fly-link.pending { opacity: 0.5; cursor: default; pointer-events: none; }
+    .fly-card:hover .fly-link.pending { color: var(--muted); }
 
     /* pricing block (websites) rides above the faint pinned title */
     .detail-extra { position: relative; z-index: 3; }
@@ -1344,8 +1351,8 @@
         hero: '/assets/img/portfolio/Websites/HelensBakery.png', tint: '74, 144, 226',
         items: [
           { image: '/assets/img/portfolio/Websites/HelensBakery.png', title: 'Helens Bakery', desc: 'Friendly site for a bakery in Falkland, Scotland, with menu and contact.', tags: ['HTML/CSS', 'JavaScript'], status: 'Live', href: 'https://helensbakery.uk/', linkLabel: 'Visit', glow: '255, 40, 40' },
-          { image: '/assets/img/portfolio/Websites/SJames.png', title: 'sJames', desc: 'Portfolio site for my friend James, a software developer specialising in backend and systems.', tags: ['HTML/CSS', 'JavaScript'], status: 'Live', href: 'https://sjames.de/', linkLabel: 'Visit', glow: '240, 180, 40' },
           { image: '/assets/img/portfolio/Websites/GleamingDemon.png', title: 'Gleaming Demon', desc: 'Mobile-first site for a car valeting business in Fife, Scotland, with services, pricing and booking.', tags: ['HTML/CSS', 'JavaScript'], status: 'Live', href: 'https://www.gleamingdemon.uk/', linkLabel: 'Visit' },
+          { image: '/assets/img/portfolio/Websites/SJames.png', title: 'sJames', desc: 'Portfolio site for my friend James, a software developer specialising in backend and systems.', tags: ['HTML/CSS', 'JavaScript'], status: 'Live', href: 'https://sjames.de/', linkLabel: 'Visit', glow: '240, 180, 40' },
           { image: '/assets/img/portfolio/Websites/GTAHub.png', title: 'GTAHub.xyz', desc: 'A GTA resource hub built for the community.', tags: ['HTML/CSS', 'JavaScript'], status: 'Live', href: 'https://gtahub.xyz/', linkLabel: 'Visit', glow: '46, 204, 113' },
           { image: '/assets/img/portfolio/Websites/DBViewer.png', title: 'DB Viewer', desc: 'Client-side SQLite viewer with charts and a read-only SQL console.', tags: ['JavaScript', 'sql.js', 'Chart.js'], status: 'Live', href: '/dbviewer/', linkLabel: 'Open', glow: '150, 60, 220' },
           { image: '/assets/img/portfolio/Websites/WordleSolver.png', title: 'Wordle Solver', desc: 'Client-side word-filtering helper for Wordle.', tags: ['JavaScript'], status: 'Live', href: '/wordle/', linkLabel: 'Open', glow: '150, 60, 220' },
@@ -1425,12 +1432,30 @@
         frontGap: 112,                   // comes out a little less than the default
 
         items: [
-          { image: '/assets/img/portfolio/Plugins/AtlasPlugins_Enchants_Logo.jpg', logo: true, title: 'Atlas Enchants', desc: '21+ custom enchantments across 6 rarity tiers with upgrade GUIs, custom crafting and WorldGuard integration.', tags: ['Java', 'Spigot', 'WorldGuard'], status: 'WIP', href: 'https://github.com/Ghilliexyz/AtlasEnchants', linkLabel: 'GitHub' },
-          { image: '/assets/img/portfolio/Plugins/AtlasPlugins_Skills_Logo.jpg', logo: true, title: 'Atlas Skills', desc: 'Level up 12 skills like Mining, Fishing and Combat with EXP rewards and leaderboards.', tags: ['Java', 'Spigot'], status: 'Live', href: 'https://www.spigotmc.org/resources/atlas-skills.119586/', linkLabel: 'SpigotMC' },
-          { image: '/assets/img/portfolio/Plugins/AtlasPlugins_Time_Logo.jpg', logo: true, title: 'Atlas Time', desc: 'Run commands on playtime milestones with total and daily tracking.', tags: ['Java', 'Spigot'], status: 'Live', href: 'https://www.spigotmc.org/resources/atlas-time.118357/', linkLabel: 'SpigotMC' },
-          { image: '/assets/img/portfolio/Plugins/AtlasPlugins_Deaths_Logo.jpg', logo: true, title: 'Atlas Deaths', desc: 'Custom challenges for players to complete on death, announced server-wide.', tags: ['Java', 'Spigot'], status: 'Live', href: 'https://www.spigotmc.org/resources/atlas-deaths.117671/', linkLabel: 'SpigotMC' },
-          { image: '/assets/img/portfolio/Plugins/AtlasPlugins_Graves_Logo.jpg', logo: true, title: 'Atlas Graves', desc: 'Spawns graves at death locations to preserve items and XP without keep-inventory.', tags: ['Java', 'Spigot'], status: 'Live', href: 'https://www.spigotmc.org/resources/atlas-graves.117975/', linkLabel: 'SpigotMC' },
-          { image: '/assets/img/portfolio/Plugins/AtlasPlugins_Stats_Logo.jpg', logo: true, title: 'Atlas Stats', desc: 'View and share player stats with an in-game compass.', tags: ['Java', 'Spigot'], status: 'Live', href: 'https://www.spigotmc.org/resources/atlas-stats.117556/', linkLabel: 'SpigotMC' },
+          { image: '/assets/img/portfolio/Plugins/AtlasPlugins_Enchants_Logo.jpg', logo: true, title: 'Atlas Enchants', desc: '21+ custom enchantments across 6 rarity tiers with upgrade GUIs, custom crafting and WorldGuard integration.', tags: ['Java', 'Spigot', 'WorldGuard'], status: 'Live', glow: '239, 62, 47', links: [
+            { href: 'https://github.com/Ghilliexyz/AtlasEnchants', label: 'GitHub' },
+            { href: 'https://modrinth.com/plugin/atlas-enchants', label: 'Modrinth' },
+          ] },
+          { image: '/assets/img/portfolio/Plugins/AtlasPlugins_Skills_Logo.jpg', logo: true, title: 'Atlas Skills', desc: 'Level up 12 skills like Mining, Fishing and Combat with EXP rewards and leaderboards.', tags: ['Java', 'Spigot'], status: 'Live', glow: '239, 62, 47', links: [
+            { href: 'https://www.spigotmc.org/resources/atlas-skills.119586/', label: 'SpigotMC' },
+            { href: 'https://modrinth.com/plugin/atlas-skills', label: 'Modrinth' },
+          ] },
+          { image: '/assets/img/portfolio/Plugins/AtlasPlugins_Time_Logo.jpg', logo: true, title: 'Atlas Time', desc: 'Run commands on playtime milestones with total and daily tracking.', tags: ['Java', 'Spigot'], status: 'Live', glow: '239, 62, 47', links: [
+            { href: 'https://www.spigotmc.org/resources/atlas-time.118357/', label: 'SpigotMC' },
+            { href: 'https://modrinth.com/plugin/atlas-time', label: 'Modrinth' },
+          ] },
+          { image: '/assets/img/portfolio/Plugins/AtlasPlugins_Deaths_Logo.jpg', logo: true, title: 'Atlas Deaths', desc: 'Custom challenges for players to complete on death, announced server-wide.', tags: ['Java', 'Spigot'], status: 'Live', glow: '239, 62, 47', links: [
+            { href: 'https://www.spigotmc.org/resources/atlas-deaths.117671/', label: 'SpigotMC' },
+            { href: 'https://modrinth.com/plugin/atlas-deaths', label: 'Modrinth' },
+          ] },
+          { image: '/assets/img/portfolio/Plugins/AtlasPlugins_Graves_Logo.jpg', logo: true, title: 'Atlas Graves', desc: 'Spawns graves at death locations to preserve items and XP without keep-inventory.', tags: ['Java', 'Spigot'], status: 'Live', glow: '239, 62, 47', links: [
+            { href: 'https://www.spigotmc.org/resources/atlas-graves.117975/', label: 'SpigotMC' },
+            { href: 'https://modrinth.com/plugin/atlas-graves', label: 'Modrinth' },
+          ] },
+          { image: '/assets/img/portfolio/Plugins/AtlasPlugins_Stats_Logo.jpg', logo: true, title: 'Atlas Stats', desc: 'View and share player stats with an in-game compass.', tags: ['Java', 'Spigot'], status: 'Live', glow: '239, 62, 47', links: [
+            { href: 'https://www.spigotmc.org/resources/atlas-stats.117556/', label: 'SpigotMC' },
+            { href: 'https://modrinth.com/plugin/atlas-stats', label: 'Modrinth' },
+          ] },
         ],
       },
     ];
@@ -1491,8 +1516,23 @@
         : `<div class="fly-cover ph"><span class="ph-mono">${esc((it.title || '?').trim().charAt(0))}</span><span class="ph-tag">${esc(disc.name)}</span></div>`;
       const tags = (it.tags || []).map((t) => `<span>${esc(t)}</span>`).join('');
       const status = it.status ? `<span class="status ${esc(it.status.toLowerCase())}">${esc(it.status)}</span>` : '';
-      const link = it.href ? `<span class="fly-link">${esc(it.linkLabel || 'View')} ↗</span>` : '';
-      const foot = (status || link) ? `<div class="fly-foot">${status}${link}</div>` : '';
+      // Items can carry either a single `href`/`linkLabel` (whole card is the
+      // link) or a `links` array (e.g. SpigotMC + Modrinth side by side, some
+      // of which may be `pending: true` — rendered as a non-clickable badge).
+      const links = it.links || (it.href ? [{ href: it.href, label: it.linkLabel || 'View' }] : []);
+      // A card is only a single whole-card <a> when it has exactly one link;
+      // multiple links each need their own <a>, so the card becomes a <div>.
+      const primary = links.length === 1 && links[0].href ? links[0].href : null;
+      // When the whole card is already an <a> (primary set), the footer links
+      // MUST be plain <span>s — an <a> nested inside an <a> is invalid HTML and
+      // the parser tears the card apart (cover and body split into separate
+      // grid cells). Only the <div> (multi-link) cards get real <a> links.
+      const linkHTML = links.map((l) => {
+        if (!l.href) return `<span class="fly-link pending">${esc(l.label)}</span>`;
+        if (primary) return `<span class="fly-link">${esc(l.label)} ↗</span>`;
+        return `<a class="fly-link" href="${esc(l.href)}"${linkAttrs(l.href)}>${esc(l.label)} ↗</a>`;
+      }).join('');
+      const foot = (status || linkHTML) ? `<div class="fly-foot">${status}<span class="fly-links">${linkHTML}</span></div>` : '';
       const body = `<div class="fly-body">
         <h3>${esc(it.title)}</h3>
         ${it.desc ? `<p>${esc(it.desc)}</p>` : ''}
@@ -1505,8 +1545,8 @@
       const glow = it.glow ? ` style="--glow:${esc(it.glow)}" data-glow-lock` : '';
       // The card mounts on the shared pinned stage; updateFly drives its
       // transform / opacity / z-index from the global scroll timeline.
-      return it.href
-        ? `<a class="fly-card" href="${esc(it.href)}"${linkAttrs(it.href)}${glow}>${inner}</a>`
+      return primary
+        ? `<a class="fly-card" href="${esc(primary)}"${linkAttrs(primary)}${glow}>${inner}</a>`
         : `<div class="fly-card"${glow}>${inner}</div>`;
     }
 
