@@ -1,0 +1,465 @@
+/* Minecraft Item Lookup — VOL.01 theme.
+   Palette + chrome come from theme.css; this sheet styles the app.
+   Goal: the search + full item view fit one desktop screen, no scroll.
+   Class names are the contract with minecraft.js. */
+
+#mc-lookup {
+  --card: var(--panel-solid);
+  --outline: var(--line);
+  --grid-ink: #2f7d32;          /* minecraft grass-green accent for facts */
+  --gold: #d8b24a;
+  color: var(--text);
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: clamp(10px, 2.2vmin, 22px) 16px 20px;
+}
+
+/* ---------- Hero + search ---------- */
+#mc-lookup .mc-hero { text-align: center; margin-bottom: clamp(8px, 2vmin, 16px); }
+#mc-lookup .mc-hero h1 {
+  margin: 0 0 8px;
+  font-size: clamp(1.7rem, 5.4vmin, 2.9rem);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #ededed;
+  text-shadow: -0.7px 0 rgba(255, 0, 70, 0.5), 0.7px 0 rgba(0, 235, 220, 0.45);
+}
+#mc-lookup .lead-answer {
+  color: var(--muted);
+  font-size: clamp(0.82rem, 1.6vmin, 0.98rem);
+  line-height: 1.55;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* search bar */
+#mc-lookup .mc-searchbar {
+  position: relative;
+  max-width: 560px;
+  margin: clamp(12px, 2.6vmin, 22px) auto 0;
+}
+#mc-lookup .mc-search-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--panel);
+  border: 1px solid var(--outline);
+  border-radius: 12px;
+  padding: 0 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+#mc-lookup .mc-searchbar:focus-within .mc-search-field {
+  border-color: var(--line-hover);
+  box-shadow: 0 8px 30px rgba(255, 60, 60, 0.12);
+}
+#mc-lookup .mc-search-ic {
+  width: 18px; height: 18px; flex: none;
+  stroke: var(--muted); fill: none; stroke-width: 2;
+}
+#mc-lookup #mcSearch {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font: inherit;
+  font-size: 16px;
+  padding: 14px 0;
+  min-width: 0;
+}
+#mc-lookup #mcSearch::placeholder { color: var(--muted); }
+#mc-lookup .mc-kbd {
+  flex: none;
+  border: 1px solid var(--outline);
+  border-radius: 6px;
+  padding: 2px 7px;
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+/* autocomplete dropdown */
+#mc-lookup #mcResults {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 6px;
+  position: absolute;
+  left: 0; right: 0;
+  z-index: 30;
+  background: #0c0c0c;
+  border: 1px solid var(--outline);
+  border-radius: 12px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+  display: none;
+  max-height: 60vh;
+  overflow: auto;
+}
+#mc-lookup #mcResults.open { display: block; }
+#mc-lookup .mc-hit {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+#mc-lookup .mc-hit:hover,
+#mc-lookup .mc-hit.active { background: rgba(255, 60, 60, 0.1); }
+#mc-lookup .mc-hit-icon { width: 32px; height: 32px; image-rendering: pixelated; flex: none; }
+#mc-lookup .mc-hit-name { font-weight: 600; color: #ededed; }
+#mc-lookup .mc-hit-kind {
+  margin-left: auto; flex: none;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 999px; border: 1px solid var(--outline); color: var(--muted);
+}
+#mc-lookup .mc-k-mob { color: #e6a4a4; border-color: rgba(255, 90, 90, 0.4); }
+#mc-lookup .mc-k-block { color: #a7c6e6; border-color: rgba(120, 170, 230, 0.35); }
+#mc-lookup .mc-k-ench { color: #cbb0f0; border-color: rgba(170, 130, 235, 0.4); }
+#mc-lookup .mc-k-potion { color: #e0a7d6; border-color: rgba(220, 130, 200, 0.4); }
+#mc-lookup .mc-k-trade { color: #9fe0b0; border-color: rgba(90, 200, 130, 0.4); }
+#mc-lookup .mc-dim { color: var(--muted); font-weight: 400; }
+
+/* Sources & odds: labelled groups of chips, chest chips get a probability bar */
+#mc-lookup .mc-info-sources { grid-column: 1 / -1; }
+#mc-lookup .mc-src-group { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+#mc-lookup .mc-src-label {
+  flex: none; min-width: 82px; padding-top: 6px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted);
+}
+#mc-lookup .mc-src-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+#mc-lookup .mc-src-chip {
+  position: relative; overflow: hidden;
+  display: inline-flex; align-items: center; gap: 9px;
+  border: 1px solid var(--outline); border-radius: 8px;
+  padding: 5px 11px; background: var(--tile); font-size: 12px;
+}
+#mc-lookup .mc-src-bar {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  background: linear-gradient(90deg, rgba(255, 60, 60, 0.28), rgba(255, 60, 60, 0.1));
+}
+#mc-lookup .mc-src-name { position: relative; color: #ededed; font-weight: 600; white-space: nowrap; }
+#mc-lookup .mc-src-pct { position: relative; color: var(--accent); font-weight: 800; font-size: 11px; }
+#mc-lookup .mc-src-note { margin: 4px 0 0; font-size: 11px; color: var(--muted); font-style: italic; }
+
+/* mob drops shown as item-icon boxes (like the crafting slots) */
+#mc-lookup .mc-info-drops { grid-column: 1 / -1; }
+#mc-lookup .mc-drops { display: flex; flex-wrap: wrap; gap: 10px 16px; }
+#mc-lookup .mc-drop { display: flex; align-items: center; gap: 9px; }
+#mc-lookup .mc-drop-slot { width: 38px; height: 38px; flex: none; }
+#mc-lookup .mc-drop-slot .mc-slot-icon { width: 28px; height: 28px; }
+#mc-lookup .mc-drop-info { display: flex; flex-direction: column; line-height: 1.25; }
+#mc-lookup .mc-drop-name { font-size: 13px; font-weight: 700; color: #ededed; }
+#mc-lookup .mc-drop-meta { font-size: 11px; color: var(--muted); }
+#mc-lookup .mc-hit-id { margin-left: 10px; font-size: 12px; color: var(--muted); font-family: ui-monospace, "Consolas", monospace; flex: none; }
+
+/* mob renders are tall — contain them in the square icon boxes */
+#mc-lookup .mc-mob-img { object-fit: contain; image-rendering: pixelated; }
+
+/* Never distort any icon: letterbox non-square sources instead of stretching.
+   (CDN icons are square; bundled wiki sprites can be other ratios.) */
+#mc-lookup .mc-icon,
+#mc-lookup .mc-hit-icon,
+#mc-lookup .mc-slot-icon { object-fit: contain; }
+#mc-lookup .mc-nohit,
+#mc-lookup .mc-nohit { padding: 12px; color: var(--muted); font-size: 14px; text-align: center; }
+
+/* suggestion chips */
+#mc-lookup #mcChips {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+  margin-top: 14px;
+}
+#mc-lookup .mc-chip {
+  background: transparent;
+  border: 1px solid var(--outline);
+  color: var(--muted);
+  border-radius: 999px;
+  padding: 5px 13px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+#mc-lookup .mc-chip:hover { color: var(--accent); border-color: var(--line-hover); transform: translateY(-1px); }
+
+/* ---------- Item view ---------- */
+#mc-lookup #mcEmpty {
+  text-align: center;
+  color: var(--muted);
+  margin-top: clamp(24px, 8vmin, 70px);
+  font-size: 14px;
+}
+
+#mc-lookup .mc-card {
+  margin-top: clamp(12px, 2.2vmin, 18px);
+  display: grid;
+  grid-template-columns: minmax(280px, 360px) 1fr;
+  gap: clamp(14px, 2.4vmin, 26px);
+  background: var(--panel);
+  border: 1px solid var(--outline);
+  border-radius: 16px;
+  padding: clamp(16px, 2.6vmin, 26px);
+  animation: mc-in 0.28s ease;
+}
+@keyframes mc-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+#mc-lookup .mc-col-left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-right: 1px solid var(--outline);
+  padding-right: clamp(14px, 2.4vmin, 26px);
+}
+
+/* head: icon + name */
+#mc-lookup .mc-head { display: flex; align-items: center; gap: 16px; }
+#mc-lookup .mc-icon-wrap {
+  width: 84px; height: 84px; flex: none;
+  display: grid; place-items: center;
+  background: var(--tile);
+  border: 1px solid var(--outline);
+  border-radius: 14px;
+}
+#mc-lookup .mc-icon { width: 60px; height: 60px; image-rendering: pixelated; }
+#mc-lookup .mc-icon-missing { image-rendering: auto; opacity: 0.6; }
+#mc-lookup .mc-cat {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--accent);
+}
+#mc-lookup .mc-name {
+  margin: 4px 0 0;
+  font-size: clamp(1.3rem, 3.2vmin, 1.9rem);
+  font-weight: 800;
+  color: #f2f2f2;
+  line-height: 1.1;
+}
+
+/* ID rows */
+#mc-lookup .mc-ids { display: flex; flex-direction: column; gap: 7px; }
+#mc-lookup .mc-id-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+#mc-lookup .mc-id-k {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted); flex: none;
+}
+#mc-lookup .mc-id-v {
+  font-family: ui-monospace, "Consolas", monospace;
+  font-size: 13px;
+  color: #d7d7d7;
+  background: var(--tile);
+  border: 1px solid var(--outline);
+  border-radius: 7px;
+  padding: 4px 9px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  cursor: pointer;
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+#mc-lookup .mc-id-v[data-copy]:hover { border-color: var(--line-hover); color: #fff; }
+#mc-lookup .mc-id-v.copied { border-color: var(--grid-ink); color: #a7e0a0; }
+
+/* commands panel */
+#mc-lookup .mc-cmd-panel { display: flex; flex-direction: column; gap: 8px; }
+#mc-lookup .mc-panel-title {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--muted);
+}
+#mc-lookup .mc-ed-toggle { display: inline-flex; border: 1px solid var(--outline); border-radius: 7px; overflow: hidden; }
+#mc-lookup .mc-ed {
+  background: transparent; border: none; cursor: pointer;
+  color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: 0.05em;
+  padding: 4px 9px; transition: all 0.15s ease;
+}
+#mc-lookup .mc-ed.on { background: var(--accent); color: #0a0a0a; }
+#mc-lookup .mc-cmd {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--tile);
+  border: 1px solid var(--outline);
+  border-radius: 9px;
+  padding: 7px 8px 7px 11px;
+}
+#mc-lookup .mc-cmd-text {
+  flex: 1; min-width: 0;
+  font-family: ui-monospace, "Consolas", monospace;
+  font-size: 12.5px; color: #cfe9cf;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+#mc-lookup .mc-copy {
+  flex: none;
+  background: var(--accent); color: #0a0a0a;
+  border: none; border-radius: 6px;
+  padding: 5px 11px; font-size: 11px; font-weight: 800;
+  letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+#mc-lookup .mc-copy:hover { transform: translateY(-1px); }
+#mc-lookup .mc-copy.copied { background: var(--grid-ink); color: #eafbe8; }
+
+/* right column: facts + info */
+#mc-lookup .mc-col-right { display: flex; flex-direction: column; gap: 11px; min-width: 0; }
+#mc-lookup .mc-quickfacts { display: flex; flex-wrap: wrap; gap: 8px; }
+#mc-lookup .mc-fact {
+  display: flex; flex-direction: column; gap: 2px;
+  background: var(--tile);
+  border: 1px solid var(--outline);
+  border-radius: 9px;
+  padding: 7px 12px;
+  flex: 1 1 auto;
+}
+#mc-lookup .mc-fact-k { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+#mc-lookup .mc-fact-v { font-size: 14px; font-weight: 700; color: #ededed; }
+
+#mc-lookup .mc-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 20px;
+}
+#mc-lookup .mc-info-notes { grid-column: 1 / -1; }
+#mc-lookup .mc-info-block h3 {
+  margin: 0 0 3px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent);
+}
+#mc-lookup .mc-info-block p {
+  margin: 0; font-size: 13.5px; line-height: 1.5; color: #bdbdbd;
+}
+#mc-lookup .mc-info-notes ul { margin: 0; padding-left: 16px; }
+#mc-lookup .mc-info-notes li { font-size: 13px; line-height: 1.5; color: #bdbdbd; margin-bottom: 2px; }
+
+/* no give command (technical block) */
+#mc-lookup .mc-cmd-none {
+  margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--muted);
+  background: var(--tile); border: 1px solid var(--outline);
+  border-radius: 9px; padding: 10px 12px;
+}
+/* generated entries without a written guide */
+#mc-lookup .mc-no-guide { grid-column: 1 / -1; }
+#mc-lookup .mc-no-guide p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.6; }
+
+/* crafting recipe (bottom-right of the card) */
+#mc-lookup .mc-craft { margin-top: 4px; }
+#mc-lookup .mc-craft-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+}
+#mc-lookup .mc-craft-io { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+#mc-lookup .mc-craft-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 32px);
+  grid-template-rows: repeat(3, 32px);
+  gap: 4px; padding: 5px;
+  background: #0c0c0c;
+  border: 1px solid var(--outline);
+  border-radius: 9px;
+}
+#mc-lookup .mc-slot {
+  width: 32px; height: 32px; border-radius: 5px;
+  background: var(--tile); border: 1px solid var(--outline);
+  display: grid; place-items: center;
+}
+#mc-lookup .mc-slot-empty { background: #070707; border-color: rgba(255, 255, 255, 0.04); }
+#mc-lookup .mc-slot-icon { width: 24px; height: 24px; image-rendering: pixelated; }
+#mc-lookup .mc-craft-arrow { color: var(--muted); font-size: 20px; line-height: 1; }
+#mc-lookup .mc-slot-out {
+  position: relative; width: 42px; height: 42px;
+  background: var(--panel); border-color: var(--line-hover);
+}
+#mc-lookup .mc-slot-out .mc-slot-icon { width: 30px; height: 30px; }
+#mc-lookup .mc-craft-count {
+  position: absolute; right: 3px; bottom: 1px;
+  font-size: 13px; font-weight: 800; color: #fff; text-shadow: 0 1px 2px #000;
+}
+/* multi-recipe navigator */
+#mc-lookup .mc-craft-nav { display: inline-flex; align-items: center; gap: 6px; margin-left: 6px; }
+#mc-lookup .mc-craft-prev,
+#mc-lookup .mc-craft-next {
+  width: 24px; height: 24px; padding: 0;
+  background: var(--tile); color: #d7d7d7;
+  border: 1px solid var(--outline); border-radius: 6px;
+  font-size: 15px; line-height: 1; cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+#mc-lookup .mc-craft-prev:hover,
+#mc-lookup .mc-craft-next:hover { border-color: var(--line-hover); color: var(--accent); }
+#mc-lookup .mc-craft-idx { font-size: 11px; font-weight: 700; color: var(--muted); min-width: 32px; text-align: center; }
+
+/* shared small button (texture/sound download) */
+#mc-lookup .mc-mini-btn {
+  background: var(--tile); color: #cfcfcf;
+  border: 1px solid var(--outline); border-radius: 7px;
+  padding: 5px 10px; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.04em; cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, transform 0.12s ease;
+}
+#mc-lookup .mc-mini-btn:hover { border-color: var(--line-hover); color: #fff; transform: translateY(-1px); }
+#mc-lookup .mc-sub-note { font-weight: 600; color: var(--muted); letter-spacing: 0.04em; }
+
+/* texture panel: a grid of downloadable flat PNGs (item / block faces / entity) */
+#mc-lookup .mc-tex-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+#mc-lookup .mc-tex-item {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  background: none; border: none; padding: 0; cursor: pointer;
+}
+#mc-lookup .mc-tex-preview {
+  width: 48px; height: 48px;
+  border: 1px solid var(--outline); border-radius: 8px;
+  display: grid; place-items: center; overflow: hidden;
+  background-color: #141414;
+  background-image:
+    linear-gradient(45deg, #1c1c1c 25%, transparent 25%),
+    linear-gradient(-45deg, #1c1c1c 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #1c1c1c 75%),
+    linear-gradient(-45deg, transparent 75%, #1c1c1c 75%);
+  background-size: 12px 12px;
+  background-position: 0 0, 0 6px, 6px -6px, -6px 0;
+  transition: border-color 0.15s ease, transform 0.12s ease;
+}
+#mc-lookup .mc-tex-item:hover .mc-tex-preview { border-color: var(--line-hover); transform: translateY(-1px); }
+#mc-lookup .mc-tex-preview img { width: 36px; height: 36px; image-rendering: pixelated; object-fit: contain; }
+#mc-lookup .mc-tex-lbl {
+  font-size: 10px; font-weight: 600; color: var(--muted);
+  max-width: 58px; text-align: center; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis;
+}
+#mc-lookup .mc-tex-item:hover .mc-tex-lbl { color: var(--accent); }
+
+/* sounds panel */
+#mc-lookup .mc-snd-list { display: flex; flex-wrap: wrap; gap: 8px; }
+#mc-lookup .mc-snd-row { display: inline-flex; align-items: stretch; }
+#mc-lookup .mc-snd-play {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--tile); color: #ededed;
+  border: 1px solid var(--outline); border-right: none;
+  border-radius: 7px 0 0 7px;
+  padding: 6px 11px; font-size: 12px; font-weight: 700; cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+#mc-lookup .mc-snd-play:hover { color: var(--accent); border-color: var(--line-hover); }
+#mc-lookup .mc-snd-ic { font-size: 9px; color: var(--accent); }
+#mc-lookup .mc-snd-play.playing { color: var(--accent); border-color: var(--line-hover); }
+#mc-lookup .mc-snd-play.playing .mc-snd-ic { animation: mc-snd-pulse 0.8s ease-in-out infinite; }
+@keyframes mc-snd-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+#mc-lookup .mc-snd-dl {
+  border-radius: 0 7px 7px 0; padding: 6px 9px; font-size: 12px; line-height: 1;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  #mc-lookup .mc-card { grid-template-columns: 1fr; }
+  #mc-lookup .mc-col-left { border-right: none; padding-right: 0; border-bottom: 1px solid var(--outline); padding-bottom: 18px; }
+  #mc-lookup .mc-cmd-panel { margin-top: 4px; }
+}
+@media (max-width: 560px) {
+  #mc-lookup { padding-left: 12px; padding-right: 12px; overflow-x: hidden; }
+  #mc-lookup .mc-hero h1 { font-size: clamp(1.35rem, 7vmin, 1.9rem); letter-spacing: 0.02em; }
+  #mc-lookup .mc-info { grid-template-columns: 1fr; }
+  #mc-lookup .mc-kbd { display: none; }
+  #mc-lookup .mc-head { gap: 12px; }
+  #mc-lookup .mc-icon-wrap { width: 68px; height: 68px; }
+  #mc-lookup .mc-icon { width: 48px; height: 48px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #mc-lookup .mc-card { animation: none; }
+}

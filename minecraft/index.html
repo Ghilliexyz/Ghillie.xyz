@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Basic HTML Meta Tags -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Minecraft Lookup - Every Item, Block & Mob: IDs, Commands & Info | Ghillie</title>
+  <meta name="description"
+        content="Free Minecraft lookup for every item, block and mob. Search to instantly see IDs, one-click /give and /summon commands (Java & Bedrock), how to obtain, farm or spawn it, uses, drops and key mechanics. Everything on one screen, no ads, runs in your browser.">
+  <link rel="canonical" href="https://ghillie.xyz/minecraft/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ghillie">
+  <meta property="og:url" content="https://ghillie.xyz/minecraft/">
+  <meta property="og:title" content="Minecraft Lookup - Every Item, Block & Mob | Ghillie">
+  <meta property="og:description"
+        content="Search any Minecraft item, block or mob and instantly see its IDs, one-click give/summon commands, how to obtain, farm or spawn it, uses and mechanics. One screen, no fluff.">
+  <meta property="og:image"
+        content="https://ghillie.xyz/assets/img/metaImgs/Meta-Minecraft-Lookup.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="twitter:domain" content="ghillie.xyz">
+  <meta property="twitter:url" content="https://ghillie.xyz/minecraft/">
+  <meta name="twitter:title" content="Minecraft Lookup - Every Item, Block & Mob | Ghillie">
+  <meta name="twitter:description"
+        content="Search any Minecraft item, block or mob for IDs, one-click give/summon commands, obtaining, farming, uses and mechanics. All on one screen.">
+  <meta name="twitter:image"
+        content="https://ghillie.xyz/assets/img/metaImgs/Meta-Minecraft-Lookup.png">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Minecraft Lookup",
+        "url": "https://ghillie.xyz/minecraft/",
+        "description": "Free online Minecraft lookup tool covering every item, block and mob. Search to see its ID, legacy ID and numerical ID, one-click give and summon commands for Java and Bedrock, how to obtain, farm or spawn it, uses, drops and key mechanics on a single screen.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript. Modern browser.",
+        "featureList": [
+          "Fuzzy autocomplete search across every item, block and mob",
+          "Item ID, legacy ID and numerical ID for each entry",
+          "One-click /give commands for items and blocks (Java and Bedrock)",
+          "One-click /summon and spawn-egg commands for mobs",
+          "Real mob renders, not just spawn eggs",
+          "How to obtain, farm or spawn, plus uses, drops and mechanics",
+          "Runs 100% in your browser; no signup or ads"
+        ],
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "author": { "@id": "https://ghillie.xyz/#person" },
+        "creator": { "@id": "https://ghillie.xyz/#person" },
+        "keywords": "minecraft item ids, minecraft block ids, minecraft mob ids, minecraft give command, minecraft summon command, minecraft lookup, minecraft numerical id, minecraft legacy id",
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead-answer", "h1"]
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://ghillie.xyz/#person",
+        "name": "Ghillie",
+        "url": "https://ghillie.xyz/",
+        "sameAs": [
+          "https://github.com/Ghilliexyz",
+          "https://twitter.com/Ghilliexyz",
+          "https://discord.com/users/211851747688185856"
+        ]
+      },
+      {
+        "@type": "HowTo",
+        "name": "How to look up a Minecraft item",
+        "description": "Find any Minecraft item's IDs, give command and info using the Minecraft Lookup.",
+        "totalTime": "PT20S",
+        "step": [
+          { "@type": "HowToStep", "position": 1, "name": "Search the item", "text": "Type an item name into the search bar. Fuzzy matching means partial names like 'cane' find 'Sugar Cane'." },
+          { "@type": "HowToStep", "position": 2, "name": "Select it", "text": "Click a result or press Enter to open the item on one screen." },
+          { "@type": "HowToStep", "position": 3, "name": "Copy what you need", "text": "Copy the item ID, legacy ID, numerical ID, or a one-click /give command for Java or Bedrock." },
+          { "@type": "HowToStep", "position": 4, "name": "Read the info", "text": "See how to obtain and farm the item, its uses, stack size, whether it is renewable, and key mechanics." }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is the Minecraft Lookup free?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. It is completely free, with no signup, ads, or paywalls, and it runs entirely in your browser." }
+          },
+          {
+            "@type": "Question",
+            "name": "What is a Minecraft item ID, legacy ID and numerical ID?",
+            "acceptedAnswer": { "@type": "Answer", "text": "The item ID is the modern namespaced identifier like minecraft:sugar_cane used since 1.13. The legacy ID is the older string name used before 1.13 (for example 'reeds' for sugar cane). The numerical ID is the pre-1.8 data value like 338. Items added after 1.13 have no legacy or numerical ID." }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I use the give command?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Copy the command shown, for example /give @p minecraft:diamond 64, and paste it into the in-game chat or a command block. Toggle between Java and Bedrock syntax with the edition switch." }
+          },
+          {
+            "@type": "Question",
+            "name": "Does this work for Java and Bedrock Edition?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. The give commands have a Java/Bedrock toggle. Java uses the minecraft: prefix; Bedrock omits it. Item IDs are shared across both editions for the supported items." }
+          },
+          {
+            "@type": "Question",
+            "name": "Why is the numerical ID missing for some items?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Numerical and legacy IDs were removed in the 1.13 'Flattening'. Items added after that, like netherite ingots or the trident, only have a modern namespaced item ID." }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://ghillie.xyz/" },
+          { "@type": "ListItem", "position": 2, "name": "Portfolio", "item": "https://ghillie.xyz/portfolio/" },
+          { "@type": "ListItem", "position": 3, "name": "Minecraft Lookup", "item": "https://ghillie.xyz/minecraft/" }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Styles & Favicon -->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <link rel="stylesheet" href="/assets/css/theme.css" />
+  <link rel="stylesheet" href="/assets/css/minecraft.css" />
+  <link rel="preconnect" href="https://static.minecraftitemids.com" crossorigin />
+  <link rel="shortcut icon" type="image/png" href="/assets/img/favicon.png">
+</head>
+
+<body class="tool-page" ondragstart="return false">
+
+  <!-- Film grain + CRT vignette + album-jacket framing (shared VOL.01 chrome) -->
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vhs" aria-hidden="true"></div>
+  <div class="crop" aria-hidden="true">
+    <i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i>
+  </div>
+  <span class="meta meta-tl" aria-hidden="true">GHILLIE.XYZ</span>
+  <span class="meta meta-tr" aria-hidden="true">EST. 2016 / SCOTLAND</span>
+  <span class="meta meta-bl" aria-hidden="true">DIGITAL DESIGNER / DEVELOPER</span>
+  <span class="meta meta-br" aria-hidden="true">MINECRAFT LOOKUP</span>
+
+  <!-- Top nav -->
+  <nav class="tool-nav" aria-label="Primary">
+    <a href="/#about">ABOUT</a>
+    <a href="/">HOME</a>
+    <a href="/#portfolio">PORTFOLIO</a>
+  </nav>
+
+  <!-- App -->
+  <div id="mc-lookup">
+    <section class="mc-hero">
+      <h1>Minecraft Lookup</h1>
+      <p class="lead-answer">Search any Minecraft item, block or mob to instantly see its IDs, one-click <code>/give</code> and <code>/summon</code> commands for Java and Bedrock, how to obtain, farm or spawn it, its uses and drops, and the mechanics worth knowing. Everything on one screen, no ads, all in your browser.</p>
+
+      <div class="mc-searchbar">
+        <div class="mc-search-field">
+          <svg class="mc-search-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input id="mcSearch" type="text" autocomplete="off" spellcheck="false"
+                 placeholder="Search item, block, mob, enchant or potion… (try &quot;mending&quot;, &quot;creeper&quot;)"
+                 aria-label="Search Minecraft items" role="combobox" aria-expanded="false" aria-controls="mcResults" />
+          <span class="mc-kbd" aria-hidden="true">/</span>
+        </div>
+        <ul id="mcResults" role="listbox" aria-label="Item results"></ul>
+      </div>
+
+      <div id="mcChips" aria-label="Popular items"></div>
+    </section>
+
+    <!-- Placeholder before an item is picked -->
+    <div id="mcEmpty">
+      Pick an item, block, mob, enchantment or potion above to see its IDs, commands and info.
+    </div>
+
+    <!-- Rendered item view -->
+    <div id="mcView" hidden></div>
+  </div>
+
+  <!-- Guide & FAQ (AEO content) -->
+  <section class="info-accordion">
+    <h2 class="acc-title">Guide &amp; FAQ</h2>
+
+    <details class="acc">
+      <summary>How to look up a Minecraft item</summary>
+      <div class="acc-body">
+        <ol class="how-to-list">
+          <li><strong>Search the item.</strong> Type a name into the search bar. Fuzzy matching finds items from partial names, so "cane" surfaces Sugar Cane.</li>
+          <li><strong>Select it.</strong> Click a result or press Enter to open the item on one screen.</li>
+          <li><strong>Copy what you need.</strong> Click any ID or a one-click <em>/give</em> command to copy it. Toggle Java or Bedrock syntax.</li>
+          <li><strong>Read the info.</strong> See how to obtain and farm it, its uses, stack size, whether it's renewable, and key mechanics.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>What are item ID, legacy ID and numerical ID?</summary>
+      <div class="acc-body">
+        <p>The <strong>item ID</strong> is the modern namespaced identifier such as <code>minecraft:sugar_cane</code>, used since Java 1.13. The <strong>legacy ID</strong> is the older string name from before 1.13 (for example <code>reeds</code> for sugar cane). The <strong>numerical ID</strong> is the pre-1.8 data value like <code>338</code>. Items added after the 1.13 "Flattening" only have a modern item ID.</p>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>How do I use the give command?</summary>
+      <div class="acc-body"><p>Copy the command shown, for example <code>/give @p minecraft:diamond 64</code>, then paste it into the in-game chat or a command block and press Enter. You need cheats enabled or operator permissions. Use the Java/Bedrock toggle to match your edition.</p></div>
+    </details>
+
+    <details class="acc">
+      <summary>Does it work for Java and Bedrock Edition?</summary>
+      <div class="acc-body"><p>Yes. Every item has a Java/Bedrock give toggle. Java uses the <code>minecraft:</code> prefix; Bedrock omits it. The supported item IDs are shared across both editions.</p></div>
+    </details>
+
+    <details class="acc">
+      <summary>Why is the numerical ID missing for some items?</summary>
+      <div class="acc-body"><p>Numerical and legacy IDs were retired in the 1.13 Flattening. Items introduced afterwards, such as netherite ingots, copper, amethyst and the trident, only carry a modern namespaced item ID, so their legacy and numerical fields read "none (post-1.13)".</p></div>
+    </details>
+
+    <details class="acc">
+      <summary>Is it free and private?</summary>
+      <div class="acc-body"><p>Yes. The tool is completely free with no signup or ads, and it runs entirely in your browser. Nothing you search is sent to a server.</p></div>
+    </details>
+
+    <p class="acc-more">Like this tool? Try the <a href="/wordle/">Wordle Solver</a> or the <a href="/dbviewer/">SQLite DB Viewer</a>, browse the full <a href="/portfolio/">portfolio</a>, or read more <a href="/#about">about Ghillie</a>.</p>
+  </section>
+
+  <div class="footer" style="margin-top:0;">
+    <ul>
+      <li><a href="https://github.com/Ghilliexyz" target="_blank" rel="noopener noreferrer">GITHUB</a></li>
+      <li><a href="https://discord.com/users/211851747688185856" target="_blank" rel="noopener noreferrer">DISCORD</a></li>
+      <li><a href="https://twitter.com/Ghilliexyz" target="_blank" rel="noopener noreferrer">TWITTER</a></li>
+      <li><a href="https://buymeacoffee.com/ghillie" target="_blank" rel="noopener noreferrer">BUY ME A COFFEE</a></li>
+    </ul>
+  </div>
+
+  <script src="/assets/js/minecraft-db.js" defer></script>
+  <script src="/assets/js/minecraft-ench.js" defer></script>
+  <script src="/assets/js/minecraft-potions.js" defer></script>
+  <script src="/assets/js/minecraft-trades.js" defer></script>
+  <script src="/assets/js/minecraft-loot.js" defer></script>
+  <script src="/assets/js/minecraft-blockfacts.js" defer></script>
+  <script src="/assets/js/minecraft-sounds.js" defer></script>
+  <script src="/assets/js/minecraft-tex.js" defer></script>
+  <script src="/assets/js/minecraft.js" defer></script>
+</body>
+</html>
