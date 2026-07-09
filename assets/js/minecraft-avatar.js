@@ -36,7 +36,7 @@
   ];
 
   // ---- background presets (the classic dev-PFP greens + brand colours) ------
-  const SWATCHES = ['#6aa84f', '#3fbf3f', '#1da1f2', '#29b6e8', '#9b59b6',
+  const SWATCHES = ['#3fbf3f', '#1da1f2', '#29b6e8', '#9b59b6',
                     '#ff6a3d', '#ff3c3c', '#111111', '#f2f2f2'];
 
   const EXPORT = 1024; // internal working resolution; downloads scale from this
@@ -58,7 +58,7 @@
     skinUrl: null,         // resolved skin src for the renderer (url or data URI)
     pose: 'mojavatar',
     images: new Map(),     // pose -> HTMLImageElement (cache per player)
-    bg: { type: 'solid', c1: '#6aa84f', c2: '#0a0a0a', gradient: false },
+    bg: { type: 'solid', c1: '#3fbf3f', c2: '#0a0a0a', gradient: false },
     shape: 'square',       // square | rounded | circle
     zoom: 1.18,
     panY: 0,               // -0.5 .. 0.5 (fraction of square)
@@ -105,6 +105,10 @@
     buildSwatches();
     wire();
 
+    // show the second gradient colour as a filled swatch from the start
+    els.grad2wrap.classList.add('has-color');
+    els.grad2wrap.style.background = state.bg.c2;
+
     // shareable deep link: /minecraft-avatar/?u=Notch renders on load
     const u = new URLSearchParams(location.search).get('u');
     if (u && NAME_RE.test(u)) { els.user.value = u; loadPlayer(u); }
@@ -135,6 +139,9 @@
       b.addEventListener('click', () => setBgColor(c));
       els.swatches.appendChild(b);
     });
+    // custom "pick any colour" swatch (defined in the HTML; re-attach after the
+    // innerHTML reset above so it lives inline with the presets)
+    els.swatches.appendChild(els.custom);
     // transparent swatch
     const t = document.createElement('button');
     t.type = 'button';
@@ -165,7 +172,12 @@
       if (state.bg.type === 'transparent') setBgColor(state.bg.c1);
       draw();
     });
-    els.grad2.addEventListener('input', () => { state.bg.c2 = els.grad2.value; draw(); });
+    els.grad2.addEventListener('input', () => {
+      state.bg.c2 = els.grad2.value;
+      els.grad2wrap.classList.add('has-color');
+      els.grad2wrap.style.background = els.grad2.value;
+      draw();
+    });
 
     // shape segmented control
     els.shape.querySelectorAll('button').forEach((b) =>

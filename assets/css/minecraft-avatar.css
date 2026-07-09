@@ -260,12 +260,9 @@
 }
 #mc-avatar .av-toggle:hover { border-color: var(--line-hover); color: #fff; }
 #mc-avatar .av-toggle.on { background: rgba(255, 60, 60, 0.14); border-color: var(--line-hover); color: #fff; }
-#mc-avatar .av-grad2 { display: inline-flex; align-items: center; }
+/* second gradient colour reuses the custom-swatch look (.av-custom) so it
+   matches the "pick any colour" box in the background list exactly */
 #mc-avatar .av-grad2[hidden] { display: none; }
-#mc-avatar .av-grad2 input {
-  width: 30px; height: 30px; border: 2px solid rgba(255, 255, 255, 0.12);
-  border-radius: 8px; background: none; cursor: pointer; padding: 0;
-}
 
 /* shape segmented control */
 #mc-avatar .av-seg { display: inline-flex; border: 1px solid var(--outline); border-radius: 8px; overflow: hidden; }
