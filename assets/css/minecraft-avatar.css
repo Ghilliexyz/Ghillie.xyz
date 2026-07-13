@@ -154,7 +154,9 @@
 #mc-avatar .av-canvas-wrap.shape-rounded { border-radius: 16%; }
 #mc-avatar .av-canvas-wrap.shape-circle  { border-radius: 50%; }
 
-/* live 3D model sits on top of the background canvas and captures drag-rotate */
+/* live 3D model sits on top of the background canvas and captures drag-rotate.
+   The JS keeps skinview3d's logical size in sync with this square stage (see
+   syncSize), so the inline width/height it writes here already match. */
 #mc-avatar .av-viewer {
   position: absolute; inset: 0;
   display: block;

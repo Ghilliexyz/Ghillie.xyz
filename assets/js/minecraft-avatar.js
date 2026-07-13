@@ -4,6 +4,11 @@
    frame onto a custom background and download or copy the square PNG.
    Runs entirely in the browser.
 
+   The signature look is the "Mojavatar": a front-on head-and-shoulders bust,
+   the same framing Mojang developers use for their profile pictures. It is the
+   default pose and is produced here as a camera framing (see FRAME/applyFrame),
+   since the old Starlight renderer that used to draw it is dead.
+
    Pipeline:
      username --(playerdb.co)--> uuid   (CORS-friendly, 400s on unknown players)
      uuid     --(mc-heads.net)--> skin PNG  (CORS *; skinview3d loads it with
@@ -21,16 +26,31 @@
   const PLAYERDB = (name) => `https://playerdb.co/api/player/minecraft/${encodeURIComponent(name)}`;
   const SKIN_URL = (idOrName) => `https://mc-heads.net/skin/${encodeURIComponent(idOrName)}`;
 
-  // ---- poses (skinview3d animation classes; null = clean static pose) -------
+  // ---- poses ---------------------------------------------------------------
+  // "Mojavatar" is the whole point of this tool: the front-on head-and-shoulders
+  // bust that Mojang developers use as their profile pictures. It is a framing
+  // (camera + hidden legs), not a skinview3d animation, so it lives here as a
+  // `bust` pose. The rest are skinview3d animation classes (anim = class name,
+  // null = a clean static full-body pose).
   const POSES = [
-    { id: 'static', label: 'Static', anim: null },
-    { id: 'idle',   label: 'Idle',   anim: 'IdleAnimation' },
-    { id: 'walk',   label: 'Walk',   anim: 'WalkingAnimation' },
-    { id: 'run',    label: 'Run',    anim: 'RunningAnimation' },
-    { id: 'wave',   label: 'Wave',   anim: 'WaveAnimation' },
-    { id: 'crouch', label: 'Crouch', anim: 'CrouchAnimation' },
-    { id: 'fly',    label: 'Fly',    anim: 'FlyingAnimation' },
+    { id: 'mojavatar', label: 'Mojavatar', anim: null, bust: true },
+    { id: 'static',    label: 'Full Body', anim: null },
+    { id: 'idle',      label: 'Idle',   anim: 'IdleAnimation' },
+    { id: 'walk',      label: 'Walk',   anim: 'WalkingAnimation' },
+    { id: 'run',       label: 'Run',    anim: 'RunningAnimation' },
+    { id: 'wave',      label: 'Wave',   anim: 'WaveAnimation' },
+    { id: 'crouch',    label: 'Crouch', anim: 'CrouchAnimation' },
+    { id: 'fly',       label: 'Fly',    anim: 'FlyingAnimation' },
   ];
+
+  // Camera framing per pose type, in skinview3d world units (head center y=8 /
+  // top ~13, body top/shoulders y=8, feet y=-10). `targetY` is what the camera
+  // looks at; `extent` is the half-height that fills the square at zoom 1; a
+  // lower `fov` flattens perspective for the portrait-style bust.
+  const FRAME = {
+    bust: { targetY: 6.3, extent: 7.2, fov: 30 }, // head + shoulders PFP
+    full: { targetY: 1.0, extent: 19,  fov: 45 }, // whole body
+  };
 
   // ---- background presets (the classic dev-PFP greens + brand colours) ------
   const SWATCHES = ['#3fbf3f', '#1da1f2', '#29b6e8', '#9b59b6',
@@ -42,10 +62,10 @@
   // ---- state ---------------------------------------------------------------
   const state = {
     player: null,          // { name, id }
-    pose: 'static',        // POSES id
+    pose: 'mojavatar',     // POSES id (Mojavatar bust is the default)
     bg: { type: 'solid', c1: '#3fbf3f', c2: '#0a0a0a', gradient: false },
     shape: 'square',       // square | rounded | circle
-    zoom: 0.9,             // maps to skinview3d viewer.zoom
+    zoom: 1,               // extra zoom multiplier on top of the pose framing
     panY: 0,               // -0.4 .. 0.4 (fraction of the square)
     spin: false,           // auto-rotate
     size: 512,             // export size
@@ -233,11 +253,14 @@
       return;
     }
 
-    selectPose(state.pose);
+    // Reveal the studio first so the stage has a real size before we size the
+    // viewer and frame the camera to it.
+    revealStudio();
+    syncSize();
+    selectPose(state.pose); // animation + leg visibility + applyFrame(true)
     applyShape();
     resetView();     // default zoom / pan / rotation
     paintBg();
-    revealStudio();
     msg('', true);
     setBusy(false);
     hideLoading();
@@ -254,8 +277,6 @@
     // Render at 2x (or the device ratio, whichever is higher) so 1024px exports
     // stay crisp even on a 1x display.
     viewer.pixelRatio = Math.max(2, window.devicePixelRatio || 1);
-    viewer.fov = 45;
-    viewer.zoom = state.zoom;
     viewer.autoRotate = state.spin;
     viewer.autoRotateSpeed = 1.2;
     if (viewer.controls) {
@@ -263,21 +284,67 @@
       viewer.controls.enableZoom = false; // zoom is driven by the slider
       viewer.controls.enablePan = false;  // vertical framing is a CSS transform
     }
+    // Keep skinview3d's logical size equal to the (square) stage. If they drift
+    // apart the renderer's viewport no longer matches the display box and the
+    // model gets clipped/offset, so re-sync and re-frame on any resize.
+    if (window.ResizeObserver) {
+      new ResizeObserver(() => { if (syncSize()) applyFrame(false); }).observe(els.wrap);
+    }
   }
+
+  // Match the viewer's logical size to the stage's current pixel size. Returns
+  // true when it actually changed. No-op while the stage is hidden (size 0).
+  function syncSize() {
+    if (!viewer) return false;
+    const s = Math.round(els.wrap.clientWidth); // wrap is a 1:1 square
+    if (s > 0 && s !== viewer.width) { viewer.width = s; viewer.height = s; return true; }
+    return false;
+  }
+
+  function currentPose() { return POSES.find((x) => x.id === state.pose) || POSES[0]; }
 
   function selectPose(id) {
     state.pose = id;
     els.poses.querySelectorAll('.av-pose').forEach((b) => b.classList.toggle('on', b.dataset.pose === id));
     if (!viewer) return;
-    const p = POSES.find((x) => x.id === id) || POSES[0];
-    // Assigning viewer.animation resets the model's joints, so switching to
-    // "Static" (null) always returns a clean default pose.
+    const p = currentPose();
+    // Assigning viewer.animation resets the model's joints, so switching to a
+    // null animation always returns a clean default pose.
     viewer.animation = p.anim ? new skinview3d[p.anim]() : null;
+    // The Mojavatar bust hides the legs so it reads as a head-and-shoulders PFP.
+    const legs = !p.bust;
+    viewer.playerObject.skin.leftLeg.visible = legs;
+    viewer.playerObject.skin.rightLeg.visible = legs;
+    // Re-frame to the new pose's default camera, facing front.
+    applyFrame(true);
+  }
+
+  // Drive the camera directly from the current pose's framing. `resetRotation`
+  // snaps the model front-on (used on pose change / reset); otherwise the
+  // current drag orientation is preserved and only the distance/target update.
+  function applyFrame(resetRotation) {
+    if (!viewer || !viewer.controls) return;
+    const f = currentPose().bust ? FRAME.bust : FRAME.full;
+    viewer.fov = f.fov;
+    const half = f.extent / state.zoom;
+    const dist = half / Math.tan((f.fov * Math.PI) / 360);
+    const t = viewer.controls.target;
+    if (resetRotation) {
+      t.set(0, f.targetY, 0);
+      viewer.camera.position.set(0, f.targetY, dist);
+    } else {
+      // keep the current view direction, just re-target and re-distance
+      const dir = viewer.camera.position.clone().sub(t).normalize();
+      t.set(0, f.targetY, 0);
+      viewer.camera.position.copy(dir.multiplyScalar(dist).add(t));
+    }
+    viewer.camera.updateProjectionMatrix();
+    viewer.controls.update();
   }
 
   function setZoom(v) {
     state.zoom = v;
-    if (viewer) viewer.zoom = v;
+    applyFrame(false);
   }
 
   function setPan(v) {
@@ -336,14 +403,11 @@
 
   // ---- framing -------------------------------------------------------------
   function resetView() {
-    setZoom(0.9);
-    els.zoom.value = 90;
+    state.zoom = 1;
+    els.zoom.value = 100;
     setPan(0);
     els.pan.value = 0;
-    if (viewer && typeof viewer.resetCameraPose === 'function') {
-      viewer.resetCameraPose();
-      viewer.zoom = state.zoom; // re-apply after the camera reset
-    }
+    applyFrame(true); // reset zoom, pan and rotation to the pose's default framing
   }
 
   // ---- export --------------------------------------------------------------
