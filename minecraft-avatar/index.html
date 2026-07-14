@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Minecraft Avatar Maker - Turn Any Skin Into a 3D Profile Picture | Ghillie</title>
   <meta name="description"
-        content="Free Minecraft avatar maker. Type any username to load its skin as a live 3D model you can spin to any angle, pick a pose and background, and download a clean PNG. No signup, no ads, runs in your browser.">
+        content="Free Minecraft avatar maker. Type any username to render its skin as a 3D 'Mojang developer' profile picture, pick a background colour, and download a clean PNG. No signup, no ads, runs in your browser.">
   <link rel="canonical" href="https://ghillie.xyz/minecraft-avatar/">
 
   <!-- Open Graph / Facebook -->
@@ -15,7 +15,7 @@
   <meta property="og:url" content="https://ghillie.xyz/minecraft-avatar/">
   <meta property="og:title" content="Minecraft Avatar Maker - Skin to 3D Profile Picture | Ghillie">
   <meta property="og:description"
-        content="Turn any Minecraft username into a live 3D avatar you can spin to any angle. Pick a pose, choose a background, and download a square PNG. Free and in your browser.">
+        content="Turn any Minecraft username into a rendered 3D avatar PFP. Choose a background, frame it, and download a square PNG. Free and in your browser.">
   <meta property="og:image"
         content="https://ghillie.xyz/assets/img/metaImgs/Meta-Minecraft-Avatar.png">
 
@@ -25,7 +25,7 @@
   <meta property="twitter:url" content="https://ghillie.xyz/minecraft-avatar/">
   <meta name="twitter:title" content="Minecraft Avatar Maker - Skin to 3D Profile Picture | Ghillie">
   <meta name="twitter:description"
-        content="Type a Minecraft username to load its skin as a live 3D model, spin it to any angle, pick a background, and download a PNG. Free, in your browser.">
+        content="Type a Minecraft username to render its skin as a 3D developer-style PFP, pick a background, and download a PNG. Free, in your browser.">
   <meta name="twitter:image"
         content="https://ghillie.xyz/assets/img/metaImgs/Meta-Minecraft-Avatar.png">
 
@@ -38,14 +38,13 @@
         "@type": "WebApplication",
         "name": "Minecraft Avatar Maker",
         "url": "https://ghillie.xyz/minecraft-avatar/",
-        "description": "Free online Minecraft avatar maker. Enter any Minecraft username to load its skin as a live 3D model you can drag to rotate to any angle, choose a pose and a background colour or gradient, and download a square PNG. Runs entirely in your browser.",
+        "description": "Free online Minecraft avatar maker. Enter any Minecraft username to render its skin as a 3D profile picture in the classic Mojang developer style, choose a background colour or gradient, frame the head, and download a square PNG. Runs entirely in your browser.",
         "applicationCategory": "MultimediaApplication",
         "operatingSystem": "Any",
         "browserRequirements": "Requires JavaScript. Modern browser.",
         "featureList": [
-          "Render any Minecraft username's skin as a live 3D model",
-          "Drag to rotate the model to any angle",
-          "Idle, walking, running, waving, crouching and flying poses",
+          "Render any Minecraft username's skin as a 3D avatar",
+          "Mojavatar, isometric, head and full-body render styles",
           "Custom background colour, gradient or transparent",
           "Square, rounded or circular profile-picture shapes",
           "Zoom and reposition the render",
@@ -79,7 +78,7 @@
         "totalTime": "PT20S",
         "step": [
           { "@type": "HowToStep", "position": 1, "name": "Enter a username", "text": "Type any Minecraft Java or Bedrock username and press Render." },
-          { "@type": "HowToStep", "position": 2, "name": "Spin and pose", "text": "Drag the 3D model to rotate it to any angle and pick a pose such as idle, walking or waving." },
+          { "@type": "HowToStep", "position": 2, "name": "Pick a style", "text": "Choose a render style such as Mojavatar, Isometric, Head or a full-body pose." },
           { "@type": "HowToStep", "position": 3, "name": "Style the background", "text": "Select a background colour, gradient or transparency and a square, rounded or circular shape." },
           { "@type": "HowToStep", "position": 4, "name": "Download", "text": "Zoom and reposition if needed, choose a size and download the PNG or copy it to your clipboard." }
         ]
@@ -94,8 +93,8 @@
           },
           {
             "@type": "Question",
-            "name": "What render styles are available?",
-            "acceptedAnswer": { "@type": "Answer", "text": "The default is the Mojavatar: a front-on head-and-shoulders bust, the same style Mojang developers use for their profile pictures. You can also switch to full-body poses such as idle, walking, running, waving, crouching or flying, and drag to rotate the model to any angle." }
+            "name": "What is the Mojavatar style?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Mojavatar is the render style with a large head and small body used by many Minecraft developers and creators for their profile pictures. It is the default style in this tool." }
           },
           {
             "@type": "Question",
@@ -130,8 +129,8 @@
   <link rel="stylesheet" href="/assets/css/main.css" />
   <link rel="stylesheet" href="/assets/css/theme.css" />
   <link rel="stylesheet" href="/assets/css/minecraft-avatar.css" />
+  <link rel="preconnect" href="https://starlightskins.lunareclipse.studio" crossorigin />
   <link rel="preconnect" href="https://mc-heads.net" crossorigin />
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="shortcut icon" type="image/png" href="/assets/img/favicon.png">
 </head>
 
@@ -159,7 +158,7 @@
   <div id="mc-avatar">
     <section class="av-hero">
       <h1>Minecraft Avatar Maker</h1>
-      <p class="lead-answer">Type any Minecraft username to load its skin as a <strong>live 3D model</strong> you can spin to any angle, then pick a pose, add a background and download a clean square PNG. No signup, no ads, all in your browser.</p>
+      <p class="lead-answer">Type any Minecraft username to render its skin as a 3D profile picture in the classic <strong>Mojang developer</strong> style, then pick a background, frame the head and download a clean square PNG. No signup, no ads, all in your browser.</p>
 
       <form id="avForm" class="av-form" autocomplete="off">
         <label class="av-field">
@@ -186,10 +185,8 @@
     <div id="avStudio" class="av-studio" hidden>
       <!-- left: preview stage -->
       <div class="av-stage">
-        <div id="avCanvasWrap" class="av-canvas-wrap">
-          <canvas id="avCanvas" aria-label="Avatar background"></canvas>
-          <canvas id="avViewer" class="av-viewer" aria-label="Interactive 3D Minecraft model. Drag to rotate."></canvas>
-          <span class="av-drag-hint" aria-hidden="true">Drag to rotate</span>
+        <div class="av-canvas-wrap">
+          <canvas id="avCanvas" aria-label="Rendered Minecraft avatar preview"></canvas>
           <div id="avLoading" class="av-overlay" hidden>
             <div>
               <div class="av-spinner" aria-hidden="true"></div>
@@ -219,7 +216,7 @@
       <!-- right: controls -->
       <div class="av-controls">
         <div>
-          <p class="av-group-title">Pose</p>
+          <p class="av-group-title">Style</p>
           <div id="avPoses" class="av-poses"></div>
         </div>
 
@@ -251,16 +248,13 @@
           <p class="av-group-title">Framing</p>
           <div class="av-slider">
             <label for="avZoom">Zoom</label>
-            <input id="avZoom" type="range" min="50" max="200" value="100" />
+            <input id="avZoom" type="range" min="55" max="220" value="118" />
           </div>
           <div class="av-slider">
             <label for="avPan">Vertical</label>
             <input id="avPan" type="range" min="-40" max="40" value="0" />
           </div>
-          <div class="av-toggles">
-            <button id="avSpin" class="av-toggle" type="button">Auto-spin</button>
-          </div>
-          <button id="avReset" class="av-reset" type="button">Reset view</button>
+          <button id="avReset" class="av-reset" type="button">Reset framing</button>
         </div>
       </div>
     </div>
@@ -274,8 +268,8 @@
       <summary>How to make a Minecraft avatar</summary>
       <div class="acc-body">
         <ol class="how-to-list">
-          <li><strong>Enter a username.</strong> Type any Minecraft username and press Render. The tool looks up the account and loads its current skin as a 3D model.</li>
-          <li><strong>Spin and pose.</strong> Drag the model to rotate it to any angle, and pick a pose such as idle, walking, running or waving.</li>
+          <li><strong>Enter a username.</strong> Type any Minecraft username and press Render. The tool looks up the account and fetches its current skin.</li>
+          <li><strong>Pick a style.</strong> Mojavatar is the classic big-head developer look; you can also switch to Isometric, Head or full-body poses.</li>
           <li><strong>Style the background.</strong> Choose a colour, gradient or transparency, and a square, rounded or circular shape.</li>
           <li><strong>Download.</strong> Zoom and reposition if needed, choose 256, 512 or 1024&nbsp;px, then download the PNG or copy it to your clipboard.</li>
         </ol>
@@ -283,8 +277,8 @@
     </details>
 
     <details class="acc">
-      <summary>Can I rotate the model?</summary>
-      <div class="acc-body"><p>Yes. The skin loads as a live 3D model, so you can click and drag (or swipe on touch) to spin it to any angle before you export. You can also pick a pose such as idle, walking, running, waving, crouching or flying, turn on auto-spin, and zoom or reposition the framing. The PNG you download captures exactly what you see.</p></div>
+      <summary>What is the Mojavatar style?</summary>
+      <div class="acc-body"><p>Mojavatar is the render with a large head and a small body that Mojang staff and many Minecraft creators use for their profile pictures. It is the default here because it makes a clean, recognisable PFP, but you can switch styles at any time.</p></div>
     </details>
 
     <details class="acc">
@@ -314,7 +308,6 @@
     </ul>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/skinview3d@3.4.2/bundles/skinview3d.bundle.js" defer></script>
   <script src="/assets/js/minecraft-avatar.js" defer></script>
 </body>
 </html>
