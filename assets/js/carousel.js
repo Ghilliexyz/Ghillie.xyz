@@ -168,11 +168,11 @@
     const neededW = s.slideW * s.slides;
     if (img.width < neededW * 0.85 && s.fit === "cover") {
       widthHint.textContent =
-        `Heads up: your photo is ${img.width}px wide; ${neededW}px is ideal for ${s.slides} slides. It will be upscaled a little.`;
+        `Heads up: your photo is ${img.width}×${img.height}px; ${neededW}×${s.slideH}px is ideal for ${s.slides} slides. It will be upscaled a little.`;
       widthHint.classList.add("warn");
     } else {
       widthHint.textContent =
-        `Each slide exports at ${s.slideW}×${s.slideH}px (${neededW}px total wide).`;
+        `Each slide exports at ${s.slideW}×${s.slideH}px (${neededW}×${s.slideH}px total).`;
       widthHint.classList.remove("warn");
     }
   }

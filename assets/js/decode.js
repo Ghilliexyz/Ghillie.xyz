@@ -49,6 +49,48 @@
     return scripts[src];
   }
 
+  // ----- "Decoding..." overlay -------------------------------------------
+  // TIFF/HEIC/RAW decoding is slow and RAW (dcraw) runs synchronously, freezing
+  // the tab for a few seconds. We show a full-screen status card BEFORE the heavy
+  // work and force a paint, so the user sees it is working, not frozen.
+  let busyEl = null;
+  function ensureBusy() {
+    if (busyEl) return busyEl;
+    const style = document.createElement("style");
+    style.textContent =
+      '#dr-decoding{position:fixed;inset:0;z-index:99999;display:none;place-items:center;' +
+      'background:rgba(4,4,4,.72);backdrop-filter:blur(3px);font-family:"Segoe UI",system-ui,sans-serif}' +
+      '#dr-decoding.on{display:grid}' +
+      '#dr-decoding .dr-card{max-width:340px;margin:20px;text-align:center;padding:26px 30px;' +
+      'border:1px solid rgba(255,255,255,.1);border-radius:16px;background:linear-gradient(135deg,#161616,#0c0c0c);' +
+      'box-shadow:0 20px 70px rgba(0,0,0,.6)}' +
+      '#dr-decoding .dr-spin{width:38px;height:38px;margin:0 auto 16px;border:3px solid rgba(255,255,255,.14);' +
+      'border-top-color:#ff3c3c;border-radius:50%;animation:dr-spin .8s linear infinite}' +
+      '@keyframes dr-spin{to{transform:rotate(360deg)}}' +
+      '#dr-decoding .dr-t{margin:0 0 7px;font-size:15px;font-weight:700;letter-spacing:.02em;color:#ededed}' +
+      '#dr-decoding .dr-s{margin:0;font-size:12.5px;line-height:1.55;color:#9a9a9a}' +
+      '@media (prefers-reduced-motion:reduce){#dr-decoding .dr-spin{animation:none}}';
+    document.head.appendChild(style);
+    busyEl = document.createElement("div");
+    busyEl.id = "dr-decoding";
+    busyEl.setAttribute("role", "status");
+    busyEl.setAttribute("aria-live", "polite");
+    busyEl.innerHTML = '<div class="dr-card"><div class="dr-spin" aria-hidden="true"></div><p class="dr-t"></p><p class="dr-s"></p></div>';
+    document.body.appendChild(busyEl);
+    return busyEl;
+  }
+  // Resolve after two frames so the browser actually paints the overlay before a
+  // synchronous decode locks up the main thread.
+  const paint = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+  async function showBusy(title, sub) {
+    const el = ensureBusy();
+    el.querySelector(".dr-t").textContent = title;
+    el.querySelector(".dr-s").textContent = sub;
+    el.classList.add("on");
+    await paint();
+  }
+  function hideBusy() { if (busyEl) busyEl.classList.remove("on"); }
+
   async function decodeNative(file) {
     try { return await createImageBitmap(file, { imageOrientation: "from-image" }); }
     catch {
@@ -79,37 +121,49 @@
   }
 
   async function decodeTiff(file) {
-    await loadScript("/assets/vendor/utif.js");
-    return tiffToCanvas(new Uint8Array(await file.arrayBuffer()));
+    await showBusy("Decoding TIFF…", "Reading the image on your device. This can take a moment for a large file.");
+    try {
+      await loadScript("/assets/vendor/utif.js");
+      const buf = new Uint8Array(await file.arrayBuffer());
+      await paint();
+      return tiffToCanvas(buf);
+    } finally { hideBusy(); }
   }
 
   async function decodeHeic(file) {
-    await loadScript("/assets/vendor/heic2any.min.js");
-    let out = await window.heic2any({ blob: file, toType: "image/png" });
-    if (Array.isArray(out)) out = out[0];
-    return await createImageBitmap(out);
+    await showBusy("Decoding HEIC…", "Converting the Apple photo on your device. This can take a few seconds. Nothing is uploaded.");
+    try {
+      await loadScript("/assets/vendor/heic2any.min.js");
+      let out = await window.heic2any({ blob: file, toType: "image/png" });
+      if (Array.isArray(out)) out = out[0];
+      return await createImageBitmap(out);
+    } finally { hideBusy(); }
   }
 
   const asU8 = (v) => (v instanceof Uint8Array ? v : new Uint8Array(v));
 
   async function decodeRaw(file) {
-    await loadScript("/assets/vendor/dcraw.js");
-    await loadScript("/assets/vendor/utif.js");
-    const buf = new Uint8Array(await file.arrayBuffer());
-    // Full (half-size for speed) develop with the camera white balance -> TIFF.
+    await showBusy("Decoding RAW…", "Developing your camera RAW on your device. Large files can take several seconds and the page may briefly pause. Nothing is uploaded.");
     try {
-      const tiff = window.dcraw(buf, { useCameraWhiteBalance: true, setHalfSizeMode: true, exportAsTiff: true });
-      if (tiff && tiff.length) return tiffToCanvas(asU8(tiff));
-    } catch (e) { /* fall through to the embedded preview */ }
-    // Fallback: the full-size JPEG preview embedded in the RAW (fast, lower res).
-    const thumb = window.dcraw(buf, { extractThumbnail: true });
-    if (thumb && thumb.length) {
-      const t = asU8(thumb);
-      // embedded preview is usually JPEG; if it is a PPM, dcraw returns "P6.." header
-      if (t[0] === 0x50 && (t[1] === 0x36 || t[1] === 0x35)) return ppmToCanvas(t);
-      return await createImageBitmap(new Blob([t], { type: "image/jpeg" }));
-    }
-    throw new Error("This RAW file could not be decoded.");
+      await loadScript("/assets/vendor/dcraw.js");
+      await loadScript("/assets/vendor/utif.js");
+      const buf = new Uint8Array(await file.arrayBuffer());
+      await paint(); // let the overlay show before the synchronous decode locks the thread
+      // Full (half-size for speed) develop with the camera white balance -> TIFF.
+      try {
+        const tiff = window.dcraw(buf, { useCameraWhiteBalance: true, setHalfSizeMode: true, exportAsTiff: true });
+        if (tiff && tiff.length) return tiffToCanvas(asU8(tiff));
+      } catch (e) { /* fall through to the embedded preview */ }
+      // Fallback: the full-size JPEG preview embedded in the RAW (fast, lower res).
+      const thumb = window.dcraw(buf, { extractThumbnail: true });
+      if (thumb && thumb.length) {
+        const t = asU8(thumb);
+        // embedded preview is usually JPEG; if it is a PPM, dcraw returns "P6.." header
+        if (t[0] === 0x50 && (t[1] === 0x36 || t[1] === 0x35)) return ppmToCanvas(t);
+        return await createImageBitmap(new Blob([t], { type: "image/jpeg" }));
+      }
+      throw new Error("This RAW file could not be decoded.");
+    } finally { hideBusy(); }
   }
 
   // Minimal binary PPM (P6) reader, for the rare camera whose preview is a PPM.

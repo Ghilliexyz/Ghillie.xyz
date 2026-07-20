@@ -58,7 +58,7 @@
     return i > 0 ? name.slice(0, i) : name;
   }
 
-  // Shared decoder: web formats natively, plus TIFF/HEIC/RAW via vendored libs.
+  // Decode via the shared Darkroom decoder (web formats + TIFF/HEIC/RAW).
   async function decode(file) {
     return window.DarkroomDecode.decode(file);
   }
