@@ -2,19 +2,19 @@
    id = the in-game potion type (used in the Potion NBT tag). */
 window.MC_POTIONS = [
   { id:"water", name:"Water Bottle", kind:"potion", img:"potion", cat:"Base Potion", type:"Base",
-    effect:"No effect on its own", duration:"—", level2:false, extend:false, base:true,
+    effect:"No effect on its own", duration:"-", level2:false, extend:false, base:true,
     brew:"Fill a glass bottle from a water source or a cauldron.",
     notes:["The starting point for all brewing.","Splash a water bottle to put out fire or hurt endermen, blazes and striders.","Add Nether wart to make an Awkward Potion."] },
   { id:"awkward", name:"Awkward Potion", kind:"potion", img:"potion", cat:"Base Potion", type:"Base",
-    effect:"No effect; the base for most potions", duration:"—", level2:false, extend:false, base:true,
+    effect:"No effect; the base for most potions", duration:"-", level2:false, extend:false, base:true,
     brew:"Water Bottle + Nether Wart.",
     notes:["The base for nearly every effect potion.","Tasteless on its own.","Add a main ingredient to give it an effect."] },
   { id:"mundane", name:"Mundane Potion", kind:"potion", img:"potion", cat:"Base Potion", type:"Base",
-    effect:"No effect", duration:"—", level2:false, extend:false, base:true,
+    effect:"No effect", duration:"-", level2:false, extend:false, base:true,
     brew:"Water Bottle + most non-standard ingredients (e.g. glistering melon with no Nether wart).",
     notes:["A dead-end base with no effect.","Mostly a brewing by-product.","Fermented spider eye turns it into Weakness."] },
   { id:"thick", name:"Thick Potion", kind:"potion", img:"potion", cat:"Base Potion", type:"Base",
-    effect:"No effect", duration:"—", level2:false, extend:false, base:true,
+    effect:"No effect", duration:"-", level2:false, extend:false, base:true,
     brew:"Water Bottle + Glowstone Dust.",
     notes:["A dead-end base with no effect.","Brewing by-product.","No useful direct recipe."] },
 

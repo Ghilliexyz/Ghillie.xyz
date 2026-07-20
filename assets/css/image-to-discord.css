@@ -1,0 +1,267 @@
+/* Image to Discord Image, VOL.01 theme.
+   Palette + chrome come from theme.css; this sheet styles the app.
+   Compresses images client-side (WebP/JPEG/PNG via canvas) so they
+   upload on Discord while staying sharp.
+   Class names are the contract with image-to-discord.js. */
+
+#img-disc {
+  --card: var(--panel-solid);
+  --outline: var(--line);
+  --good: #6aa84f;
+  color: var(--text);
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: clamp(10px, 2.2vmin, 22px) 16px 20px;
+}
+
+/* ---------- Hero ---------- */
+#img-disc .id-hero { text-align: center; margin-bottom: clamp(14px, 2.8vmin, 24px); }
+#img-disc .id-hero h1 {
+  margin: 0 0 8px;
+  font-size: clamp(1.7rem, 5.4vmin, 2.9rem);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #ededed;
+  text-shadow: -0.7px 0 rgba(255, 0, 70, 0.5), 0.7px 0 rgba(0, 235, 220, 0.45);
+}
+#img-disc .lead-answer {
+  color: var(--muted);
+  font-size: clamp(0.82rem, 1.6vmin, 0.98rem);
+  line-height: 1.55;
+  max-width: 660px;
+  margin: 0 auto;
+}
+
+/* ---------- Drop zone ---------- */
+#img-disc .id-drop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  min-height: clamp(150px, 26vmin, 210px);
+  padding: 26px 20px;
+  border: 1.5px dashed rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  background: var(--panel);
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+#img-disc .id-drop:hover,
+#img-disc .id-drop:focus-visible {
+  border-color: var(--line-hover);
+  box-shadow: 0 10px 40px rgba(255, 60, 60, 0.1);
+  outline: none;
+}
+#img-disc .id-drop.drag {
+  border-color: var(--accent);
+  border-style: solid;
+  background: rgba(255, 60, 60, 0.06);
+  box-shadow: 0 10px 40px rgba(255, 60, 60, 0.18);
+}
+#img-disc .id-drop-ic { width: 40px; height: 40px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+#img-disc .id-drop-title { font-size: clamp(1rem, 2.4vmin, 1.25rem); font-weight: 800; color: #ededed; letter-spacing: 0.02em; }
+#img-disc .id-drop-sub { font-size: 12.5px; color: var(--muted); }
+#img-disc .id-drop-sub u { color: #d7d7d7; text-decoration-color: var(--line-hover); }
+
+/* ---------- Controls ---------- */
+#img-disc .id-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin-top: clamp(14px, 2.6vmin, 22px);
+  background: var(--panel);
+  border: 1px solid var(--outline);
+  border-radius: 14px;
+  padding: clamp(14px, 2.4vmin, 22px);
+}
+#img-disc .id-ctrl { display: flex; flex-direction: column; gap: 9px; min-width: 0; }
+#img-disc .id-ctrl-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--muted);
+  display: flex; align-items: baseline; gap: 8px;
+}
+#img-disc .id-ctrl-label em {
+  font-style: normal; color: var(--accent); font-size: 13px; letter-spacing: 0.02em;
+}
+#img-disc .id-ctrl-hint { font-size: 11px; color: #7a7a7a; min-height: 1em; }
+
+/* segmented format control */
+#img-disc .id-seg { display: inline-flex; border: 1px solid var(--outline); border-radius: 9px; overflow: hidden; align-self: flex-start; }
+#img-disc .id-seg button {
+  background: transparent; border: none; cursor: pointer;
+  color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: 0.03em;
+  padding: 8px 15px; transition: all 0.15s ease;
+}
+#img-disc .id-seg button:hover { color: #fff; }
+#img-disc .id-seg button.on { background: var(--accent); color: #0a0a0a; }
+
+/* quality slider */
+#img-disc #idQuality {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 4px; border-radius: 999px;
+  background: var(--outline); outline: none;
+}
+#img-disc #idQuality::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 16px; height: 16px; border-radius: 50%; background: var(--accent);
+  cursor: pointer; border: 2px solid #0a0a0a;
+}
+#img-disc #idQuality::-moz-range-thumb {
+  width: 16px; height: 16px; border-radius: 50%; background: var(--accent);
+  cursor: pointer; border: 2px solid #0a0a0a;
+}
+
+/* selects */
+#img-disc select {
+  align-self: flex-start;
+  width: 100%;
+  background: var(--tile);
+  color: var(--text);
+  border: 1px solid var(--outline);
+  border-radius: 9px;
+  padding: 9px 12px;
+  font: inherit; font-size: 13px;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+#img-disc select:hover { border-color: var(--line-hover); }
+#img-disc select:focus-visible { outline: none; border-color: var(--line-hover); }
+
+/* autofit checkbox */
+#img-disc .id-check {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12.5px; color: #cfcfcf; cursor: pointer; user-select: none;
+}
+#img-disc .id-check input { accent-color: var(--accent); width: 15px; height: 15px; cursor: pointer; }
+
+/* ---------- Summary bar ---------- */
+#img-disc .id-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  flex-wrap: wrap;
+  margin-top: clamp(16px, 2.8vmin, 24px);
+  padding: 12px 4px;
+  border-bottom: 1px solid var(--outline);
+}
+#img-disc .id-bar[hidden] { display: none; }
+#img-disc .id-summary { font-size: 13px; color: var(--muted); }
+#img-disc .id-summary strong { color: #ededed; font-weight: 700; }
+#img-disc .id-summary .id-hl { color: var(--good); font-weight: 700; }
+#img-disc .id-bar-actions { display: flex; gap: 10px; }
+
+/* shared buttons */
+#img-disc .id-btn {
+  background: var(--tile); color: #d7d7d7;
+  border: 1px solid var(--outline); border-radius: 10px;
+  padding: 9px 16px; font-size: 12px; font-weight: 700; letter-spacing: 0.04em;
+  cursor: pointer; transition: border-color 0.15s ease, color 0.15s ease, transform 0.15s ease, filter 0.15s ease;
+}
+#img-disc .id-btn:hover { border-color: var(--line-hover); color: #fff; }
+#img-disc .id-btn-primary {
+  background: var(--accent); color: #0a0a0a; border-color: var(--accent);
+  text-transform: uppercase;
+}
+#img-disc .id-btn-primary:hover { transform: translateY(-1px); filter: brightness(1.08); color: #0a0a0a; }
+
+/* ---------- Results grid ---------- */
+#img-disc .id-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+#img-disc .id-card {
+  background: var(--card);
+  border: 1px solid var(--outline);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: id-in 0.25s ease;
+}
+@keyframes id-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+#img-disc .id-thumb {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background-color: #141414;
+  background-image:
+    linear-gradient(45deg, #1c1c1c 25%, transparent 25%),
+    linear-gradient(-45deg, #1c1c1c 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #1c1c1c 75%),
+    linear-gradient(-45deg, transparent 75%, #1c1c1c 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+  overflow: hidden;
+}
+#img-disc .id-thumb-img { width: 100%; height: 100%; object-fit: contain; display: block; }
+#img-disc .id-card.busy .id-thumb::after {
+  content: ""; position: absolute; inset: 0; margin: auto;
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.14); border-top-color: var(--accent);
+  animation: id-spin 0.8s linear infinite;
+}
+@keyframes id-spin { to { transform: rotate(360deg); } }
+
+#img-disc .id-badge {
+  position: absolute; top: 8px; left: 8px;
+  background: rgba(6, 6, 6, 0.72); color: #ededed;
+  font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 3px 7px; border-radius: 6px; backdrop-filter: blur(2px);
+}
+#img-disc .id-over {
+  position: absolute; top: 8px; right: 8px;
+  background: var(--accent); color: #0a0a0a;
+  font-size: 10px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 3px 7px; border-radius: 6px;
+}
+#img-disc .id-over[hidden] { display: none; }
+
+/* hold-to-compare button reveals original underneath */
+#img-disc .id-compare {
+  position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+  background: rgba(6, 6, 6, 0.75); color: #d7d7d7;
+  border: 1px solid var(--outline); border-radius: 999px;
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.04em;
+  padding: 4px 11px; cursor: pointer; backdrop-filter: blur(2px);
+  opacity: 0; transition: opacity 0.18s ease, color 0.15s ease, border-color 0.15s ease;
+}
+#img-disc .id-thumb:hover .id-compare { opacity: 1; }
+#img-disc .id-compare:hover { color: #fff; border-color: var(--line-hover); }
+
+#img-disc .id-info { padding: 12px 13px 4px; flex: 1; }
+#img-disc .id-name {
+  margin: 0 0 8px; font-size: 12.5px; font-weight: 600; color: #ededed;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+#img-disc .id-stats { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; }
+#img-disc .id-old { color: var(--muted); text-decoration: line-through; text-decoration-color: rgba(255,255,255,0.25); }
+#img-disc .id-arrow { width: 15px; height: 15px; stroke: var(--muted); fill: none; stroke-width: 2; flex: none; }
+#img-disc .id-new { color: #ededed; font-weight: 800; }
+#img-disc .id-save {
+  margin-left: auto;
+  background: rgba(106, 168, 79, 0.16); color: #a7e0a0;
+  font-size: 11px; font-weight: 800; letter-spacing: 0.02em;
+  padding: 2px 8px; border-radius: 999px;
+}
+#img-disc .id-save.warn { background: rgba(255, 60, 60, 0.16); color: #ff9c9c; }
+#img-disc .id-dims { margin: 8px 0 0; font-size: 11px; color: #7a7a7a; }
+
+#img-disc .id-card-actions { display: flex; gap: 8px; padding: 12px 13px; }
+#img-disc .id-card-actions .id-download { flex: 1; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 560px) {
+  #img-disc { padding-left: 12px; padding-right: 12px; overflow-x: hidden; }
+  #img-disc .id-hero h1 { font-size: clamp(1.35rem, 7vmin, 1.9rem); letter-spacing: 0.02em; }
+  #img-disc .id-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+}
+@media (max-width: 380px) {
+  #img-disc .id-grid { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #img-disc .id-card { animation: none; }
+  #img-disc .id-card.busy .id-thumb::after { animation: none; }
+}

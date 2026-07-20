@@ -1,0 +1,127 @@
+/* Darkroom, the image-tools suite shell.
+   A left sidebar picks a tool; each tool lives in a .dr-panel that shows/hides.
+   The tools themselves are styled by image-to-discord.css and carousel.css;
+   this sheet only styles the shell (sidebar + layout). Class prefix `dr-`. */
+
+#darkroom {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(16px, 3vw, 34px);
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: clamp(12px, 2.4vmin, 24px) 16px 20px;
+}
+
+/* ---------- Sidebar ---------- */
+.dr-nav {
+  flex: none;
+  width: 232px;
+  position: sticky;
+  top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.dr-brand { padding: 4px 6px 0; }
+.dr-brand h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ededed;
+  text-shadow: -0.7px 0 rgba(255, 0, 70, 0.5), 0.7px 0 rgba(0, 235, 220, 0.45);
+}
+.dr-brand p {
+  margin: 5px 0 0;
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--muted);
+}
+
+.dr-tools { display: flex; flex-direction: column; gap: 8px; }
+.dr-tool {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  background: var(--tile);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 13px;
+  color: #d0d0d0;
+  cursor: pointer;
+  transition: border-color 0.16s ease, background 0.16s ease, transform 0.16s ease;
+}
+.dr-tool:hover { border-color: var(--line-hover); transform: translateY(-1px); }
+.dr-tool .dr-ic {
+  flex: none; width: 34px; height: 34px;
+  display: grid; place-items: center;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line);
+}
+.dr-tool .dr-ic svg { width: 18px; height: 18px; stroke: var(--muted); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.dr-tool .dr-tt { min-width: 0; }
+.dr-tool .dr-tt b { display: block; font-size: 13px; font-weight: 700; color: #ededed; letter-spacing: 0.01em; }
+.dr-tool .dr-tt span { display: block; font-size: 11px; color: var(--muted); margin-top: 2px; line-height: 1.3; }
+
+.dr-tool.on {
+  background: linear-gradient(135deg, rgba(255, 60, 60, 0.16), rgba(255, 60, 60, 0.05));
+  border-color: var(--line-hover);
+}
+.dr-tool.on .dr-ic { background: var(--accent); border-color: var(--accent); }
+.dr-tool.on .dr-ic svg { stroke: #0a0a0a; }
+.dr-tool.on .dr-tt b { color: #fff; }
+
+.dr-soon {
+  opacity: 0.5;
+  cursor: default;
+}
+.dr-soon:hover { transform: none; border-color: var(--line); }
+.dr-soon .dr-tag {
+  margin-left: auto; flex: none;
+  font-size: 8.5px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 2px 6px;
+}
+
+.dr-note {
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 6px;
+  font-size: 11px; line-height: 1.5; color: var(--muted);
+}
+.dr-note svg { flex: none; width: 15px; height: 15px; stroke: var(--good, #6aa84f); fill: none; stroke-width: 2; }
+
+/* ---------- Main / panels ---------- */
+.dr-main { flex: 1; min-width: 0; }
+.dr-panel { animation: dr-fade 0.28s ease; }
+.dr-panel[hidden] { display: none; }
+@keyframes dr-fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* the tool app roots don't need their own outer centering inside the panel */
+.dr-panel #img-disc,
+.dr-panel #carousel { padding-top: 0; }
+/* pull the tool FAQ in line with the narrower main column */
+.dr-panel .info-accordion { margin-top: 2.6rem; }
+
+/* ---------- Responsive: sidebar becomes a top row ---------- */
+@media (max-width: 860px) {
+  #darkroom { flex-direction: column; gap: 14px; }
+  .dr-nav {
+    width: 100%; position: static; top: auto;
+    flex-direction: row; flex-wrap: wrap; align-items: center; gap: 10px;
+  }
+  .dr-brand { flex: 1 1 100%; padding-bottom: 2px; }
+  .dr-brand h1 { font-size: 1.25rem; }
+  .dr-tools { flex-direction: row; flex-wrap: wrap; gap: 8px; }
+  .dr-tool { width: auto; flex: 1 1 220px; }
+  .dr-note { flex-basis: 100%; }
+}
+@media (max-width: 560px) {
+  #darkroom { padding-left: 12px; padding-right: 12px; overflow-x: hidden; }
+  .dr-tool .dr-tt span { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dr-panel { animation: none; }
+  .dr-tool { transition: none; }
+}

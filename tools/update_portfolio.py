@@ -947,7 +947,7 @@ def scan_newest_videos(creators, selected_names, num_threads=4):
         print(f"  {DIM}No channels selected.{RESET}")
         return 0
 
-    # Step 1 — discover new videos on selected channels (threaded)
+    # Step 1, discover new videos on selected channels (threaded)
     print(f"\n{BOLD}Checking YouTube channels for new uploads...{RESET}\n")
 
     all_new = {}  # creator_name -> list of video dicts
@@ -975,7 +975,7 @@ def scan_newest_videos(creators, selected_names, num_threads=4):
     total_new = sum(len(v) for v in all_new.values())
     print(f"\n  Found {CYAN}{total_new}{RESET} new video(s). Fetching details & thumbnails...\n")
 
-    # Step 2 — for each new video: fetch full info, download thumbnail, add entry
+    # Step 2, for each new video: fetch full info, download thumbnail, add entry
     added = 0
 
     for creator_name in sorted(all_new.keys()):

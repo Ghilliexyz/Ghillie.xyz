@@ -648,7 +648,7 @@
        don't fill the viewport, which left a tiny dead scroll below. Make the stage
        at least full-height and lay it out as a column: the topbar stays pinned at
        the TOP (so the "ALL WORK" back button is always in the same spot), while the
-       title + cards centre in the space beneath it via auto margins — nothing to
+       title + cards centre in the space beneath it via auto margins, nothing to
        scroll to. When a discipline IS tall enough to overflow, the auto margins
        collapse to 0 and it scrolls normally. The 16vh runway (a leftover from the
        fly-in timeline) is trimmed to a small bottom breathing space. */
@@ -988,7 +988,7 @@
        inside it may capture taps. The deck (and, on desktop, the cards via an
        inline pointer-events the render loop sets) re-enable pointer-events, which
        would otherwise leave an invisible, full-height tap-trap sitting on top of
-       the about/cover views on mobile — swallowing taps like the about BACK link.
+       the about/cover views on mobile, swallowing taps like the about BACK link.
        This overrides those, so only the ACTIVE view is ever interactive. */
     #view-portfolio:not(.active) .deck,
     #view-portfolio:not(.active) .deck-card { pointer-events: none !important; }
@@ -1131,7 +1131,7 @@
        Mobile / touch support
        The portfolio deck is hover-driven (there is no hover on a touch
        screen), so on coarse pointers it drops to the same plain, scrollable
-       column the reduced-motion path uses — every discipline card visible and
+       column the reduced-motion path uses, every discipline card visible and
        tappable. The matching JS (see staticDeck) stops driving the 3D cascade
        so the cards stay put. The about panel also gains its own scroll so its
        copy is never clipped on short screens.
@@ -1168,10 +1168,10 @@
     @media (max-width: 760px) {
       /* Cover nav: on a phone the GHILLIE title fills the centre of the screen,
          so the edge-pinned ABOUT / PORTFOLIO controls overlapped it AND each
-         other — a tap near the middle landed on whichever link stacked on top
+         other, a tap near the middle landed on whichever link stacked on top
          (portfolio), so pressing "About" opened the portfolio. Lift both into a
          row across the TOP, clear of the title, each on its own side of centre.
-         Generous padding makes each a finger-sized (~48px) tap target — the bare
+         Generous padding makes each a finger-sized (~48px) tap target, the bare
          text alone was only ~15px tall and far too small to reliably hit. */
       #view-cover .sparkle {
         top: clamp(54px, 10vh, 120px);
@@ -1356,6 +1356,7 @@
           { image: '/assets/img/portfolio/Websites/GTAHub.png', title: 'GTAHub.xyz', desc: 'A GTA resource hub built for the community.', tags: ['HTML/CSS', 'JavaScript'], status: 'Live', href: 'https://gtahub.xyz/', linkLabel: 'Visit', glow: '46, 204, 113' },
           { image: '/assets/img/portfolio/Websites/MinecraftLookup.png', title: 'Minecraft Lookup', desc: 'Search every Minecraft item, block and mob for IDs, one-click give/summon commands, and how to obtain, farm or spawn it, all on one screen.', tags: ['JavaScript'], status: 'Live', href: '/minecraft/', linkLabel: 'Open', glow: '83, 141, 78' },
           { image: '/assets/img/portfolio/Websites/MinecraftAvatar.png', title: 'Minecraft Avatar Maker', desc: 'Turn any Minecraft username into a rendered 3D developer-style PFP, pick a background and shape, then download a clean square PNG.', tags: ['JavaScript', 'Canvas'], status: 'Live', href: '/minecraft-avatar/', linkLabel: 'Open', glow: '155, 89, 182' },
+          { image: '/assets/img/portfolio/Websites/Darkroom.png', title: 'Darkroom', desc: 'A suite of private, browser-only image tools. Compress photos to fit under Discord\'s upload limit, or slice a panorama into a seamless Instagram carousel. Nothing is ever uploaded.', tags: ['JavaScript', 'Canvas'], status: 'Live', href: '/darkroom/', linkLabel: 'Open', glow: '255, 60, 60' },
           { image: '/assets/img/portfolio/Websites/DBViewer.png', title: 'DB Viewer', desc: 'Client-side SQLite viewer with charts and a read-only SQL console.', tags: ['JavaScript', 'sql.js', 'Chart.js'], status: 'Live', href: '/dbviewer/', linkLabel: 'Open', glow: '150, 60, 220' },
           { image: '/assets/img/portfolio/Websites/WordleSolver.png', title: 'Wordle Solver', desc: 'Client-side word-filtering helper for Wordle.', tags: ['JavaScript'], status: 'Live', href: '/wordle/', linkLabel: 'Open', glow: '150, 60, 220' },
         ],
@@ -1520,13 +1521,13 @@
       const status = it.status ? `<span class="status ${esc(it.status.toLowerCase())}">${esc(it.status)}</span>` : '';
       // Items can carry either a single `href`/`linkLabel` (whole card is the
       // link) or a `links` array (e.g. SpigotMC + Modrinth side by side, some
-      // of which may be `pending: true` — rendered as a non-clickable badge).
+      // of which may be `pending: true`, rendered as a non-clickable badge).
       const links = it.links || (it.href ? [{ href: it.href, label: it.linkLabel || 'View' }] : []);
       // A card is only a single whole-card <a> when it has exactly one link;
       // multiple links each need their own <a>, so the card becomes a <div>.
       const primary = links.length === 1 && links[0].href ? links[0].href : null;
       // When the whole card is already an <a> (primary set), the footer links
-      // MUST be plain <span>s — an <a> nested inside an <a> is invalid HTML and
+      // MUST be plain <span>s, an <a> nested inside an <a> is invalid HTML and
       // the parser tears the card apart (cover and body split into separate
       // grid cells). Only the <div> (multi-link) cards get real <a> links.
       const linkHTML = links.map((l) => {
@@ -1737,7 +1738,7 @@
     // the pointer: we measure the vector from each card's OWN centre to the
     // cursor and rotate the card so its face turns toward the mouse (the further
     // a card sits from the cursor, the harder it faces it, clamped). Desktop
-    // only — needs a hovering pointer — and skipped under reduced motion.
+    // only, needs a hovering pointer, and skipped under reduced motion.
     if (flyStatic && !staticDeck) {
       const TILT_MAX = 5;         // degrees at full deflection
       const TILT_REF = 620;       // px from a card's centre that reaches full tilt
@@ -1795,7 +1796,7 @@
           if (deckFrontWorld) deckFrontWorld.style.transform = lean;
           requestDeck();   // keep the cursor-driven deck loop alive while open
         }
-        // Slot the live bubble between the two card layers — but only once the
+        // Slot the live bubble between the two card layers, but only once the
         // portfolio view is fully opaque, so moving it never blinks the bubble
         // mid-transition. Pull it back out to the body the moment we leave.
         if (bubbleStage && deckStage && deckFront) {
@@ -1840,7 +1841,7 @@
       focusSC: 1.06,                     // scale of the hovered card when tilted out
       tiltX: 64,                         // tilt-out: slight slide to the RIGHT out of the pack (small, so the card stays under the cursor to click)
       tiltRY: 0, tiltRX: 5,              // tilt-out: rotateY swings to face you (0 = face-on); rotateX held at the fan value so it does NOT lean forward. Pivots on the LEFT edge, so the right edge / top-right corner is what swings.
-      frontGap: 142,                     // how far a hovered (non-first) card sits IN FRONT of the card immediately ahead of it — same for every card, so they all match (Game Dev's distance)
+      frontGap: 142,                     // how far a hovered (non-first) card sits IN FRONT of the card immediately ahead of it, same for every card, so they all match (Game Dev's distance)
       bubbleZ: -280,                     // depth of the bubble plane: cards with tz above this are IN FRONT of the bubble, below it are behind
       approach: 1.0,                     // card-units of influence each side; wider = the card eases the WHOLE way (no last-instant pop), neighbours cross-fade
       startGap: 1.0,                     // rest lead-in (card-units) so the whole fan sits at rest until a card is hovered
@@ -1864,7 +1865,7 @@
       if (!n) return;
 
       // Cascade geometry: each card steps right (+X), rises (-Y) and recedes
-      // (-Z) from the one before, all sharing one tilt — so the whole hand is
+      // (-Z) from the one before, all sharing one tilt, so the whole hand is
       // visible at once. Steps scale with viewport width so it fits small screens.
       const vw = window.innerWidth;
       const STEPX = Math.min(DECK.stepXCap, vw * DECK.stepXMul);
@@ -1905,7 +1906,7 @@
         const ty = restY;
         // Cards after the first sit behind the card ahead of them, so a hovered
         // one would be partly covered. Lift it forward to sit a FIXED gap in front
-        // of its immediate neighbour (one depth step + frontGap) — the same gap for
+        // of its immediate neighbour (one depth step + frontGap), the same gap for
         // every card, so they all match instead of deeper cards flying out further.
         // The first card (i === 0) has nothing in front, so it stays at its depth.
         // A discipline may override frontGap to come out a little less/more.
@@ -1959,7 +1960,7 @@
     function requestDeck() {
       if (!deckRAF) deckRAF = requestAnimationFrame(deckLoop);
     }
-    // Snap instantly (no glide) — used when the view resets so the first card is
+    // Snap instantly (no glide), used when the view resets so the first card is
     // already front on arrival instead of sliding in from the old position.
     function snapDeck() {
       deckPos = deckTarget();
@@ -1980,7 +1981,7 @@
           if (!n) return;
           const rect = deckStage.getBoundingClientRect();
           // Map the cursor onto the fan with the SAME spacing the cards use
-          // (STEPX), measured from the fan's centre — so each card's hover band
+          // (STEPX), measured from the fan's centre, so each card's hover band
           // lands where the card actually sits (the fan is clustered mid-screen,
           // NOT spread edge-to-edge). pos is in card-units; 0..n-1.
           const STEPX = Math.min(DECK.stepXCap, window.innerWidth * DECK.stepXMul);

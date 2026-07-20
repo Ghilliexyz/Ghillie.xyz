@@ -1,4 +1,4 @@
-/* DB Viewer — VOL.01 theme.
+/* DB Viewer, VOL.01 theme.
    Palette + chrome come from theme.css; this sheet styles the app itself.
    Class names are the contract with dbviewer.js, so they are preserved. */
 
@@ -34,7 +34,7 @@
 }
 #db-viewer .muted { color: var(--muted); }
 
-/* the app card — was a spinning rainbow glow, now the calm VOL.01 panel */
+/* the app card, was a spinning rainbow glow, now the calm VOL.01 panel */
 #db-viewer .cardGlow {
   position: relative;
   background: var(--panel);

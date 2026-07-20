@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Basic HTML Meta Tags -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Darkroom - Free Private Image Tools | Ghillie</title>
+  <meta name="description"
+        content="Darkroom is a set of free image tools that run entirely in your browser, nothing uploaded. Compress photos to upload on Discord, and split a panorama into a seamless Instagram carousel. Pick a tool from the sidebar and go.">
+  <link rel="canonical" href="https://ghillie.xyz/darkroom/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ghillie">
+  <meta property="og:url" content="https://ghillie.xyz/darkroom/">
+  <meta property="og:title" content="Darkroom - Free Private Image Tools | Ghillie">
+  <meta property="og:description"
+        content="A suite of image tools that never leave your machine. Compress for Discord and build seamless Instagram carousels, all in your browser.">
+  <meta property="og:image"
+        content="https://ghillie.xyz/assets/img/metaImgs/Meta-Darkroom.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="twitter:domain" content="ghillie.xyz">
+  <meta property="twitter:url" content="https://ghillie.xyz/darkroom/">
+  <meta name="twitter:title" content="Darkroom - Free Private Image Tools | Ghillie">
+  <meta name="twitter:description"
+        content="A suite of image tools that never leave your machine. Compress for Discord and build seamless Instagram carousels, in your browser.">
+  <meta name="twitter:image"
+        content="https://ghillie.xyz/assets/img/metaImgs/Meta-Darkroom.png">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Darkroom",
+        "url": "https://ghillie.xyz/darkroom/",
+        "description": "Darkroom is a suite of free, privacy-first image tools that run entirely in the browser with no uploads. It includes an image compressor built to get photos under Discord's upload limit while keeping them sharp, and a seamless carousel maker that slices one wide photo into aligned Instagram slides that swipe like a panorama.",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript. Modern browser.",
+        "featureList": [
+          "Compress JPG, PNG and WebP images to tiny sizes",
+          "Auto-fit images under Discord's upload limit",
+          "Split a wide photo into a seamless Instagram carousel",
+          "Square or portrait carousel slides, downloaded as a numbered ZIP",
+          "Runs 100% in your browser; nothing is uploaded"
+        ],
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "author": { "@id": "https://ghillie.xyz/#person" },
+        "creator": { "@id": "https://ghillie.xyz/#person" },
+        "keywords": "image tools, compress image for discord, seamless instagram carousel, private image tools, browser image compressor"
+      },
+      {
+        "@type": "Person",
+        "@id": "https://ghillie.xyz/#person",
+        "name": "Ghillie",
+        "url": "https://ghillie.xyz/",
+        "sameAs": [
+          "https://github.com/Ghilliexyz",
+          "https://twitter.com/Ghilliexyz",
+          "https://discord.com/users/211851747688185856"
+        ]
+      },
+      {
+        "@type": "ItemList",
+        "name": "Darkroom tools",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Image to Discord Image", "url": "https://ghillie.xyz/darkroom/#discord" },
+          { "@type": "ListItem", "position": 2, "name": "Seamless Carousel Maker", "url": "https://ghillie.xyz/darkroom/#carousel" }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://ghillie.xyz/" },
+          { "@type": "ListItem", "position": 2, "name": "Portfolio", "item": "https://ghillie.xyz/portfolio/" },
+          { "@type": "ListItem", "position": 3, "name": "Darkroom", "item": "https://ghillie.xyz/darkroom/" }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Styles & Favicon -->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <link rel="stylesheet" href="/assets/css/theme.css" />
+  <link rel="stylesheet" href="/assets/css/image-to-discord.css" />
+  <link rel="stylesheet" href="/assets/css/carousel.css" />
+  <link rel="stylesheet" href="/assets/css/collage.css" />
+  <link rel="stylesheet" href="/assets/css/resize.css" />
+  <link rel="stylesheet" href="/assets/css/convert.css" />
+  <link rel="stylesheet" href="/assets/css/darkroom.css" />
+  <link rel="shortcut icon" type="image/png" href="/assets/img/favicon.png">
+</head>
+
+<body class="tool-page" ondragstart="return false">
+
+  <!-- Film grain + CRT vignette + album-jacket framing (shared VOL.01 chrome) -->
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vhs" aria-hidden="true"></div>
+  <div class="crop" aria-hidden="true">
+    <i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i>
+  </div>
+  <span class="meta meta-tl" aria-hidden="true">GHILLIE.XYZ</span>
+  <span class="meta meta-tr" aria-hidden="true">EST. 2016 / SCOTLAND</span>
+  <span class="meta meta-bl" aria-hidden="true">DIGITAL DESIGNER / DEVELOPER</span>
+  <span class="meta meta-br" aria-hidden="true">DARKROOM</span>
+
+  <!-- Top nav -->
+  <nav class="tool-nav" aria-label="Primary">
+    <a href="/#about">ABOUT</a>
+    <a href="/">HOME</a>
+    <a href="/#portfolio">PORTFOLIO</a>
+  </nav>
+
+  <!-- Suite shell -->
+  <div id="darkroom">
+    <!-- Sidebar: pick a tool -->
+    <aside class="dr-nav" aria-label="Darkroom tools">
+      <div class="dr-brand">
+        <h1>Darkroom</h1>
+        <p>Image tools</p>
+      </div>
+
+      <div class="dr-tools" role="tablist" aria-label="Choose a tool">
+        <button class="dr-tool" type="button" role="tab" data-tool="discord" aria-selected="true" aria-controls="panel-discord">
+          <span class="dr-ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 16V4"></path><path d="M7 9l5-5 5 5"></path><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"></path></svg>
+          </span>
+          <span class="dr-tt"><b>Image to Discord</b><span>Compress under the upload limit</span></span>
+        </button>
+
+        <button class="dr-tool" type="button" role="tab" data-tool="resize" aria-selected="false" aria-controls="panel-resize">
+          <span class="dr-ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M15 3h6v6"></path><path d="M9 21H3v-6"></path><path d="M21 3l-7 7"></path><path d="M3 21l7-7"></path></svg>
+          </span>
+          <span class="dr-tt"><b>Resize</b><span>Scale to any dimensions</span></span>
+        </button>
+
+        <button class="dr-tool" type="button" role="tab" data-tool="convert" aria-selected="false" aria-controls="panel-convert">
+          <span class="dr-ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 8h13l-3-3"></path><path d="M20 16H7l3 3"></path></svg>
+          </span>
+          <span class="dr-tt"><b>Convert</b><span>JPG · PNG · WebP</span></span>
+        </button>
+
+        <button class="dr-tool" type="button" role="tab" data-tool="carousel" aria-selected="false" aria-controls="panel-carousel">
+          <span class="dr-ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"></rect><path d="M9 6v12M15 6v12"></path></svg>
+          </span>
+          <span class="dr-tt"><b>Seamless Carousel</b><span>Panorama to Instagram slides</span></span>
+        </button>
+
+        <button class="dr-tool" type="button" role="tab" data-tool="collage" aria-selected="false" aria-controls="panel-collage">
+          <span class="dr-ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1"></rect><rect x="13" y="3" width="8" height="5" rx="1"></rect><rect x="13" y="10" width="8" height="4" rx="1"></rect><rect x="3" y="13" width="8" height="8" rx="1"></rect><rect x="13" y="16" width="8" height="5" rx="1"></rect></svg>
+          </span>
+          <span class="dr-tt"><b>Collage</b><span>Photos into a layout</span></span>
+        </button>
+      </div>
+
+      <p class="dr-note">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7z"></path><path d="M9 12l2 2 4-4"></path></svg>
+        Everything runs on your device. Nothing is uploaded.
+      </p>
+    </aside>
+
+    <!-- Main: one panel per tool -->
+    <div class="dr-main">
+
+      <!-- ============ PANEL: Image to Discord ============ -->
+      <section class="dr-panel" id="panel-discord" role="tabpanel" aria-label="Image to Discord Image" data-panel="discord">
+        <div id="img-disc">
+          <section class="id-hero">
+            <h1>Image to Discord Image</h1>
+            <p class="lead-answer">Drop in any photo and get a tiny <strong>WebP</strong> or JPEG that still looks crisp and uploads on Discord in seconds. Same high-quality compression that turns a big photo into just kilobytes. No signup, no uploads, all in your browser.</p>
+          </section>
+
+          <label id="idDrop" class="id-drop" tabindex="0" aria-label="Add images to compress">
+            <input id="idFile" type="file" accept="image/*,.arw,.srf,.sr2,.cr2,.cr3,.crw,.nef,.nrw,.dng,.raf,.orf,.rw2,.raw,.pef,.srw,.3fr,.dcr,.kdc,.mrw,.mos,.erf,.x3f,.iiq,.rwl,.heic,.heif,.hif,.tif,.tiff" multiple hidden />
+            <svg class="id-drop-ic" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 16V4"></path><path d="M7 9l5-5 5 5"></path>
+              <path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"></path>
+            </svg>
+            <span class="id-drop-title">Drop images here</span>
+            <span class="id-drop-sub">or <u>click to browse</u> &nbsp;·&nbsp; JPG, PNG, WebP &nbsp;·&nbsp; add as many as you like</span>
+          </label>
+
+          <div class="id-controls">
+            <div class="id-ctrl id-ctrl-format">
+              <span class="id-ctrl-label">Format</span>
+              <div id="idFormat" class="id-seg" role="group" aria-label="Output format">
+                <button type="button" data-format="image/webp" class="on">WebP</button>
+                <button type="button" data-format="image/jpeg">JPEG</button>
+                <button type="button" data-format="image/png">PNG</button>
+              </div>
+            </div>
+
+            <div class="id-ctrl id-ctrl-quality">
+              <span class="id-ctrl-label">Quality <em id="idQualVal">79</em></span>
+              <input id="idQuality" type="range" min="30" max="100" value="79" aria-label="Compression quality" />
+              <span class="id-ctrl-hint" id="idQualHint">Recommended. Looks identical, tiny size.</span>
+            </div>
+
+            <div class="id-ctrl id-ctrl-max">
+              <span class="id-ctrl-label">Max size</span>
+              <select id="idMax" aria-label="Maximum image dimension">
+                <option value="0">Keep original</option>
+                <option value="4096">4096 px</option>
+                <option value="2560">2560 px</option>
+                <option value="1920" selected>1920 px (Full HD)</option>
+                <option value="1280">1280 px</option>
+                <option value="1024">1024 px</option>
+                <option value="512">512 px</option>
+              </select>
+            </div>
+
+            <div class="id-ctrl id-ctrl-discord">
+              <span class="id-ctrl-label">Discord tier</span>
+              <select id="idTier" aria-label="Discord upload limit">
+                <option value="10">Free · 10 MB</option>
+                <option value="50">Nitro Basic · 50 MB</option>
+                <option value="500">Nitro · 500 MB</option>
+              </select>
+              <label class="id-check">
+                <input id="idAutofit" type="checkbox" checked />
+                <span>Auto-fit under limit</span>
+              </label>
+            </div>
+          </div>
+
+          <div id="idBar" class="id-bar" hidden>
+            <span id="idSummary" class="id-summary"></span>
+            <div class="id-bar-actions">
+              <button id="idDownloadAll" class="id-btn id-btn-primary" type="button">Download all</button>
+              <button id="idClear" class="id-btn" type="button">Clear</button>
+            </div>
+          </div>
+
+          <div id="idGrid" class="id-grid" aria-live="polite"></div>
+        </div>
+
+        <template id="idCardTpl">
+          <div class="id-card">
+            <div class="id-thumb">
+              <img class="id-thumb-img" alt="" />
+              <button class="id-compare" type="button" title="Hold to see the original">Hold to compare</button>
+              <span class="id-badge id-badge-fmt"></span>
+              <span class="id-over" hidden>Over limit</span>
+            </div>
+            <div class="id-info">
+              <p class="id-name" title=""></p>
+              <div class="id-stats">
+                <span class="id-old"></span>
+                <svg class="id-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+                <span class="id-new"></span>
+                <span class="id-save"></span>
+              </div>
+              <p class="id-dims"></p>
+            </div>
+            <div class="id-card-actions">
+              <button class="id-download id-btn id-btn-primary" type="button">Download</button>
+              <button class="id-remove id-btn" type="button" title="Remove">Remove</button>
+            </div>
+          </div>
+        </template>
+
+        <section class="info-accordion">
+          <h2 class="acc-title">Guide &amp; FAQ</h2>
+          <details class="acc">
+            <summary>How to compress an image for Discord</summary>
+            <div class="acc-body">
+              <ol class="how-to-list">
+                <li><strong>Add your images.</strong> Drag photos onto the drop zone or click to browse. You can add a whole batch at once.</li>
+                <li><strong>Pick a quality.</strong> Leave the recommended setting or nudge the slider; the preview and size update instantly.</li>
+                <li><strong>Let it fit Discord.</strong> Choose your Discord tier and keep Auto-fit on so every image is guaranteed to stay under the upload limit.</li>
+                <li><strong>Download.</strong> Grab each compressed image, or hit Download all, then upload to Discord.</li>
+              </ol>
+            </div>
+          </details>
+          <details class="acc">
+            <summary>Is anything uploaded to a server?</summary>
+            <div class="acc-body"><p>No. Every image is decoded and re-compressed locally in your browser using your own device. Nothing is sent anywhere, so it is fully private and even works offline once the page has loaded.</p></div>
+          </details>
+          <details class="acc">
+            <summary>Why does WebP look so good at such a tiny size?</summary>
+            <div class="acc-body"><p>WebP is a modern image format that keeps far more detail per kilobyte than the old JPEG format. At around quality 79 most photos are visually identical to the original while shrinking to a small fraction of the size.</p></div>
+          </details>
+          <details class="acc">
+            <summary>What are Discord's upload limits?</summary>
+            <div class="acc-body"><p>Free accounts can upload files up to 10&nbsp;MB, Nitro Basic up to 50&nbsp;MB, and Nitro up to 500&nbsp;MB. Pick your tier and this tool keeps every image under that limit automatically.</p></div>
+          </details>
+          <details class="acc">
+            <summary>Does Discord show WebP, and what about transparency?</summary>
+            <div class="acc-body"><p>Discord displays WebP images inline just like JPG or PNG. WebP and PNG keep transparency; JPEG has no alpha channel, so transparent areas are filled with white when you export as JPEG.</p></div>
+          </details>
+        </section>
+      </section>
+
+      <!-- ============ PANEL: Seamless Carousel ============ -->
+      <section class="dr-panel" id="panel-carousel" role="tabpanel" aria-label="Seamless Carousel Maker" data-panel="carousel" hidden>
+        <div id="carousel">
+          <section class="sc-hero">
+            <h1>Seamless Carousel Maker</h1>
+            <p class="lead-answer">Drop in one wide photo and slice it into perfectly aligned <strong>Instagram carousel</strong> slides that swipe like a single continuous panorama. Frame it, then download every slide numbered in one ZIP. No signup, no uploads, all in your browser.</p>
+          </section>
+
+          <label id="scDrop" class="sc-drop" tabindex="0" aria-label="Add a wide photo to split">
+            <input id="scFile" type="file" accept="image/*,.arw,.srf,.sr2,.cr2,.cr3,.crw,.nef,.nrw,.dng,.raf,.orf,.rw2,.raw,.pef,.srw,.3fr,.dcr,.kdc,.mrw,.mos,.erf,.x3f,.iiq,.rwl,.heic,.heif,.hif,.tif,.tiff" hidden />
+            <svg class="sc-drop-ic" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="6" width="18" height="12" rx="2"></rect>
+              <path d="M9 6v12M15 6v12"></path>
+            </svg>
+            <span class="sc-drop-title">Drop a wide photo here</span>
+            <span class="sc-drop-sub">or <u>click to browse</u> &nbsp;·&nbsp; panoramas work best &nbsp;·&nbsp; JPG, PNG, WebP</span>
+          </label>
+
+          <div id="scEditor" class="sc-editor" hidden>
+            <div class="sc-stage">
+              <div class="sc-canvas-wrap">
+                <canvas id="scCanvas" aria-label="Panorama preview with slide dividers"></canvas>
+              </div>
+              <p class="sc-swipe-label">Swipe preview, this is how it scrolls on Instagram</p>
+              <div id="scSwipe" class="sc-swipe" aria-label="Slide swipe preview"></div>
+              <div class="sc-actions">
+                <button id="scDownload" class="sc-btn sc-btn-primary" type="button">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"></path><path d="M7 11l5 5 5-5"></path><path d="M4 21h16"></path></svg>
+                  Download all (ZIP)
+                </button>
+                <button id="scReplace" class="sc-btn" type="button">New photo</button>
+              </div>
+            </div>
+
+            <div class="sc-controls">
+              <div>
+                <p class="sc-group-title">Slides <em id="scCountVal">3</em></p>
+                <input id="scCount" type="range" min="2" max="20" value="3" aria-label="Number of slides" />
+                <div class="sc-hint" id="scWidthHint"></div>
+              </div>
+              <div>
+                <p class="sc-group-title">Slide shape</p>
+                <div id="scAspect" class="sc-seg" role="group" aria-label="Slide aspect ratio">
+                  <button type="button" data-w="1080" data-h="1080" class="on">Square 1:1</button>
+                  <button type="button" data-w="1080" data-h="1350">Portrait 4:5</button>
+                  <button type="button" data-w="1080" data-h="566">Wide 1.91:1</button>
+                </div>
+              </div>
+              <div>
+                <p class="sc-group-title">Fit</p>
+                <div id="scFit" class="sc-seg" role="group" aria-label="How the image fills the slides">
+                  <button type="button" data-fit="cover" class="on">Cover</button>
+                  <button type="button" data-fit="contain">Contain</button>
+                </div>
+                <label class="sc-swatch-row" id="scBgRow" hidden>
+                  <span>Background</span>
+                  <span class="sc-custom"><input id="scBg" type="color" value="#0a0a0a" aria-label="Background colour for contain fit" /></span>
+                </label>
+              </div>
+              <div>
+                <p class="sc-group-title">Framing</p>
+                <div class="sc-slider">
+                  <label for="scZoom">Zoom</label>
+                  <input id="scZoom" type="range" min="100" max="300" value="100" />
+                </div>
+                <div class="sc-slider">
+                  <label for="scPanX">Left / Right</label>
+                  <input id="scPanX" type="range" min="-100" max="100" value="0" />
+                </div>
+                <div class="sc-slider">
+                  <label for="scPanY">Up / Down</label>
+                  <input id="scPanY" type="range" min="-100" max="100" value="0" />
+                </div>
+                <button id="scReset" class="sc-reset" type="button">Reset framing</button>
+              </div>
+              <div>
+                <p class="sc-group-title">Export</p>
+                <div id="scFormat" class="sc-seg" role="group" aria-label="Export format">
+                  <button type="button" data-format="image/jpeg" class="on">JPG</button>
+                  <button type="button" data-format="image/png">PNG</button>
+                  <button type="button" data-format="image/webp">WebP</button>
+                </div>
+                <div class="sc-slider" id="scQualRow">
+                  <label for="scQuality">Quality <em id="scQualVal">92</em></label>
+                  <input id="scQuality" type="range" min="50" max="100" value="92" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p id="scMsg" class="sc-msg" role="status" aria-live="polite"></p>
+        </div>
+
+        <section class="info-accordion">
+          <h2 class="acc-title">Guide &amp; FAQ</h2>
+          <details class="acc">
+            <summary>How to make a seamless Instagram carousel</summary>
+            <div class="acc-body">
+              <ol class="how-to-list">
+                <li><strong>Add a wide photo.</strong> Drag in one wide or panoramic image. The wider it is, the more slides it fills cleanly.</li>
+                <li><strong>Choose slides and shape.</strong> Pick how many slides you want and whether they are square or portrait.</li>
+                <li><strong>Frame it.</strong> Zoom and reposition so the panorama sits exactly where you want across every slide. The swipe preview shows how it scrolls.</li>
+                <li><strong>Download and post.</strong> Hit Download all for a numbered ZIP, then upload the slides to Instagram in order for a seamless swipe.</li>
+              </ol>
+            </div>
+          </details>
+          <details class="acc">
+            <summary>How does a seamless carousel actually work?</summary>
+            <div class="acc-body"><p>Your image is sliced into equal vertical panels sized for Instagram. When you post the panels as a carousel and swipe, the cut edges line up exactly, so the eye reads the separate slides as one continuous panoramic image.</p></div>
+          </details>
+          <details class="acc">
+            <summary>Square or portrait slides?</summary>
+            <div class="acc-body"><p>Square 1:1 (1080&times;1080) is the classic carousel look. Portrait 4:5 (1080&times;1350) is taller, fills more of the feed, and usually looks more dramatic for a panorama. Both are fully supported by Instagram carousels.</p></div>
+          </details>
+          <details class="acc">
+            <summary>How do I keep the slides in the right order?</summary>
+            <div class="acc-body"><p>The ZIP names every slide with a number, so <strong>slide-01</strong> is first. Add them to your Instagram post in that order and the swipe stays seamless.</p></div>
+          </details>
+          <details class="acc">
+            <summary>Is anything uploaded to a server?</summary>
+            <div class="acc-body"><p>No. Everything is sliced and exported in your browser on your own device. Your photo is never sent anywhere, so it stays completely private.</p></div>
+          </details>
+        </section>
+      </section>
+
+      <!-- ============ PANEL: Resize ============ -->
+      <section class="dr-panel" id="panel-resize" role="tabpanel" aria-label="Resize" data-panel="resize" hidden>
+        <div id="resize">
+          <section class="rz-hero">
+            <h1>Resize Image</h1>
+            <p class="lead-answer">Scale any photo to exact pixel dimensions or a quick percentage, with crisp high-quality downscaling. Keep the aspect ratio locked, pick a format, and download. All in your browser.</p>
+          </section>
+
+          <label id="rzDrop" class="rz-drop" tabindex="0" aria-label="Add an image to resize">
+            <input id="rzFile" type="file" accept="image/*,.arw,.srf,.sr2,.cr2,.cr3,.crw,.nef,.nrw,.dng,.raf,.orf,.rw2,.raw,.pef,.srw,.3fr,.dcr,.kdc,.mrw,.mos,.erf,.x3f,.iiq,.rwl,.heic,.heif,.hif,.tif,.tiff" hidden />
+            <svg class="rz-drop-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6"></path><path d="M9 21H3v-6"></path><path d="M21 3l-7 7"></path><path d="M3 21l7-7"></path></svg>
+            <span class="rz-drop-title">Drop an image here</span>
+            <span class="rz-drop-sub">or <u>click to browse</u> &nbsp;·&nbsp; JPG, PNG, WebP</span>
+          </label>
+
+          <div id="rzEditor" class="rz-editor" hidden>
+            <div class="rz-stage-col">
+              <div class="rz-preview-wrap">
+                <div class="rz-stage" id="rzStage">
+                  <img id="rzPreview" alt="Resize selection preview" draggable="false" />
+                  <div class="rz-crop" id="rzCrop">
+                    <span class="rz-h corner" data-h="nw"></span>
+                    <span class="rz-h edge"   data-h="n"></span>
+                    <span class="rz-h corner" data-h="ne"></span>
+                    <span class="rz-h edge"   data-h="e"></span>
+                    <span class="rz-h corner" data-h="se"></span>
+                    <span class="rz-h edge"   data-h="s"></span>
+                    <span class="rz-h corner" data-h="sw"></span>
+                    <span class="rz-h edge"   data-h="w"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="rz-stat">
+                <span id="rzDims"></span>
+                <span class="rz-out" id="rzOut"></span>
+              </div>
+              <p class="rz-tip">Drag the box to move it · drag a handle to resize · drag on the image to draw a new selection</p>
+            </div>
+
+            <div class="rz-controls">
+              <div>
+                <p class="rz-group-title">Selection ratio</p>
+                <div id="rzAspect" class="rz-seg">
+                  <button type="button" data-r="0" class="on">Free</button>
+                  <button type="button" data-r="orig">Original</button>
+                  <button type="button" data-r="1">1:1</button>
+                  <button type="button" data-r="0.8">4:5</button>
+                  <button type="button" data-r="1.7778">16:9</button>
+                </div>
+                <div class="rz-hint" id="rzCropInfo"></div>
+              </div>
+
+              <div>
+                <p class="rz-group-title">Output size</p>
+                <div class="rz-dims">
+                  <input id="rzW" type="number" min="1" inputmode="numeric" aria-label="Output width in pixels" />
+                  <span>×</span>
+                  <input id="rzH" type="number" min="1" inputmode="numeric" aria-label="Output height in pixels" />
+                </div>
+                <label class="rz-lock"><input id="rzLock" type="checkbox" checked /><span>Keep selection proportions</span></label>
+                <div id="rzPresets" class="rz-seg" style="margin-top:10px;">
+                  <button type="button" data-pct="25">25%</button>
+                  <button type="button" data-pct="50">50%</button>
+                  <button type="button" data-pct="75">75%</button>
+                  <button type="button" data-pct="100">100%</button>
+                </div>
+              </div>
+
+              <div>
+                <p class="rz-group-title">Format</p>
+                <div id="rzFormat" class="rz-seg">
+                  <button type="button" data-format="image/webp" class="on">WebP</button>
+                  <button type="button" data-format="image/jpeg">JPG</button>
+                  <button type="button" data-format="image/png">PNG</button>
+                </div>
+                <div class="rz-slider" id="rzQualRow" style="margin-top:12px;">
+                  <label for="rzQuality">Quality</label>
+                  <input id="rzQuality" type="range" min="40" max="100" value="85" />
+                  <em id="rzQualVal" style="font-style:normal;color:var(--accent);font-size:12px;">85</em>
+                </div>
+              </div>
+
+              <button id="rzDownload" class="rz-btn rz-btn-primary" type="button">Download</button>
+              <div style="display:flex;gap:8px;">
+                <button id="rzReset" class="rz-btn" type="button" style="flex:1;">Reset</button>
+                <button id="rzReplace" class="rz-btn" type="button" style="flex:1;">New image</button>
+              </div>
+            </div>
+          </div>
+          <p id="rzMsg" class="rz-msg" role="status" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <!-- ============ PANEL: Convert ============ -->
+      <section class="dr-panel" id="panel-convert" role="tabpanel" aria-label="Convert" data-panel="convert" hidden>
+        <div id="convert">
+          <section class="cv-hero">
+            <h1>Convert Image Format</h1>
+            <p class="lead-answer">Batch-convert photos between JPG, PNG and WebP without leaving your browser, and compress them as you go so the new files stay small. Optional resize, then download everything as one ZIP.</p>
+          </section>
+
+          <label id="cvDrop" class="cv-drop" tabindex="0" aria-label="Add images to convert">
+            <input id="cvFile" type="file" accept="image/*,.arw,.srf,.sr2,.cr2,.cr3,.crw,.nef,.nrw,.dng,.raf,.orf,.rw2,.raw,.pef,.srw,.3fr,.dcr,.kdc,.mrw,.mos,.erf,.x3f,.iiq,.rwl,.heic,.heif,.hif,.tif,.tiff" multiple hidden />
+            <svg class="cv-drop-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h13l-3-3"></path><path d="M20 16H7l3 3"></path></svg>
+            <span class="cv-drop-title">Drop images here</span>
+            <span class="cv-drop-sub">or <u>click to browse</u> &nbsp;·&nbsp; add as many as you like</span>
+          </label>
+
+          <div class="cv-controls">
+            <div class="cv-ctrl">
+              <span class="cv-ctrl-label">Convert to</span>
+              <div id="cvFormat" class="cv-seg">
+                <button type="button" data-format="image/jpeg" class="on">JPG</button>
+                <button type="button" data-format="image/png">PNG</button>
+                <button type="button" data-format="image/webp">WebP</button>
+              </div>
+            </div>
+            <div class="cv-ctrl cv-quality" id="cvQualRow">
+              <span class="cv-ctrl-label">Quality <em id="cvQualVal">80</em></span>
+              <input id="cvQuality" type="range" min="40" max="100" value="80" aria-label="Quality" />
+            </div>
+            <div class="cv-ctrl">
+              <span class="cv-ctrl-label">Max size</span>
+              <select id="cvMax" aria-label="Maximum image dimension">
+                <option value="0">Keep original</option>
+                <option value="4096">4096 px</option>
+                <option value="2560">2560 px</option>
+                <option value="1920">1920 px (Full HD)</option>
+                <option value="1280">1280 px</option>
+                <option value="1024">1024 px</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="cvBar" class="cv-bar" hidden>
+            <span id="cvSummary" class="cv-summary"></span>
+            <div class="cv-bar-actions">
+              <button id="cvDownloadAll" class="cv-btn cv-btn-primary" type="button">Download all</button>
+              <button id="cvClear" class="cv-btn" type="button">Clear</button>
+            </div>
+          </div>
+          <div id="cvGrid" class="cv-grid" aria-live="polite"></div>
+        </div>
+
+        <template id="cvCardTpl">
+          <div class="cv-card">
+            <div class="cv-thumb"><img class="cv-thumb-img" alt="" /></div>
+            <div class="cv-info">
+              <p class="cv-name" title=""></p>
+              <div class="cv-stats">
+                <span class="cv-badge cv-from"></span>
+                <span class="cv-arrow">→</span>
+                <span class="cv-badge cv-to"></span>
+              </div>
+              <p class="cv-sizes"><span class="cv-old"></span> → <span class="cv-new"></span> <span class="cv-save"></span></p>
+            </div>
+            <div class="cv-card-actions">
+              <button class="cv-dl cv-btn cv-btn-primary" type="button">Download</button>
+              <button class="cv-rm cv-btn" type="button">Remove</button>
+            </div>
+          </div>
+        </template>
+      </section>
+
+      <!-- ============ PANEL: Collage ============ -->
+      <section class="dr-panel" id="panel-collage" role="tabpanel" aria-label="Collage Maker" data-panel="collage" hidden>
+        <div id="collage">
+          <section class="cl-hero">
+            <h1>Collage Maker</h1>
+            <p class="lead-answer">Pick a layout, then click each tile and choose which photo goes there. Nudge and zoom photos inside their tiles, tweak the gaps and background, and export one clean image. All in your browser.</p>
+          </section>
+
+          <div class="cl-editor">
+            <div class="cl-stage">
+              <div class="cl-canvas-wrap" id="clCanvasWrap">
+                <canvas id="clCanvas"></canvas>
+                <span class="cl-empty-hint" id="clEmptyHint">Click a tile to add a photo</span>
+              </div>
+              <div class="cl-actions">
+                <button id="clAdd" class="cl-btn" type="button">Add photos</button>
+                <button id="clDownload" class="cl-btn cl-btn-primary" type="button">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"></path><path d="M7 11l5 5 5-5"></path><path d="M4 21h16"></path></svg>
+                  Download
+                </button>
+                <button id="clClear" class="cl-btn" type="button">Clear</button>
+              </div>
+              <input id="clFile" type="file" accept="image/*,.arw,.srf,.sr2,.cr2,.cr3,.crw,.nef,.nrw,.dng,.raf,.orf,.rw2,.raw,.pef,.srw,.3fr,.dcr,.kdc,.mrw,.mos,.erf,.x3f,.iiq,.rwl,.heic,.heif,.hif,.tif,.tiff" multiple hidden />
+            </div>
+
+            <div class="cl-controls">
+              <div class="cl-group">
+                <p class="cl-group-title">Shape</p>
+                <div id="clAspect" class="cl-seg" role="group" aria-label="Canvas shape">
+                  <button type="button" data-aspect="square">1:1</button>
+                  <button type="button" data-aspect="portrait" class="on">4:5</button>
+                  <button type="button" data-aspect="story">9:16</button>
+                  <button type="button" data-aspect="landscape">3:2</button>
+                </div>
+              </div>
+
+              <div class="cl-group">
+                <p class="cl-group-title">Layout</p>
+                <div id="clLayouts" class="cl-layouts" role="group" aria-label="Layout"></div>
+              </div>
+
+              <div id="clCellTools" class="cl-celltools" hidden>
+                <p class="cl-group-title cl-ct-title">Selected photo</p>
+                <div class="cl-slider"><label for="clZoom">Zoom</label><input id="clZoom" type="range" min="100" max="300" value="100" /></div>
+                <p class="cl-sub">Filter</p>
+                <div id="clFx" class="cl-chips"></div>
+                <div class="cl-slider"><label for="clBright">Bright</label><input id="clBright" type="range" min="50" max="150" value="100" /></div>
+                <div class="cl-slider"><label for="clContrast">Contrast</label><input id="clContrast" type="range" min="50" max="150" value="100" /></div>
+                <div class="cl-slider"><label for="clSat">Saturate</label><input id="clSat" type="range" min="0" max="200" value="100" /></div>
+                <div class="cl-ct-btns">
+                  <button id="clReplace" class="cl-btn" type="button">Replace</button>
+                  <button id="clRemove" class="cl-btn" type="button">Remove</button>
+                </div>
+              </div>
+
+              <div class="cl-group">
+                <p class="cl-group-title">Style</p>
+                <div class="cl-slider"><label for="clGap">Gap</label><input id="clGap" type="range" min="0" max="80" value="16" /></div>
+                <div class="cl-slider"><label for="clRadius">Radius</label><input id="clRadius" type="range" min="0" max="80" value="12" /></div>
+              </div>
+
+              <div class="cl-group">
+                <p class="cl-group-title">Background</p>
+                <div id="clBgType" class="cl-seg" role="group" aria-label="Background type">
+                  <button type="button" data-bg="solid" class="on">Solid</button>
+                  <button type="button" data-bg="gradient">Gradient</button>
+                  <button type="button" data-bg="transparent">Transparent</button>
+                </div>
+                <div class="cl-row" id="clBgSwatches" style="margin-top:10px;gap:8px;">
+                  <span class="cl-custom"><input id="clBg" type="color" value="#0a0a0a" aria-label="Background colour" /></span>
+                  <span class="cl-custom" id="clBg2Wrap" hidden><input id="clBg2" type="color" value="#5a3ea0" aria-label="Second gradient colour" /></span>
+                </div>
+                <div class="cl-slider" id="clAngleRow" hidden style="margin-top:10px;"><label for="clAngle">Angle</label><input id="clAngle" type="range" min="0" max="360" value="135" /></div>
+                <div id="clGradPresets" class="cl-grads"></div>
+              </div>
+
+              <div class="cl-group">
+                <p class="cl-group-title">Text &amp; stickers</p>
+                <button id="clAddText" class="cl-btn" type="button" style="width:100%;justify-content:center;">+ Add text</button>
+                <div id="clStickers" class="cl-stickers"></div>
+                <div id="clTextTools" class="cl-celltools" hidden style="margin-top:10px;">
+                  <textarea id="clTextInput" class="cl-textarea" rows="2" placeholder="Type your text"></textarea>
+                  <div class="cl-row" style="margin-top:8px;"><label for="clFont">Font</label>
+                    <select id="clFont" aria-label="Font">
+                      <option value="Poppins, 'Segoe UI', sans-serif">Sans</option>
+                      <option value="Georgia, 'Times New Roman', serif">Serif</option>
+                      <option value="'Arial Black', Impact, sans-serif">Heavy</option>
+                      <option value="'Courier New', monospace">Mono</option>
+                    </select>
+                  </div>
+                  <div class="cl-slider"><label for="clTextSize">Size</label><input id="clTextSize" type="range" min="3" max="24" value="9" /></div>
+                  <div class="cl-row"><label for="clTextColor">Colour</label>
+                    <span class="cl-custom"><input id="clTextColor" type="color" value="#ffffff" aria-label="Text colour" /></span>
+                    <div id="clTextAlign" class="cl-seg" style="margin-left:auto;" role="group" aria-label="Text align">
+                      <button type="button" data-al="left">L</button>
+                      <button type="button" data-al="center" class="on">C</button>
+                      <button type="button" data-al="right">R</button>
+                    </div>
+                  </div>
+                  <div class="cl-slider"><label for="clStroke">Outline</label><input id="clStroke" type="range" min="0" max="12" value="0" /></div>
+                  <div class="cl-row"><label for="clStrokeColor">Outline col</label><span class="cl-custom"><input id="clStrokeColor" type="color" value="#000000" aria-label="Outline colour" /></span></div>
+                  <div class="cl-hlrow">
+                    <label class="cl-check" for="clHl"><input id="clHl" type="checkbox" /><span>Highlight</span></label>
+                    <span class="cl-custom" style="margin-left:auto;"><input id="clHlColor" type="color" value="#ff3c3c" aria-label="Highlight colour" /></span>
+                  </div>
+                  <div class="cl-ct-btns">
+                    <button id="clTextBold" class="cl-btn" type="button">Bold</button>
+                    <button id="clTextDup" class="cl-btn" type="button">Duplicate</button>
+                    <button id="clTextDel" class="cl-btn" type="button">Delete</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="cl-group">
+                <p class="cl-group-title">Export</p>
+                <div id="clFormat" class="cl-seg" role="group" aria-label="Export format">
+                  <button type="button" data-format="image/jpeg" class="on">JPG</button>
+                  <button type="button" data-format="image/png">PNG</button>
+                  <button type="button" data-format="image/webp">WebP</button>
+                </div>
+                <div class="cl-row" style="margin-top:12px;"><label>Size</label>
+                  <select id="clSize" aria-label="Output size">
+                    <option value="1080">1080 px</option>
+                    <option value="1350">1350 px</option>
+                    <option value="2048">2048 px</option>
+                  </select>
+                </div>
+                <div class="cl-slider" id="clQualRow" style="margin-top:10px;"><label for="clQuality">Quality <em id="clQualVal" style="font-style:normal;color:var(--accent);">92</em></label><input id="clQuality" type="range" min="50" max="100" value="92" /></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <p class="acc-more" style="max-width:880px;margin:1.6rem auto 0;padding:0 20px;">Explore the rest of the site: the <a href="/minecraft-avatar/">Minecraft Avatar Maker</a>, the <a href="/wordle/">Wordle Solver</a>, the <a href="/dbviewer/">SQLite DB Viewer</a>, the full <a href="/portfolio/">portfolio</a>, or more <a href="/#about">about Ghillie</a>.</p>
+    </div>
+  </div>
+
+  <div class="footer" style="margin-top:2.5rem;">
+    <ul>
+      <li><a href="https://github.com/Ghilliexyz" target="_blank" rel="noopener noreferrer">GITHUB</a></li>
+      <li><a href="https://discord.com/users/211851747688185856" target="_blank" rel="noopener noreferrer">DISCORD</a></li>
+      <li><a href="https://twitter.com/Ghilliexyz" target="_blank" rel="noopener noreferrer">TWITTER</a></li>
+      <li><a href="https://buymeacoffee.com/ghillie" target="_blank" rel="noopener noreferrer">BUY ME A COFFEE</a></li>
+    </ul>
+  </div>
+
+  <script src="/assets/js/decode.js" defer></script>
+  <script src="/assets/js/image-to-discord.js" defer></script>
+  <script src="/assets/js/carousel.js" defer></script>
+  <script src="/assets/js/resize.js" defer></script>
+  <script src="/assets/js/convert.js" defer></script>
+  <script src="/assets/js/collage.js" defer></script>
+  <script src="/assets/js/darkroom.js" defer></script>
+</body>
+</html>

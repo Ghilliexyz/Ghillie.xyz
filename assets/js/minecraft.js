@@ -1,5 +1,5 @@
 /* ============================================================
-   Minecraft Item Lookup — VOL.01 theme
+   Minecraft Item Lookup, VOL.01 theme
    Fully client-side. Curated item dataset + fuzzy search +
    one-screen item view. Icons come from static.minecraftitemids.com;
    everything else is bundled here so the tool works offline-fast.
@@ -679,7 +679,7 @@
       notes:["Slime blocks bounce and stick.","Sticky piston needs 1 slimeball.","Leads need slimeball + string."] },
     { id:"leather", name:"Leather", cat:"Mob Drops", legacy:"leather", num:"334", renew:true,
       tool:"None",
-      obtain:"Kill cows, horses and llamas; fish; or from rotten flesh in a smoker? (no) — trade with leatherworkers.",
+      obtain:"Kill cows, horses and llamas; fish; or from rotten flesh in a smoker? (no), trade with leatherworkers.",
       find:"Cows in most grassy biomes.",
       farm:"Cow farms provide leather and beef together.",
       uses:"Books, leather armour, item frames and horse armour.",
@@ -707,7 +707,7 @@
       notes:["1 powder brews up to 20 items? (fuels 20 operations).","Needed for eyes of ender.","Strength potion base ingredient."] },
     { id:"ghast_tear", name:"Ghast Tear", cat:"Brewing", legacy:"ghast_tear", num:"370", renew:true,
       tool:"None",
-      obtain:"Kill ghasts in the Nether (tricky — they fly).",
+      obtain:"Kill ghasts in the Nether (tricky, they fly).",
       find:"Ghasts in the Nether wastes and soul sand valleys.",
       farm:"Dedicated ghast farms exist but are advanced.",
       uses:"Regeneration potions and end crystals.",
@@ -1579,7 +1579,7 @@
         (it.base ? "" : infoBlock("Stronger / longer", mods.join(" "))) +
         (notes ? '<div class="mc-info-block mc-info-notes"><h3>Good to know</h3><ul>' + notes + "</ul></div>" : "");
     } else {
-      var noId = isEnt ? "— none" : "— none (post-1.13)";
+      var noId = isEnt ? "- none" : "- none (post-1.13)";
       var idLabel = isEnt ? "Entity ID" : "Item ID";
       idRowsHtml = idRow(idLabel, idFull, "minecraft:" + it.id) +
         idRow("Legacy ID", it.legacy ? esc(it.legacy) : noId) +

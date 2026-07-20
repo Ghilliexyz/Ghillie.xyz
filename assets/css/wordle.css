@@ -1,4 +1,4 @@
-/* Wordle Solver — VOL.01 theme.
+/* Wordle Solver, VOL.01 theme.
    Palette + chrome come from theme.css; this sheet styles the app itself.
    Class names are the contract with wordle.js, so they are preserved. */
 
@@ -6,7 +6,7 @@
   --card: var(--panel-solid);
   --outline: var(--line);
 
-  /* Classic Wordle dark-mode swatches — cohesive on the near-black canvas */
+  /* Classic Wordle dark-mode swatches, cohesive on the near-black canvas */
   --gray: #3a3a3c;
   --yellow: #b59f3b;
   --green: #538d4e;
@@ -165,7 +165,7 @@
 #wordle .legend.yellow { background: var(--yellow); color: #fff; }
 #wordle .legend.green { background: var(--green); color: #fff; }
 
-/* the app card — was a spinning rainbow glow, now the calm VOL.01 panel */
+/* the app card, was a spinning rainbow glow, now the calm VOL.01 panel */
 #wordle .cardGlow {
   position: relative;
   background: var(--panel);

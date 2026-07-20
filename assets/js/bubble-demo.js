@@ -27,7 +27,7 @@ const STATES = {
   // DOWN into the sub-area. The camera descending makes the world rise, so the
   // bubble slides UP and out (positive y) and recedes to a glow above the
   // showcase, keeping its portfolio knot (menu:1). `detail` swaps its violet film
-  // to teal/cyan — so position AND colour shift the moment you enter a discipline.
+  // to teal/cyan, so position AND colour shift the moment you enter a discipline.
   detail:    { x:  0.0,  y:  1.25, scale: 0.78, rotY:  0.00, rotZ:  0.04, title: 0, logo: 0, menu: 1, detail: 1 },
 };
 
@@ -228,7 +228,7 @@ function initBubble(container) {
   // It writes to the depth buffer (depthWrite: true) and lives on the ring's
   // centre plane (z = titleZ = 0). The ribbon depth-tests against it but doesn't
   // write depth, so the strands that swing toward the camera paint OVER the logo
-  // while the strands that swing away are hidden behind it — the loop genuinely
+  // while the strands that swing away are hidden behind it, the loop genuinely
   // threads in front of and behind the photo. A CircleGeometry (not a plane)
   // means there are no transparent corners writing stray depth around it.
   const logoTex = makeLogoTexture('/assets/img/profilePictures/GhilliePFP.png', renderer);
@@ -284,7 +284,7 @@ function initBubble(container) {
     return { tex, aspect: w / h };
   }
 
-  // One discipline button — a single FLAT label (the faux-3D extrusion was
+  // One discipline button, a single FLAT label (the faux-3D extrusion was
   // stripped back). It sits clean and head-on; hover slides it forward, scales
   // it up and turns the bright off-white face full accent-red. Returns the
   // materials in the same { layers, frontMat } shape the render loop expects so
@@ -337,7 +337,7 @@ function initBubble(container) {
 
       // Invisible hit plane fixed at the label's REST position. The raycaster
       // tests these (never the labels), so the hover lift/scale can't shift the
-      // target out from under the cursor — no flicker at the edges. Rows tile
+      // target out from under the cursor, no flicker at the edges. Rows tile
       // (height == pitch) so moving between labels never lands on "nothing".
       const hit = new THREE.Mesh(
         new THREE.PlaneGeometry(hitW, pitch),
@@ -477,8 +477,8 @@ function initBubble(container) {
     const vl = VIEW_LOOK[currentView] || VIEW_LOOK.cover;
     if (autoOrbit) {
       // Mobile: a slow, automatic sway replaces cursor steering. The WHOLE
-      // stage ping-pongs left<->right — the GHILLIE wordmark AND the ribbon
-      // together, so they move as one — as if the camera were rocking around the
+      // stage ping-pongs left<->right, the GHILLIE wordmark AND the ribbon
+      // together, so they move as one, as if the camera were rocking around the
       // scene, and the star dome wheels with it. A gentle fixed tilt keeps it off
       // perfectly edge-on. (Driving the stage, not just the ribbon, is what makes
       // the title sway too instead of staying face-on to the camera.)
@@ -671,9 +671,9 @@ function initBubble(container) {
 const RIBBON_SHAPES = {
   // Cover: the signature organic twisting oval (unchanged from the original).
   cover:     { a: 1.26, b: 0.90, ew: 0.170, eh: 0.045, twists: 2, rA: 0.070, rB: 0.035, zA: 0.15, zB: 0.07 },
-  // About: calmer, rounder, fuller band — a near-circular halo to frame the photo.
+  // About: calmer, rounder, fuller band, a near-circular halo to frame the photo.
   about:     { a: 1.07, b: 1.02, ew: 0.235, eh: 0.052, twists: 1, rA: 0.028, rB: 0.000, zA: 0.07, zB: 0.02 },
-  // Portfolio: tighter, wavier, more twists — restless and creative.
+  // Portfolio: tighter, wavier, more twists, restless and creative.
   portfolio: { a: 1.34, b: 0.82, ew: 0.145, eh: 0.038, twists: 3, rA: 0.120, rB: 0.060, zA: 0.24, zB: 0.11 },
 };
 
