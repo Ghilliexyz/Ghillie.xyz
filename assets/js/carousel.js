@@ -166,7 +166,18 @@
 
   function updateHint(s) {
     const neededW = s.slideW * s.slides;
-    if (img.width < neededW * 0.85 && s.fit === "cover") {
+    const canvasAspect = neededW / s.slideH;   // width:height the photo needs to match
+    const imgAspect = img.width / img.height;
+
+    if (s.fit === "cover" && imgAspect > canvasAspect * 1.02) {
+      // Photo is too short for its width: cover upscales to fill height and
+      // the far edges get cropped. Suggest a taller photo or more slides.
+      const minSlides = Math.ceil(imgAspect * s.slideH / s.slideW);
+      const idealH = Math.round(img.width / canvasAspect);
+      widthHint.textContent =
+        `Your photo is ${img.width}×${img.height}px, too short to fill ${s.slides} slides fully, so the edges are cropped. Use ~${img.width}×${idealH}px, add slides (${minSlides}+), or switch to Contain.`;
+      widthHint.classList.add("warn");
+    } else if (img.width < neededW * 0.85 && s.fit === "cover") {
       widthHint.textContent =
         `Heads up: your photo is ${img.width}×${img.height}px; ${neededW}×${s.slideH}px is ideal for ${s.slides} slides. It will be upscaled a little.`;
       widthHint.classList.add("warn");
