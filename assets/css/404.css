@@ -1,89 +1,61 @@
-@property --spinglow-rotate {
-    syntax: "<angle>";
-    initial-value: 132deg;
-    inherits: false;
+/* 404 page — VOL.01 bubble cover.
+   Reuses the homepage's live WebGL bubble (bubble-demo.js) as the hero, with a
+   short "not found" overlay. The shared chrome (grain / vhs / crop marks / meta
+   corners) and the dark canvas come from theme.css via body.tool-page. */
+
+/* galaxy backdrop wash behind the bubble (same as the homepage) */
+.galaxy {
+  position: fixed; inset: 0; z-index: -2; pointer-events: none; overflow: hidden;
+  background: radial-gradient(150% 150% at 50% 40%, #0b0b0b 0%, #080808 50%, #050505 80%);
 }
 
-::selection {
-    background: #f64040;
-    color: #191919;
-}
-:root {
-    --spinwglow-height: 200px;
-    --spinwglow-width: 200px;
-}
+/* the persistent live bubble canvas */
+#bubble-stage { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+#bubble-stage canvas { display: block; width: 100%; height: 100%; }
 
-body {
-    background: #191919 no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    overflow-x: hidden;
-    color: #e1e1e1;
-    font-family: "Garamond", ui-sans-serif, system-ui, -apple-system, Segoe UI, Inter, Roboto, Arial;
+.visually-hidden {
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
 
-@keyframes spin {
-    0% {
-        --spinglow-rotate: 0deg;
-    }
-
-    100% {
-        --spinglow-rotate: 360deg;
-    }
+/* not-found overlay: sits low so it clears the centred GHILLIE wordmark */
+.nf {
+  position: fixed; inset: 0; z-index: 6;
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+  padding: 0 20px clamp(9vh, 15vh, 20vh);
+  text-align: center; pointer-events: none;
 }
-
-/* Profile Picture Spin content */
-.spinglow {
-    width: var(--spinwglow-width);
-    height: var(--spinwglow-height);
-    position: relative;
-    margin-top: 20rem;
-    display: flex;
-    flex-direction: column;
-    margin-left: auto;
-    margin-right: auto;
-    transition: 0.4s;
-    z-index: -1;
-    color: #e1e1e1;
-    text-align: center;
-    align-items: center;
+/* soft scrim so the text stays legible over the bubble */
+.nf::before {
+  content: ""; position: fixed; left: 0; right: 0; bottom: 0; height: 44vh; z-index: -1;
+  background: linear-gradient(to top, rgba(5, 5, 5, 0.72), rgba(5, 5, 5, 0));
+  pointer-events: none;
 }
-
-.spinglow::after {
-    position: absolute;
-    content: "";
-    z-index: -1;
-    height: calc(var(--spinwglow-height) * 1.2);
-    width: calc(var(--spinwglow-width) * 1.2);
-    border-radius: 100%;
-    filter: blur(calc(var(--spinwglow-height) / 6));
-    background-image: linear-gradient(var(--spinglow-rotate), #7f31ff, #f64040);
-    animation: spin 2.5s linear infinite;
+.nf-kicker {
+  margin: 0 0 0.7rem;
+  font-size: clamp(0.62rem, 1.5vmin, 0.8rem);
+  letter-spacing: 0.42em; text-transform: uppercase; font-weight: 700;
+  color: var(--accent);
 }
-
-
-/* #region Scrollbar CSS */
-/* Firefox */
-* {
-    scrollbar-width: thin;
-    scrollbar-color: #f64040 #191919;
+.nf-msg {
+  margin: 0 0 1.6rem;
+  font-size: clamp(1rem, 3vmin, 1.5rem); font-weight: 600; color: #ededed;
+  letter-spacing: 0.02em;
 }
-
-/* Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
-    width: 5px;
+.nf-home {
+  pointer-events: auto;
+  display: inline-flex; align-items: center; gap: 0.7em;
+  color: var(--muted); text-decoration: none;
+  font-size: clamp(0.66rem, 1.5vmin, 0.85rem); font-weight: 600;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  padding: 0.85em 1.5em; border: 1px solid var(--line);
+  border-radius: 999px; background: rgba(13, 13, 13, 0.5); backdrop-filter: blur(3px);
+  transition: color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
 }
-
-*::-webkit-scrollbar-track {
-    background: #191919;
+.nf-home::before {
+  content: ""; flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
 }
-
-*::-webkit-scrollbar-thumb {
-    background-color: #f64040;
-    border-radius: 0px;
-    border: 0px none #191919;
+.nf-home:hover, .nf-home:focus-visible {
+  color: #fff; border-color: var(--line-hover); transform: translateY(-1px); outline: none;
 }
-
-/* #endregion */
+@media (prefers-reduced-motion: reduce) { .nf-home { transition: none; } }

@@ -195,7 +195,10 @@ function initBubble(container) {
   // The stack must be DENSE: with only a handful of layers the gaps between
   // them show up as a visible staircase when the wordmark turns side-on (the
   // mobile auto-orbit). Many tightly-spaced layers read as one smooth solid.
-  const titleTex = makeTextTexture('GHILLIE', renderer);
+  // Wordmark text defaults to GHILLIE; a page can override it via
+  // #bubble-stage[data-title] (e.g. the 404 page renders "ERROR 404").
+  const titleText = (container.dataset.title || 'GHILLIE').toUpperCase();
+  const titleTex = makeTextTexture(titleText, renderer);
   const titleAspect = 1200 / 500;
   const titleWidth = 1.95;
   const titleZ = 0;     // sit in the middle of the bubble (centre of the ring)
